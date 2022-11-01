@@ -1,0 +1,9 @@
+<div class="zoom">
+  <div>
+    <fa-icon class="minus" [icon]="['fas', 'minus']" (click)="changeValue(false)"></fa-icon>
+  </div>
+  <input class="range" type="range" min="0" max="100" [(ngModel)]="zoomValue" (ngModelChange)="onChange(zoomValue)">
+  <div>
+    <fa-icon class="plus" [icon]="['fas', 'plus']" (click)="changeValue(true)"></fa-icon>
+  </div>
+</div>

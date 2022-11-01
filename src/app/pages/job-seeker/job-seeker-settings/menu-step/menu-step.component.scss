@@ -1,0 +1,27 @@
+.box-steps__item {
+  position: relative;
+  cursor: pointer;
+  .step-title {
+    position: absolute;
+    bottom: -20px;
+    width: max-content;
+  }
+  .sub-step-title{
+    position: absolute;
+    bottom: -40px;
+    font-weight: bold;
+    text-align: center;
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
+  }
+}
+.fa-w-14{
+  font-size: 45px;
+}
+
+.arrow-right{
+  justify-content: center;
+  margin-bottom: 20px;
+}
+

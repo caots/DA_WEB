@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Payment Confirmation</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="payment-confirmation-body">
+    <div class="content-confirm">
+      <p class="title">Order Summary</p>
+      <div class="content d-flex mb-2">
+        <b class="mr-4">{{topup.name}}</b>
+        <p>{{topup.totalPrice | currency}}</p>
+      </div>
+    </div>
+    <div class="payment-method mb-4" *ngIf="card">
+      <ms-payment-methods
+        [hiddenUpdate]="true"
+      ></ms-payment-methods>
+    </div>
+    <ms-footer-modal-payment 
+      [card]="card"
+      (onCloseModal)="closeModal()"
+      (onChangeCardPaymentSubmit)="changeCardPaymentSubmit()"
+      (onConfirmPaymentSubmit)="confirmPaymentSubmit()">
+    </ms-footer-modal-payment>
+  </div>
+</div>

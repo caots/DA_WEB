@@ -1,0 +1,29 @@
+.wrap__pagination {
+    text-align: right;
+    margin-top: 20px;
+  }
+
+  .tab-info-user{
+    margin-bottom: 50px;
+  }
+
+  .tabs-title {
+    a {
+      border-bottom: none;
+      &.active span{
+        padding-bottom: 10px;
+        display: inline-block;
+        border-bottom: 3px solid #2668a9;
+      }
+    }
+  }
+
+  .tabs-title__item.user-story-tab{
+    &.active{
+      border-bottom: 3px solid #2668a9;
+    }
+    &.active span{
+      border-bottom: none !important;
+      padding-bottom: 0 !important;
+    }
+  }

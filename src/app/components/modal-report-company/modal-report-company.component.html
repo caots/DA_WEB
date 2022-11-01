@@ -1,0 +1,32 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Report this company</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="report-body">
+        <div *ngFor="let data of dataReasonReport; let i=index" class="form-group">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" (change)="onCheckboxChange(data ,i)" value="{{data.id}}"
+                class="form-check-input" [checked]="data.isCheckbox">{{data.title}}
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="comment">Additional Information:</label>
+          <textarea class="form-control" rows="5" [(ngModel)]="comment" (ngModelChange)="onChange()" id="comment"></textarea>
+          <div class="text-danger"
+            *ngIf="checkRequire">
+            Additional Information is required
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" msLoadingButton [loading]="isCallingApi" class="btn btn-success" [disabled]="!isChecked" (click)="submit()">Report</button>
+          <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+        </div>
+    </div>
+  </div>
+</div>

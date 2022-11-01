@@ -1,0 +1,33 @@
+<div class="item-assessment">
+    <div class="item-assessment__checkbox">
+      <label class="checkbox">
+        <span class="checkbox__input">
+          <input type="checkbox" name="checkbox" (change)="onCheckAssessment(assessment, isChecked)">
+          <span class="checkbox__control">
+                <svg-icon src="assets/icons/check.svg" [svgStyle]="{ 'fill':'#4fb648' }"></svg-icon>
+          </span>
+        </span>
+      </label>
+    </div>
+    <div class="item-assessment__content">
+      <div class="d-flex preview-assessment">
+        <h3>{{assessment.name}}</h3>
+        <div class="content" (click)="showPreviewAssessment(assessment)">
+          <fa-icon [icon]="['fas', 'search']"></fa-icon>
+          <span class="pl-1">Preview Assessment</span>
+        </div>
+        <div class="time-limit">
+          <p><span class="icon">№</span> Number of Questions: {{assessment.questions}}</p>
+          <p><span class="icon"><fa-icon [icon]="['fas', 'hourglass-half']"></fa-icon></span> Time limit: {{assessment.duration ? assessment.duration + " min" : "N/A"}}</p>
+          <p><span class="icon">
+            <svg-icon src="assets/icons/circle.svg"></svg-icon>
+            </span> Question Format: {{assessment.format}}</p>
+        </div>
+      </div>
+      <div class="desc mt-2">
+        <p>
+         {{assessment.description}}
+        </p>
+      </div>
+    </div>
+  </div>

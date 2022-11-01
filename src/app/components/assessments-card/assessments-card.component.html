@@ -1,0 +1,64 @@
+<div class="list-job-assessment-item" [style]="assessment.selectedShowHistory ?  'margin-bottom: 5px;' : 'margin-bottom: 15px;'">
+  <div class="list-job-assessment-header">
+    <p class="list-job-assessment__title">{{assessment.name}}</p>
+    <!-- <p class="list-job-assessment__time text-danger">Time limit: {{assessment?.duration}} min</p> -->
+    <p class="list-job-assessment__time ml-3" style="color:#2668a9">Free Attempts Remaining: {{getFreeASttemptsRemaining(assessment)}}</p>
+    <!-- <p class="list-job-assessment__time ml-3" *ngIf="!assessmentService.checkFreeAttemptsRemaining(userData)" style="color:#2668a9">Attempts Remaining: {{userData.nbrCredits}}</p> -->
+    <div class="block-right-hand">
+      <div class="box-score">
+        <!-- <p class="score" *ngIf="isRetry() && assessment.type != assessmentType.Custom"  style="color:#2668a9">Highest Score: {{isPoint() ? highestScore : 'N/A'}} </p> -->
+        <p class="score" *ngIf="isRetry()" style="color:#2668a9">Highest Score: {{isPoint() ? assessment.weight : 'N/A'}} </p>
+        <div class="view-score" (click)="showHistory(assessment)" [hidden]="!isRetry()">
+          View score history
+          <fa-icon *ngIf="!assessment.selectedShowHistory" [icon]="['fas', 'angle-double-down']"></fa-icon>
+          <fa-icon *ngIf="assessment.selectedShowHistory" [icon]="['fas', 'angle-double-up']"></fa-icon>
+        </div>
+      </div>
+      <div class="box-actions">
+        <div class="info-test">
+          <p><span class="icon">№</span> Number of Questions: {{assessment.questions}}</p>
+          <p *ngIf="assessment.type === assessmentType.IMocha"><span class="icon">
+            <svg-icon src="assets/icons/circle.svg"></svg-icon>
+          </span> Question Format: {{assessment.format}}</p>
+        </div>
+        <button type="button" [hidden]="assessment.type === assessmentType.Custom" class="btn btn-success ng-star-inserted rounded-pill"  *ngIf="!isRetry()" (click)="validateAssessment()">Take Assessment</button>
+        <button type="button" [hidden]="assessment.type === assessmentType.Custom" class="btn btn-success ng-star-inserted rounded-pill" *ngIf="isRetry()" (click)="retryAssessment()">Retry</button>
+      </div>
+    </div>
+  </div>
+  <div class="list-job-assessment__desc">
+    <p>Description:</p>
+    <p class="" style="text-align: justify;">
+      {{assessment.description}}
+    </p>
+  </div>
+</div>
+
+
+<div class="show-history" *ngIf="assessment.selectedShowHistory">
+  <table class="table table table-borderless">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">
+          Score
+          <!-- <div class="arrow-hide" (click)="showHistory(assessment)">
+            <fa-icon [icon]="['fas', 'angle-double-down']"></fa-icon>
+          </div> -->
+        </th>
+      </tr>
+    </thead>
+    <!-- <tbody *ngIf="assessment.type == assessmentType.Custom">
+      <tr>
+        <td>{{assessment.updated_at | date : 'h:mm a MMM d, y'}}</td>
+        <td>{{assessment.weight}}</td>
+      </tr>
+    </tbody> -->
+    <tbody>
+      <tr *ngFor="let assHistory of historyAssessments">
+        <td>{{formateDateAssessmentHistory(assHistory.attemptedOnUtc)}}</td>
+        <td>{{assHistory.weight}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

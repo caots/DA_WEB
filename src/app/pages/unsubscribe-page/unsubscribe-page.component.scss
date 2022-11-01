@@ -1,0 +1,60 @@
+.login-form {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.text-danger {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.alert-danger {
+  font-size: 14px;
+  text-align: center;
+}
+
+.logo {
+  text-align: center;
+  cursor: pointer;
+}
+
+.title-logo {
+  color: #2668a9;
+  font-weight: bold;
+}
+
+.back-home {
+  cursor: pointer;
+}
+
+fa-icon {
+  left: 13px;
+  top: 17px;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+}
+
+.go-home {
+  position: absolute;
+  top: 18px;
+  left: 55px;
+}
+
+.note{
+  color: #333;
+}
+
+.return-website{
+  color: #2668a9;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.title-form{
+  font-weight: bold;
+  color: #333;
+}

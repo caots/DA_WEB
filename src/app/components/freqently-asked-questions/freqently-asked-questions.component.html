@@ -1,0 +1,148 @@
+<div class="box-questions">
+  <img src="{{API_S3}}/cdn/bg-18.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/bg-18.webp" width="100%" height="100%" loading="lazy" alt="background-faq"/>
+    <div class="container">
+        <div class="col-lg-6"></div>
+        <div class="col-lg-6">
+            <h3>Most Freqently Asked Questions</h3>
+            <div class="list-items">
+
+                <div class="item">
+                    <p class="item-title">
+                        <button type="button" class="btn" (click)="isCollapsedBusiness = !isCollapsedBusiness" aria-label="btn-faq-1"
+                            [attr.aria-expanded]="!isCollapsedBusiness" aria-controls="collapseExample">
+                            <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                            <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                        </button>
+                        If I take an assessment, can I use it for multiple job applications?
+                    </p>
+                    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedBusiness" class="item-content">
+                        <ul class="">
+                            <li><p>Yes. That’s a big benefit of our system. If you’ve taken an assessment for one job,
+                                the score will be automatically carried over for other jobs that require the same
+                                assessment. We want to save you time and make the application process easy.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="item">
+                    <p class="item-title">
+                        <button type="button" class="btn" (click)="isCollapsedAssessment = !isCollapsedAssessment" aria-label="btn-faq-2"
+                            [attr.aria-expanded]="!isCollapsedAssessment" aria-controls="collapseExample">
+                            <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                            <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                        </button>
+                        How many times can I take an assessment?
+                    </p>
+                    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment" class="item-content">
+                        <ul class="">
+                            <li><p>You can attempt each catalog assessment twice for free. After that, you can earn
+                                free retake credits by referring friends or purchase additional credits. This is to
+                                prevent excessive guessing on assessments. You can only take an employer’s
+                                custom assessment once when you apply. These are not accessible via the catalog.
+                                You will have the option to retake an employer’s custom assessment after 30 days
+                                if you apply to another job that uses the same assessment.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="item">
+                    <p class="item-title">
+                        <button type="button" class="btn" (click)="isCollapsedCompare = !isCollapsedCompare" aria-label="btn-faq-3"
+                            [attr.aria-expanded]="!isCollapsedCompare" aria-controls="collapseExample">
+                            <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                            <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                        </button>
+                        If I’ve taken an assessment multiple times, which score counts?
+                    </p>
+                    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedCompare" class="item-content">
+                        <ul class="">
+                            <li><p>Only the highest score(s) for each assessment is calculated in your overall
+                                application score and visible to employers. Only employers can see the specific
+                                weighting of each assessment and your overall weighted score. This is unique to
+                                each job. You can view all your past scores in your score history.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="item">
+                    <p class="item-title">
+                        <button type="button" class="btn" (click)="isCollapsedAssessment4 = !isCollapsedAssessment4" aria-label="btn-faq-4"
+                            [attr.aria-expanded]="!isCollapsedAssessment4" aria-controls="collapseExample">
+                            <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                            <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                        </button>
+                        Can I take an assessment without applying to a job?
+                    </p>
+                    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment4" class="item-content">
+                        <ul class="">
+                            <li><p>Yes, you can proactively take assessments under the <a [routerLink]="'/job-seeker-assessments'" class="redirect-fqa">Assessments</a> tab.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="hidden-qa" *ngIf="isShowQa">
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment5 = !isCollapsedAssessment5" aria-label="btn-faq-5"
+                                [attr.aria-expanded]="!isCollapsedAssessment5" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            Can employers find me?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment5" class="item-content">
+                            <ul class="">
+                                <li><p>Once you’ve taken at least one (1) assessment, employers will be able to find you
+                                    under Find Candidates. They can then invite you to apply to any of their active
+                                    jobs or direct message you. Your name and profile photo still remain
+                                    anonymous until you reveal that information to them in Messages. You also have
+                                    the choice to show employers your location, minimum salary requirement, or opt-
+                                    out of this feature entirely in the <a [routerLink]="'/job-seeker-profile/profile'" [queryParams]="{userInfo: 'candidate-profile'}" class="redirect-fqa">Find Candidates</a> tab in your profile settings.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment6 = !isCollapsedAssessment6" aria-label="btn-faq-6"
+                                [attr.aria-expanded]="!isCollapsedAssessment6" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            What does this icon mean?
+                            <span class="icon-responsive ml-2">
+                                <svg-icon src="assets/icons/run.svg"></svg-icon>
+                            </span>
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment6" class="item-content">
+                            <ul class="">
+                                <li><p>This is the “Responsive User” badge. We want to encourage timely replies by
+                                    employers and jobseekers and discourage ghosting. Employers and jobseekers
+                                    who are prompt at replying to their messages are rewarded with this badge which
+                                    is displayed on their respective profile cards.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment7 = !isCollapsedAssessment7" aria-label="btn-faq-7"
+                                [attr.aria-expanded]="!isCollapsedAssessment7" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            How can I contact MeasuredSkills?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment7" class="item-content">
+                            <ul class="">
+                                <li><p>Please visit our <span (click)="scroll()" class="redirect-fqa">Contact Us</span> page to get in touch. If you have an existing account,
+                                    you can also message us through <a [routerLink]="'/messages'" class="redirect-fqa">Messages</a> by clicking on
+                                    <span>
+                                        <img class="logo" src="assets/images/logo-contact-admin-message.png" alt="logo">&nbsp;<span class="contact-admin">Contact MeasuredSkills</span>
+                                    </span>. If you have any questions, need assistance with our
+                                    platform, or would like to provide feedback or report bugs we would be happy to
+                                    hear from you.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-success mt-3" (click)="viewMoreFQA()">{{isShowQa ? 'View Less FAQ' : 'View More FAQ'}}</button>
+
+        </div>
+    </div>
+</div>

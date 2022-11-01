@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-lg-12" [ngClass]="{'box-2-step': isUpgradeJob}">
+      <div class="box-step">
+        <div class="box-step__item" [ngClass]="{'active' : step == stepCreateJob.STEP_0}" [hidden]="isDirectMessage">
+          <div class="number font-heavy">1</div>
+          <div class="content">
+            <p>Step 1</p>
+            <p *ngIf="isShoppingCard">Shopping Cart</p>
+            <p *ngIf="isUpgradeJob">Select Upgrade Options</p>
+            <p *ngIf="isAddApplicants">Add Applicant(s)</p>
+            <p *ngIf="isPaymentTopupEmployer">Select Top Up Value</p>
+          </div>
+        </div>
+        <div class="box-step__item" [ngClass]="{'active' : step == stepCreateJob.STEP_1}">
+          <div class="number font-heavy">2</div>
+          <div class="content">
+            <p>Step 2</p>
+            <p>Billing Information</p>
+          </div>
+        </div>
+        <div class="box-step__item" [hidden]="cardInfo" [ngClass]="{'active' : step == stepCreateJob.STEP_2}">
+          <div class="number font-heavy">3</div>
+          <div class="content">
+            <p>Step 3</p>
+            <p>Payment Method & Confirm Payment</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

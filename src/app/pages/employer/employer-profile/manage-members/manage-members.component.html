@@ -1,0 +1,68 @@
+<div class="manage-members" >
+  <div class="row-top">
+    <h3 class="mb-5 title-profile">Manage Members</h3>
+    <button [hidden]="userData ? permissionService.checkCantPermissionUser(userData, premission.OTHER): true" type="button" 
+    class="btn btn-primary mb-5" (click)="showModalInviteMember(modalInviteMembers)">Invite</button>
+  </div>
+  <div class="wrap-table">
+    <table class="table table-bordered table-manage-member">
+      <thead>
+        <tr class="row-title-top">
+          <th scope="col">No</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Job Title</th>
+          <th scope="col" colspan="5" class="text-center">Permission</th>
+          <th scope="col">Actions</th>
+        </tr>
+        <tr class="row-permission">
+          <th ></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th scope="col" class="sub-col">Create new postings</th>
+          <th scope="col" class="sub-col">Change Company profile information</th>
+          <th scope="col" class="sub-col">Direct Message to Job seeker</th>
+          <th scope="col" class="sub-col">Change billing and payment setting</th>
+          <th scope="col" class="sub-col">Direct message to Candidates</th>
+          <th ></th>
+        </tr>
+      </thead>
+      <tbody [style]="permissionService.checkCantPermissionUser(userData, premission.OTHER) ? 'pointer-events: none;': ''">
+        <tr *ngFor="let members of listMembers; index as i">
+          <td scope="row" (click)="editMember(members, modalInviteMembers)">{{ i + 1 }}</td>
+          <td class="mem-name" (click)="editMember(members, modalInviteMembers)">
+            {{ members.firstName }}
+            {{ members.lastName }}
+          </td>
+          <td class="mem-mail" (click)="editMember(members, modalInviteMembers)">
+            {{ members.email}}
+          </td>
+          <td class="mem-title" (click)="editMember(members, modalInviteMembers)">
+            {{ members.employerTitle }}
+          </td>
+          <td *ngFor="let permiss of members.permission.listPermission" (click)="editMember(members, modalInviteMembers)">
+            <div class="checked-icon" *ngIf="permiss.checked">
+              <fa-icon [icon]="['fas', 'check']"></fa-icon>
+            </div>
+          </td>
+          <ng-template #tipIconSendMail>Send password reset email to this member.</ng-template>
+          <td class="mem-actions">
+            <span class="mr-4" (click)="sendMailDelegateAccount(members)" [ngbTooltip]="tipIconSendMail" tooltipClass="tooltip-custom"> 
+              <img class="icon-send-password" src="assets/images/send-email-pasword.svg" alt="send-password">
+            </span>
+            <span (click)="deleteDelegateAccount(members)"> <fa-icon [icon]="['far', 'trash-alt']"></fa-icon></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <ms-pagination [config]="paginationConfig" (goTo)="paginationMembers($event)"></ms-pagination>
+  </div>
+</div>
+
+<ng-template #modalInviteMembers>
+  <ms-modal-invite-new-member (inviteMember)="inviteMember()" (close)="modalInviteMembersRef.close()"
+    [memberItem]="memberItem"></ms-modal-invite-new-member>
+</ng-template>

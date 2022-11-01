@@ -1,0 +1,36 @@
+.header-assessment {
+  border: 1px solid #d9d9d9;
+  position: relative;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+}
+
+.header-assessment {
+  font-size: 18px;
+  margin-top: 85px;
+  h3 {
+    margin-bottom: 20px;
+  }
+  .time-limit {
+    margin-bottom: 5px;
+  }
+  .category {
+    margin-bottom: 5px;
+  }
+  .desc {
+    margin-bottom: 15px;
+  }
+}
+
+.intruction-assessment{
+  color: #333 !important;
+  display: flex;
+  margin-bottom: 10px;
+  span.block{
+    display: block;
+    margin-right: 10px;
+  }
+  label{
+    display: inline;
+  }
+}

@@ -1,0 +1,101 @@
+.opt-item {
+  margin-bottom: 15px;
+  label {
+    display: flex;
+    justify-content: flex-start;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    input {
+      margin-top: 4px;
+      margin-right: 10px;
+    }
+  }
+}
+
+.title {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.search-job {
+  display: flex;
+  margin-bottom: 15px;
+  max-width: 100%;
+  justify-content: space-between;
+  .input-box {
+    position: relative;
+    flex: 2;
+    margin-right: 20px;
+    width: 70%;
+    input {
+      padding-left: 35px;
+    }
+    fa-icon {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+    }
+  }
+}
+
+.check-box__item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d9d9d9;
+  padding: 5px 10px;
+  margin: 0 0 10px 0;
+
+  &.other {
+    flex-wrap: wrap;
+    .specify {
+      width: 100%;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+  }
+
+  &.badge {
+    border: none;
+    margin-top: 40px;
+    .text-checkbox {
+      font-size: 16px;
+    }
+
+    .svg-icon {
+      margin-left: 10px;
+      position: relative;
+      top: -3px;
+    }
+  }
+  input {
+    display: none;
+  }
+  input:checked + .check-icon-custom {
+    &::after {
+      display: block;
+    }
+  }
+  .check-icon-custom {
+    display: block;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 1px solid #d9d9d9;
+    margin-right: 10px;
+    position: relative;
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 2px;
+      left: 6px;
+      width: 6px;
+      height: 14px;
+      border: solid #2668a9;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      display: none;
+    }
+  }
+}

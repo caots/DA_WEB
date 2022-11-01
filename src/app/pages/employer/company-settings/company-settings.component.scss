@@ -1,0 +1,10 @@
+.company-page {
+  &__inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+.btn-back {
+  cursor: pointer;
+  opacity: 0;
+}

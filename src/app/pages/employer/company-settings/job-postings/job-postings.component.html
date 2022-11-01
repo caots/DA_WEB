@@ -1,0 +1,84 @@
+<div class="job-postings">
+  <h3 class="job-postings__title text-center">
+    Start recruiting, add a job posting to reel the applicants in. Click New Job below.
+  </h3>
+  <div class="job-postings__content">
+    <p class="job-card-title">My Job Postings</p>
+    <div class="options-add-jobs mb-4">
+      <a class="btn-new-job" (click)="showModalAddNewJobFromScratchOrTemplate(modalNewJobFromScratchOrTemplate, modalAddANewJob)">
+        <img src="assets/images/add-pluss-1@2x.png" alt="job" style="width:17px">
+        <span>New Job</span>
+      </a>
+    </div>
+    <div class="list-postings">
+      <ms-loading-job-detail [numberCard]="paginationConfig.maxRecord" *ngIf="isLoadingListJob"></ms-loading-job-detail>
+      <div *ngIf="!isLoadingListJob">
+        <ms-job-card-employer *ngFor="let job of listJob"
+          [job]="job"
+          [mode]="cardMode.BASIC"
+          (edit)="showModalEditJob($event, modalAddANewJob)"
+          (delete)="deleteJob($event)"
+          (copyOutput)="copyJob($event)"
+        >
+        </ms-job-card-employer>
+      </div>
+    </div>
+    <ms-pagination *ngIf="!isLoadingListJob"
+      [config]="paginationConfig" (goTo)="paginationJob($event)">
+    </ms-pagination>
+  </div>
+  <div class="job-postings__continue">
+    <button type="button"
+      class="btn btn-primary" msLoadingButton
+      [disabled]="!listJob.length" (click)="continueStep()"
+      [loading]="isUpdatingStep">
+      Continue
+    </button>
+    <a class="btn-skip-step" (click)="continueStep()">Skip this step</a>
+  </div>
+</div>
+
+<!-- <ng-template #modalAddJob>
+  <ms-modal-add-job
+    [listLevel]="listLevel"
+    [listCategory]="listCategory"
+    [listAssessment]="listAssessment"
+    [isAddingJob]="isAddingJob"
+    [isSaveDraft]="isSaveDraft"
+    [job]="editingJob"
+    (add)="addJob($event)"
+    (edit)="editJob($event)"
+    (close)="modalAddJobRef.close()"
+  >
+  </ms-modal-add-job>
+</ng-template> -->
+
+<ng-template #modalNewJobFromScratchOrTemplate>
+  <ms-modal-new-job-scratch-or-template (close)="closeModalNewJob()" (nexStep)="showModalCreateNewJob($event, modalAddANewJob, modalAddJobFromtemplate)"></ms-modal-new-job-scratch-or-template>
+  </ng-template>
+
+<ng-template #modalAddJobFromtemplate>
+  <ms-modal-list-previous-jobs 
+  (addJobFromTemplate)="addJobFromTemplate($event, modalAddANewJob)"
+  (close)="modalAddJobFromTemplateRef.close()"
+  ></ms-modal-list-previous-jobs>
+</ng-template>
+  
+  <ng-template #modalAddANewJob>
+    <ms-modal-add-job-with-three-step
+      [isTemplate]="isTemplate"
+      [isStep2CreateAccount]="true"
+      [listLevel]="listLevel"
+      [isEdditJob]="isEdditJob"
+      [job]="editingJob"
+      [isAddingJob]="isAddingJob"
+      [isSaveDraft]="isSaveDraft"
+      [isNotEditField]="false"
+      [listCategory]="listCategory"
+      [listAssessment]="listAssessment"
+      [(isPriveJob)]="isPriveJob"
+      (close)="modalAddANewJobRef.close()"
+      (add)="addJob($event)"
+      (edit)="editJob($event)"
+    ></ms-modal-add-job-with-three-step>
+  </ng-template>

@@ -1,0 +1,161 @@
+<div class="box-upgrade-posting-job">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h3 class="job-postings__title text-center">Upgrade your Job Post</h3>
+        <button type="button" class="close btn-close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="col-lg-12">
+        <ms-modal-step-shopping-cart [(cardInfo)]="cardInfo" [isUpgradeJob]="true" [step]="step"></ms-modal-step-shopping-cart>
+      </div>
+
+      <div class="col-lg-12">
+        <div *ngIf="step == stepCreateJob.STEP_0" class="padding-extra">
+          <div class="form-group row group-expired-job">
+            <div class="col-lg-6">
+          <label>Expiration Date<span class="text-danger">*</span></label>
+          <div class="input-group box-date-custom  exp-date">
+            <input class="form-control" placeholder="mm-dd-yyyy" [readonly]="true" [firstDayOfWeek]="7"
+              [value]="formatter.format(placeHolderExpired)" [startDate]="currentExpireValue" [minDate]="initDateValue"
+              [maxDate]='maxExpireDateValue' [placeholder]="" name="dp" ngbDatepicker #dTo="ngbDatepicker"
+              (dateSelect)="onDateSelectionTo($event)">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="dTo.toggle()" type="button">
+                <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+              </button>
+            </div>
+          </div>
+          <div class="price--color mt-2">
+            <span>Standard Post Cost: {{getPriceByExpiredDate() | currency}}</span>
+          </div>
+            </div>
+
+            <div class="col-lg-12 mt-3">
+              <label>Featured Duration</label>
+              <div class="box-range-calendar mb-3">
+                <form class="form-inline">
+                  <div class="form-group hidden">
+                    <div class="input-group box-date-ranger mobile">
+                      <input name="datepicker" style="opacity: 0;" class="form-control" ngbDatepicker
+                        #datepicker="ngbDatepicker" [firstDayOfWeek]="7" [minDate]="initDateFeatureValue"
+                        [maxDate]="placeHolderExpired || maxFeaturedDateStartOpen " [autoClose]="'outside'" (dateSelect)="onDateSelection($event)"
+                        [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" tabindex="-1">
+                      <ng-template #t let-date let-focused="focused">
+                        <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)" [class.holiday]="!!isHoliday(date)"
+                          [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date">
+                          {{ date.day }}
+                        </span>
+                      </ng-template>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group box-date-ranger">
+                      <input #dpFromDate class="form-control" placeholder="mm-dd-yyyy" name="dpFromDate"
+                        [value]="formatter.format(formatFormDate(startHotJob))" style="pointer-events: none;"
+                        (input)="startHotJob = validateInput(formatFormDate(startHotJob), dpFromDate.value)">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="datepicker.toggle()" type="button">
+                          <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group ml-2">
+                    <div class="input-group box-date-ranger">
+                      <input #dpToDate class="form-control" placeholder="mm-dd-yyyy" name="dpToDate"
+                        [value]="formatter.format(formatFormDate(endHotJob))" style="pointer-events: none;"
+                        (input)="endHotJob = validateInput(formatFormDate(endHotJob), dpToDate.value)">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="datepicker.toggle()" type="button">
+                          <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="price--color mt-2">
+                <span *ngIf="getPriceByFeatureDate() >= 0">Featured Post Cost: {{getPriceByFeatureDate() |
+                  currency}}</span>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <label class="check-box__item badge">
+                <input type="checkbox" [checked]="isCheckedUrgentHiring"
+                  (change)="checkValueUrgentHiring(isCheckedUrgentHiring ? 0: 1)">
+                <span class="check-icon-custom"></span>
+                <span class="text-checkbox font-heavy">Add Urgently Hiring Badge </span>
+                <div class="svg-icon">
+                  <svg-icon src="assets/icons/help.svg"></svg-icon>
+                </div>
+              </label>
+              <p>
+                <span class="price--color" *ngIf="job.addUrgentHiringBadge == 1 || !placeHolderExpired">Additional {{settingsCard?.urgent_hiring_price | currency}}</span>
+                <span class="price--color" *ngIf="job.addUrgentHiringBadge == 0 && placeHolderExpired">
+                  Additional {{settingsCard?.urgent_hiring_price * 2 | currency}}  ({{settingsCard?.urgent_hiring_price| currency}} for original post + {{settingsCard?.urgent_hiring_price| currency}} for extension)
+                </span>
+              </p>
+              <p>
+                <span class="price--color">Get your job better visibility with this premium add-on.<br/></span>
+                <span class="price--color" *ngIf="job.addUrgentHiringBadge == 1">Note: Existing badge will remain active until previous expiration date is reached.</span>
+              </p>
+            </div>
+          </div>
+          <div class="row group-extra-coupon">
+            <div class="col-lg-8">
+              <div class="d-flex align-items-center enter-coupon">
+                <fa-icon [icon]="['fas', 'tags']"></fa-icon>
+                <label><b>Enter Coupon: </b></label>
+                <input type="text" [(ngModel)]="couponText" class="form-control">
+                <button [disabled]="couponText === '' || !couponText" type="button" class="btn btn-success" (click)="checkCoupon()">Apply</button>
+              </div>
+              <div class="coupon-info text-danger" *ngIf="couponData && (!isValidCoupon || couponData.discount_for != COUPON_DISCOUNT_FOR.JOB_POSTING)">Coupon is invalid.</div>
+                <div class="coupon-info" *ngIf="couponData && isValidCoupon && couponData.discount_for == COUPON_DISCOUNT_FOR.JOB_POSTING">
+                  <label>Coupon Information:</label>
+                  <ul>
+                    <li *ngIf="couponData.discount_type == COUPON_DISCOUNT_TYPE.Percentage">Discount percentage for Job Posting: {{couponData.discount_value}}%</li>
+                    <li *ngIf="couponData.discount_type != COUPON_DISCOUNT_TYPE.Percentage">Discount Fixed Dollar for Job Posting: ${{couponData.discount_value}}</li>
+                    <li [hidden]="couponData.discount_type == COUPON_DISCOUNT_TYPE.FixedDollar || couponData.max_discount_value == 0">Maximum Discount in term of dollar value: ${{couponData.max_discount_value}}</li>
+                    <li [hidden]="couponData.is_nbr_user_limit == NBR_USER_LIMIT.Unlimit">Remaining number of time to apply this coupon: {{couponData.remaining_number}}</li>
+                    <li [hidden]="couponData.expired_type == COUPON_EXPIRED_TYPE.Unlimit">Valid until {{getExpiredFromCoupon()}}</li>
+                  </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 total-amount">
+              <h4 *ngIf="couponData && isValidCoupon && couponData.discount_for == COUPON_DISCOUNT_FOR.JOB_POSTING">Sub-Total: {{calTotalUpgrade() | currency}}</h4>
+              <h4 *ngIf="couponData && isValidCoupon && couponData.discount_for == COUPON_DISCOUNT_FOR.JOB_POSTING">Discount: -{{getDiscountValueCoupon()| currency}}</h4>
+              <div class="view-details-amount">
+                <h5 *ngIf="couponData">Total Amount: {{caclTotalPayCardWithCoupon() | currency}}</h5>
+                <h5 *ngIf="!couponData">Total Amount: {{calTotalUpgrade() | currency}}</h5>
+              </div>
+              <div *ngIf="checkConfirmPayment()">
+                This one is on the house. It would cost us more to process this transaction than the amount you owe, so please enjoy your selection as complimentary.
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <!-- <button type="button" class="btn btn-success" (click)="submit()">Proceed to Payment</button> -->
+            <div class="shopping-car-bottom" *ngIf="!checkConfirmPayment()">
+              <button [disabled]="isLoadingUpgrade || calTotalUpgrade() <= 0" type="button" msLoadingButton (click)="continueBillingUpgrade()" [loading]="isLoadingUpgrade" class="btn btn-success">Continue</button>
+            </div>
+            <div class="shopping-car-bottom" *ngIf="checkConfirmPayment()">
+              <button [disabled]="isLoadingUpgrade || calTotalUpgrade() <= 0" type="button" msLoadingButton (click)="paymentFreeCart()" [loading]="isLoadingUpgrade" class="btn btn-success">Complete</button>
+            </div>
+          </div>
+        </div>
+
+        <ms-upgrade-job-step1 (close)="closeModal($event)"
+        *ngIf="( step == stepCreateJob.STEP_1 || step == stepCreateJob.STEP_2 ) && senDataStep2"
+        (back)="backStep()"
+        (continueStep)="continuteStep($event)"
+        [senData]="senDataStep2"
+        [isUpgradeJob]="true"
+        ></ms-upgrade-job-step1>
+     </div>
+    </div>
+  </div>
+</div>

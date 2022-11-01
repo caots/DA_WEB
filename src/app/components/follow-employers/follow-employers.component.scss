@@ -1,0 +1,246 @@
+.follow-pages {
+  padding: 20px 0;
+  max-width: 85%;
+  @media (max-width: 480px) {
+    max-width: 100%;
+  }
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+}
+
+.box-search-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+
+  &.mr-40 {
+    margin-right: 40px;
+    @media (max-width: 768px) {
+      margin-right: 0;
+    }
+  }
+
+  input {
+    width: 80%;
+  }
+
+  &__title {
+    margin-right: 10px;
+    min-width: 60px;
+    font-weight: bold;
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    width: 100%;
+  }
+}
+
+#dropdownFilterFollow {
+  background: transparent;
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  display: block;
+  font-size: 23px;
+  border: 1px solid #ddd;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #000;
+  cursor: pointer;
+  margin-left: 40px;
+  @media (max-width: 767px){
+    margin-left: 15px;
+  }
+
+  &:after {
+    content: none;
+  }
+
+  &:hover {
+    border: 1px solid #4fb648;
+    color: #4fb648;
+  }
+}
+
+.check-box__item {
+  display: flex;
+  align-items: center;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0 0 20px 0;
+  }
+
+  &.other {
+    flex-wrap: wrap;
+    .specify {
+      width: 100%;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+  }
+
+  &.badge {
+    border: none;
+    margin-top: 40px;
+    .text-checkbox {
+      font-size: 16px;
+    }
+
+    .svg-icon {
+      margin-left: 10px;
+      position: relative;
+      top: -3px;
+    }
+  }
+  input {
+    display: none;
+  }
+  input:checked + .check-icon-custom {
+    &::after {
+      display: block;
+    }
+  }
+  .check-icon-custom {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #d9d9d9;
+    margin-right: 10px;
+    position: relative;
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 2px;
+      left: 6px;
+      width: 6px;
+      height: 14px;
+      border: solid #2668a9;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      display: none;
+    }
+  }
+}
+
+.box-unfollow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+
+  .btn {
+  }
+}
+
+.sort-dropdown {
+  a.active {
+    border: 1px solid #4fb648 !important;
+    color: #4fb648 !important;
+  }
+}
+
+.follow-content {
+  .follow-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: #f8f8f8;
+    @media (max-width: 480px) {
+      padding: 20px 5px;
+    }
+    .follow-header__select-all {
+      min-width: 30px;
+    }
+
+    &__title {
+      display: flex;
+      justify-content: space-between;
+      flex: 1;
+      padding-left: 180px;
+      @media (max-width: 480px) {
+        padding-left: 75px;
+      }
+      font-weight: bold;
+    }
+
+    &__text {
+      font-weight: bold;
+      fa-icon {
+        margin-right: 10px;
+      }
+    }
+    .date {
+      padding-left: 68px;
+      @media (max-width: 480px) {
+        padding-left: 45px;
+      }
+    }
+  }
+
+  .follow-list {
+    .follow-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      @media (max-width: 480px) {
+        padding: 20px 5px;
+      }
+      &__left {
+        min-width: 50%;
+        display: flex;
+        align-items: center;
+
+        .check-box__item {
+          min-width: 30px;
+          max-width: 30px;
+          input {
+          }
+
+          .check-icon-custom {
+          }
+        }
+      }
+
+      &__name {
+        font-weight: bold;
+      }
+
+      &__img {
+        width: 150px;
+        margin-right: 30px;
+        @media (max-width: 480px) {
+          width: auto;
+          margin-right: 10px;
+          img{
+            max-width: 70px;
+          }
+        }
+        img {
+          width: 100%;
+        }
+      }
+
+      &__right {
+        display: flex;
+        align-items: center;
+        p {
+        }
+      }
+    }
+  }
+}

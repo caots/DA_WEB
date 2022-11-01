@@ -1,0 +1,61 @@
+.avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+    img{
+        width: 100%;
+    }
+}
+
+
+.footer-noti{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 15px;
+    padding-top: 12px;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 10px;
+    .view-more{
+        cursor: pointer;
+        color: #2668a9;
+    }
+    @media (max-width: 991px){
+        flex-flow: column;
+        .custom-control.custom-switch{
+            margin: 0;
+        }
+    }
+}
+
+.content-nofitication{
+    .title-job{
+        .view-job{
+            cursor: pointer;
+            font-size: 13px;
+            color: #2668a9;
+            min-width: 60px;
+        }
+    }
+
+    .status{
+        cursor: pointer;
+    }
+}
+
+.custom-switch{
+    cursor: pointer !important;
+    text-align: left;
+}
+.custom-control-label{
+    cursor: pointer;
+}
+.time{
+    font-size: 14px;
+}
+
+.box-warning{
+    text-align: center;
+    padding: 20px 10px 10px 10px;
+}

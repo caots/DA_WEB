@@ -1,0 +1,102 @@
+<form [formGroup]="formUpdate">
+    <div class="box-summary">
+      <div class="cursor-pointer upload-ceo-item">
+        <input type="file" id="ceo-photo" name="companyPhoto-1" accept="image/*" class="name-image d-none"
+          (change)="fileChangeMulti($event, OPTIONS_AVATAR.AVATAR_USER)">
+        <div class="upload-img">
+          <label for="ceo-photo" class="label-img" *ngIf="ceoPicture">
+            <fa-icon [icon]="['fas', 'upload']"></fa-icon>
+          </label>
+          <label for="ceo-photo" class="label-img-ceo" *ngIf="!ceoPicture">
+            <fa-icon [icon]="['fas', 'upload']"></fa-icon>
+            <p class="font-heavy" *ngIf="!ceoPicture">Upload CEO Photo</p>
+          </label>
+        </div>
+        <div *ngIf="ceoPicture" class="img-show ceo-avatar">
+          <img [src]="ceoPicture" class="preview-avatar" *ngIf="ceoPicture" />
+          <!-- <span class="btn-delete" (click)="deleteCompanyPhoto(null)">
+            
+          </span> -->
+          <fa-icon class="btn-delete" (click)="deleteCompanyPhoto()" [icon]="['fas', 'times-circle']"></fa-icon>
+        </div>
+      </div>
+      <div class="box-sum-item ng-star-inserted">
+        <div class="icon"><fa-icon [icon]="['far', 'user']"></fa-icon></div>
+        <div class="box-sum-content">
+          <p class="box-sum-content__title">CEO</p>
+          <input class="form-control" type="text" placeholder="CEO Name" formControlName="ceoName">
+        </div>
+      </div>
+      <!---->
+      <div class="box-sum-item ng-star-inserted">
+        <div class="icon"><fa-icon [icon]="['fas', 'chart-area']"></fa-icon></div>
+        <div class="box-sum-content">
+          <p class="box-sum-content__title">Industry</p>
+          <select id="industry" name="industry" formControlName="industry">
+            <option *ngFor="let industry of listIndustry" [value]="industry">{{industry}}</option>
+          </select>
+        </div>
+      </div>
+      <!---->
+      <div class="box-sum-item ng-star-inserted">
+        <div class="icon"><fa-icon [icon]="['fas', 'users']"></fa-icon></div>
+        <div class="box-sum-content">
+          <p class="box-sum-content__title">Company Size <span
+              style="width: 100%;">(No. of Employees)</span>
+          </p>
+          <select id="cars" name="employee" formControlName="employee"
+            style="text-transform: lowercase; width: 100%;">
+            <option value="0-1">0-1 employee</option>
+            <option value="2-10">2-10 employees</option>
+            <option value="11-50">11-50 employees</option>
+            <option value="51-200">51-200 employees</option>
+            <option value="201-500">201-500 employees</option>
+            <option value="501-1000">501-1000 employees</option>
+            <option value="1001-5000">1001-5000 employees</option>
+            <option value="5001-10000">5001-10000 employees</option>
+            <option value="10000-">10000+ employees</option>
+          </select>
+        </div>
+      </div>
+      <!---->
+      <div class="box-sum-item ng-star-inserted">
+        <div class="icon"><fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon>
+        </div>
+        <div class="box-sum-content">
+          <p class="box-sum-content__title" style="width: 100%; text-transform: initial;">Revenue ($ Million)
+          </p>
+          <select class="select-control" style="width: 100%;" id="revenue"
+            name="revenue" formControlName="revenue">
+            <option value="0-0.5"> 0 - 0.5 </option>
+            <option value="0.5-1"> 0.5 - 1 </option>
+            <option value="1-2.5"> 1 - 2.5 </option>
+            <option value="2.5-5"> 2.5 - 5 </option>
+            <option value="5-10"> 5 - 10 </option>
+            <option value="10-25"> 10 - 25 </option>
+            <option value="25-50"> 25 - 50 </option>
+            <option value="50-100"> 50 - 100 </option>
+            <option value="100-"> > 100 </option>
+          </select>
+          <div class="text-danger"
+            *ngIf="formUpdate.controls.revenue.touched && formUpdate.controls.revenue.errors?.required">
+            Revenue is required!
+          </div>
+        </div>
+      </div>
+      <!---->
+      <div>
+        <div class="box-sum-item border-bottom-0 mb-0 pb-0 ng-star-inserted">
+          <div class="icon"><fa-icon [icon]="['fas', 'user-tie']"></fa-icon></div>
+          <div class="box-sum-content">
+            <p class="box-sum-content__title">Year Founded</p>
+            <input class="form-control" type="text" placeholder="Ex: 1998" formControlName="yearFounded">
+          </div>
+        </div>
+        <div class="text-danger ml-25"
+          *ngIf="formUpdate.controls.yearFounded.touched && formUpdate.controls?.yearFounded?.errors?.pattern">
+          Year Founded is invalid!
+        </div>
+      </div>
+      <!---->
+    </div>
+  </form>

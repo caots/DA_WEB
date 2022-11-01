@@ -1,0 +1,287 @@
+.rating {
+    display: flex;
+    fa-icon {
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 5px;
+      transition: 0.1s ease;
+      &:hover {
+        color: #fda600;
+      }
+    }
+  }
+  
+  .rating {
+    &-light {
+      color: #fda600;
+    }
+    &-dark {
+      color: #adadad;
+    }
+  }
+  
+  .item-avatar-and-rating {
+    display: flex;
+    align-items: center;
+    .avatar {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+      &-img {
+        width: 45px;
+        height: 45px;
+        overflow: hidden;
+        border-radius: 50%;
+        margin-right: 10px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+  
+  .posting-item-footer {
+    padding-left: 55px;
+    @media (max-width: 667px) {
+      padding-left: 0;
+    }
+  }
+  
+  .padding-box {
+    padding-left: 55px;
+    @media (max-width: 667px) {
+      padding-left: 0;
+      + P{
+        margin-left: 0 !important;
+      }
+    }
+  }
+  
+  .posting-item-footer {
+    margin-top: 40px;
+  }
+  
+  .overall-scores {
+    p {
+      background: #4fb648;
+      color: #fff;
+      padding: 5px 20px;
+      font-family: "Avenir heavy";
+      border-radius: 17px;
+      width: max-content;
+    }
+  }
+  
+  .posting-item__pos {
+    margin-bottom: 10px;
+  }
+  
+  .btn-message {
+    background: #2668a9;
+    height: 40px;
+    border-radius: 20px;
+    padding-right: 25px;
+    padding-left: 25px;
+    font-family: "Avenir heavy";
+    margin-right: 10px;
+    fa-icon {
+      margin-right: 10px;
+      font-size: 20px;
+      line-height: 20px;
+    }
+  }
+  
+  .tabs-title__item {
+    margin-right: 30px;
+  }
+  
+  // Search
+  .options-add-jobs {
+    a {
+      color: white !important;
+      cursor: pointer;
+      margin-left: auto;
+    }
+  }
+  .btn-search-multi {
+    cursor: pointer;
+  }
+  .sort-dropdown {
+    a.active {
+      border: 1px solid #4fb648 !important;
+      color: #4fb648 !important;
+    }
+  }
+  input[type="date"] {
+    cursor: pointer;
+  }
+  .search-date-to {
+    display: block;
+    position: relative;
+    > div {
+      align-items: center;
+      display: flex;
+    }
+    .error-message {
+      color: red;
+      font-size: 13px;
+      position: absolute;
+      left: 0;
+      right: 0;
+    }
+  }
+  
+  .search-jobs-options__multi .box-create-date__inner input {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
+    height: 45px;
+    border-radius: 10px 0 0 10px;
+  }
+  
+  .box-add-note:hover svg {
+    .bg-path {
+      fill: #fda600;
+    }
+  
+    .path-stroke {
+      stroke: #fda600;
+    }
+  }
+  
+  .icon-responsive {
+    svg {
+      width: 17px;
+    }
+  }
+  
+  .box-interview {
+    display: flex;
+    align-items: center;
+    .title-interview {
+      margin-right: 10px;
+    }
+  }
+  
+  .box-rt-msg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .rating {
+      margin-bottom: 10px;
+    }
+    @media (max-width: 992px) {
+      align-items: flex-start;
+    }
+  }
+  
+  .posting-item-header {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .withdrew {
+    margin: 0;
+    color: #ff0000;
+  }
+  
+  .job-title {
+  }
+  
+  .posting-item__edits {
+    align-items: flex-start;
+    margin-left: auto;
+  }
+  
+  .box-add-note {
+    padding-top: 30px;
+  }
+  
+  @media (max-width: 992px) {
+    .box-location-and-salary {
+      width: 100%;
+      padding-left: 50px;
+      margin-top: 10px;
+      @media (max-width: 667px) {
+        padding-left: 0;
+      }
+    }
+    .posting-item__edits {
+      justify-content: flex-start;
+      padding-left: 50px;
+      @media (max-width: 667px) {
+        padding-left: 0;
+      }
+    }
+  }
+  
+  
+  
+  
+  .posting-item {
+    &__title {
+      width: 40%;
+      @media (max-width: 992px) {
+        width: 100%;
+      }
+    }
+    .box-location-and-salary {
+      margin-left: 20px;
+      width: 30%;
+      @media (max-width: 1300px) {
+        width: 50%;
+      }
+      @media (max-width: 992px) {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+    .posting-item__edits {
+      min-width: 220px;
+    }
+  }
+
+  .view-assessment--item{
+    color: #2668a9;
+    margin-bottom: 10px;
+    align-self: center; 
+    cursor: pointer;
+    margin-left: 15px;
+  }
+.list-skill {
+    // max-height: 150px;
+    // overflow: auto;
+}
+
+.btn-message-candidate{
+  min-width: 200px;
+}
+
+.pagination{
+  margin-top: 10px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.overall-scores p {
+  &.skill--pass {
+    background-color: #4fb648;
+  }
+
+  &.skill--warning {
+    background-color: #fda600;
+  }
+
+  &.skill--invalid {
+    background-color: #d90b0b;
+  }
+  &.skill--dontmake {
+    background-color: grey;
+  }
+}
+
+.lock-button-message{
+  width: max-content;
+  padding: 0 10px;
+}

@@ -1,0 +1,98 @@
+/***
+    Block Hot jobs
+***/
+
+.list-jobs-for-you {
+  margin-bottom: 45px;
+  .jobs-item {
+    box-shadow: 0px 0px 10px #0000001a;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    &-img {
+      width: 100%;
+      overflow: hidden;
+      height: 200px;
+      img {
+        width: 100%;
+      }
+    }
+    &-content {
+      padding: 25px 20px;
+
+      &__title {
+        font-size: 20px;
+        color: #2f3639;
+        font-family: "Avenir Heavy";
+        margin-bottom: 10px;
+        height: 45px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        @media (max-width: 768px) {
+          height: auto;
+          overflow: inherit;
+          text-overflow: initial;
+          -webkit-line-clamp: inherit;
+        }
+      }
+
+      &__company {
+        color: #2668a9;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      &__city {
+        margin-bottom: 10px;
+        height: 45px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        @media (max-width: 768px) {
+          height: auto;
+          overflow: inherit;
+          text-overflow: initial;
+          -webkit-line-clamp: inherit;
+        }
+        p {
+          color: #72777c;
+        }
+      }
+
+      &__salary {
+        margin-bottom: 10px;
+        color: #72777c;
+      }
+
+      &__apply {
+        height: 45px;
+        background: #2668a9;
+        font-size: 16px;
+        color: #fff;
+        font-family: "Avenir Heavy";
+        display: block;
+        border-radius: 22.5px;
+        width: 100%;
+        text-align: center;
+        line-height: 45px;
+        margin-bottom: 10px;
+      }
+
+      &__expires {
+        display: flex;
+        p {
+          font-family: "Avenir Heavy";
+          color: #fda600;
+          padding-left: 15px;
+        }
+      }
+    }
+  }
+}

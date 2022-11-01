@@ -1,0 +1,53 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Report Link</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="report-body">
+      <div class="form-group">
+        <label class="name-report">
+          <input type="input" name="check-report" [(ngModel)]="nameReport" placeholder="Name Report" />
+        </label>
+      </div>
+      <ms-loading-job-draft *ngIf="isLoadingListAssessment" [numberCard]="3"></ms-loading-job-draft>
+      <div class="form-group" *ngIf="listMyAssessment.length > 0">
+        <div class="title-select">Select Score(s) to Include <span class="text-danger">*</span></div>
+        <div class="text-danger"*ngIf="isSubmitted && listSelectedAssessment.length == 0">
+          You must select at least one (1) assessment.
+        </div>
+        <div class="box-assessment">
+          <div class="row-assessment title">
+            <p>Assessment Title</p>
+            <p style="min-width: 60px;">Score</p>
+          </div>
+          <div class="row-assessment item" *ngFor="let assessment of listMyAssessment">
+            <div class="name">
+              <input
+                style="cursor: pointer;"
+                (change)="onSelectedAssessment(assessment)"
+                [checked]="checkSelectedAssessment(assessment)"
+                type="checkbox"
+                name="checkbox"
+                value="value"
+                id="select-{{assessment.id}}"
+              />
+              <label for="select-{{assessment.id}}" class="name-assessment">{{assessment.name}}</label>
+            </div>
+            <div class="score">
+              <div class="list-skill__item {{colorWeightAssessment(assessment.weight)}}">
+                {{assessment.weight}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+          <button type="button" msLoadingButton [loading]="isCallingApi" class="btn btn-success" [disabled]="listMyAssessment.length == 0" (click)="submit()">Save Report Link</button>
+        </div>
+    </div>
+  </div>
+</div>

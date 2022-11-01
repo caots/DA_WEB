@@ -1,0 +1,96 @@
+<div class="container">
+    <swiper (click)="enableSwipeSlide()" class="swiper-container j-employer-slider" [config]="enableSwipe ? jobEmployerConfigEnable: jobEmployerConfig"
+        (indexChange)="onIndexChange($event)">
+        <div class="d-flex">
+            <div class="col-lg-4">
+                <div class="j-employer-content">
+                    <h2>Step 1:</h2>
+                    <h3>Post a Job</h3>
+                    <p>In addition to including typical details about the job role and responsibilities, let applicants know
+                      what skills you are looking for by linking skills assessments to your job post. To apply,
+                      jobseekers will take these assessments, so you have a better picture of their skills.</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="j-employer-bg j-jobseeker4 emp-step1">
+                <img loading="lazy" src="{{API_S3}}/cdn/emp-step1.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/emp-step1.webp" width="100%" height="100%" alt="job step1" />
+                <svg-icon src="assets/icons/cursor.svg"></svg-icon>
+              </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-lg-4">
+                <div class="j-employer-content">
+                    <h2>Step 2:</h2>
+                    <h3>Jobseekers Search Jobs & Apply</h3>
+                    <p>When a jobseeker is interested in applying for your job, they will take the required assessments
+                      that you have specified. If they have taken an assessment before, their old score will be carried
+                      over automatically.</p>
+                    <p>In addition, you can search for potential candidates by assessment score, location, and asking
+                      salary using the “Find Candidates” feature. You can then invite them to apply to one of your
+                      active job posts or direct message them through our messaging portal for an additional fee.</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="j-employer-bg j-jobseeker4 jh-500">
+                <img loading="lazy" src="{{API_S3}}/cdn/js-step4.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/js-step4.webp" width="100%" height="100%"  alt="job step2"/>
+                <svg-icon src="assets/icons/cursor.svg"></svg-icon>
+              </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-lg-4">
+                <div class="j-employer-content">
+                    <h2>Step 3:</h2>
+                    <h3>Message Applicants</h3>
+                    <p>Reach out to applicants using our messaging portal and start a conversation to narrow your list
+                      down to the best prospective candidates. You can ask applicants questions, request supporting
+                      materials, rate them, take notes, and track their interview status. Applicants’ last names and
+                      profile pictures will remain masked until they’re ready to share their full identity with you. Once
+                      they share their contact information, you are free to setup interviews outside of MeasuredSkills.
+                      We think this semi-anonymous application process will break the ice, reduce hiring bias, and
+                      help you find the right person for your job.</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="j-employer-bg j-jobseeker5">
+                <img loading="lazy" src="{{API_S3}}/cdn/emp-step3.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/emp-step3.webp" width="100%" height="100%"  alt="job step3"/>
+              </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-lg-4">
+                <div class="j-employer-content">
+                    <h2>Step 4:</h2>
+                    <h3>Select Your Hire</h3>
+                    <p>It’s time to celebrate! You can be confident when you make your hire that they are the right
+                      person for your job.</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="j-employer-bg j-jobseeker1 emp-step4">
+                <img loading="lazy" src="{{API_S3}}/cdn/emp-step4.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/emp-step4.webp" width="100%" height="100%"  alt="job step4"/>
+                <svg-icon src="assets/icons/cursor.svg"></svg-icon>
+              </div>
+            </div>
+        </div>
+        <div class="d-flex">
+          <div class="col-lg-4">
+              <div class="j-employer-content">
+                  <h2>Spotlight Feature</h2>
+                  <h3>Track Your Stats and Hiring Funnel</h3>
+                  <p>Under “Account Statistics”, track your total views, follower count, and your recruitment funnel.
+                    You can use our recruitment funnel tool to gain insights into your hiring efficiency on
+                    MeasuredSkills. Examine your overall totals, per job average, and stats for each specific job
+                    posted.</p>
+              </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="j-employer-bg j-jobseeker1">
+              <img loading="lazy" src="{{API_S3}}/cdn/emp-stat.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/emp-stat.webp" width="100%" height="100%"  alt="job step5"/>
+              <!-- <svg-icon src="assets/icons/cursor.svg"></svg-icon> -->
+            </div>
+          </div>
+      </div>
+    </swiper>
+</div>

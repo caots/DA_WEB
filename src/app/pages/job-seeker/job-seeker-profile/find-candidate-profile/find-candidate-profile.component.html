@@ -1,0 +1,86 @@
+<div class="border-box">
+  <p class="border-box__title">Find Candidate Profile</p>
+  <div class="accounts-settings__inner">
+    <h6 class="text-center mb-4 mt-4">
+      Set up your candidate profile for better matching with Employers!
+    </h6>
+    <div class="jobs-seeker-info">
+      <form [formGroup]="formUpdate" (ngSubmit)="save(formUpdate.value)">
+        <div class="form-group" >
+          <label>State</label>
+          <div class="form-group">
+            <ng-select
+              (change)="selectState($event)"
+              [items]="listState"
+              formControlName="state"
+              [clearable]="formUpdate.get('state').value"
+            >
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="form-group" [style]="!formUpdate.get('state').value ? 'pointer-events: none;': ''">
+          <label>City</label>
+          <ng-select
+            [items]="listCity"
+            bindLabel="name"
+            bindValue="name"
+            formControlName="city"
+            [clearable]="formUpdate.get('city').value"
+          >
+          </ng-select>
+        </div>
+
+        <div class="form-group">
+          <label>Asking Salary</label>
+          <div class="input-with-dollar-sign input-salary">
+            <input
+              class="form-control salary-input"
+              type="text"
+              formControlName="salary"
+              msNumbersOnly
+              [isFormatNumber]="true"
+            />
+            <span class="ml-2 text-salary">Per Year</span>
+          </div>
+        </div>
+
+        <div class="form-group mt-2">
+          <div class="form-check mr-3">
+            <input class="form-check-input" id="enbale-show-avatar" type="radio" name="enable_show_avatar" formControlName="enable_show_avatar" [value]="SHOW_AVATAR_JOBSEEKER.ENABLE">
+            <label class="form-check-label" for="enbale-show-avatar">
+              Let Employers Find You. Include your Profile in “Find Candidates”.
+            </label>
+          </div>
+          <div class="form-check mt-2 ">
+              <input class="form-check-input" id="disbale-show-avatar" type="radio" name="enable_show_avatar" formControlName="enable_show_avatar" [value]="SHOW_AVATAR_JOBSEEKER.DISABLE">
+              <label class="form-check-label" for="disbale-show-avatar">
+                Opt-out of “Find Candidates” Your profile will not be discoverable by Employers.
+              </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="d-flex align-items-start justify-content-center">
+            <button
+              msLoadingButton
+              [loading]="isCallingApi"
+              type="submit"
+              class="btn btn-success btn-custom-size mb-4 mr-4"
+              style="padding-left: 20px; padding-right: 20px"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger btn-custom-size"
+              (click)="cancelUpdateInfo()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="border-box mb-40" *ngIf="isPreviewCustomAssessment">
+  <div [innerHTML]="textIntruction"></div>
+  <div *ngIf="formUpdate.get('instruction').value">
+    <p class="intruction-assessment"><span class="block">6.</span> <span class="text-left block"><b>Employer's Instructions: </b><label [innerHTML]="formUpdate.get('instruction').value || ''"></label></span></p>
+  </div>
+  <div class="text-center" style="color: #333">Good luck!</div>
+</div>
+<div class="border-box mb-40">
+  <div class="row">
+    <div class="col-lg-8">
+      <form [formGroup]="formUpdate">
+        <div class="form-group">
+          <div class="row">
+            <label class="col-lg-4 col-form-label bold">Assessment Name<span [hidden]="isPreviewCustomAssessment" class="text-danger">*</span></label>
+            <div class="col-lg-8">
+              <input type="text" formControlName="name" class="form-control" placeholder="Enter Assessment Name" />
+              <div
+                class="text-danger"
+                *ngIf="formUpdate.controls.name.touched && formUpdate.controls.name.errors?.required"
+              >
+                Assessment Name is Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="!isPreviewCustomAssessment || this.formUpdate.controls.timeLimit.value != null">
+          <div class="row">
+            <label class="col-lg-4 col-form-label bold">Overall Time Limit (minutes)</label>
+            <div class="col-lg-8">
+              <input
+                type="number" formControlName="timeLimit" class="form-control" placeholder="Enter a Time Limit"/>
+              <!-- <div
+                class="text-danger" *ngIf="formUpdate.controls.timeLimit.touched && formUpdate.controls.timeLimit.errors?.required ">
+                Time Limit is required!
+              </div> -->
+              <div class="text-danger" *ngIf="formUpdate.controls.timeLimit.hasError('max')">
+                Maximum required number is {{TimeLimit}}.
+              </div> 
+              <div class="text-danger" *ngIf="formUpdate.controls.timeLimit.hasError('min')">
+                Limit time must be at least 1 minute.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="!isPreviewCustomAssessment || formUpdate.controls.description.value != '' "> 
+          <label class="bold">Description</label>
+          <textarea *ngIf="!isPreviewCustomAssessment" formControlName="description" class="form-control" placeholder="Enter a description of the assessment" rows="4"></textarea>
+          <div *ngIf="isPreviewCustomAssessment" class="view-answer">{{formUpdate.get('description').value || ''}}</div>   
+        </div>
+
+        <div class="form-group" *ngIf="!isPreviewCustomAssessment"> 
+          <label class="bold">Instruction</label>
+          <textarea formControlName="instruction" class="form-control" placeholder="Enter instructions for this assessment" rows="4" ></textarea>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

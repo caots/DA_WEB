@@ -1,0 +1,183 @@
+<div class="box-step-1">
+  <form [formGroup]="formUpdate">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-add-job">
+            <p class="form-add-job__title">Enter your Billing Address</p>
+            <div class="col-left-form">
+              <fieldset class="form-group">
+                  <legend>Please enter your billing address as shown on your credit card statement</legend>
+                  <div class="row billing-information">
+                      <div  class="col-lg-7" >
+                        <div class="content-left" [style]="disableFormAddress ? 'pointer-events: none; opacity: 0.7;' : ''">
+                            <div>
+                                <label>First Name<span class="text-danger">*</span></label>
+                                <div class="wrap-input">
+                                  <input type="text" name="" formControlName="firstName" class="form-control">
+                                  <div class="text-danger"
+                                      *ngIf="formUpdate.controls.firstName.touched && formUpdate.controls.firstName.errors?.required">
+                                      First Name is required!
+                                  </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Last Name<span class="text-danger">*</span></label>
+                                <div  class="wrap-input">
+                                  <input type="text" formControlName="lastName" name="" class="form-control">
+                                      <div class="text-danger"
+                                      *ngIf="formUpdate.controls.lastName.touched && formUpdate.controls.lastName.errors?.required">
+                                      Last Name is required!
+                                  </div>
+                                </div>
+                            </div>
+                            <div *ngIf="userInfo.accountType == USER_TYPE.EMPLOYER">
+                                <label>Company Name</label>
+                                <input type="text" name="" class="form-control" formControlName="company">
+                            </div>
+                            <div>
+                                <label>Address Line 1<span class="text-danger">*</span></label>
+                                <div  class="wrap-input">
+                                  <input type="text" formControlName="address_line1" name="" class="form-control">
+                                  <div class="text-danger"
+                                    *ngIf="formUpdate.controls.address_line1.touched && formUpdate.controls.address_line1.errors?.required">
+                                    Address line 1 is required!
+                                  </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Address Line 2</label>
+                                <input type="text" name="" class="form-control" formControlName="address_line2">
+                            </div>
+                            <div>
+                                <label>State<span class="text-danger">*</span></label>
+                                <div  class="wrap-input">
+                                  <ng-select
+                                  (change)="selectState($event)"
+                                  [items]="listState"
+                                  formControlName="state"
+                                  [clearable]="formUpdate.get('state').value"
+                                  >
+                                  </ng-select>
+                                  <div class="text-danger"
+                                    *ngIf="formUpdate.controls.state.touched && formUpdate.controls.state.errors?.required">
+                                    State is required!
+                                  </div>
+                                </div>
+                            </div>
+                            <div [style]="!formUpdate.get('state').value ? 'pointer-events: none;': ''">
+                                <label>City<span class="text-danger">*</span></label>
+                                <div  class="wrap-input">
+                                  <ng-select
+                                    [items]="listCity"
+                                    bindLabel="name"
+                                    bindValue="name"
+                                    formControlName="city"
+                                    [clearable]="formUpdate.get('city').value"
+                                  ></ng-select>
+                                  <div class="text-danger"
+                                    *ngIf="formUpdate.controls.city.touched && formUpdate.controls.city.errors?.required">
+                                    City is required!
+                                  </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label>ZIP Code<span class="text-danger">*</span></label>
+                                <div  class="wrap-input">
+                                  <input [ngbTypeahead]="selectZipcode" type="text" name="" formControlName="zipcode" class="form-control">
+                                  <div class="text-danger"
+                                    *ngIf="formUpdate.controls.zipcode.touched && formUpdate.controls.zipcode.errors?.required">
+                                    Zip Code is required!
+                                  </div>
+                                </div>
+
+                            </div>
+                            <div class="justify-content-end">
+                                <div>
+                                    <label class="switch mr-2">
+                                      <input type="checkbox" [checked]="isCheckSaveBilling" [ngModelOptions]="{standalone: true}" [(ngModel)]="isCheckSaveBilling"/>
+                                      <span class="slider round"></span>
+                                    </label>
+                                    <span>Save billing information for faster check out</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 d-flex justify-content-end">
+                          <button type="button" class="btn btn-success mr-2" *ngIf="isSubmitConfirmAddress" (click)="editFormAddress()">Edit</button>
+                          <button type="button" class="btn btn-success" *ngIf="isSubmitConfirmAddress" (click)="saveFormAddress()">Save</button>
+                        </div>
+                      </div>
+                      <div class="col-lg-5 content-right">
+                          <div class="card" [hidden]="isDirectMessage || isPaymentAssessment">
+                              <div class="card-header">
+                                  <h3>Order Summary</h3>
+                              </div>
+                              <div class="card-body">
+                                <p><span class="text-order-left">Sub-Total : </span><span class="text-order-right">{{senData.subTotal | currency}}</span></p>
+                                <p *ngIf="senData.discountValue !== 0"><span class="text-order-left">Discount: </span><span class="text-order-right" style="padding-left: 0px;">-{{senData.discountValue | currency}}</span></p>
+                                <p><span class="text-order-left">Grand Total: </span><span class="text-order-right">{{(senData.subTotal - senData.discountValue) | currency}}</span></p>
+                                <p *ngIf="getTaxValue() !== '' || isConfirmInformation"><span class="text-order-left">Tax: </span><span class="text-order-right">{{(getTaxValue() || 0) | currency}}</span></p>
+                              </div>
+                              <div class="card-footer">
+                                <span class="text-order-left">Order Total: </span><span class="text-order-right">{{getTotalValue() | currency}}</span>
+                              </div>
+                          </div>
+                          <div class="card" *ngIf="isDirectMessage">
+                              <div class="card-header">
+                                  <h3>Order Summary</h3>
+                              </div>
+                              <div class="card-body">
+                                <p><span class="text-order-left">Grand Total: </span><span class="text-order-right">{{settingsCard.standard_direct_message_price | currency}}</span></p>
+                                <p *ngIf="getTaxValue() !== '' || isConfirmInformation"><span class="text-order-left">Tax: </span><span class="text-order-right">{{(getTaxValue() || 0) | currency}}</span></p>
+                              </div>
+                              <div class="card-footer">
+                                <span class="text-order-left">Order Total: </span><span class="text-order-right">{{getTotalValue() | currency}}</span>
+                              </div>
+                          </div>
+                          <div class="card" *ngIf="isPaymentAssessment">
+                              <div class="card-header">
+                                  <h3>Order Summary</h3>
+                              </div>
+                              <div class="card-body">
+                                <p><span class="text-order-left">Grand Total: </span><span class="text-order-right">{{settingsCard.standard_validation_price | currency}}</span></p>
+                                <p *ngIf="getTaxValue() !== '' || isConfirmInformation"><span class="text-order-left">Tax: </span><span class="text-order-right">{{(getTaxValue() || 0) | currency}}</span></p>
+                              </div>
+                              <div class="card-footer" >
+                                <span class="text-order-left">Order Total: </span><span class="text-order-right">{{getTotalValue() | currency}}</span>
+                              </div>
+                          </div>
+                          <div class="card mt-4 mb-2">
+                            <div class="card-header">
+                              <h3>Payment Method</h3>
+                            </div>
+                            <div class="card-body" *ngIf="cardInfo">
+                              <ms-payment-methods
+                                [hiddenUpdate]="true"
+                                [hiddenTitle]="true"
+                              ></ms-payment-methods>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 upgrade-job-footer">
+            <ms-footer-modal-payment 
+              [isShoppingCard]="true"
+              [isDirectMessage]="isDirectMessage"
+              [isPaymentAssessment]="isPaymentAssessment"
+              [isVisiableButtonPayment]="isVisiableButtonPayment"
+              [isConfirmInformation]="!isConfirmInformation"
+              [card]="cardInfo"
+              (onCloseModal)="closeModal()"
+              (onConfirmInfomationCard)="confirmInfomationCard()"
+              (onChangeCardPaymentSubmit)="changeCardPaymentSubmit()"
+              (onConfirmPaymentSubmit)="confirmPaymentSubmit()">
+            </ms-footer-modal-payment>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

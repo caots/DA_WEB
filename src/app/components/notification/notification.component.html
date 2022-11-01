@@ -1,0 +1,81 @@
+<div>
+    <h3>Notifications</h3>
+    <ul class="list-notification" (scroll)='checkthisBottom($event)' *ngIf="listNotification && listNotification.length > 0">
+        <li *ngFor="let notification of listNotification">
+            <div class="avatar">
+                <img *ngIf="notification.type == NOTIFICATION_TYPE.PasswordChange || notification.type == NOTIFICATION_TYPE.AccountActiveInvite || notification.type == NOTIFICATION_TYPE.ReferralCredit" src="assets/images/logo-contact-admin-message.png" alt="logo" />
+                <img *ngIf="notification.type != NOTIFICATION_TYPE.PasswordChange && notification.type != NOTIFICATION_TYPE.AccountActiveInvite && notification.type != NOTIFICATION_TYPE.ReferralCredit" [src]="getLogoCompany(notification)" alt="logo" onerror="this.src='assets/images/employer_default_photo_1.png'"/>
+            </div>
+            <!-- employer -->
+            <div class="content-nofitication" *ngIf="notification.type == NOTIFICATION_TYPE.PasswordChange">
+                <p>You have successfully changed the account password</p>
+                <p class="time">{{differentTime(notification.created_at)}}</p>
+            </div>
+            <div class="content-nofitication" *ngIf="notification.type == NOTIFICATION_TYPE.AccountActiveInvite">
+                <P>{{notification.metadata?.first_name || ''}} {{notification.metadata?.last_name || ''}} has activated their account</P>
+                <p class="time">{{differentTime(notification.created_at)}}</p>
+            </div>
+            <!-- jobseeker -->
+            <div class="content-nofitication" *ngIf="notification.type == NOTIFICATION_TYPE.NewPostsJobseekers">
+                <P>{{getNameEmployer(notification)}} has a new job that may interest you.</P>
+                <div class="title-job">
+                    <b>{{notification.metadata?.jobDetails?.title || ''}}</b>
+                    <p (click)="goToJobsDetails(notification)" class="view-job">View Job</p>
+                </div>
+                <p class="time">{{differentTime(notification.created_at)}}</p>
+            </div>
+            <div class="content-nofitication" *ngIf="notification.type == NOTIFICATION_TYPE.JobseekerIsInvited">
+                <p>{{getNameEmployer(notification)}} has invited you to apply to their job.</p>
+                <div class="title-job">
+                    <b>{{notification.metadata?.jobDetails?.title || ''}}</b>
+                    <p (click)="goToJobsDetails(notification)" class="view-job">View Job</p>
+                </div>
+                <p class="time">{{differentTime(notification.created_at)}}</p>
+            </div>
+            <div class="content-nofitication" *ngIf="notification.type == NOTIFICATION_TYPE.ReminderSavedJobExpire">
+                <p>{{getNameEmployer(notification)}} Your saved job will expire soon. Submit your application now!</p>
+                <div class="title-job">
+                    <b>{{notification.metadata?.jobDetails?.title || ''}}</b>
+                    <p (click)="goToJobsDetails(notification)" class="view-job">View Job</p>
+                </div>
+                <p class="time">{{differentTime(notification.created_at)}}</p>
+            </div>
+            <div class="content-nofitication" *ngIf="notification.type == NOTIFICATION_TYPE.ReminderCompleteApplication">
+                <p>You have not completed your application for this job that you started. Would you like to</p>
+                <div class="title-job">
+                    <b>{{notification.metadata?.jobDetails?.title || ''}}</b>
+                    <p (click)="goToJobsDetails(notification, true)" class="view-job">Complete Application</p>
+                </div>
+                <p class="time">{{differentTime(notification.created_at)}}</p>
+            </div>
+            <div class="content-nofitication" *ngIf="notification.type == NOTIFICATION_TYPE.ReferralCredit">
+                <p>{{user?.firstName || ''}} {{user?.lastName || ''}} has joined MeasuredSkills based on your referral. You have earned {{settingsCard?.nbr_referral_for_one_validation}} assessment retake credit(s). Thank you for recommending MeasuredSkills.</p>
+                <p class="time">{{differentTime(notification.created_at)}}</p>
+            </div>
+            <div *ngIf="notification.is_read == NOTIFICATION_STATUS.UN_READ" class="status unread" (click)="readNotification(notification)">
+                <div class="tooltip-read">Mark as read</div>
+            </div>
+            <div *ngIf="notification.is_read !== NOTIFICATION_STATUS.UN_READ" class="status"></div>
+        </li>
+    </ul>
+    <div class="box-warning" *ngIf="!listNotification || listNotification.length == 0">
+        <p>{{isCheckNotifi ? 'You do not have any notifications.' : 'No unread notifications.'}}</p>
+    </div>
+    <div class="footer-noti">
+        <div class="custom-control custom-switch">
+            <input type="checkbox" [checked]="isCheckNotifi" class="custom-control-input" [(ngModel)]="isCheckNotifi" id="notifyMobile-{{isMobile}}" (change)="checkNotification()" />
+            <label class="custom-control-label" for="notifyMobile-{{isMobile}}">
+                {{isCheckNotifi ? 'Show all notifications' : 'Only show unread notifications'}}
+            </label>
+        </div>
+          
+        <!-- <div class="view-more" (click)="viewMoreNotification()" 
+            *ngIf="totalNotification > PAGING.MAX_ITEM_NOTIFICATION"
+            [hidden]="listNotification.length >= totalNotification"
+        >
+            <span>View more</span>
+        </div> -->
+    </div>
+    
+</div>
+

@@ -1,0 +1,62 @@
+.info-job {
+  &__item {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    li {
+      list-style: disc;
+      padding: 5px 0;
+    }
+  }
+}
+
+.job-list-desc {
+  display: flex;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+  > div {
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .col-logo {
+    margin-bottom: 20px;
+  }
+}
+
+.report-mobile {
+  display: none;
+ }
+
+@media (max-width: 576px) {
+  .report-desktop {
+   display: none;
+  }
+  .report-mobile {
+   display: block;
+  }
+}
+
+.job-description{
+  text-align: justify;
+}
+
+.box-sum-content__title{
+  text-transform: inherit !important;
+  font-size: 16px !important;
+}
+
+h3.sub-title{
+  color: #333;
+}
+
+.box-end{
+  border-bottom: none;
+}
+
+.job-description{
+  white-space: pre-line;
+}

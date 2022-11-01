@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="company-page">        
+        <ms-menu-step (changeStep)="changeStepHeader($event)" [step]="step"></ms-menu-step>
+        <a class="btn-back mb-4" *ngIf="step != stepConfig.ACCOUNT">
+          <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon><span>Back</span>
+        </a>
+        <ms-company-info 
+          *ngIf="step == stepConfig.ACCOUNT" 
+          (next)="nextStep(stepConfig.COMPANY)">
+        </ms-company-info>
+        <ms-compnay-profile-details 
+          [isCompanySettings]="true"
+          *ngIf="step == stepConfig.COMPANY" 
+          (next)="goTobDashBoard()"
+          (back)="goBack()"
+        >
+        </ms-compnay-profile-details>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,234 @@
+<div class="box-step-2">
+  <form [formGroup]="formAddNewJob" (ngSubmit)="continuteStep2(formAddNewJob.value)" autocomplete="off">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-7">
+          <div class="form-add-job">
+            <p class="form-add-job__title">Job Information</p>
+            <div class="col-left-form">
+              <div class="form-group">
+                <label>Workplace Setting<span *ngIf="!isPriveJob" class="text-danger">*</span></label>
+                <div class="box-travel">
+                  <div class="travel_left">
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                        [value]="percentTravel.ONSITE" [checked]="valuePercentTravel == percentTravel.ONSITE" (change)="onItemChange($event.target.value)">
+                      <label class="form-check-label" for="exampleRadios1">
+                        On-site
+                      </label>
+                    </div>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                      [value]="percentTravel.REMOTE" [checked]="valuePercentTravel == percentTravel.REMOTE" (change)="onItemChange($event.target.value)">
+                      <label class="form-check-label" for="exampleRadios2">
+                        Remote
+                      </label>
+                    </div>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
+                      [value]="percentTravel.HYBRID" [checked]="valuePercentTravel == percentTravel.HYBRID" (change)="onItemChange($event.target.value)">
+                      <label class="form-check-label" for="exampleRadios3">
+                        Hybrid On-site/Remote
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 remote-location" *ngIf="valuePercentTravel == percentTravel.REMOTE">Set Location as “Remote”</div>
+              <div class="form-group">
+                <label for="inputAddress">Percent Travel</label>
+                <select class="form-control" formControlName="specificPercentTravelType">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let travel of JOB_PERCENT_TRAVEL_TYPE" [value]="travel.id">{{travel.value}}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="inputAddress">State<span  *ngIf="!isPriveJob" class="text-danger">*</span></label>
+                <ng-select
+                  (change)="selectState($event)"
+                  [items]="listState"
+                  formControlName="state"
+                  [clearable]="formAddNewJob.get('state').value"
+                >
+                </ng-select>
+                <div class="text-danger"
+                  *ngIf="isShowErrorStep2 && !isPriveJob && formAddNewJob.controls.state.touched && formAddNewJob.controls.state.errors?.required ">
+                  State is required!
+                </div>
+              </div>
+
+              <div class="form-group" [style]="!formAddNewJob.get('state').value ? 'pointer-events: none;': ''">
+                <label for="inputAddress">City<span *ngIf="!isPriveJob" class="text-danger">*</span></label>
+                <ng-select
+                  [items]="listCity"
+                  bindLabel="name"
+                  bindValue="name"
+                  formControlName="city"
+                  [clearable]="formAddNewJob.get('city').value"
+                >
+                </ng-select>
+                <div class="text-danger"
+                  *ngIf="isShowErrorStep2 && !isPriveJob && formAddNewJob.controls.city.touched && formAddNewJob.controls.city.errors?.required ">
+                  City is required!
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputAddress">Seniority Level</label>
+                <select class="form-control" formControlName="level">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let level of listLevel" [value]="level.id">{{level.name}}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Number of Openings<!-- <span *ngIf="!isPriveJob" class="text-danger">*</span>--></label>
+                <input type="number" class="form-control" formControlName="openings" msIntegersOnly>
+                <div class="text-danger"
+                  *ngIf="isShowErrorStep2 && formAddNewJob?.controls?.openings?.touched && formAddNewJob?.controls?.openings?.errors?.min">
+                  Number of openings must be greater than {{openingNumberRange.MIN}}!
+                </div>
+                <div class="text-danger"
+                  *ngIf="isShowErrorStep2 && formAddNewJob?.controls?.openings?.touched && formAddNewJob?.controls?.openings?.errors?.max">
+                  Number of openings must be less than {{openingNumberRange.MAX}}!
+                </div>
+              </div>
+
+              <div class="form-group row group-expired-job" *ngIf="!isPriveJob" [style]="activeTab == jobStatus.ACTIVE && isNotEditField == true ? 'pointer-events: none;' : ''">
+                <div class="col-lg-6">
+                  <label>Expiration Date<span class="text-danger">*</span></label>
+                  <div class="input-group box-date-custom  exp-date">
+                    <input class="form-control" placeholder="mm-dd-yyyy" [readonly]="true" [firstDayOfWeek]="7"
+                      [value]="formatter.format(placeHolderExpired)" [startDate]="currentExpireValue"
+                      [minDate]="initDateValue" [maxDate]='maxExpireDateValue' name="dp" ngbDatepicker
+                      #dTo="ngbDatepicker" (dateSelect)="onDateSelectionTo($event)">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" (click)="dTo.toggle()" type="button">
+                        <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="text-danger" *ngIf="isShowErrorStep2 && checkedDatepicker && !expireDay ">Expiration Date is required!</div>
+                  <div class="price--color mt-2" *ngIf="activeTab != jobStatus.ACTIVE || isNotEditField == false" [hidden]="checkedDatepicker && !expireDay" >
+                    <span *ngIf="getPriceByExpiredDate() >= 0 && showTextExpirePrice">Standard Post Cost: {{getPriceByExpiredDate() | currency}}</span>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 mt-3" [style]="this.expireDay ? '' : 'pointer-events: none;'">
+                  <!-- <label><input type="checkbox"
+                    value=""><span class="ml-2"></span><span>Featured Duration</span></label> -->
+                  <label class="check-box__item duration">
+                    <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="checkShowFeatureDate" (change)="selectFeatureJob(checkShowFeatureDate)"/><span class="check-icon-custom"></span>
+                    <span>Feature this Job</span>
+                  </label>
+                  <p class="price--color" [hidden]="activeTab == jobStatus.ACTIVE && isNotEditField == true">Display this job on our homepage and promote it in search results.</p>
+                  <p class="mt-2" *ngIf="checkShowFeatureDate"> Select Duration</p>
+                  <div class="d-flex mt-2" *ngIf="checkShowFeatureDate">
+                      <p class="mr-5">Select Start Date</p>
+                      <p>Select End Date</p>
+                  </div>
+                  <div class="box-range-calendar mb-3" *ngIf="checkShowFeatureDate">
+                    <form class="form-inline">
+                      <div class="form-group hidden">
+                        <div class="input-group box-date-ranger mobile">
+                          <input name="datepicker" style="opacity: 0;" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
+                            [firstDayOfWeek]="7" [minDate]="formatFormDate(newDate)"
+                            [maxDate]="selectedExpiredDate" [autoClose]="'outside'"
+                            (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                            outsideDays="hidden" tabindex="-1">
+                          <ng-template #t let-date let-focused="focused">
+                            <span class="custom-day" [class.focused]="focused"
+                            [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date)"
+                              (mouseenter)="hoveredDate = date">
+                              {{ date.day }}
+                            </span>
+                          </ng-template>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group box-date-ranger">
+                          <input #dpFromDate class="form-control" placeholder="mm-dd-yyyy" name="dpFromDate"
+                            [value]="formatter.format(formatFormDate(startHotJob))" style="pointer-events: none;"
+                            (input)="startHotJob = validateInput(formatFormDate(startHotJob), dpFromDate.value)">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="datepicker.toggle()" type="button">
+                              <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group ml-2">
+                        <div class="input-group box-date-ranger">
+                          <input #dpToDate class="form-control" placeholder="mm-dd-yyyy" name="dpToDate"
+                            [value]="formatter.format(formatFormDate(endHotJob))" style="pointer-events: none;"
+                            (input)="endHotJob = validateInput(formatFormDate(endHotJob), dpToDate.value)">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="datepicker.toggle()" type="button">
+                              <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="price--color mt-2" *ngIf="activeTab != jobStatus.ACTIVE || isNotEditField == false" [hidden]="checkedDatepicker && !expireDay" >
+                    <span *ngIf="getPriceByFeatureDate() >= 0 && checkShowFeatureDate">Featured Post Upgrade Cost: {{getPriceByFeatureDate() | currency}}</span>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <label class="check-box__item badge">
+                    <input type="checkbox" [checked]="isCheckedUrgentHiring" (change)="checkValueUrgentHiring(isCheckedUrgentHiring ? 0: 1)">
+                    <span class="check-icon-custom"></span>
+                    <div class="badge-text">
+                      <span class="text-checkbox font-heavy">Add Urgently Hiring Badge </span>
+                      <div class="svg-icon">
+                        <svg-icon src="assets/icons/help.svg"></svg-icon>
+                      </div>
+                    </div>
+                    
+                  </label>
+                  <p>
+                    <span class="price--color" [hidden]="activeTab == jobStatus.ACTIVE && isNotEditField == true">Additional {{settingsCard?.urgent_hiring_price | currency}}</span>
+                  </p>
+                  <p>
+                    <span class="price--color" [hidden]="activeTab == jobStatus.ACTIVE && isNotEditField == true">Get your job better visibility with this premium add-on.</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-5">
+          <div class="additional-info">
+            <p class="form-add-job__title">What is the Schedule for this Job?</p>
+            <div class="list-schedule">
+              <div class="schedule__item">
+                <div class="box-check-list">
+                  <label class="check-box__item" *ngFor="let schedule of jobSchedules" [ngClass]="{'other': schedule.id == findOtherScheduleJob()}">
+                    <input [checked]="schedule.status" type="checkbox" [value]="schedule.status" (change)="selectSchedule(schedule)">
+                    <span class="check-icon-custom"></span>
+                    <span *ngIf="schedule.id != findOtherScheduleJob()" class="text-checkbox">{{schedule.title}}</span>
+                    <span *ngIf="schedule.id == findOtherScheduleJob()" class="text-checkbox">Other</span>
+                    <div class="ml-2 specify" *ngIf="schedule.id == findOtherScheduleJob()">
+                      <textarea [ngModelOptions]="{standalone: true}" [(ngModel)]="specifyText" class="form-control" rows="2" placeholder="Please specify:"></textarea>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="add-job-footer">
+        <button type="button" (click)="backToStep()" class="btn btn-secondary">Back</button>
+        <button [hidden]="(activeTab == tabType.ACTIVE || activeTab == tabType.CART)&& editModalJob === true" (click)="addSaveDraft()" type="button" class="btn btn-info" msLoadingButton
+        [loading]="isSaveDraft">Save as Draft</button>
+        <button type="submit" class="btn btn-success">Continue</button>
+        <button type="button" (click)="saveEditJobActive()" msLoadingButton *ngIf="activeTab == tabType.ACTIVE && editModalJob === true" [loading]="isAddingJob" class="btn btn-success">Save</button>
+      </div>
+    </div>
+  </form>
+</div>

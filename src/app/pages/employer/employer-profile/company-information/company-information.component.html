@@ -1,0 +1,217 @@
+<div class="row">
+  <div class="col-lg-10">
+    <div class="border-box mb-35">
+      <!-- <p class="border-box__title">GENERAL INFORMATION</p> -->
+      <div class="profile-content">
+        <form [formGroup]="formUpdate" (ngSubmit)=save(formUpdate.value)>
+          <div class="form-group">
+            <label>Profile Photo</label>
+            <div class="box-upload-file">
+              <input class="name-image d-none" type="file" id="imageUpload" #imageUpload name="myfile" accept="image/*"
+              (change)="onFileChangeAvatar($event)" />
+              <!-- <input class="name-image d-none" type="file" id="imageUpload" #imageUpload name="myfile" accept="image/*"
+                (change)="handleUpload($event)" /> -->
+              <!-- <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="7 / 4"
+                format="png,jpeg,webp,bmp,ico" (imageCropped)="imageCropped($event)"></image-cropper> -->
+              <img [src]="imageChanged" *ngIf="imageChanged" alt="userInfo.firstName"
+                class="preview-avatar mb-3" onerror="this.src='assets/images/jobseeker_1.png'" />
+
+              <img [src]="userInfo.avatar" *ngIf="userInfo.avatar && !imageChanged" alt="userInfo.firstName"
+                class="preview-avatar mb-3" onerror="this.src='assets/images/jobseeker_1.png'" />
+
+              <p class="file-name-selected mb-3">{{fileNameSelected}}</p>
+              <div>
+                <label for="imageUpload" class="btn btn-success" style="margin-bottom: 0; margin-right: 5px;">Select file</label>
+                <button class="btn-cancel-upload-file btn btn-light" type="button" *ngIf="formUpdate.value.avtFile"
+                  (click)="cancelImage()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+            <div class="text-danger" *ngIf="isMaxSizeImage">{{MAXIMUM_UPLOAD_FILE}}</div>
+            <div class="text-danger"
+              *ngIf="formUpdate.controls.avtFile.touched && formUpdate.controls.avtFile.errors?.required">
+              Your logo is required!
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              {{isUserMember ? 'First Name' : 'Primary Contact First Name'}}
+              <span class="text-danger">*</span>
+            </label>
+            <input class="form-control" type="text" formControlName="firstName">
+            <div class="text-danger"
+              *ngIf="formUpdate.controls.firstName.touched && formUpdate.controls.firstName.errors?.required">
+              First Name is required!
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              {{isUserMember ? 'Last Name' : 'Primary Contact Last Name'}}
+              <span class="text-danger">*</span>
+            </label>
+            <input class="form-control" type="text" formControlName="lastName">
+            <div class="text-danger"
+              *ngIf="formUpdate.controls.lastName.touched && formUpdate.controls.lastName.errors?.required">
+              Last Name is required!
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input class="form-control" type="email" placeholder="Email" formControlName="email" (click)="checkChangeEmail = true" [(ngModel)]="textChangEmail" disabled>
+              <div class="text-danger"
+                *ngIf="formUpdate.controls.email.touched && formUpdate.controls.email.errors?.required">
+                Email is required!
+              </div>
+              <div class="text-danger" *ngIf="formUpdate.get('email')?.errors?.pattern">
+                Email must be a valid !
+              </div>
+            </div>
+            <button [hidden]="!checkChangeEmail" class="btn btn-success mr-2" type="button" (click)="saveChangeEmail()">
+              Save
+            </button>
+            <button [hidden]="!checkChangeEmail"  class="btn btn-light" type="button" (click)="cancelChangeEmail()">
+              Cancel
+            </button>
+          </div>
+
+          <div class="form-group">
+            <label>
+              {{isUserMember ? 'Job Title' : 'Primary Contact Title'}}
+            </label>
+            <input class="form-control" type="text" formControlName="employer_title">
+          </div>
+
+          <div class="form-group phone-input">
+            <label>{{isUserMember ? 'Phone No' : 'Primary Contact Phone Number'}}</label>
+            <input ng2TelInput
+              [ng2TelInputOptions]="{
+                initialCountry: userInfo.region_code,
+                onlyCountries: listPhoneCountry
+              }"
+              placeholder="(xxx) xxx-xxxx"
+              (countryChange)="countryChange($event)" type="text"
+              class="form-control" formControlName="phone">
+            <div class="text-danger"
+              *ngIf="formUpdate.controls.phone.touched && formUpdate.controls.phone.errors?.required">
+              Phone is required!
+            </div>
+            <div class="text-danger" *ngIf="formUpdate.controls.phone.errors?.wrongNumber">
+              Invalid phone number!
+            </div>
+          </div>
+
+          <!-- <div class="form-group">
+            <label>Address Line</label>
+            <input class="form-control" type="text" placeholder="Address" formControlName="address" >
+          </div> -->
+
+          <!-- <div class="form-group">
+            <label>State</label>
+            <div class="form-group">
+              <ng-select
+                (change)="selectState($event)"
+                [items]="listState"
+                formControlName="state"
+              >
+              </ng-select>
+            </div>
+          </div>
+
+          <div class="form-group" [style]="!formUpdate.get('state').value ? 'pointer-events: none;': ''">
+            <label>City</label>
+            <ng-select
+              [items]="listCity"
+              bindLabel="name"
+              bindValue="name"
+              formControlName="city"
+            >
+            </ng-select>
+          </div> -->
+
+          <!-- <div class="form-group">
+            <label>Zip code</label>
+            <input class="form-control" type="number" placeholder="Zip code" formControlName="zipcode" [ngbTypeahead]="selectZipcode">
+          </div> -->
+
+          <!-- <div class="form-group">
+            <label>Industry</label>
+            <select id="industry" name="industry" formControlName="industry">
+              <option *ngFor="let industry of listIndustry" [value]="industry">{{industry}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Company Size<span class="text-danger">*</span></label>
+            <select id="cars" name="employee" formControlName="employee">
+              <option value="0-1">0-1 employee</option>
+              <option value="2-10">2-10 employees</option>
+              <option value="11-50">11-50 employees</option>
+              <option value="51-200">51-200 employees</option>
+              <option value="201-500">201-500 employees</option>
+              <option value="501-1000">501-1000 employees</option>
+              <option value="1001-5000">1001-5000 employees</option>
+              <option value="5001-10000">5001-10000 employees</option>
+              <option value="10000-">10000+ employees</option>
+            </select>
+            <div class="text-danger"
+              *ngIf="formUpdate.controls.employee.touched && formUpdate.controls.employee.errors?.required">
+              Employee is required!
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Revenue ($M)</label>
+            <select class="select-control" id="revenue" name="revenue" formControlName="revenue">
+              <option value="" disabled selected>Select Revenue</option>
+              <option value="0-0.5"> 0 - 0.5 </option>
+              <option value="0.5-1"> 0.5 - 1 </option>
+              <option value="1-2.5"> 1 - 2.5 </option>
+              <option value="2.5-5"> 2.5 - 5 </option>
+              <option value="5-10"> 5 - 10 </option>
+              <option value="10-25"> 10 - 25 </option>
+              <option value="25-50"> 25 - 50 </option>
+              <option value="50-100"> 50 - 100 </option>
+              <option value="100-"> > 100 </option>
+            </select>
+            <div class="text-danger"
+              *ngIf="formUpdate.controls.revenue.touched && formUpdate.controls.revenue.errors?.required">
+              Revenue is required!
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Year Founded</label>
+            <input class="form-control" type="text" placeholder="Year" formControlName="yearFounded">
+          </div>
+
+          <div class="form-group">
+            <label>Company Description</label>
+            <textarea class="form-control" rows="4" placeholder="Company Description"
+              formControlName="description"></textarea>
+          </div> -->
+
+          <div class="form-group form-group-button">
+            <div class="form-check mb-2 mt-4">
+              <input class="form-check-input" id="enbale-show-avatar" type="checkbox" name="is_subscribe" formControlName="is_subscribe">
+              <label class="form-check-label" for="enbale-show-avatar">
+                Receive job alerts, announcements and other marketing emails from MeasuredSkills.
+              </label>
+            </div>
+            <p class="mb-4 desc-enable-avatar">MeasuredSkills may still send you emails for confirmations, application status, and other messages relevant to how you interact with MeasuredSkills.</p>
+            <button type="button" class="btn btn-danger btn-custom-size mb-2" (click)="deleteAccount()">Deactivate Account</button>
+            <div class="group-button-submit">
+              <button msLoadingButton [loading]="isCallingApi" type="submit"
+                class="btn btn-success btn-custom-size mb-4 mr-4" style="padding-left: 20px; padding-right: 20px;"> Save</button>
+              <button type="button" (click)="cancelUpdate()"
+                class="btn btn-danger btn-custom-size"> Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

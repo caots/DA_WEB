@@ -1,0 +1,109 @@
+.additional-info {
+  border: 1px solid #d9d9d9;
+  padding: 20px 30px;
+  height: 100%;
+  @media (max-width: 768px) {
+    padding: 20px 15px;
+  }
+}
+
+::ng-deep .modal-add-new-job {
+  .modal-xl {
+    max-width: 1500px !important;
+    .container {
+      max-width: 100%;
+    }
+  }
+}
+
+.form-add-job {
+  border: 1px solid #d9d9d9;
+  padding: 50px 30px;
+  position: relative;
+
+  @media (max-width: 1199px) {
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    background: #fff;
+    position: absolute;
+    left: 50px;
+    top: -17px;
+    padding: 5px 10px;
+  }
+}
+
+.list-item-choose {
+  .item-selected {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    p {
+      color: #000;
+      padding: 5px 10px;
+    }
+
+    a {
+      margin: 0 5px;
+      color: #000;
+    }
+  }
+}
+
+.title-suggess {
+  font-family: "Avenir Heavy";
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.req-assessments {
+  margin-top: 50px;
+}
+
+.text-danger {
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  /* Firefox */
+}
+
+.add-job-footer {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+  .btn {
+    margin: 0 10px;
+    padding: 10px 60px;
+    @media (max-width: 768px) {
+      margin-bottom: 15px;
+      width: 300px;
+    }
+  }
+}
+
+.warning-text {
+  color: #ffc409;
+  font-size: 13px;
+  display: block;
+}
+
+.modal-add-new-job {
+  position: relative;
+}

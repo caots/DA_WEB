@@ -1,0 +1,24 @@
+<p *ngIf="applicant">
+  <span *ngIf="applicant.canViewProfile == 1 || applicant?.jobIsPrivate != 1"> {{applicant?.firstName}}</span>
+  <span class="blurry-text-114 cursor-pointer" *ngIf="applicant?.canViewProfile != 1 && applicant?.jobIsPrivate == 1">!@#!@#!</span>
+  <span *ngIf="applicant.canViewProfile == 1"> {{applicant?.lastName}}</span>
+  <span class="blurry-text-114 cursor-pointer" *ngIf="applicant?.canViewProfile != 1">!@#!@#!</span>
+</p>
+<p *ngIf="candidate">
+  <span> {{candidate?.first_name}}</span>
+  <span *ngIf="candidate.can_view_profile == 1"> {{candidate?.last_name}}</span>
+  <span class="blurry-text-114 cursor-pointer" *ngIf="candidate?.can_view_profile != 1">!@#!@#!</span>
+</p>
+<p *ngIf="message">
+  <span>{{ message.user_first_name}}</span>
+  <span *ngIf="canViewProfile"> {{message?.user_last_name}}</span>
+  <span class="blurry-text-114 cursor-pointer" *ngIf="!canViewProfile">!@#!@#!</span>
+</p>
+<h2 *ngIf="conversation" class="text-ellipsis">
+  <span *ngIf="conversation?.can_view_profile == 1 || conversation?.job_is_private != 1"> {{conversation?.jobSeeker_first_name}}</span>
+  <span class="blurry-text-114 cursor-pointer" *ngIf="conversation?.can_view_profile  != 1 && conversation?.job_is_private == 1">!@#!@#!</span>
+  <span *ngIf="conversation?.can_view_profile == 1"> {{conversation?.jobSeeker_last_name}}</span>
+  <span class="blurry-text-114 cursor-pointer" *ngIf="conversation?.can_view_profile  != 1">!@#!@#!</span>
+
+  <span *ngIf="isGroup != '1'"> - {{ conversation.job_id ? conversation?.job_title : 'Direct Message'}}</span>  
+</h2>

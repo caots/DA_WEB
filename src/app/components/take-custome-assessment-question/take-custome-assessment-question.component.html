@@ -1,0 +1,32 @@
+<div class="question-item" *ngFor="let question of customAssessment.questionList; let number = index">
+    <div class="question-item__title">
+      <div class="question-desc"><span class="font-heavy">Question {{number + 1}}:</span> {{question.title}}</div>
+      <div class="ques-point font-heavy">Points: {{question.weight}}</div>
+    </div>
+    <div class="image-question" >
+      <img [src]="getImageQuerstion(question.title_image)" *ngIf="question.title_image && question.title_image != ''" alt="image question">
+    </div>
+    <div class="question-item__content" *ngIf="question.type == questionType.TRUE_FALSE || question.type == questionType.MULTIPLE_CHOICE">
+      <div class="list-answer-multiple-choice">
+        <div class="mul-item" *ngFor="let answer of question.answers;let i = index">
+          <input type="checkbox" id="question-checkbox-{{number}}-{{i}}" [checked]="answer.status" (click)="checkedAnswerOption(i, question, true)" />
+          <label for="question-checkbox-{{number}}-{{i}}">{{labeledOrderAnswer[i]}} {{answer.answer}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="question-item__content" *ngIf="question.type == questionType.CHECKBOXES">
+        <div class="list-answer-multiple-choice">
+          <div class="mul-item square" *ngFor="let answer of question.answers;let i = index">
+            <input type="checkbox" id="question-multi-{{number}}-{{i}}" [checked]="answer.status" (click)="checkedAnswerOption(i, question, false)" />
+            <label for="question-multi-{{number}}-{{i}}">{{labeledOrderAnswer[i]}} {{answer.answer}}</label>
+          </div>
+        </div>
+        <div style="text-align: right;" *ngIf="question.is_any_correct == 0">*All Correct Answers must be Selected</div>
+    </div>
+    <div class="question-item__content" *ngIf="question.type == questionType.SINGLE_TEXTBOX">
+        <div class="list-answer-text">
+        <textarea class="form-control" [(ngModel)]="question.answers" rows="6" placeholder="Answer:"></textarea>
+        </div>
+    </div>
+</div>
+  

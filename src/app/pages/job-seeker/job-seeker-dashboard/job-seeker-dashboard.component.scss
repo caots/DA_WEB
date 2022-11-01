@@ -1,0 +1,61 @@
+.wrapper-list-jobs {
+  margin-top: 50px;
+  .search-jobs-options {
+    margin: 25px 0 40px;
+  }
+}
+
+.dashboard-page {
+  .dashboard-header {
+    background: #f8f8f8;
+  }
+}
+
+.dashboard-header {
+  .title {
+    color: #2668a9;
+    font-family: "Avenir Heavy";
+    font-size: 24px;
+    margin: 25px 0 10px;
+  }
+}
+
+.tabs-title {
+  display: flex;
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+  }
+  a {
+    font-size: 18px;
+    color: #72777c;
+    padding: 15px 0;
+    font-family: "Avenir Heavy";
+    margin: 0 40px 0 0;
+    transition: ease-in-out .1s;
+
+    &.active, &:hover {
+      color: #2f3639;
+      border-bottom: 3px solid #2668a9;
+    }
+
+    @media (max-width: 768px) {
+      margin: 0 19px 0 0;
+      line-height: 1;
+      padding: 5px 0;
+      margin-bottom: 10px;
+      flex: 0 1 auto;
+    }
+  }
+}
+
+/***
+    Block Search multiple options
+***/
+
+.tabs-content {
+  padding: 30px 0;
+}
+
+.tabs-title__item {
+  cursor: pointer;
+}

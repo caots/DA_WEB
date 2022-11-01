@@ -1,0 +1,8 @@
+<div class="modal-logout">
+  <h4 class="text-center" [innerHTML]="title"></h4>
+  <div class="modal-logout__footer">
+    <button class="btn btn-primary" *ngIf="isPaymentPrivateDraftJob" (click)="payment()">{{btnPaymentText}}</button>
+    <button class="btn btn-primary" (click)="yes()">{{btnOkText}}</button>
+    <button class="btn btn-success" (click)="no()">{{btnCancelText}}</button>
+  </div>
+</div>

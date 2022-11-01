@@ -1,0 +1,422 @@
+/***
+    List Posting
+***/
+.list-postings {
+  &.list-jobs {
+    .posting-item {
+      &__title {
+        margin-right: 10px;
+      }
+      .posting-item__edits {
+        width: auto;
+      }
+    }
+  }
+}
+
+.posting-item {
+  padding: 20px;
+  box-shadow: 0px 0px 10px #0000001a;
+  border-radius: 5px;
+  background: #fff;
+  margin-bottom: 30px;
+  position: relative;
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 992px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  &-content {
+    &__company {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      p {
+        color: #2668a9;
+        font-size: 16px;
+        font-family: "Avenir Heavy";
+      }
+      .img-company {
+        width: 40px;
+        height: auto;
+        overflow: hidden;
+        margin-right: 15px;
+        border-radius: 3px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &__title {
+    font-size: 20px;
+    color: #2f3639;
+    font-family: "Avenir Heavy";
+    margin: 0;
+    line-height: 1;
+    word-break: break-word;
+
+    @media (max-width: 992px) {
+      margin-right: 30px;
+    }
+  }
+
+  &__pos {
+    color: #72777c;
+    display: flex;
+    align-items: center;
+    margin-right: 25px;
+    img {
+      width: 14px;
+      height: 17px;
+      margin-right: 10px;
+    }
+  }
+
+  &__views {
+    color: #72777c;
+    display: flex;
+    align-items: center;
+    min-width: 100px;
+    img {
+      width: 18px;
+      height: 11px;
+      margin-right: 10px;
+    }
+  }
+
+  &__edits {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 992px) {
+      margin-left: 0;
+      display: flex;
+      width: 100%;
+      margin: 15px 0 15px -5px;
+    }
+    a.edit-link {
+      width: 45px;
+      margin: 0 5px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      &:hover {
+        border: 1px solid #4fb648;
+      }
+      img {
+        width: 100%;
+      }
+    }
+
+    .btn-apply-job {
+      display: block;
+      padding: 0 30px;
+      background: var(--color-8A9);
+      width: auto;
+      color: #fff;
+      font-family: "Avenir Heavy";
+      border-radius: 5px;
+      font-size: 14px;
+      line-height: 1;
+      height: 36px;
+      line-height: 35px;
+      border-radius: 18px;
+      text-align: center;
+    }
+
+    .btn-share-job {
+      color: #7c7c7c;
+      margin: 0 20px 0 10px;
+      font-size: 18px;
+      border: 1px solid #d9d9d9;
+      height: 36px;
+      display: block;
+      width: 36px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .item-bookmark {
+      position: absolute;
+      right: 15px;
+      top: -1px;
+      color: var(--main-color);
+      font-size: 25px;
+      &.active {
+        color: var(--color-8A9);
+      }
+    }
+  }
+
+  &-create-date {
+  }
+
+  &-expires-date {
+  }
+
+  &-desc {
+    max-width: 70%;
+    margin-bottom: 30px;
+    @media (max-width: 992px) {
+      max-width: 100%;
+    }
+    &__title {
+      margin-bottom: 15px;
+    }
+    ul {
+      li {
+        margin-bottom: 10px;
+        position: relative;
+        padding-left: 30px;
+        &::before {
+          width: 10px;
+          height: 10px;
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 7px;
+          background: #2668a9;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  &-footer {
+    &__title {
+      color: #2f3639;
+      font-family: "Avenir Heavy";
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+  }
+}
+.total-score {
+  &.skill--pass {
+    background-color: #4fb648;
+  }
+
+  &.skill--warning {
+    background-color: #fda600;
+  }
+
+  &.skill--invalid {
+    background-color: #d90b0b;
+  }
+  &.skill--dontmake {
+    background-color: grey;
+  }
+}
+
+.list-skill {
+  display: flex;
+  flex-wrap: wrap;
+  &__item {
+    border-width: 1px;
+    border-style: solid;
+    min-height: 25px;
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    margin: 0 10px 10px 0;
+    border-radius: 17.5px;
+    font-size: 14px;
+    color: var(--color-8A9);
+    font-family: "Avenir Heavy";
+    border-color: #D9D9D9;
+    &.skill--pass {
+      border-color: #4fb648;
+    }
+
+    &.skill--warning {
+      border-color: #fda600;
+    }
+
+    &.skill--invalid {
+      border-color: #d90b0b;
+    }
+    &.skill--dontmake {
+      border-color: grey;
+    }
+  }
+}
+.assessments-scrore {
+  color: #fff;
+  // background-color: #D9D9D9;
+    border-color: grey;
+    background-color: grey;
+  &.skill--pass {
+    border-color: #4fb648;
+    background-color: #4fb648;
+    
+  }
+  
+  &.skill--warning {
+    border-color: #fda600;
+    background-color: #fda600;
+  }
+  
+  &.skill--invalid {
+    border-color: #d90b0b;
+    background-color: #d90b0b;
+  }
+  &.skill--dontmake {
+    border-color: grey;
+    background-color: grey;
+  }
+}
+
+
+.job-postings {
+  &__title {
+    font-size: 22px;
+    margin: 20px 0 50px;
+    font-family: "Avenir Heavy";
+
+    @include media-breakpoint-down(sm) {
+      font-size: 18px;
+    }
+  }
+
+  &__content {
+    border: 1px solid #d9d9d9;
+    padding: 30px 60px;
+    position: relative;
+
+    @media (max-width: 576px) {
+      padding: 30px 15px;
+    }
+
+    .job-card-title {
+      background: #fff;
+      position: absolute;
+      left: 50px;
+      top: -17px;
+      padding: 5px 10px;
+    }
+  }
+  &__continue {
+    flex-flow: column wrap;
+    display: flex;
+    align-content: center;
+    padding: 40px 0;
+    align-items: center;
+
+    button {
+      padding: 10px 60px;
+      margin-bottom: 20px;
+    }
+
+    a {
+      font-family: "Avenir Heavy";
+      font-size: 20px;
+      color: #4fb648;
+
+      @include media-breakpoint-down(sm) {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.box-upgrade-posting-job {
+  .padding-extra{
+    @media (min-width: 1200px){
+      padding: 0 90px;
+    }
+  }
+  ms-upgrade-job-step1{
+    @media (min-width: 1200px){
+      padding: 0 90px;
+      display: block;
+    }
+  }
+  .group-expired-job {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin: 20px 0;
+    @media (max-width: 370px){
+      padding: 10px 0;
+    }
+  }
+  .group-extra-coupon{
+    margin-bottom: 30px;
+    .enter-coupon{
+      margin-bottom: 30px;
+      @media (max-width: 767px){
+        flex-flow: row wrap;
+        > *{
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+      }
+      .form-control {
+        width: auto;
+        flex: 1;
+        margin-right: 15px;
+      } 
+      fa-icon{
+        font-size: 20px;
+        color: #f99901;
+      }
+      label {
+        margin: 0 30px 0 5px;
+        white-space: nowrap;
+        color: #333;
+      }
+    }
+    .coupon-info {
+      margin-left: 30px;
+      ul{
+        li{
+          list-style: decimal;
+        }
+      }
+    }
+    .total-amount {
+      text-align: right;
+      h4 {
+        font-weight: bold;
+        color: #333;
+        font-size: 1.15rem;
+      } 
+    }
+  }
+}
+.modal-add-number-applicants{
+  .item-number{
+    @media (max-width: 767px){
+      input.form-control {
+        width: 100% !important;
+        margin: 10px 0 !important;
+      }
+    }
+  }
+  .enter-coupon {
+    fa-icon {
+      font-size: 20px;
+      color: #f99901;
+    }
+    label {
+      margin: 0 30px 0 5px;
+      white-space: nowrap;
+      color: #333;
+    }
+    @media (max-width: 767px){
+      flex-flow: row wrap;
+      margin-bottom: 15px;
+      input.form-control {
+        width: 100% !important;
+        margin: 10px 0 !important;
+      }
+    }
+  }
+}

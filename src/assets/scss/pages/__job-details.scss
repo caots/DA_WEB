@@ -1,0 +1,227 @@
+// New style for job details
+.job-details-page {
+  .job-detail__header {
+    background: #fff;
+    padding: 40px 0;
+    @media (max-width: 992px) {
+      padding: 15px;
+    }
+  }
+
+  .job-detail__tabs {
+    background: var(--color-F8);
+  }
+
+  .job-detail__content {
+    background: #fff;
+  }
+
+  .col-logo {
+    img {
+      width: 100%;
+    }
+  }
+
+  .job-title {
+    font-size: 20px;
+  }
+
+  .company-name {
+    line-height: 31px;
+  }
+
+  .top-col-btn {
+    display: flex;
+    .box-share-jobs {
+      // border: 2px solid #686868;
+      background: var(--color-8A9);
+      a {
+        color: var(--white-color);
+      }
+    }
+  }
+
+  .btn-share-job,
+  .item-bookmark {
+    // border: 2px solid #686868;
+    width: 80px;
+    flex: 1;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: var(--white-color);
+    background: var(--color-8A9);
+    span {
+      margin-right: 7px;
+    }
+    .fa-bookmark {
+      color: var(--white-color);
+    }
+
+    &.active {
+      .fa-bookmark {
+        color: #4fb648;
+      }
+    }
+  }
+
+  .item-bookmark {
+    margin-left: 10px;
+  }
+
+  .btn-apply-now {
+    width: 100%;
+    border-radius: none;
+    margin: 10px 0 0;
+    background: var(--color-648);
+    height: 45px;
+    line-height: 45px;
+    color: var(--white-color);
+    font-size: 18px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .btn-back {
+    width: 80%;
+    margin-bottom: 30px;
+    margin-top: -30px;
+  }
+
+  .job-detail__tabs {
+    border-bottom: 1px solid #ddd;
+    &-item {
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: 300;
+      font-size: 16px;
+      border: 0;
+      line-height: 17px;
+      padding: 12px 20px 10px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      background: 0 0;
+      color: #424242;
+      &.active {
+        border: 0;
+        border-bottom: 3px solid var(--color-8A9);
+        font-weight: 600;
+        background-color: transparent;
+      }
+    }
+  }
+
+  .job-detail__content {
+    padding: 32px 0;
+    @media (max-width: 992px) {
+      padding: 15px;
+    }
+  }
+
+  .info-job__content {
+    h3 {
+      font-size: 16px;
+      margin-bottom: 17px;
+    }
+    .info-job__desc {
+      margin-bottom: 50px;
+    }
+  }
+
+  .box-summary {
+    border: 1px solid var(--color-d9d9d9);
+    padding: 23px;
+    background-color: var(--white-color);
+    border-radius: 3px;
+  }
+
+  .box-sum-item {
+    display: flex;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(206, 211, 213, 0.5);
+    &.no-border {
+      border: none;
+    }
+
+    &:first-child {
+      padding-top: 5px;
+    }
+    .icon {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+    .box-sum-content {
+      font-size: 13px;
+      &__title {
+        text-transform: capitalize;
+        color: var(--main-color);
+        display: block;
+        font-weight: 300;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .loving-jobs {
+    margin-top: 20px;
+    background-color: transparent;
+    border: 1px solid #eee;
+
+    &__header {
+      background-color: #f8f8f8;
+      border-bottom: 1px solid #eee;
+      height: 45px;
+      color: #555;
+      font-family: "Open Sans", Nunito, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      padding: 11px 10px 10px 21px;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 24px;
+      text-align: left;
+    }
+
+    &__item {
+      padding: 10px;
+      transition: background-color 0.3s;
+      &:hover {
+        background: #f3fcff;
+      }
+      p {
+        font-weight: 100;
+        font-size: 13px;
+        color: #999;
+        margin-top: -5px;
+      }
+    }
+
+    &__title {
+      font-weight: 500;
+      font-size: 16px;
+      display: block;
+      margin-bottom: 0;
+      margin-top: 6px;
+      color: #555;
+      transition: color 0.3s;
+    }
+  }
+}
+
+.ng-image-slider .ng-image-slider-container .main .main-inner .img-div {
+  width: 205px;
+  height: 100%;
+  margin-right: 3px;
+  margin-left: 3px;
+  position: relative;
+  border-radius: 5px;
+  display: inline-block;
+  box-shadow: none;
+  border: none;
+  background: #fff;
+}
+
+.ng-image-slider .ng-image-slider-container .main .next,
+.ng-image-slider .ng-image-slider-container .main .prev {
+  background-color: #ddd;
+}

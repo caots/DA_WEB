@@ -1,0 +1,301 @@
+<div class="border-box">
+  <p [hidden]="hiddenTitle" *ngIf="!shoppingCard" class="border-box__title">Payment History</p>
+  <div class="billing-content">
+    <div>
+      <table class="table table-bordered table-custom-color" *ngIf="type === userType.JOB_SEEKER">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Service</th>
+            <th>Description</th>
+            <th>Payment Method</th>
+            <th>Total</th>
+            <th>
+              <div class="cursor-pointer export-billing" *ngIf="!shoppingCard" (click)="onExportBillingHistory()">
+                <fa-icon [icon]="['fas', 'download']"></fa-icon>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let billing of dataBillings; let i = index">
+            <td scope="row">{{ formatDateBill(billing.updatedAt) }}</td>
+            <td>{{ billing.serviceType }}</td>
+            <td style="min-width: 280px">{{ billing.description }}</td>
+            <td>{{ billing.sslCardType }} {{ billing.sslCardNumber }}</td>
+            <td>{{ billing.totalAmount | currency }}</td>
+            <td class="check-download-billing">
+              <input *ngIf="billing.totalAmount > 0" class="check-download" type="checkbox" (change)="checkDownloadBilling(billing, i)">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="type === userType.EMPLOYER">
+        <div class="card-details">
+          <div class="card-details__header">
+            <div class="border-right column-date" *ngIf="!shoppingCard">
+              <p class="head-title font-heavy">Date</p>
+            </div>
+            <div class="left border-right title-middle">
+              <p class="head-title font-heavy">Description</p>
+            </div>
+            <div class="right border-right column-payment" *ngIf="!shoppingCard">
+              <p class="head-title font-heavy">Payment Method</p>
+            </div>
+            <div class="right column-total border-right title-middle">
+              <p class="head-title font-heavy">Total</p>
+            </div>
+            <div class="action-column cursor-pointer" *ngIf="!shoppingCard" (click)="onExportBillingHistory()">
+              <fa-icon [icon]="['fas', 'download']"></fa-icon>
+            </div>
+          </div>
+          <div class="card-details__content" *ngIf="!shoppingCard">
+            <div class="billing-item" *ngFor="let billing of dataBillings; let i = index">
+              <div class="card-details__header">
+                <div class="border-right column-date" *ngIf="!shoppingCard">
+                  <p class="total-price font-heavy">
+                    {{ formatDateBill(billing.updatedAt) }}
+                  </p>
+                </div>
+                <div class="left border-right center-item">
+                  <div class="list-jobs" *ngIf="!shoppingCard && billing.paymentType != PAYMENT_TYPE.BuyDmCandidate && billing.paymentType != PAYMENT_TYPE.Topup">
+                    <p class="list-jobs__item font-heavy" *ngFor="let item of billing.products" >
+                      {{item.title}} <span class="private-tag"
+                      *ngIf="item.is_private == 1 || billing.paymentType === paymentType.BuyMorePrivate">Private</span>
+                      <span class="private-tag"
+                      *ngIf="billing.paymentType === paymentType.upgradeJob">Upgrade</span>
+                    </p>
+                  </div>
+                  <div class="list-jobs" *ngIf="!shoppingCard && billing.paymentType == PAYMENT_TYPE.BuyDmCandidate">
+                    <p class="list-jobs__item font-heavy" *ngFor="let item of billing.products" >
+                      Direct message to jobseeker(s)
+                    </p>
+                  </div>
+                  <div class="list-jobs" *ngIf="!shoppingCard && billing.paymentType == PAYMENT_TYPE.Topup">
+                    <p class="list-jobs__item font-heavy">
+                        Direct message to jobseeker(s)
+                    </p>
+                  </div>
+                  <div class="list-jobs" *ngIf="shoppingCard">
+                    <p class="list-jobs__item font-heavy" *ngFor="let billing of dataBillings">
+                      {{billing.jobTitle}} <span class="private-tag"
+                        *ngIf="billing.is_private == 1 || billing.paymentType === paymentType.BuyMorePrivate">Private</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="right border-right">
+                  <p class="total-price font-heavy column-payment">
+                    {{billing.sslCardNumber}}
+                  </p>
+                </div>
+                <div class="right view-details-btn column-total border-right">
+                  <p class="total-price font-heavy">
+                    {{billing.totalAmount | currency}}
+                  </p>
+                  <span class="view-text" (click)="hideDetail(billing)">
+                    {{billing.isDetails ? 'Hide Details' : 'View Details'}}
+                    <!-- <i [class]="!billing.isDetails ? 'fa fa-angle-double-down' : 'fa fa-angle-double-up'"></i> -->
+                    <fa-icon [icon]="['fas', !billing.isDetails ? 'angle-double-down' : 'angle-double-up']"></fa-icon>
+                  </span>
+                </div>
+                <div class="action-column">
+                  <p class="total-price font-heavy ccheck-download-billing">
+                    <input *ngIf="billing.totalAmount > 0" class="check-download" type="checkbox" (change)="checkDownloadBilling(billing, i)">
+                  </p>
+                </div>
+              </div>
+
+              <div *ngIf="billing.isDetails">
+                <div *ngIf=" billing.paymentType != PAYMENT_TYPE.BuyDmCandidate && billing.paymentType != PAYMENT_TYPE.Topup">
+                  <div class="row mb-4" *ngFor="let item of billing.products">
+                    <div class="col-lg-12">
+                      <p class="title-details font-heavy">{{item.title}}
+                        <span class="private-tag"
+                          *ngIf="item.is_private == 1 || billing.paymentType === paymentType.BuyMorePrivate">Private</span>
+                        <span class="private-tag"
+                          *ngIf="billing.paymentType === paymentType.upgradeJob">Upgrade</span>
+                      </p>
+                    </div>
+                    <div class="col-4">
+                      <div class="item-details" *ngIf="!item.is_private ||item.is_private === 0">
+                        <p>Standard Duration:</p>
+                        <p>Featured Duration:</p>
+                        <p>Urgent Hiring:</p>
+                      </div>
+                      <div class="item-details"
+                        *ngIf="item.is_private == 1 || billing.paymentType === paymentType.BuyMorePrivate">
+                        <p>Number of Available Applicants:</p>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="item-details" *ngIf="!item.is_private || item.is_private === 0">
+                        <p>{{formatDateJobPaid(item.paid_at)}} - {{formatDateJobPaid(item.expired_at, true)}}</p>
+                        <p>
+                          {{formatDateFeatureJob(item.featured_start_date, false)}} -
+                          {{formatDateFeatureJob(item.featured_end_date, true)}}
+                        </p>
+                        <p>{{item.add_urgent_hiring_badge == 1 ? 'Yes' : 'No'}}</p>
+                      </div>
+                      <div class="item-details"
+                        *ngIf="item.is_private == 1 || billing.paymentType === paymentType.BuyMorePrivate">
+                        <p>{{item.private_applicants}}</p>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="item-details text-right" *ngIf="!item.is_private || item.is_private === 0">
+                        <p><span>{{item.total_standard_price ? (item.total_standard_price | currency) : '-' }}</span></p>
+                        <p><span>{{item.total_featured_price ? (item.total_featured_price | currency) : '-' }}</span></p>
+                        <p *ngIf="!item.total_urgent_price ||  item?.total_urgent_price == settingsCard?.urgent_hiring_price">
+                          <span>{{item.total_urgent_price ? (item.total_urgent_price | currency) : '-'}}</span>
+                        </p>
+                        <p *ngIf="item?.total_urgent_price &&  item.total_urgent_price > settingsCard?.urgent_hiring_price">
+                          <span>{{settingsCard?.urgent_hiring_price * 2 | currency}} ( {{settingsCard?.urgent_hiring_price | currency}} for original Post + {{settingsCard?.urgent_hiring_price | currency}} for extension)</span><br/>
+                        </p>
+                        
+                        <p *ngIf="billing.products.length > 1" class="font-heavy">Job Posting Price:
+                          <span>{{totalPrice(item.total_standard_price, item.total_featured_price,
+                            item.total_urgent_price) | currency}}</span>
+                        </p>
+                      </div>
+                      <div class="item-details text-right"
+                        *ngIf="item.is_private == 1 || billing.paymentType === paymentType.BuyMorePrivate">
+                        <p><span>{{item.total_private_price | currency}}</span></p>
+                        <p *ngIf="billing.products.length > 1" class="font-heavy">Job Post Price:
+                          <span>{{item.total_private_price | currency}}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf=" billing.paymentType == PAYMENT_TYPE.BuyDmCandidate || billing.paymentType == PAYMENT_TYPE.Topup">
+                  <div class="row mb-4">
+                    <div class="col-lg-12">
+                      <p class="title-details font-heavy"> Direct message to jobseeker(s)</p>
+                    </div>
+                    <div class="col-4">
+                      <div class="item-details" *ngIf="billing.paymentType == PAYMENT_TYPE.Topup">
+                        <p>Topup</p>
+                      </div>
+                      <div class="item-details" *ngIf="billing.paymentType == PAYMENT_TYPE.BuyDmCandidate">
+                        <p>Number of Credit(s):</p>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="item-details">
+                        <p *ngIf="billing.paymentType == PAYMENT_TYPE.BuyDmCandidate">1 credit</p>
+                        <p *ngIf="billing.paymentType == PAYMENT_TYPE.Topup">{{billing.products.num_retake}} credits</p>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="item-details text-right">
+                        <p>Price: <span>{{billing.sub_total | currency}}</span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item-details text-right" style="padding-right: 35px;">
+                  <p class="font-heavy">Tax: <span>{{billing.tax | currency}}</span></p>
+                  <p class="font-heavy">Discount value: <span>- {{billing.discount_value | currency}}</span></p>
+                </div>
+                <div class="col-lg-12">
+                  <p class="total-price-footer font-heavy text-right">Total Price: {{billing.totalAmount | currency}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="card-details__content" *ngIf="shoppingCard">
+            <div class="billing-item">
+              <div class="card-details__header">
+                <div class="left border-right">
+                  <div class="list-jobs">
+                    <p class="list-jobs__item font-heavy" *ngFor="let billing of dataBillings">
+                      {{billing.jobTitle}}
+                      <span class="private-tag"
+                        *ngIf="billing.isPrivate == 1 || billing.paymentType == paymentType.BuyMorePrivate">Private</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="right">
+                  <p class="total-price font-heavy">
+                    {{caclTotalPayCard() | currency}}
+                  </p>
+                  <button class="view-detail" *ngIf="!shoppingCard" (click)="hideDetail()">
+                    {{isHideDetail ? 'Hide Details' : 'View Details'}}
+                    <!-- <i [class]="!isHideDetail ? 'fa fa-angle-double-down' : 'fa fa-angle-double-up'"></i> -->
+                    <fa-icon [icon]="['fas', !isHideDetail ? 'angle-double-down' : 'angle-double-up']"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div [hidden]="isHideDetail">
+              <div class="row details-child-job mb-4" *ngFor="let item of dataBillings">
+                <div class="col-lg-12">
+                  <p class="title-details font-heavy">{{item.jobTitle}}
+                    <span class="private-tag"
+                      *ngIf="item.isPrivate == 1 || item.paymentType == paymentType.BuyMorePrivate">Private</span>
+                  </p>
+                </div>
+                <div class="col-4">
+                  <div class="item-details" *ngIf="item.isPrivate != 1">
+                    <p>Standard Duration:</p>
+                    <p>Featured Duration:</p>
+                    <p>Urgent Hiring:</p>
+                  </div>
+                  <div class="item-details"
+                    *ngIf="item.isPrivate == 1 || item.paymentType == paymentType.BuyMorePrivate">
+                    <p>Number of Available Applicants:</p>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="item-details" *ngIf="item.isPrivate != 1">
+                    <p>{{addJobExpiredDays(item, true)}}-{{addJobExpiredDays(item, false)}}</p>
+                    <p *ngIf="item.isCheckedHotJob">{{formatDate(item.startHotJob)}}-{{formatDate(item.endHotJob)}}</p>
+                    <p *ngIf="!item.isCheckedHotJob">-</p>
+                    <p>{{item.isUrgentHiring == 1 ? 'Yes' : 'No'}}</p>
+                  </div>
+                  <div class="item-details"
+                    *ngIf="item.isPrivate == 1 || item.paymentType == paymentType.BuyMorePrivate">
+                    <p>{{item.privateApplicants}}</p>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="item-details text-right" *ngIf="item.isPrivate != 1">
+                    <p><span> {{totalNumberPrice(item.jobExpiredDays, settingsCard.standard_price) ? (totalNumberPrice(item.jobExpiredDays, settingsCard.standard_price) |
+                        currency) : '-'}}</span></p>
+                    <p><span> {{totalHotJob(item, settingsCard.featured_price) ? (totalHotJob(item, settingsCard.featured_price) | currency ) : '-'}}</span></p>
+                    <p><span> {{totalUrgentHiring(item.isUrgentHiring, settingsCard.urgent_hiring_price) ? (totalUrgentHiring(item.isUrgentHiring, settingsCard.urgent_hiring_price) |
+                        currency) : '-'}}</span> </p>
+                    <p class="font-heavy">Job Post Price:
+                      <span>{{totalPrice(totalNumberPrice(item.jobExpiredDays, settingsCard.standard_price),
+                        totalHotJob(item, settingsCard.featured_price), totalUrgentHiring(item.isUrgentHiring,
+                        settingsCard.urgent_hiring_price)) | currency}}</span>
+                    </p>
+                  </div>
+                  <div class="item-details text-right"
+                    *ngIf="item.isPrivate == 1 || item.paymentType == paymentType.BuyMorePrivate">
+                    <p><span>{{totalNumberPrice(settingsCard.private_job_price, item.privateApplicants) |
+                        currency}}</span></p>
+                    <p class="font-heavy">Job Post Price:
+                      <span>{{totalNumberPrice(settingsCard.private_job_price, item.privateApplicants) |
+                        currency}}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <p class="total-price-footer font-heavy text-right">Total Price: {{caclTotalPayCard() | currency}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="shoppingCard" class="footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+  </div>

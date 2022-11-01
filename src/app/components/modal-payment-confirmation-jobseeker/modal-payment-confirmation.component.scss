@@ -1,0 +1,33 @@
+.content-confirm {
+  padding: 0 0 20px 0;
+  .title {
+    font-size: 20px;
+    font-family: "Avenir Heavy";
+    margin-bottom: 25px;
+  }
+  .row-confirm {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    p {
+      min-width: 200px;
+    }
+    input {
+      width: 55px;
+      height: 30px;
+    }
+  }
+
+  .total-price {
+    display: flex;
+    justify-content: flex-end;
+    p {
+      font-family: "Avenir Heavy";
+    }
+  }
+}
+
+.warning-not-card{
+  font-size: 13px;
+  color: red;
+}

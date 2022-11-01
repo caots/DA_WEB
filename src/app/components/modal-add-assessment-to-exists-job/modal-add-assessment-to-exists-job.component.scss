@@ -1,0 +1,63 @@
+.additional-info {
+  border: 1px solid #d9d9d9;
+  padding: 20px 30px;
+  height: 100%;
+  @media (max-width: 768px) {
+    padding: 20px 15px;
+  }
+}
+
+::ng-deep .modal-edit-job {
+  .modal-xl {
+    max-width: 600px !important;
+    .container {
+      max-width: 100%;
+    }
+  }
+}
+
+.job-postings {
+  &__title {
+    margin: 20px 0;
+  }
+}
+
+.form-add-job {
+  box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  position: relative;
+  margin-bottom: 20px;
+
+  @media (max-width: 1199px) {
+    margin-bottom: 20px;
+  }
+}
+
+.search-box-multi{
+  input{
+    min-width: 75%;
+    @media (max-width: 576px) {
+      min-width: 68%;
+    }
+  }
+}
+
+.list-job{
+  ul{
+    max-height: 400px;
+    overflow-y: scroll;
+    li{
+      cursor: pointer;
+      padding: 5px;
+      color: black;
+    }
+    li:hover{
+      color: #2668a9;
+    }
+  }
+}
+
+.warning-duplicate{
+  color: red;
+  font-size: 13px;
+}

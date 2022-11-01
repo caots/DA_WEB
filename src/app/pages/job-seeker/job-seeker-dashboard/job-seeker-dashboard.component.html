@@ -1,0 +1,80 @@
+<div class="dashboard-page">
+  <div class="dashboard-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="title">Find Jobs</h2>
+          <div class="tabs-title" *ngIf="user">
+            <a class="tabs-title__item" 
+              *ngFor="let tab of listTab"
+              [ngClass]="{active : currentTab == tab.id}" 
+              (click)="changeTab(tab)">
+              <span>{{tab.name}}</span>&nbsp;
+              <span *ngIf="tab.id != '' && tab.total >= 0 && this.currentTab != FOLLOW_TAB.id">({{tab.total}})</span>
+              <span [hidden]="!user" *ngIf="tab.id == FOLLOW_TAB.id && this.currentTab == FOLLOW_TAB.id && totalEmplopyerFollowed >= 0">({{totalEmplopyerFollowed}})</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="wrapper-list-jobs" *ngIf="this.currentTab != FOLLOW_TAB.id">
+          <div class="search-jobs-options">
+            <ms-search
+              *ngIf="listFallUnder.length > 0 && listCompany && listAssessments && listCategoryRoot && checkMappingCategoryAssessments"
+              [(orderBy)]="orderBy"
+              (search)="searchJob()"
+              (reset)="resetSearchJob()"
+              [(isShow)]="isShowSearchAdvanced"
+              [(user)]="user"
+              [listCompany]="listCompany"
+              [listCity]="listCity"
+              [employmentType]="EMPLOYMENT_TYPE"
+              [withinMiles]="WITHIN_MILES"
+              [listFallUnder]="listFallUnder"
+              [jobTravel]="JOB_TRAVEL"
+              [expirationDate]="EXPIRATION_DATE"
+              [jobPercentTravel]="JOB_PERCENT_TRAVEL_TYPE"
+              [listCategory]="listCategory"
+              [listCategoryRoot]="listCategoryRoot"
+              [listAssessments]="listAssessments"
+              [listAssessmentSelected]="listAssessmentSelected"
+              [(isSearching)]="isSearching"
+              [query]="querySearch">
+            </ms-search>
+            <div class="list-postings list-jobs">
+              <ms-loading-job-detail [numberCard]="paginationConfig.maxRecord" *ngIf="isLoadingListJob || isLoadingMyAssessment">
+              </ms-loading-job-detail>
+              <div *ngIf="!isLoadingListJob && !isLoadingMyAssessment && settingsCard">
+                <ms-job-card-job-seeker *ngFor="let job of listJob"
+                  [settingsCard]="settingsCard"
+                  [query]="querySearch"
+                  [isBookmark]="isBookmark(job)"
+                  [job]="job"
+                  [condition]="condition"
+                  (bookmark)="bookmarkJob($event)"
+                  [myAssessments]="listMyAssessment"
+                  [tab]="currentTab"
+                  (add)="addDrawJob()"
+                  (apply)="applyJob($event)">
+                </ms-job-card-job-seeker>
+              </div>
+              <ms-pagination *ngIf="!isLoadingListJob && !isLoadingMyAssessment" [config]="paginationConfig" (goTo)="paginationJob($event)">
+              </ms-pagination>
+            </div>
+            <div class="message-not-found" *ngIf="!listJob.length">
+              <p>{{messageNotFound}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="follow-employers" *ngIf="this.currentTab == FOLLOW_TAB.id">
+          <ms-follow-employers></ms-follow-employers>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,329 @@
+<div class="box-questions">
+  <img loading="lazy" src="{{API_S3}}/cdn/bg-18.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/bg-18.webp" width="100%" height="100%"  alt="background-faq"/>
+    <div class="container">
+        <div class="col-lg-6"></div>
+        <div class="col-lg-6">
+            <h3>Most Freqently Asked Questions</h3>
+            <div class="list-items" [style]="isShowQa ? 'overflow-y: scroll; padding-right: 10px; max-height: 600px;' : ''">
+                <div class="item">
+                    <p class="item-title">
+                        <button type="button" class="btn" (click)="isCollapsedBusiness = !isCollapsedBusiness" aria-label="btn-faq-1"
+                            [attr.aria-expanded]="!isCollapsedBusiness" aria-controls="collapseExample">
+                            <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                            <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                        </button>
+                        How many assessments can I link to my job?
+                    </p>
+                    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedBusiness" class="item-content">
+                        <ul class="">
+                            <li><p>You may link up to 5 catalog assessments per job and an unlimited number of
+                                custom assessments. We recommend linking no more than 3 assessments in total
+                                to make it faster for jobseekers to apply.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="item">
+                    <p class="item-title">
+                        <button type="button" class="btn" (click)="isCollapsedAssessment2 = !isCollapsedAssessment2" aria-label="btn-faq-2"
+                            [attr.aria-expanded]="!isCollapsedAssessment2" aria-controls="collapseExample">
+                            <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                            <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                        </button>
+                        How does MeasuredSkills prevent users from cheating on assessments?
+                    </p>
+                    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment2" class="item-content">
+                        <ul class="">
+                            <li><p>MeasuredSkills has multiple cheating prevention tools in place to ensure that
+                                jobseekers take assessments honestly and in good faith. These tools include
+                                screen window monitoring and other tools that monitor user behavior.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="item">
+                    <p class="item-title">
+                        <button type="button" class="btn" (click)="isCollapsedAssessment = !isCollapsedAssessment" aria-label="btn-faq-3"
+                            [attr.aria-expanded]="!isCollapsedAssessment" aria-controls="collapseExample">
+                            <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                            <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                        </button>
+                        Can multiple users from my organization use MeasuredSkills?
+                    </p>
+                    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment" class="item-content">
+                        <ul class="">
+                            <li><p>Yes. Employers can create a primary account and add an unlimited number of
+                                secondary users. The primary account can also set permissions for secondary
+                                users.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="item">
+                    <p class="item-title">
+                        <button type="button" class="btn" (click)="isCollapsedCompare = !isCollapsedCompare" aria-label="btn-faq-4"
+                            [attr.aria-expanded]="!isCollapsedCompare" aria-controls="collapseExample">
+                            <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                            <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                        </button>
+                        Can MeasuredSkills assist me in getting started and/or with selecting or creating
+                        assessments?
+                    </p>
+                    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedCompare" class="item-content">
+                        <ul class="">
+                            <li><p>Yes. We are happy to assist you in getting your account set up at no additional
+                                charge. If you would like us to author assessments on your behalf, additional fees
+                                may apply. Please contact us so we can best assist you.</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="hidden-qa" *ngIf="isShowQa">
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment4 = !isCollapsedAssessment4" aria-label="btn-faq-5"
+                                [attr.aria-expanded]="!isCollapsedAssessment4" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            Can MeasuredSkills integrate with my ATS system?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment4" class="item-content">
+                            <ul class="">
+                                <li><p>We are happy to discuss integrating with your current ATS system. Please contact
+                                    us so we can best assist you with a solution.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment5 = !isCollapsedAssessment5" aria-label="btn-faq-6"
+                                [attr.aria-expanded]="!isCollapsedAssessment5" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            Can jobseekers view their overall weighted score and how I weight each assessment?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment5" class="item-content">
+                            <ul class="">
+                                <li><p>No. This is only visible to the employer. Jobseekers can only view the score of
+                                    each individual assessment.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment6 = !isCollapsedAssessment6" aria-label="btn-faq-7"
+                                [attr.aria-expanded]="!isCollapsedAssessment6" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            What is the difference between a public job post and a private job post?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment6" class="item-content">
+                            <ul class="">
+                                <li><p>A public job post gets posted to our database and is searchable by anyone. Any
+                                    jobseeker with a MeasuredSkills account can then apply. A private job post is
+                                    only accessible via a private, sharable link. This option is intended for employers
+                                    who want to assess specific individuals that they have already pre-selected, such
+                                    as an existing list of candidates, for an internal opening, or current employees.
+                                    Employers purchase invitations that can be sent to prospective candidates. An invitation is not deducted from the purchased number of invitations until the invited candidate submits their application. That way you can re-use the invitation if a prospective candidate decides not to apply. You can also purchase additional invitations.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment7 = !isCollapsedAssessment7" aria-label="btn-faq-8"
+                                [attr.aria-expanded]="!isCollapsedAssessment7" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            What’s the maximum duration I can post a job?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment7" class="item-content">
+                            <ul class="">
+                                <li><p>Jobs can be actively posted for a maximum of 45 days at a time. After your job post
+                                    becomes active and before it expires, you may extend the job post duration as many
+                                    times as you want in 45-day maximum increments. Your list of applicants does not
+                                    reset. You may add or remove the “Urgently Hiring” badge from the extended duration.
+                                    You may decide to upgrade the job to a Featured Job for a portion or for the entire new
+                                    duration, regardless of whether the original job was featured. Normal fees apply.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment8 = !isCollapsedAssessment8" aria-label="btn-faq-9"
+                                [attr.aria-expanded]="!isCollapsedAssessment8" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            Once a job is active, what content can I change in the posting?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment8" class="item-content">
+                            <ul class="">
+                                <li><p>You can modify anything in your job post except for the following: you cannot add or
+                                    remove assessments once a job post is active. You cannot remove the “Urgently Hiring”
+                                    badge from the initial post duration or downgrade from a Featured Job to a Standard
+                                    Job. However, you may add an “Urgently Hiring” badge or upgrade from a Standard Job
+                                    to a Featured Job for a portion of or for the entire remaining post duration.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment9 = !isCollapsedAssessment9" aria-label="btn-faq-10"
+                                [attr.aria-expanded]="!isCollapsedAssessment9" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            When a job post expires, can I renew or reuse it?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment9" class="item-content">
+                            <ul class="">
+                                <li><p>Once a job post expires, you must create a new job post. To save time, we suggest
+                                    you use the expired job post as a template in the Add Jobs process. You may
+                                    modify anything including which assessments are linked to the job post because it
+                                    is treated as a new job post in our system. This new job will not carry over
+                                    applicants from your previous job post.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment10 = !isCollapsedAssessment10" aria-label="btn-faq-11"
+                                [attr.aria-expanded]="!isCollapsedAssessment10" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            When a job post expires can I still see my list of applicants and message them?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment10" class="item-content">
+                            <ul class="">
+                                <li><p>Yes. When a job post expires, it is moved to the Expired tab under Jobs. You can
+                                    continue to message applicants and rate them. When a job expires it does not
+                                    change anything in Messages. You must manually archive messages you no
+                                    longer wish to see.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment12 = !isCollapsedAssessment12" aria-label="btn-faq-12"
+                                [attr.aria-expanded]="!isCollapsedAssessment12" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            What does this icon mean?
+                            <span class="icon-responsive ml-2">
+                                <svg-icon src="assets/icons/run.svg"></svg-icon>
+                            </span>
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment12" class="item-content">
+                            <ul class="">
+                                <li><p>This is the “Responsive User” badge. We want to encourage timely replies by
+                                    employers and jobseekers and discourage ghosting. Employers and jobseekers who are prompt at replying to their messages are rewarded with this badge which is displayed on their respective profile cards.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment13 = !isCollapsedAssessment13" aria-label="btn-faq-13"
+                                [attr.aria-expanded]="!isCollapsedAssessment13" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            The profile picture of the applicant is blurred when I message them. Why?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment13" class="item-content">
+                            <ul class="">
+                                <li><p>For public jobs, the profile picture and last name of an applicant remains masked
+                                    until they choose to reveal their full profile to you. This is to improve objectivity
+                                    and to reduce hiring bias. As an employer, your first name, last name, job title (if
+                                    provided), and profile picture are always visible to the applicant.</p>
+
+                                </li>
+                                <li><p>For private jobs, the names and profile pictures of the candidates are masked by
+                                    default to allow you to have an objective first look. You may then unmask a
+                                    specific candidate or unmask all candidates simultaneously if you choose.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment14 = !isCollapsedAssessment14" aria-label="btn-faq-14"
+                                [attr.aria-expanded]="!isCollapsedAssessment14" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            Can I find jobseekers without posting a job? How?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment14" class="item-content">
+                            <ul class="">
+                                <li><p>Yes. Once a jobseeker has completed at least one (1) assessment, they will be
+                                    searchable for employers under Find Candidates. You can then invite them to
+                                    apply to any of your active jobs or pay to direct message them. You only have to
+                                    pay for the first direct message you send to a jobseeker. You may continue the
+                                    rest of the conversation for free. If you invite them to an active job, you may
+                                    message them for free like any other applicant who applies to your job.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment15 = !isCollapsedAssessment15" aria-label="btn-faq-15"
+                                [attr.aria-expanded]="!isCollapsedAssessment15" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            Does MeasuredSkills keep records of my job posts for compliance?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment15" class="item-content">
+                            <ul class="">
+                                <li><p>We do and are happy to assist you with providing records upon request to support your compliance needs.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment16 = !isCollapsedAssessment16" aria-label="btn-faq-16"
+                                [attr.aria-expanded]="!isCollapsedAssessment16" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            I work for a contingency-based or retained staffing firm? May we post job openings on behalf of our clients?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment16" class="item-content">
+                            <ul class="">
+                                <li><p>Yes. Any employer or agent may post job openings on MeasuredSkills as long as they make a good faith effort to hire jobseekers.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <p class="item-title">
+                            <button type="button" class="btn" (click)="isCollapsedAssessment17 = !isCollapsedAssessment17" aria-label="btn-faq-17"
+                                [attr.aria-expanded]="!isCollapsedAssessment17" aria-controls="collapseExample">
+                                <fa-icon [icon]="['fas', 'plus-circle']" class="open"></fa-icon>
+                                <fa-icon [icon]="['fas', 'minus-circle']" class="close-icon"></fa-icon>
+                            </button>
+                            How can I contact MeasuredSkills?
+                        </p>
+                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsedAssessment17" class="item-content">
+                            <ul class="">
+                                <li><p>Please visit our <span (click)="scroll()" class="redirect-fqa">Contact Us</span> page to get in touch. If you have an existing account,
+                                    you can also message us through <a [routerLink]="'/employer-messages'" class="redirect-fqa">Messages</a> by clicking on
+                                    <span>
+                                        <img class="logo" src="assets/images/logo-contact-admin-message.png" alt="logo">&nbsp;<span class="contact-admin">Contact MeasuredSkills</span>
+                                    </span>. If you have any questions, need assistance with our
+                                    platform, or would like to provide feedback or report bugs we would be happy to
+                                    hear from you.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-success mt-3" (click)="viewMoreFQA()">{{isShowQa ? 'View Less FAQ' : 'View More FAQ'}}</button>
+
+        </div>
+    </div>
+</div>

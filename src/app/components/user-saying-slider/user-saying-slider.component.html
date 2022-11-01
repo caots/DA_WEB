@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="box-user-saying">
+        <h3>What Our Users Are Saying</h3>
+        <div class="content-container box-user-saying-slider" [ngClass]="{'slider-employer-testimonial': isEmployer}" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto">
+          <swiper (click)="enableSwipeSlide()" *ngIf="type == 'component' && show" class="swiper-container" fxFlex="auto" [config]="enableSwipe ? configEnable : config"
+            [disabled]="disabled" (indexChange)="onIndexChange($event)"
+            (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')" 
+            [index]="indexSelected"
+            >
+            <div *ngFor="let slide of slides; index as i" class="swiper-slide" (click)="selectActive(i)">
+              <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+                <div class="users-slider-item" [ngClass]="{active: i == slide}">
+                  <div class="users-slider-item__img">
+                    <img loading="lazy" alt="user saying" data-src="{{API_S3}}/cdn/testi/testi-{{slide}}.webp" src="{{API_S3}}/cdn/testi/testi-{{slide}}.webp" class="lazyload" width="100%" height="100%"/>
+                  </div>
+                  <div class="box-bottom-slider" [ngClass]="{'style-employer': isEmployer}">
+                    <div class="users-slider-item__rate">
+                      <fa-icon [icon]="['fas', 'star']"></fa-icon>
+                      <fa-icon [icon]="['fas', 'star']"></fa-icon>
+                      <fa-icon [icon]="['fas', 'star']"></fa-icon>
+                      <fa-icon [icon]="['fas', 'star']"></fa-icon>
+                      <fa-icon [icon]="['fas', 'star']"></fa-icon>
+                    </div>
+                    <div class="users-slider-item__text">
+                      {{CONTENT_SAYING[i].content}}
+                    </div>
+                    <div class="users-slider-item__name">
+                      {{CONTENT_SAYING[i].name}}
+                    </div>
+        
+                    <div class="users-slider-item__level">
+                      {{CONTENT_SAYING[i].position}}
+                    </div>
+                    <div class="users-slider-item__level note">*Name and photo altered.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </swiper>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

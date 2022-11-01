@@ -1,0 +1,652 @@
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+.modal-title {
+  font-family: "Avenir Heavy";
+  font-size: 18px;
+}
+
+.list-job-assessment {
+  &-item {
+    padding: 15px;
+    box-shadow: 0px 0px 10px #0000001a;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+
+  &-header {
+    display: flex;
+    margin-bottom: 25px;
+    align-items: center;
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      margin-left: auto;
+      height: 35px;
+      padding: 0 10px;
+
+      @include media-breakpoint-down(md) {
+        margin-top: 10px;
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__title {
+    font-family: "Avenir Heavy";
+    font-size: 18px;
+    margin-right: 40px;
+    max-width: 294px;
+    min-width: 294px;
+    @media (max-width: 1100px) {
+      max-width: 100%;
+      margin-right: 0;
+    }
+  }
+
+  &__time {
+    font-family: "Avenir Heavy";
+  }
+
+  &__desc {
+  }
+
+  &__footer {
+    justify-content: flex-end;
+  }
+}
+
+.add-new-assessment {
+  padding: 20px 30px;
+  @include media-breakpoint-down(sm) {
+    padding: 15px;
+  }
+}
+
+.btn-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+// Modal center
+.modal-center-screen {
+  .modal-dialog {
+    display: flex;
+    height: 88vh;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.box-signup {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  align-items: center;
+}
+
+// box upload file for emp and jobseeker
+.box-upload-file {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.choose-avatar {
+  position: relative;
+  display: inline;
+  padding: 20px 0 10px;
+
+  img {
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .fa.fa-times {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.name-image {
+  width: 100%;
+}
+
+.phone-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.sub-page-title {
+  color: #000;
+  font-family: "Avenir Heavy";
+}
+
+.btn-border {
+  height: 45px;
+  border-radius: 22.5px;
+  padding: 0 30px;
+  background: #2668a9;
+}
+.btn-back {
+  display: block;
+  font-family: "Avenir Heavy";
+  color: #000;
+  font-size: 18px;
+  margin-top: 20px;
+  cursor: pointer;
+
+  i, fa-icon {
+    margin-right: 10px;
+  }
+}
+.input-with-dollar-sign {
+  position: relative;
+
+  input {
+    padding-left: 25px;
+  }
+
+  &.top-sign {
+    &::before {
+      top: 12px;
+    }
+  }
+
+  &::before {
+    position: absolute;
+    content: "$";
+    left: 10px;
+    top: 8px;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+  &:hover {
+    transition: ease-in-out 0.2s;
+    // opacity: 0.8;
+  }
+}
+
+.pre-line-text {
+  white-space: pre-line;
+}
+
+// pos for ie
+_:-ms-fullscreen,
+:root .share-jobs {
+  bottom: -35px;
+}
+
+.form-group-date {
+  input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.blurry-text {
+  color: transparent;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.blurry-text-114 {
+  color: transparent;
+  text-shadow: 0 0 5px rgba(114, 119, 123, 0.5);
+}
+
+.blurry-div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+}
+
+//css for data ranger
+.box-date-ranger {
+  &.mobile {
+    @media (max-width: 768px) {
+      height: 0;
+      .dropdown-menu.show {
+        padding: 10px;
+        box-shadow: rgb(0 0 0 / 5%) 0px 2px 6px, rgb(0 0 0 / 7%) 0px 0px 0px 1px;
+        left: 50% !important;
+        -ms-transform: translateX(-50%) !important;
+        transform: translateX(-50%) !important;
+        top: 55px!important;
+        max-width: 280px;
+        overflow: auto;
+      }
+    }
+  }
+  .ngb-dp-arrow .btn {
+    padding: 0 0.25rem;
+    margin: 0 0.5rem;
+    border: none;
+    background-color: transparent;
+    z-index: 1;
+    border: 1px solid #929598;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+  }
+
+  .ngb-dp-arrow .ngb-dp-navigation-chevron {
+    border-style: solid;
+    border-width: 1px 1px 0 0;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    color: #929598;
+    margin-left: 8px;
+    margin-right: 0;
+  }
+
+  .ngb-dp-arrow.right .ngb-dp-navigation-chevron {
+    margin-right: 7px;
+    margin-left: 0;
+  }
+
+  div[role="columnheader"] {
+    color: #929598;
+  }
+  .ngb-dp-month .ngb-dp-week {
+    padding-left: 0.25rem;
+    padding: 0;
+    background: transparent;
+  }
+  .ngb-dp-month-name {
+    background: transparent;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  [ngbDatepickerDayView] {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
+
+  .custom-day {
+    display: block;
+    box-shadow: rgb(230 231 232) 1px 0px 0px 0px,
+    rgb(230 231 232) 0px 1px 0px 0px, rgb(230 231 232) 1px 1px 0px 0px,
+    rgb(230 231 232) 1px 0px 0px 0px inset,
+    rgb(230 231 232) 0px 1px 0px 0px inset;
+    &:hover {
+      background: rgb(0, 174, 239);
+      color: #fff;
+    }
+  }
+
+  .range:not(.faded) {
+    background: rgb(0, 174, 239);
+    color: #fff;
+    display: block;
+  }
+
+  .holiday, .holiday.disabled, .holiday:hover {
+    color: white;
+    background-color: #4FB648;
+  }
+
+  .range.faded {
+    background: rgb(113, 201, 237);
+    color: #fff;
+  }
+  .range.focused {
+    background: rgb(0, 174, 239);
+    color: #fff;
+    display: block;
+  }
+  .ngb-dp-day,
+  .ngb-dp-week-number,
+  .ngb-dp-weekday {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
+  .dropdown-menu.show {
+    padding: 32px;
+    z-index: 1050;
+    @media (max-width: 768px) {
+      padding: 10px;
+    }
+  }
+
+  .ngb-dp-header {
+    background: transparent;
+    margin-bottom: 10px;
+  }
+
+  .ngb-dp-month .ngb-dp-week .ngb-dp-day:not(.hidden) {
+    background: #fff;
+    text-align: center;
+  }
+  .ngb-dp-month .ngb-dp-week {
+    padding: 0;
+    border: none;
+    .ngb-dp-day {
+      outline: none;
+      &.ngb-dp-today {
+        .btn-light {
+          background: #00aeef;
+          outline: none;
+          color: #fff;
+        }
+      }
+      .btn-light {
+        background: #ddd;
+        border-radius: 0;
+        color: #000 !important;
+        opacity: 1;
+      }
+      // Fix for safari
+      &.disabled {
+        .custom-day {
+          opacity: 0.4;
+          border-radius: 0;
+          color: rgb(88, 89, 91) !important;
+        }
+      }
+    }
+
+    div.ngb-dp-day[aria-label^="Sunday"] span,
+    div.ngb-dp-day[aria-label^="Saturday"] span {
+      // background: #ea9999 !important;
+    }
+  }
+
+  .ngb-dp-week-number,
+  .ngb-dp-weekday {
+    text-align: center;
+    font-style: normal;
+  }
+}
+// css for datePicker
+.box-date-custom {
+  ngb-datepicker-navigation-select > .custom-select {
+    margin-right: 5px;
+    font-weight: 700;
+  }
+  .ngb-dp-header {
+    background: transparent;
+    margin-bottom: 10px;
+  }
+  .ngb-dp-arrow {
+    .btn {
+      padding: 0 0.25rem;
+      margin: 0 0.5rem;
+      border: none;
+      background-color: transparent;
+      z-index: 1;
+      border: 1px solid rgb(146, 149, 152);
+      border-radius: 0;
+      margin: 0;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+    }
+    .ngb-dp-navigation-chevron {
+      border-style: solid;
+      border-width: 1px 1px 0 0;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      color: rgb(146, 149, 152);
+      margin-left: 8px;
+      margin-right: 0;
+    }
+
+    &.right .ngb-dp-navigation-chevron {
+      margin-right: 7px;
+      margin-left: 0;
+    }
+  }
+  .ngb-dp-day,
+  .ngb-dp-week-number,
+  .ngb-dp-weekday {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
+
+  div[role="columnheader"] {
+    color: rgb(146, 149, 152);
+  }
+
+  .dropdown-menu.show {
+    padding: 32px;
+    border: none;
+    background: #fff;
+    box-shadow: rgb(0 0 0 / 5%) 0px 2px 6px, rgb(0 0 0 / 7%) 0px 0px 0px 1px;
+    @media (max-width: 567px){
+      padding: 16px;
+      box-shadow: rgb(0 0 0 / 5%) 0px 2px 6px, rgb(0 0 0 / 7%) 0px 0px 0px 1px;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      top: 100% !important;
+    }
+  }
+  .ngb-dp-day {
+    cursor: pointer;
+    color: rgb(88, 89, 91);
+    width: 36px;
+    height: 36px;
+  }
+
+  [ngbDatepickerDayView] {
+    // border: 1px solid #000;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
+  .ngb-dp-month:first-child .ngb-dp-week {
+    padding: 0;
+    border: none;
+    background: transparent;
+    .ngb-dp-day {
+      outline: none;
+      &.ngb-dp-today {
+        .btn-light {
+          background: #00aeef;
+          outline: none;
+          color: #fff;
+        }
+      }
+      .btn-light {
+        background: #fff;
+        border-radius: 0;
+        color: rgb(88, 89, 91);
+        opacity: 1;
+        box-shadow: rgb(230 231 232) 1px 0px 0px 0px,
+          rgb(230 231 232) 0px 1px 0px 0px, rgb(230 231 232) 1px 1px 0px 0px,
+          rgb(230 231 232) 1px 0px 0px 0px inset,
+          rgb(230 231 232) 0px 1px 0px 0px inset;
+        &:hover {
+          background: rgb(230, 231, 232);
+          color: rgb(88, 89, 91);
+        }
+        &.bg-primary {
+          background: rgb(0, 174, 239);
+          color: #fff;
+          box-shadow: rgb(0 174 239) 1px 0px 0px 0px,
+            rgb(0 174 239) 0px 1px 0px 0px, rgb(0 174 239) 1px 1px 0px 0px,
+            rgb(0 174 239) 1px 0px 0px 0px inset,
+            rgb(0 174 239) 0px 1px 0px 0px inset;
+        }
+      }
+      // Fix for safari
+      &.disabled {
+        .btn-light,
+        .custom-day {
+          opacity: .4 !important;
+          border-radius: 0;
+        }
+      }
+    }
+
+    div.ngb-dp-day[aria-label^="Sunday"] div,
+    div.ngb-dp-day[aria-label^="Saturday"] div {
+      // background: #ea9999 !important;
+    }
+  }
+
+  .ngb-dp-week-number,
+  .ngb-dp-weekday {
+    text-align: center;
+    font-style: normal;
+  }
+}
+
+// css for timepicker
+.ngb-tp-input-container {
+  .btn-link {
+    padding: 0;
+    width: 100%;
+    margin-bottom: 3.5px;
+  }
+  input.ngb-tp-input.form-control {
+    border-radius: 0;
+    height: 30px;
+  }
+  .ngb-tp-chevron::before {
+    border-width: 0.19em 0.19em 0 0;
+  }
+}
+
+.ngb-tp-meridian {
+  .btn-outline-primary {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+  }
+}
+
+.table-custom-color {
+  thead {
+    background: #2668a9;
+    tr {
+      th {
+        vertical-align: middle;
+        text-align: center;
+        font-size: 16px;
+        color: #fff;
+        font-weight: 300;
+      }
+    }
+  }
+}
+
+.back {
+  font-size: 22px;
+  color: #000;
+  font-family: "Avenir heavy";
+  i, fa-icon {
+    margin-right: 10px;
+  }
+}
+
+.box-select-percent {
+  position: relative;
+
+  .btn-increase {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    border: navajowhite;
+    background: none;
+    line-height: 1;
+  }
+
+  .btn-decrease {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: none;
+    outline: none;
+    background: none;
+    line-height: 1;
+  }
+}
+
+.ytp-chrome-top.ytp-show-cards-title {
+  padding-right: 35px;
+}
+
+.LyImageCropper-area-d:before{
+  content: none !important;
+}
+.d:before{
+  content: none !important;
+}
+.animated-background {
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: darkgray;
+  background: linear-gradient(to right, #eeeeee 10%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  height: 20px;
+  position: relative;
+  max-width: 100%;
+  &.card-title {
+      width: 30%;
+  }
+  &.card-long-text{
+      width: 80%;
+  }
+  &.card-short-text{
+    width: 20%;
+  }
+  &.card-detail-text {
+    min-width: 80px;
+    margin-bottom: 0;
+  }
+  margin-bottom: 10px;
+}
+.btn-success, .btn-success.disabled, .btn-success:disabled{
+  background-color: #4FB648;
+  border-color: #4FB648;
+}
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #2668a9;
+}
+.page-item.active .page-link {
+  background-color: #2668a9;
+  border-color: #2668a9;
+}
+.page-link{
+  color: #2668a9;
+}

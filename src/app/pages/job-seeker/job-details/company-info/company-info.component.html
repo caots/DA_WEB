@@ -1,0 +1,117 @@
+<div class="company-info">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="header-info">
+        <div class="header-info__left">
+          <!-- <p>Find out more about us</p> -->
+          <ul>
+            <li *ngIf="jobDetails.companyFacebook">
+              <a class="cursor-pointer" [href]="jobDetails.companyFacebook" target="_blank">
+                <fa-icon [icon]="['fab', 'facebook-square']"></fa-icon>
+              </a>
+            </li>
+            <li *ngIf="jobDetails.twitterPage">
+              <a class="cursor-pointer" [href]="jobDetails.twitterPage" target="_blank">
+                <fa-icon [icon]="['fab', 'twitter-square']"></fa-icon>
+              </a>
+            </li>
+            <li *ngIf="jobDetails.companyWebsite">
+              <a class="cursor-pointer" [href]="getLinkWebsiteCompany(jobDetails.companyWebsite)" target="_blank">
+                <fa-icon [icon]="['fas', 'globe-asia']"></fa-icon>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- <div class="header-info__right">
+          <button (click)="followEmployer(checkEmployerFollowed)" type="button" [class]="checkEmployerFollowed ? 'btn btn-secondary' : 'btn btn-primary'">{{checkEmployerFollowed? 'Unfollow' : 'Follow'}}</button>
+          <p class="cursor-pointer">Follow this employer to receive the latest job alerts!</p>
+        </div> -->
+      </div>
+      <div class="box-slider" *ngIf="imageObject.length > 0">
+        <ng-image-slider [images]="imageObject" #nav [imageSize]="{width: 180, height: 90, space: 3}" [infinite]="true"></ng-image-slider>
+      </div>
+      <div class="company-info__desc" [innerHtml]="jobDetails?.employerDescription || ''"></div>
+      <div class="box-sum-item" *ngIf="companyLocation">
+        <div class="icon">
+          <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+        </div>
+        <div class="box-sum-content">
+          <p class="box-sum-content__title">Company Location</p>
+          <p>{{companyLocation}}</p>
+        </div>
+      </div>
+      <div class="box-sum-content" style="margin: 20px 0;">
+        <a class="text-danger cursor-pointer" (click)="showModalReportCompany(modalReportCompany)">
+          Report this employer!
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="box-summary">
+        <div class="ceo-picture">
+          <img [src]="jobDetails.ceoPicture" onerror="this.src='assets/images/employer_default_photo_1.png'" alt="{{user && user.firstName}} {{user && user.lastName}}">
+        </div>
+        <div class="box-sum-item" *ngIf="jobDetails.ceoName">
+          <div class="icon">
+            <fa-icon [icon]="['far', 'user']"></fa-icon>
+          </div>
+          <div class="box-sum-content">
+            <p class="box-sum-content__title">CEO</p>
+            <p>{{ jobDetails.ceoName }}</p>
+          </div>
+        </div>
+
+        <div class="box-sum-item"  *ngIf="jobDetails.industry">
+          <div class="icon">
+            <fa-icon [icon]="['fas', 'chart-area']"></fa-icon>
+          </div>
+          <div class="box-sum-content">
+            <p class="box-sum-content__title">Industry</p>
+            <p>{{ jobDetails.industry }}</p>
+          </div>
+        </div>
+        <div class="box-sum-item" *ngIf="jobDetails.employerSizeMin || jobDetails.employerSizeMax">
+          <div class="icon">
+            <fa-icon [icon]="['fas', 'users']"></fa-icon>
+          </div>
+          <div class="box-sum-content">
+            <p class="box-sum-content__title">Company Size <span style="text-transform: none;">(No. of Employees)</span></p>
+            <p *ngIf="!jobDetails?.employerSizeMax">{{ jobDetails.employerSizeMin }} +</p>
+            <p *ngIf="jobDetails?.employerSizeMax">{{ jobDetails.employerSizeMin }} - {{ jobDetails.employerSizeMax }}</p>
+          </div>
+        </div>
+        <div class="box-sum-item" *ngIf="jobDetails.revenueSizeMin || jobDetails.revenueSizeMax">
+          <div class="icon">
+            <fa-icon [icon]="['fas', 'hand-holding-usd']"></fa-icon>
+          </div>
+          <div class="box-sum-content">
+            <p class="box-sum-content__title">Revenue</p>
+            <p *ngIf="jobDetails.revenueSizeMax">{{ jobDetails.revenueSizeMin }} - {{ jobDetails.revenueSizeMax }} Revenue (USD millions)</p>
+            <p *ngIf="!jobDetails.revenueSizeMax"> > {{ jobDetails.revenueSizeMin }} Revenue (USD millions)</p>
+          </div>
+        </div>
+        <div class="box-sum-item border-bottom-0 mb-0 pb-0" *ngIf="jobDetails.yearFounded">
+          <div class="icon">
+            <fa-icon [icon]="['fas', 'user-tie']"></fa-icon>
+          </div>
+          <div class="box-sum-content" >
+            <p class="box-sum-content__title">Year Founded</p>
+            <p>{{ jobDetails.yearFounded }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div [hidden]="isSearchJobPage" class="loving-jobs" *ngIf="listJobsFormEmployer && listJobsFormEmployer.length > 0">
+        <p class="loving-jobs__header">Other Jobs from this Employer</p>
+        <div class="loving-jobs-content">
+          <ms-other-jobs-card *ngFor="let jobs of listJobsFormEmployer" [jobs]="jobs"></ms-other-jobs-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalReportCompany>
+  <ms-modal-report-company [company_id]="companyID" (close)="modalReportCompanyRef.close()">
+  </ms-modal-report-company>
+</ng-template>

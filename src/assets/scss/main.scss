@@ -1,0 +1,225 @@
+// Base settings
+@import "helpers/variables";
+@import "base/typography";
+@import "base/_variables";
+// Import components
+@import "components/search";
+@import "components/featured-companies";
+@import "components/hotjobs";
+@import "components/how-it-works";
+@import "components/slider";
+@import "components/modal";
+@import "components/form-custom";
+@import "components/_header-tabs";
+@import "components/_toggle";
+// Import Page
+@import "pages/common";
+@import "pages/jobs-posting";
+@import "pages/account-setting";
+@import "pages/profile";
+@import "pages/assessments";
+@import "pages/_message";
+@import "pages/_job-details";
+@import "pages/_payment";
+
+@import "pages/_homepage";
+
+.grecaptcha-badge {
+  display: none !important;
+}
+
+.add-captcha-badge {
+  .grecaptcha-badge {
+    display: block !important;
+  }
+}
+
+.tooltip-custom {
+  z-index: 1000;
+  .tooltip-inner {
+    background-color: #fff !important;
+    border: 2px solid #2668a9 !important;
+    color: #000 !important;
+  }
+  @media (max-width: 1425px) {
+    &.tooltip-custom-download {
+      left: -50px !important;
+      &.bs-tooltip-top .arrow {
+        right: 15px;
+        left: auto;
+      }
+    }
+  }
+}
+
+.tooltip-custom.bs-tooltip-right {
+  .arrow::before {
+    border-right-color: #2668a9 !important;
+  }
+}
+
+.tooltip-custom.bs-tooltip-top {
+  .arrow::before {
+    border-top-color: #2668a9 !important;
+  }
+}
+
+.tooltip-custom.bs-tooltip-right {
+  .arrow::before {
+    border-right-color: #2668a9 !important;
+  }
+}
+
+.tooltip-custom.bs-tooltip-bottom {
+  .arrow::before {
+    border-bottom-color: #2668a9 !important;
+  }
+}
+
+.tooltip-custom.bs-tooltip-left {
+  .arrow::before {
+    border-left-color: #2668a9 !important;
+  }
+}
+
+.modal-view-image {
+  //   top: 76px;
+  //   height: 86%;
+}
+.share-jobs {
+  position: absolute;
+  width: auto;
+  display: flex;
+  bottom: -40px;
+  right: -36px;
+  opacity: 0;
+  visibility: hidden;
+  transition: ease-in-out 0.3s;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (max-width: 576px) {
+    right: 0;
+  }
+  .sb-wrapper .sb-text {
+    @media (max-width: 520px) {
+      display: none;
+    }
+  }
+}
+.box-share-jobs.btn-share-job {
+  .share-jobs {
+    @media (max-width: 576px) {
+      left: 0;
+    }
+  }
+}
+
+a {
+  outline: none !important;
+}
+
+@media screen and (min-width: 1860px) {
+  @-ms-viewport {
+    width: 1860px;
+  }
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    _::-webkit-full-page-media,
+    .svg-inline--fa {
+      font-size: 0.5em;
+    }
+  }
+}
+
+.multi-select-search-job.search-advantage .multiselect-dropdown .dropdown-btn .dropdown-down::after {
+  border-bottom-color: #707070;
+}
+
+.multi-select-search-job.search-advantage .multiselect-dropdown .dropdown-btn .dropdown-down:hover {
+  &::after {
+    border-bottom-color: #2d2d2d !important;
+  }
+}
+
+.form-group.has-error {
+  input,
+  textarea {
+    border-color: #dc3545 !important;
+  }
+  .help-block {
+    color: #dc3545 !important;
+    font-size: 14px;
+  }
+}
+
+label.required:after {
+  content: "*";
+  color: #dc3545;
+}
+
+.time-expired{
+  color: red;
+}
+
+.intruction-assessment{
+  color: #333 !important;
+  display: flex;
+  margin-bottom: 10px;
+  span{
+    display: block;
+    margin-right: 10px;
+  }
+}
+
+.confirm-assessment-test-nbr-unavail{
+  margin-left: 12px !important;
+}
+
+.intruction-header{
+  font-weight: bold;
+}
+
+.intruction-assessment-bottom{
+  color: #333 !important;
+}
+
+.intruction-apply-job{
+  color: #333 !important;
+  display: block !important;
+  text-align: left;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.center-apply-job-modal{
+  text-align: center;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  // -webkit-box-shadow:0 0 0 50px white inset !important;
+  // -webkit-text-fill-color: #333;
+  transition: background-color 5000s;
+}
+
+ng-select.select-location-search  .ng-select-container{
+    height: 45px !important;
+    border-radius: 10px;
+}
+
+#video-landing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  iframe{
+    width: 100% !important;
+    height: 100% !important;
+  }
+}

@@ -1,0 +1,189 @@
+<form (ngSubmit)="submit()">
+  <div class="search-jobs-options">
+    <div class="search-jobs-options__top">
+      <div class="search-box-multi">
+        <input type="text" placeholder="Search" [(ngModel)]="query.name" name="name">
+        <div class="search-box-icon">
+          <svg-icon src="assets/icons/search.svg"></svg-icon>
+        </div>
+        <button type="submit" msLoadingButton [loading]="isSearching" class="btn btn-primary btn-find-jobs">
+          Search Jobs
+        </button>
+        <a class="btn-search-multi" [ngClass]="{'active-search' : isShow}" (click)="toogleShowSearch()">
+          <svg-icon src="assets/icons/filter-icon.svg"></svg-icon>
+        </a>
+        <a class="sort-by">
+          <div ngbDropdown class="d-inline-block sort-dropdown">
+            <a id="dropdownFilterJobs" ngbDropdownToggle [ngClass]="{active : orderBy !== undefined}">
+              <fa-icon [icon]="['fas', 'sort-amount-up']"></fa-icon>
+            </a>
+            <div ngbDropdownMenu aria-labelledby="dropdownFilterJobs" *ngIf="type != TAB_TYPE.DRAFT">
+              <button ngbDropdownItem *ngFor="let sort of listSort" [ngClass]="{active : orderBy == sort.id}"
+                (click)="changeSort(sort)">
+                {{sort.name}}
+              </button>
+            </div>
+            <div ngbDropdownMenu aria-labelledby="dropdownFilterJobs" *ngIf="type == TAB_TYPE.DRAFT">
+              <button ngbDropdownItem *ngFor="let sort of listSortDraftTab" [ngClass]="{active : orderBy == sort.id}"
+                (click)="changeSort(sort)">
+                {{sort.name}}
+              </button>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="search-jobs-options__multi" *ngIf="isShow">
+      <div class="select-category">
+        <p class="multi-title">Category</p>
+        <div class="find-candidates-page search-advantage-item">
+          <div class="search-box-multi search-box-assessments">
+            <div class="select-category2">
+                <div class="select-control2" ngbDropdown #dropSearch="ngbDropdown">
+                    <a ngbDropdownToggle>
+                      <span class="title-menu-selected" [hidden]="listAssessmentSelected.length > 0">Select Category</span>
+                      <span class="selected-item" *ngIf="listAssessmentSelected.length > 0"> {{listAssessmentSelected[0]?.name}}<a class="close-btn" (click)="removeAssessment(listAssessmentSelected[0], 0); dropSearch.open();">x</a></span>
+                      <span class="selected-item" *ngIf="listAssessmentSelected.length > 1"> {{listAssessmentSelected[1]?.name}}<a class="close-btn" (click)="removeAssessment(listAssessmentSelected[1], 1); dropSearch.open();">x</a></span>
+                      <span class="selected-item-plus pl-1" *ngIf="listAssessmentSelected && listAssessmentSelected.length > 2">+{{listAssessmentSelected.length - 2}}</span>
+                      <!-- <span class="close-filter-item close-filter-assessment" (click)="showSearchAssessment = true"><fa-icon [icon]="['fas', 'caret-down']" ></fa-icon></span> -->
+                    </a>
+                    <div class="select-items" ngbDropdownMenu>
+                        <div class="search-box-multi mb-3">
+                          <input type="text"
+                            (click)="SearchAssessmentSuggest()"
+                            [(ngModel)]="nameAssessmentSearch"
+                            [ngModelOptions]="{ standalone: true }" placeholder="Search" class="input-search-box ">
+                          <div class="search-box-icon">
+                            <svg-icon src="assets/icons/search.svg"></svg-icon>
+                          </div>
+                          <button type="button" class="btn btn-primary btn-search-box ml-2" (click)="SearchAssessmentSuggest()">
+                              Search
+                          </button>
+                        </div>
+                        <p class="result">{{ listAssessmentSelected.length }} selected</p>
+                        <ul class="items">
+                          <li class="parent" *ngFor="let category of listCategoryCoppied">
+                            <p>
+                                <label>
+                                  <input
+                                    style="cursor: pointer"
+                                    (change)="onSelectedCategory(category)"
+                                    [checked]="checkSelectedListAssessment(category)"
+                                    type="checkbox" name="checkbox"
+                                    value="value"
+                                    id="select-category-{{category.id}}"
+                                  ><span class="flex-1">{{ category.name }}</span></label>
+                                <button type="button" class="btn btn-collapse"
+                                    [hidden]="category.id === CUSTOM_ASSESSMENT_ID"
+                                    [attr.aria-expanded]="category.isShowListAssessment"
+                                    aria-controls="collapseExample"
+                                    (click)="category.isShowListAssessment = !category.isShowListAssessment"
+                                >
+                                    <fa-icon
+                                      class="icon-color close-icon"
+                                      [icon]="['fas', 'caret-up']"
+                                    ></fa-icon>
+                                    <fa-icon
+                                      class="icon-color open"
+                                      [icon]="['fas', 'caret-down']"
+                                    ></fa-icon>
+                                </button>
+                            </p>
+                            <ul #collapse="ngbCollapse" [(ngbCollapse)]="!category.isShowListAssessment"
+                                class="child">
+                                <li *ngFor="
+                                    let assessment of category.listAssessment">
+                                  <label [ngClass]="{'disable-assessment-duplicate': assessment?.disableDuplicate}">
+                                    <input
+                                      (change)="onSelectedAssessemnt(assessment,category)"
+                                      [checked]="assessment.selectedCandidate"
+                                      id="select-assessment-{{assessment.id}}"
+                                      type="checkbox" name="checkbox"
+                                            value="value"><span class="flex-1">{{ assessment.name }}</span>
+                                  </label>
+                                </li>
+                            </ul>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- <ng-multiselect-dropdown [placeholder]="'Select Category'" [settings]="dropdownSettings" [data]="listCategory"
+          [ngModelOptions]="{standalone: true}" [(ngModel)]="query.category">
+        </ng-multiselect-dropdown> -->
+      </div>
+      <div>
+        <p class="multi-title">Created Date</p>
+        <div class="box-create-date">
+          <div class="box-create-date__inner">
+            <p>From</p>
+            <!--Ng datepicker-->
+            <div class="input-group box-date-custom">
+              <input class="form-control" [readonly]="true" placeholder="mm/dd/yyyy" name="dp" ngbDatepicker
+                #dFrom="ngbDatepicker" [firstDayOfWeek]="7" (dateSelect)="onDateSelectionFrom($event)">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="dFrom.toggle()" type="button">
+                  <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+                </button>
+              </div>
+            </div>
+            <!-- <input type="date" [(ngModel)]="query.createdAtFrom" name="from"/> -->
+          </div>
+          <div class="box-create-date__inner search-date-to">
+            <div>
+              <p>To</p>
+              <!--Ng datepicker-->
+              <div class="input-group box-date-custom">
+                <input class="form-control" [readonly]="true" placeholder="mm/dd/yyyy" name="dp" ngbDatepicker
+                  #dTo="ngbDatepicker" [firstDayOfWeek]="7" (dateSelect)="onDateSelectionTo($event)">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" (click)="dTo.toggle()" type="button">
+                    <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+                  </button>
+                </div>
+              </div>
+              <!-- <input type="date" [(ngModel)]="query.createdAtTo" name="to"/> -->
+            </div>
+            <span *ngIf="errorMessage" class="error-message">{{errorMessage}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="box-location" *ngIf="listCountry.length > 0">
+        <p class="multi-title">Location</p>
+        <!-- <input type="text" class="select-control" [ngbTypeahead]="selectCountry" [(ngModel)]="query.location"
+          name="location" /> -->
+        <ng-select
+          class="select-location-search"
+          [items]="listCountry"
+          [(ngModel)]="query.location"
+          [virtualScroll]="true"
+          [ngModelOptions]="{standalone: true}"
+        >
+        </ng-select>
+      </div>
+      <div class="box-check-list">
+        <label class="check-box__item" *ngFor="let type of jobTypes">
+          <input type="checkbox" [value]="type.id" (change)="changeTypeJob($event.target.value)">
+          <span class="check-icon-custom"></span>
+          <span class="text-checkbox">{{type.value}} </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- <div *ngIf="isShow">
+      <button type="submit" msLoadingButton [loading]="isSearching" class="btn btn-primary mb-4 btn-border">
+        Search Jobs
+      </button>
+    </div> -->
+    <div class="options-add-jobs">
+      <a (click)="showModalAddNewJobFromScratchOrtemplate()"
+        [hidden]="userData ? permissionService.checkCantPermissionUser(userData, permission.CHANGE_JOB): true">
+        <img src="assets/images/add-pluss-1@2x.png" alt="job" style="width:17px">
+        <span>New Job</span>
+      </a>
+    </div>
+  </div>
+</form>

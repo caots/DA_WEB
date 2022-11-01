@@ -1,0 +1,27 @@
+h4 {
+  color: black;
+  font-size: 22px;
+  padding: 30px 25px;
+  max-height: 650px;
+  overflow-y: auto;
+  @media (max-width: 576px) {
+    max-height: 400px;
+  }
+}
+
+.modal-logout {
+  position: relative;
+   &__footer {
+     display: flex;
+     .btn {
+       height: 60px;
+       flex: 1;
+       border-radius: 0;
+       box-shadow: none;
+       border: none;
+       &.primary {
+         background: #2668a9;
+       }
+     }
+   }
+}

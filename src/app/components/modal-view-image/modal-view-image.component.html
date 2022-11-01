@@ -1,0 +1,62 @@
+<div class="modal-view-image-comp">
+  <div style="position: absolute;right: 8px;">
+    <div class="modal-header" style="border: none;">
+      <a (click)="imageService.downloadImage(linkImage)" class="icon-down"><fa-icon [icon]="['fas', 'arrow-circle-down']"></fa-icon></a>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class=" main">
+    <div [ngxToggleFullscreen]="fullscreen" class="img-container"
+      [style.backgroundColor]="config.containerBackgroundColor" (wheel)="scrollZoom($event)"
+      (dragover)="onDragOver($event)">
+      <img [src]="src[index]" [ngStyle]="style" alt="Image not found..." (dragstart)="onDragStart($event)"
+        (load)="onLoad()" (loadstart)="onLoadStart()" />
+      <div class="d-flex align-items-center zoom-action">
+        <div class="zoom-image">
+          <div>
+            <fa-icon [icon]="['fas', 'minus']" (click)="zoomOut()"></fa-icon>
+          </div>
+          <input class="range" type="range" step="0.1" value="minScale" [min]="minScale" [max]="maxScale" [(ngModel)]="scale" (ngModelChange)="zoomInOut(scale)">
+          <div>
+            <fa-icon [icon]="['fas', 'plus']" (click)="zoomIn()"></fa-icon>
+          </div>
+        </div>
+        <div class="reset" *ngIf="scale != minScale" (click)="reset()">
+          <fa-icon [icon]="['fas', 'compress-alt']" style="height: 32px;"></fa-icon>
+        </div>
+      </div>
+      <div class="spinner-container" *ngIf="loading">
+        <div class="spinner"></div>
+      </div>
+     
+      
+      <!-- <button type="button" [class]="config.btnClass" *ngIf="config.btnShow.rotateCounterClockwise"
+        (click)="rotateCounterClockwise()">
+        <span [class]="config.btnIcons.rotateCounterClockwise"></span>
+      </button>
+      <button type="button" [class]="config.btnClass" *ngIf="config.btnShow.rotateClockwise"
+        (click)="rotateClockwise()">
+        <span [class]="config.btnIcons.rotateClockwise"></span>
+      </button>
+
+      <button type="button" [class]="config.btnClass" *ngIf="config.btnShow.zoomOut" (click)="zoomOut()">
+        <span [class]="config.btnIcons.zoomOut"></span>
+      </button>
+      <button type="button" [class]="config.btnClass" *ngIf="config.btnShow.zoomIn" (click)="zoomIn()">
+        <span [class]="config.btnIcons.zoomIn"></span>
+      </button>
+
+      <button type="button" [class]="config.btnClass" *ngFor="let cBtn of config.customBtns"
+        (click)="fireCustomEvent(cBtn.name, index)">
+        <span [class]="cBtn.icon"></span>
+      </button>
+
+      <button type="button" id="ngx-fs-btn" [class]="config.btnClass" (click)="toggleFullscreen()"
+        *ngIf="config.allowFullscreen">
+        <span [class]="config.btnIcons.fullscreen"></span>
+      </button> -->
+    </div>
+  </div>
+</div>

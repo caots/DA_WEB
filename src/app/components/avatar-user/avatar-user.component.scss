@@ -1,0 +1,73 @@
+.avatar-img {
+  position: relative;
+  .rating {
+    display: flex;
+    margin-left: -10px;
+    top: 100%;
+    position: absolute;
+    &-light {
+      color: #fda600;
+    }
+    &-dark {
+      color: #adadad;
+    }
+    fa-icon {
+      font-size: 10px;
+      margin-right: 2px;
+    }
+  }
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  cursor: pointer;
+  &-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+    img {
+      width: 45px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.mask-avatar {
+  display: flex;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  color: #000;
+  cursor: pointer;
+  // background: #2668a9;
+  z-index: 104;
+  backdrop-filter: blur(3px);
+  border: solid 2px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.5);
+}
+
+::ng-deep .avatar-img .tooltip.show {
+  width: 300px;
+  left: 100% !important;
+  .tooltip-inner {
+    margin: 0 auto;
+  }
+  .arrow{
+    left: calc(50% - 3.4rem);
+  }
+}
+
+::ng-deep .chat-user-item ms-avatar-user .avatar-img .tooltip.show {
+  width: 150px;
+  // transform: translate(0, 45px) !important;
+  .arrow {
+    left: 17px;
+  }
+}

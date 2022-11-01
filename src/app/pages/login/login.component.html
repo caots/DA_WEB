@@ -1,0 +1,62 @@
+<div class="back-home" (click)="backToHome()">
+  <svg-icon src="assets/icons/back.svg"></svg-icon>
+  <span class="go-home">Back</span>
+</div>
+<div class="login-form">
+  <aside class="login-form-inner">
+    <div class="card">
+      <div class="back-home-incard" (click)="backToHome()">
+        <svg-icon src="assets/icons/back-mobile.svg"></svg-icon>
+        <span class="go-home">Back</span>
+      </div>
+      <article class="card-body">
+        <div class="logo" (click)="backToHome()">
+          <svg-icon src="assets/icons/logo-only-icon.svg"></svg-icon>
+        </div>
+        <h3 class="card-title text-center title-logo">MeasuredSkills</h3>
+        <h4 class="card-title text-center">Sign In</h4>
+        <form method="post" [formGroup]="formLogin" (ngSubmit)=login(formLogin.value)>
+          <div class="form-group">
+            <label>Your email</label>
+            <input name="" formControlName="email" class="form-control" placeholder="Email" type="email">
+            <div class="text-danger"
+              *ngIf=" formLogin.controls.email.touched && formLogin.controls.email.errors?.required ">
+              Email is required!
+            </div>
+            <div class="text-danger" *ngIf="formLogin.controls.email.touched && formLogin?.controls?.email?.errors?.pattern">
+              Email is invalid!
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Your password</label>
+            <input class="form-control" formControlName="password" placeholder="******" type="password">
+            <div class="text-danger"
+              *ngIf=" formLogin?.controls?.password?.touched && formLogin?.controls?.password?.errors?.required ">
+              Password is required!
+            </div>
+            <!-- <div class="text-danger"
+              *ngIf="formLogin?.controls?.password?.errors?.pattern && formLogin?.controls?.password?.touched">
+              Password must have at least 6 characters, 1 uppercase letter, 1 number and 1 special character (^,&,*,?,#,$,@,...)!
+            </div> -->
+          </div>
+          <div class="form-group">
+            <a class="float-right" [routerLink]="'/forgot-password'">Forgot Password?</a>
+            <div class="checkbox">
+              <label> <input type="checkbox" formControlName="rememberMe"> Remember me </label>
+            </div>
+          </div>
+
+          <ngb-alert *ngIf="errorMessage" [type]="'danger'" [dismissible]="false">{{errorMessage}}</ngb-alert>
+          <div class="form-group d-flex justify-content-center">
+            <button type="submit" msLoadingButton [loading]="isCallingApi" class="btn btn-primary btn-custom-size">
+              Sign In </button>
+          </div>
+        </form>
+      </article>
+    </div>
+  </aside>
+  <div class="box-signup">
+    <p class="mb-3">Do you not have an account?</p>
+    <a [routerLink]="'/register'" [queryParams]="fromUserStory ? {fromUserStory: fromUserStory} : {}" class="btn btn-outline-primary btn-custom-size">Sign Up</a>
+  </div>
+</div>

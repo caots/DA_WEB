@@ -1,0 +1,81 @@
+<div class="accounts-settings__inner py-4">
+  <p style="margin-bottom: 20px; font-size: 17px;" >Providing this optional demographic information helps us ensure our assessments and products are fair and unbiased. Your answers will remain strictly confidential and will not be shared with any employers. MeasuredSkills may provide aggregated assessment data to employers to show our assessments are fair, unbiased, and EEOC compliant. In such cases all no personally identifiable information will be shared. Please refer to our full Privacy Policy for further information.</p>
+  <div class="jobs-seeker-info">
+    <form [formGroup]="formSurvey" (ngSubmit)=save(formSurvey.value)>
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <!-- <input type="date" placeholder="mm/dd/yyyy" class="form-control" formControlName="question1"> -->
+        <div class="input-group box-date-custom">
+          <input class="form-control select-dob" formControlName="question1" [readonly]="false" placeholder="mm/dd/yyyy" name="dp" ngbDatepicker
+            #dFrom="ngbDatepicker"
+            [minDate]="{year: CURRENT_YEAR - 100, month: CURRENT_MONTH, day: CURRENT_DATE}" [maxDate]="{year: CURRENT_YEAR, month: CURRENT_MONTH, day: CURRENT_DATE}">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="dFrom.toggle()" type="button">
+              <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+            </button>
+          </div>
+        </div>
+        <div class="text-danger" *ngIf="isSubmitted && !checkTypeDate">
+          Date of Birth is invalid!
+        </div>
+      </div>
+      <h5 class="text-dark mb-2"><b>{{listQuestionSurveys.Race.title}}</b></h5>
+      <div class="form-group">
+        <label>{{listQuestionSurveys.Race.description}}</label>
+        <select class="form-comtrol" formControlName="question2">
+          <option hidden disabled selected value></option>
+          <option *ngFor="let answer of listQuestionSurveys.Race.answers" [value]="answer.id" >{{answer.title}}</option>
+        </select>
+      </div>
+      <h5 class="text-dark mb-2"><b>{{listQuestionSurveys.Ethnicity.title}}</b></h5>
+      <div class="form-group">
+        <label>{{listQuestionSurveys.Ethnicity.description}}</label>
+        <select class="form-comtrol" formControlName="question3">
+          <option hidden disabled selected value></option>
+          <option *ngFor="let answer of listQuestionSurveys.Ethnicity.answers" [value]="answer.id" >{{answer.title}}</option>
+        </select>
+      </div>
+       <h5 class="text-dark mb-2"><b>{{listQuestionSurveys.FormalEducation.title}}</b></h5>
+      <div class="form-group">
+        <label>{{listQuestionSurveys.FormalEducation.description}}</label>
+        <select class="form-comtrol" formControlName="question7">
+          <option hidden disabled selected value></option>
+          <option *ngFor="let answer of listQuestionSurveys.FormalEducation.answers" [value]="answer.id" >{{answer.title}}</option>
+        </select>
+      </div>
+      <h5 class="text-dark mb-2"><b>{{listQuestionSurveys.VeteranStatus.title}}</b></h5>
+      <div class="form-group">
+        <label>{{listQuestionSurveys.VeteranStatus.description}}</label>
+        <select class="form-comtrol" formControlName="question4">
+          <option hidden disabled selected value></option>
+          <option *ngFor="let answer of listQuestionSurveys.VeteranStatus.answers" [value]="answer.id" >{{answer.title}}</option>
+        </select>
+      </div>
+      <div *ngIf="formSurvey.get('question4').value == YES_ANSWER_VeteranStatus">
+        <h5 class="text-dark mb-2"><b>{{listQuestionSurveys.SpecialVeteranStatus.title}}</b></h5>
+        <div class="form-group select-items">
+          <label>{{listQuestionSurveys.SpecialVeteranStatus.description}}</label>
+          <ng-multiselect-dropdown class="form-comtrol form-control-multiple" formControlName="question5" [settings]="dropdownSettings" [data]="listQuestionSurveys.SpecialVeteranStatus.answers">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+
+      <h5 class="text-dark mb-2"><b>{{listQuestionSurveys.DisabilityStatus.title}}</b></h5>
+      <div class="form-group">
+        <label>{{listQuestionSurveys.DisabilityStatus.description}}</label>
+        <select class="form-comtrol" formControlName="question6">
+          <option hidden disabled selected value></option>
+          <option *ngFor="let answer of listQuestionSurveys.DisabilityStatus.answers" [value]="answer.id" >{{answer.title}}</option>
+        </select>
+      </div>
+      <div class="form-group button-submit">
+        <button type="button" class="btn btn btn-secondary btn-custom-size mr-2" (click)="onBack()">
+          Back
+        </button>
+        <button type="submit" class="btn btn-success btn-custom-size" msLoadingButton [loading]="isCallingApi">
+          Complete
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,161 @@
+.top-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  &__img {
+    cursor: pointer;
+    width: 140px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 10px;
+    img {
+      width: 100%;
+    }
+  }
+  h3 {
+    font-size: 18px;
+  }
+  .rating {
+    display: flex;
+    &-light {
+      color: #fda600;
+    }
+    &-dark {
+      color: #adadad;
+    }
+    fa-icon {
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 5px;
+      transition: 0.1s ease;
+      &:hover {
+        color: #fda600;
+      }
+    }
+  }
+}
+
+.list-info-item {
+  &.active {
+    height: auto;
+    .accordion-title i {
+      transform: rotate(180deg);
+    }
+
+    .list-info-item__content {
+      display: block;
+    }
+  }
+  &__content {
+    padding: 20px 10px;
+    display: none;
+  }
+}
+
+.row-benefit {
+  margin-bottom: 15px;
+  .info-job__item {
+    padding-left: 10px;
+    margin-left: 10px;
+    li {
+      list-style: disc;
+    }
+  }
+}
+
+.info-text {
+  display: flex;
+  margin-bottom: 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-family: "Avenir Heavy";
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  fa-icon {
+    margin-right: 5px;
+  }
+}
+
+.share-img-item {
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  fa-icon {
+    margin-right: 5px;
+  }
+}
+
+a.accordion-title {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 185, 242, 0.5);
+  background: #f7fdff;
+  color: #72777c;
+  align-items: center;
+}
+
+.list-skill__item {
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.row-reviews {
+  .reviews-btn {
+    display: flex;
+
+    button {
+      margin-right: 10px;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 10px;
+    }
+  }
+}
+
+::ng-deep .dropdown-status {
+  .dropdown-menu.show {
+    width: 270px;
+    right: 0;
+    left: auto !important;
+    .dropdown-item {
+      white-space: normal;
+    }
+  }
+}
+
+.time-select {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 10px;
+  h4 {
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+.blurry-div{
+  border-radius: 0;
+}
+.request-unmask {
+  color: #fff;
+  background: #2668a9;
+  padding: 2px;
+}
+
+.fa-arrow-circle-down {
+  color: #2668a9;
+}
+.view-applicant-link {
+  padding-top: 5px;
+  text-decoration: underline;
+}

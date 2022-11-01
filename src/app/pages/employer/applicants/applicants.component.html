@@ -1,0 +1,125 @@
+<div class="applicants-page">
+  <div class="header-width-tabs">
+    <div class="container container-extra">
+      <div class="row">
+        <!-- <div class="col-md-2">
+          <a class="btn-back" (click)="goBack()">
+            <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
+            <span>Back</span>
+          </a>
+        </div> -->
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="title">Manage your Applicants</h2>
+          <div class="tabs-title">
+            <a class="tabs-title__item" [ngClass]="{'active': tabActive === ''}" (click)="changeTab('')">
+              All {{tabActive === '' && !isLoadingListApplicants  ? '(' +paginationConfig.totalRecord + ')' : ''}}
+            </a>
+            <a class="tabs-title__item" [ngClass]="{'active': tabActive === 'bookmark'}" (click)="changeTab('bookmark')">
+              Shortlisted {{tabActive === 'bookmark' && !isLoadingListApplicants ? '(' +paginationConfig.totalRecord + ')' : ''}}
+            </a>
+            <a class="tabs-title__item" [ngClass]="{'active': tabActive === 'withdrawn'}" (click)="changeTab('withdrawn')">
+              Withdrawn Applications {{tabActive === 'withdrawn' && !isLoadingListApplicants ? '(' +paginationConfig.totalRecord + ')' : ''}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container container-extra">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="tabs-content">
+          <div class="tabs-content__active">
+            <form [formGroup]="formSearchApplicants" (ngSubmit)="searchApplicants(formSearchApplicants.value)">
+              <div class="search-jobs-options">
+                <div class="search-jobs-options__top">
+                  <div class="search-box-multi">
+                    <input type="text" placeholder="Search" formControlName="name">
+                    <div class="search-box-icon">
+                      <svg-icon src="assets/icons/search.svg"></svg-icon>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-find-jobs" msLoadingButton [loading]="isSearching">
+                      Search Applicants
+                    </button>
+                    <button class="btn btn-primary btn-find-jobs btn-view-all" *ngIf="jobseekerId" (click)="showAllApplicant()" msLoadingButton [loading]="isSearching">
+                      View All Applicants
+                    </button>
+                    <a class="sort-by">
+                      <div ngbDropdown class="d-inline-block sort-dropdown">
+                        <a id="dropdownFilterJobs" ngbDropdownToggle>
+                          <fa-icon [icon]="['fas', 'sort-amount-up']"></fa-icon>
+                        </a>
+                        <div ngbDropdownMenu aria-labelledby="dropdownFilterJobs">
+                          <button ngbDropdownItem *ngFor="let sort of listSort"
+                            [ngClass]="{'active':sort.id === orderNo}" (click)="changeSort(sort)">
+                            {{sort.name}}
+                          </button>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="search-jobs-options__multi">
+                  <div class="select-category">
+                    <p class="multi-title">Jobs</p>
+                    <select class="select-control" (change)="selectJobId()" [(ngModel)]="jobId" [ngModelOptions]="{standalone: true}">
+                      <option [value]="job.id" *ngFor="let job of listJob">{{job.title}}</option>
+                    </select>
+                  </div>
+                  <div class="change-assessment" *ngIf="jobId">
+                    <!-- <div class="title" (click)="openModalChangeWeightAssessment(changeWeightAssessment)">
+                       <span>Change Weighting</span>&nbsp;
+                      <fa-icon [icon]="['fas', 'angle-double-down']"></fa-icon>
+                    </div> -->
+                    <button type="button" class="btn btn-primary btn-find-jobs btn-change-weight" (click)="openModalChangeWeightAssessment(changeWeightAssessment)">
+                      <span>Change Weighting</span>&nbsp;
+                      <fa-icon [icon]="['fas', 'angle-double-down']"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <div class="list-applicants">
+              <ms-loading-job-detail [numberCard]="paginationConfig.maxRecord" *ngIf="isLoadingListApplicants">
+              </ms-loading-job-detail>
+              <div *ngIf="!isLoadingListApplicants && userData">
+                <div class="box-applicant" *ngIf="listApplicantTypeApplicant.length > 0">
+                  <span class="title">Applicants ({{listApplicantTypeApplicant.length}})</span>
+                  <ms-applicant-item *ngFor="let applicant of listApplicantTypeApplicant" (bookApplicant)="bookMark($event)"
+                  (reloadNote)="reloadNote($event)"
+                  [userData]="userData"
+                  [applicant]="applicant">
+                  </ms-applicant-item>
+                </div>
+                <div class="box-applicant candidate" *ngIf="listApplicantTypeCandidate.length > 0">
+                  <span class="title">Invited Applicants ({{listApplicantTypeCandidate.length}})</span>
+                  <ms-applicant-item *ngFor="let applicant of listApplicantTypeCandidate" (bookApplicant)="bookMark($event)"
+                  (reloadNote)="reloadNote($event)"
+                  [userData]="userData"
+                  [applicant]="applicant">
+                  </ms-applicant-item>
+                </div>
+              </div>
+              <div *ngIf="listApplicants.length === 0">No applicant found. Please try again</div>
+              <ms-pagination *ngIf="!isLoadingListApplicants" [config]="paginationConfig"
+                (goTo)="paginationApplicants($event)"></ms-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #changeWeightAssessment>
+  <ms-modal-change-weight-assessment *ngIf="listAssessmentChangeWeight"
+  [listAssessment]="listAssessmentChangeWeight"
+  (submitAssessment)="changeWeightSearch($event)"
+  (revert)="revertAssessmentSearch()"
+  (close)="this.modalchangeWeightAssessmentRef.close();"
+  ></ms-modal-change-weight-assessment>
+</ng-template>

@@ -1,0 +1,17 @@
+<div class="item-selected">
+  <div class="col-1">
+    <p>{{assesment.name}}</p>
+    <a class="list-item-choose__add" *ngIf="!isAdded" (click)="addAssesment()">
+      <fa-icon [icon]="['fas', 'fa-plus']"></fa-icon>
+    </a>
+    <a class="list-item-choose__delete" *ngIf="isAdded" (click)="deleteAssesment()">
+      <fa-icon [icon]="['fas', 'times']"></fa-icon>
+    </a>
+  </div>
+  <div class="col-2">
+    <a class="list-item-choose__edit" *ngIf="isAdded" (click)="editAssesment()">
+      <span *ngIf="isAdded">{{assesment.point}} </span>  
+      <fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon>
+    </a>
+  </div>
+</div>

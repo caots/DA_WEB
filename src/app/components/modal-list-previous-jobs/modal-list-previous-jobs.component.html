@@ -1,0 +1,38 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">List of Previous Jobs</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="content-body">
+      <div class="search-job">
+        <div class="input-box">
+          <input (keyup.enter)="onSearchJob()" type="text" [(ngModel)]="textSearch" placeholder="Search" class="form-control">
+          <fa-icon [icon]="['fas', 'search']"></fa-icon>
+        </div>
+        <button type="button" (click)="onSearchJob()" class="btn btn-success">Search</button>
+      </div>
+      <ms-loading-job-draft *ngIf="isLoadingJob" [numberCard]="5"></ms-loading-job-draft>
+      <div class="list-schedule" *ngIf="!isLoadingJob">
+        <div class="schedule__item">
+          <div class="box-check-list">
+            <label class="check-box__item" *ngFor="let job of listPreviousJobTemplate">
+              <input type="checkbox" [value]="job.id" [checked]="job.statusCheckTemplate" (change)="checkTemplateJob($event.target.value)">
+              <span class="check-icon-custom"></span>
+              <span class="text-checkbox">{{job.title}}</span>
+            </label>
+          </div>
+        </div>
+        <div style="overflow: auto;">
+          <ms-pagination  [config]="paginationConfig" (goTo)="paginationJob($event)">
+          </ms-pagination>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="!jobcheckedTemplate" type="button" class="btn btn-success" (click)="nextStep()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

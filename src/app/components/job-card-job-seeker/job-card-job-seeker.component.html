@@ -1,0 +1,170 @@
+<div class="posting-item" id="job-{{job.id}}">
+  <div class="posting-item-header">
+    <div class="d-flex title">
+      <a [routerLink]="['/job', job.urlSeo]" [fragment]="job.id" class="posting-item__title">{{job.title}}</a>
+      <div class="img" *ngIf="job.addUrgentHiringBadge !== 0">
+        <img src="assets/images/urgent_hiring_badge.svg" alt="urgent hiring" >
+      </div>
+    </div>
+    <div class="mobile-title-cart" style="align-items: baseline;">
+      <h3 class="posting-item-content__company">
+        <div class="img-company">
+          <img data-src="{{job.companyLogo}}" width="100%" height="auto" class="lazyload" [src]="job.companyLogo" onerror="this.src='assets/images/employer_default_photo_1.png'" alt="{{job.companyName}}">
+        </div>
+        <a [routerLink]="[job.urlSeo]" class="job-company-name" [queryParams]="{tab: 'employer'}">{{job.companyName}}</a>
+      </h3>
+      <ng-template #tipIconResoinsive>Responsive employer.</ng-template>
+      <div class="icon-responsive ml-3" [ngbTooltip]="tipIconResoinsive" tooltipClass="tooltip-custom" *ngIf="job && job.employerUserResponsive >= USER_RESPONSIVE.EMPLOYER">
+        <svg-icon src="assets/icons/run.svg"></svg-icon>
+      </div>
+      <div class="header-info__right ml-3" [hidden]="query.employer">
+        <button class="button-follow" (click)="followEmployer(checkEmployerFollowed)" type="button" [class]="checkEmployerFollowed ? 'btn btn-secondary' : 'btn btn-primary'">{{checkEmployerFollowed? 'Unfollow' : 'Follow'}}</button>
+      </div>
+    </div>
+    <div class="posting-item__pos" *ngIf="job.cityName || job.stateName">
+      <!-- <i class="fas fa-map-marker-alt mr-2"></i> -->
+      <fa-icon class="mr-2" [icon]="['fas', 'map-marker-alt']"></fa-icon>
+      <p>{{job.cityName}}, {{job.stateName}}</p>
+    </div>
+    <div class="posting-item__interview" *ngIf="tab == TAB_DASHBOARD_JOBSEEKER.applied">
+      <div class="box-interview mb-2">
+        <span class="mr-2">Interview Status: </span>
+        <ms-list-icon-interview [stage]="stageName"></ms-list-icon-interview>
+      </div>
+      <div class="box-schedule">
+        <p>Interview Schedule: </p>
+        <div class="schedule">
+          <p>{{job?.scheduleTime | date : 'MMM d, y'}}</p>
+          <p>{{job?.scheduleTime | date : 'h:mm a'}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="posting-item__edits mr-3">
+      <div class="box-right">
+        <a class="btn-apply-job" *ngIf="tab == TAB_DASHBOARD_JOBSEEKER.applied && job.can_rate_stars && job.group_id" (click)="viewMessage()">
+          <fa-icon [icon]="['far', 'comments']"></fa-icon>
+          View Message
+        </a>
+        <a *ngIf="isApply()" [hidden]="checkExpired" id="applyBtn" class="btn-apply-job green-btn" (click)="onCheckValidateScore(modalApplyJob)">Apply</a>
+        <a *ngIf="!isApply()" class="btn-apply-job withdraw-application" (click)="drawJob()">Withdraw Application</a>
+      </div>
+
+      <div class="box-share-jobs" shareButtonDir>
+        <a class="btn-share-job">
+          <fa-icon [icon]="['fas', 'share-alt']"></fa-icon>
+        </a>
+        <div class="share-jobs">
+          <share-button  button="facebook"  [url]="shareUrl()"></share-button>
+          <share-button  button="twitter"  [url]="shareUrl()"></share-button>
+          <share-button  button="email"  [url]="shareUrl(1)"></share-button>
+          <share-button  button="copy"  [url]="shareUrl()"></share-button>
+        </div>
+
+      </div>
+      <div class="item-bookmark" (click)="bookmarkJob()" [ngClass]="{active: isBookmark}">
+        <fa-icon [icon]="['fas', 'bookmark']"></fa-icon>
+      </div>
+    </div>
+  </div>
+  <div class="posting-item-content">
+    <div class="desktop-title-cart" style="align-items: baseline;">
+      <h3 class="posting-item-content__company">
+        <div class="img-company">
+          <img [src]="job.companyLogo" onerror="this.src='assets/images/employer_default_photo_1.png'" alt="{{job.companyName}}">
+        </div>
+        <a [routerLink]="[job.urlSeo]" class="job-company-name" [queryParams]="{tab: 'employer'}">{{job.companyName}}</a>
+      </h3>
+      <ng-template #tipIconResoinsive>Responsive employer.</ng-template>
+      <div class="icon-responsive ml-3" [ngbTooltip]="tipIconResoinsive" tooltipClass="tooltip-custom" *ngIf="job && job.employerUserResponsive >= USER_RESPONSIVE.EMPLOYER">
+        <svg-icon src="assets/icons/run.svg"></svg-icon>
+      </div>
+      <div class="header-info__right ml-3" [hidden]="query.employer">
+        <button class="button-follow" (click)="followEmployer(checkEmployerFollowed)" type="button" [class]="checkEmployerFollowed ? 'btn btn-secondary' : 'btn btn-primary'">{{checkEmployerFollowed? 'Unfollow' : 'Follow'}}</button>
+      </div>
+    </div>
+
+    <p class="view-and-expires mt-3 mb-3" *ngIf="job.isPrivate != 1">
+      <span>Job Expires In: </span> <span [hidden]="checkExpired || isCheckHiddenDangerTime" [ngClass]="{'time-expired' : isCheckDangerTime}">{{subDateHotJob(job.expiredAt)}} | </span>
+      {{subTimeHotJob(job.expiredAt)}}</p>
+    <div class="posting-item-desc">
+      <div class="description mb-2" viewMoreDir>
+        <div [innerHtml]="jobDesc || ''"></div>
+        <a *ngIf="viewMoreBtn" class="cursor-pointer" (click)="viewMoreDesc()">View more</a>
+        <a *ngIf="viewLessBtn" class="cursor-pointer" (click)="viewLessDesc()">View less</a>
+      </div>
+      <div class="posting-item-desc__content mb-2" *ngIf="job.employmentTypeText !== null">
+        <span>
+          Employment Type:
+        </span>
+        <span>
+          {{job.employmentTypeText}}
+        </span>
+      </div>
+      <div class="posting-item-desc__content mb-2" *ngIf="job.levelName !== null">
+        <span>
+          Seniority Level:
+        </span>
+        <span>
+          {{job.levelName}}
+        </span>
+      </div>
+      <div class="posting-item-desc__content mb-2" *ngIf="job.jobTravel !== null">
+        <span>
+          Travel:
+        </span>
+        <span>
+          {{job.jobTravel}}{{job.specificPercentTravel && job.isSpecificPercentTravel ? " - " + job.specificPercentTravel + "%" : ""}}
+        </span>
+      </div>
+      <p class="mb-2">Offered Compensation:
+        <span *ngIf="isCompensation">
+        From {{job.salaryMin | currency}} To {{job.salaryMax | currency}}
+        </span>
+        <span *ngIf="!isCompensation">
+          {{job.salary | currency}}
+        </span>
+        <span *ngIf="job.salaryMax || job.salaryMin || job.salary">{{salaryType}}</span>
+      </p>
+    </div>
+  </div>
+  <div class="posting-item-footer">
+    <p class="posting-item-footer__title">
+      Required Assessments:
+    </p>
+    <div class="list-skill">
+      <div *ngFor="let assessment of listShowAssessmentCompany">
+        <div class="list-skill__item {{colorWeightAssessment(assessment.pointUser)}}">
+          {{assessment.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalApplyJob>
+  <ms-modal-apply-job
+  [job]="job"
+  [jobDashboard]="condition"
+  (close)="closeModal()"
+  (confirm)="confirmModal()"
+  [validateAssessments]="listCheckNumberAssessmentJob && listCheckNumberAssessmentJob"
+  [listAssessmentJob]="job.listAssessment"
+  >
+  </ms-modal-apply-job>
+</ng-template>
+
+<!-- <ng-template #modalValidatedAssessments>
+  <ms-modal-validated-assessments *ngIf="userData && settingsCard"
+  [userData]="userData"
+  [settingsCard]="settingsCard"
+  [validateAssessments]="listCheckNumberAssessmentJob && listCheckNumberAssessmentJob"
+  [listAssessmentJob]="job.listAssessment"
+  (close)="closeModalValidatedAssessments()"
+  ></ms-modal-validated-assessments>
+</ng-template> -->
+
+
+<!-- New modal take assessment to apply -->
+<ng-template #modalTakeAssessment>
+<ms-modal-take-assessments-to-apply (close)="modalTakeAssessmentRef.close()"></ms-modal-take-assessments-to-apply>
+</ng-template>

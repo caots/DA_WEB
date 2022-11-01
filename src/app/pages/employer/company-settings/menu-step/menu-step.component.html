@@ -1,0 +1,14 @@
+<h2 class="text-center">Welcome to MeasuredSkills. Let's set up your profile!</h2>
+<div class="box-steps">
+  <div class="box-steps__item" (click)="onChangeStep(stepConfig.ACCOUNT)">
+    <p class="step-1" [ngClass]="{'active': step == stepConfig.ACCOUNT}">1</p>
+    <p class="step-title">User Information </p>
+  </div>
+  <div class="box-steps__item arrow-right">
+    <svg-icon src="assets/icons/arrow-right.svg"></svg-icon>
+  </div>
+  <div class="box-steps__item" (click)="onChangeStep(stepConfig.COMPANY)">
+    <p class="step-1" [ngClass]="{'active': step == stepConfig.COMPANY}">2</p>
+    <p class="step-title">Company Profile </p>
+  </div>
+</div>

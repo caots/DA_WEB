@@ -1,0 +1,40 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Job Posting</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="report-body">
+      <div class="content-box">
+        <h4 class="title">How would you like to build your post?</h4>
+        <div class="opt-item">
+          <div class="radio">
+            <label>
+              <input type="radio" name="optradio" [value]="createJobType.SCRATCH" (change)="onItemChange($event.target.value)">
+              <div class="ct-right">
+                <p>Start from scratch</p>
+                <p>Use our tool to create your job post.</p>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div class="opt-item">
+          <div class="radio">
+            <label>
+              <input type="radio" [value]="createJobType.TEMPLATE" name="optradio" (change)="onItemChange($event.target.value)">
+              <div class="ct-right">
+                <p>Use a previous job as a template</p>
+                <p>Start from any of your past job posts and edit as needed.</p>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="type == createJobType.NONE" type="button" class="btn btn-success" (click)="nextStep()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

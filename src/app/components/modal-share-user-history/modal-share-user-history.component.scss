@@ -1,0 +1,37 @@
+.modal-footer{
+  border: none !important;
+}
+
+.name-report>input{
+  padding: 10px 15px;
+}
+
+.title-select{
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.box-assessment{
+  max-height: 300px;
+  overflow: auto;
+  .title > p{
+    display: inline-block;
+    text-align: center;
+    margin: 20px 0 10px 0;
+  }
+
+  .name{
+    cursor: pointer;
+  }
+
+  .row-assessment{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .name-assessment{
+      cursor: pointer;
+      padding: 10px;
+    }
+
+  }
+}

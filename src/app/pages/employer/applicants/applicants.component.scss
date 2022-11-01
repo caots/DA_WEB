@@ -1,0 +1,54 @@
+.applicants-page {
+  .header-width-tabs {
+    .title {
+      margin: 15px 0 10px;
+    }
+  }
+  .btn-view-all {
+    margin-left: 10px;
+  }
+}
+
+.box-applicant {
+  position: relative;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #80808040;
+  .title {
+    position: absolute;
+    top: -20px;
+    background: #fff;
+    left: 20px;
+    padding: 5px 10px;
+  }
+}
+
+.candidate {
+  margin-top: 50px;
+}
+
+.search-jobs-options__multi {
+  align-items: center;
+  @media (max-width: 992px){
+    align-items: flex-start;
+  }
+
+  .select-category {
+    margin-right: 50px;
+  }
+  .change-assessment {
+    .title {
+      cursor: pointer;
+      color: #2668a9;
+    }
+  }
+}
+
+.search-jobs-options__multi{
+  align-items: flex-end;
+}
+
+.btn-change-weight{
+  border-radius: 22.5px;
+  padding: 0.5rem 0.75rem;
+}

@@ -1,0 +1,8 @@
+ms-featured-jobs {
+    display: block;
+    margin-bottom: 90px;
+    overflow: hidden;
+    @media (max-width: 767px){
+        margin-top: -90px;
+    }
+}

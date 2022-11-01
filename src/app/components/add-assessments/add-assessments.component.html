@@ -1,0 +1,14 @@
+<div class="border-box job-list-assessment">
+  <p class="border-box__title">My Skills</p>
+  <button type="button" class="btn btn-success ng-star-inserted mb-4" (click)="goToSearchAssessment()">Add A New Skill</button>
+  <ms-assessments-card
+  *ngFor="let assessment of dataAssessment"
+  [userData]="userData"
+  [isAddAssessment]="isAddAssessment"
+  [assessment]="assessment"
+  (remove)="removeAssessment($event)"
+  (validate)="validateAssessment($event)"
+  (retry)="retryAssessment($event)"
+  (payment)="paymentAssessment($event)"
+  ></ms-assessments-card>
+</div>

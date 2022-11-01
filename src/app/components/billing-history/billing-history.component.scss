@@ -1,0 +1,263 @@
+.table-custom-color td {
+  text-align: center;
+  vertical-align: middle;
+}
+.checkbox {
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  align-items: center;
+  font-size: 2rem;
+  color: #4fb648;
+
+  &--disabled {
+    color: #ddd;
+  }
+}
+
+.checkbox__control {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 0.25em;
+  border: 2px solid #d9d9d9;
+  cursor: pointer;
+
+  svg {
+    transform: scale(0);
+  }
+}
+
+.checkbox__input {
+  display: grid;
+  grid-template-areas: "checkbox";
+
+  > * {
+    grid-area: checkbox;
+  }
+
+  input {
+    cursor: pointer;
+    opacity: 0;
+    width: 1em;
+    height: 1em;
+    display: none;
+    &:checked + .checkbox__control {
+      border: 2px solid #4fb648;
+    }
+
+    &:checked + .checkbox__control svg {
+      transform: scale(1);
+      display: block;
+    }
+
+    &:disabled + .checkbox__control {
+      color: green;
+    }
+  }
+}
+
+// Update new style
+
+.border-right {
+  border-right: 1px solid #ddd;
+}
+
+.card-details {
+  // border: 1px solid #ddd;
+  // margin: 10px 0;
+  .row.mb-4 {
+    padding: 0 35px;
+  }
+
+  &__header {
+    display: flex;
+    border: 1px solid #ddd;
+    margin: 0;
+
+    .left {
+      flex-basis: 500px;
+      border-right: 1px solid #ddd;
+    }
+    .right {
+      flex: 1;
+      position: relative;
+      .total-price {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      .btn-details-payment {
+        position: absolute;
+        bottom: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .view-detail, .btn-details-payment {
+        color: #1849b3;
+      }
+    }
+    .view-details-btn{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 30px 10px;
+      .view-text{
+        color: #1849b3;
+        font-size: 13px;
+        cursor: pointer;
+        text-align: center;
+      }
+    }
+  }
+
+  &__content {
+    padding: 0;
+    .title-details {
+      margin-bottom: 10px;
+    }
+
+    .item-details {
+      p {
+        margin-bottom: 10px;
+      }
+    }
+    .billing-item {
+      // border: 1px solid #ddd;
+      margin: 10px 0;
+    }
+
+    .card-details__header {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.head-title {
+  text-align: center;
+  padding: 10px;
+  // border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  color: black;
+}
+
+.list-jobs {
+  width: 100%;
+  &__item {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    &:last-child {
+      border: none;
+    }
+    &.font-heavy {
+      line-height: 28px;
+    }
+  }
+}
+
+.row-top {
+  margin: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .download-btn {
+    font-size: 25px;
+    color: var(--color-8A9);
+  }
+
+  .left {
+    display: flex;
+    &-item {
+      display: flex;
+      margin-right: 20px;
+      align-items: center;
+      p {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.total-price-footer {
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+}
+
+.private-tag {
+  border: 3px solid #4c75d0;
+  padding: 2px 15px;
+  border-radius: 6px;
+  margin-left: 5px;
+}
+
+.footer {
+  margin: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.center-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media(max-width: 768px) {
+  .billing-content {
+    overflow: auto;
+    width: 100%;
+    .card-details {
+      min-width: 700px;
+    }
+  }
+}
+
+.column-date{
+  min-width: 140px;
+  text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.column-payment{
+  min-width: 155px;
+}
+
+.column-total{
+  min-width: 90px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.export-billing{
+  color: #fff;
+  fa-icon{
+    font-size: 18px;
+  }
+}
+
+.check-download-billing{
+  .check-download{
+    display: inline-block;
+  }
+}
+.action-column {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  min-width: 36px;
+  fa-icon{
+    color: #2668a9;
+  }
+}
+.title-middle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,13 @@
+<div class="list-job-assessment-item">
+  <div class="list-job-assessment-header">
+    <p class="list-job-assessment__title">{{assesment.name}}</p>
+    <p class="list-job-assessment__time text-danger">Time limit: {{assesment.duration}} min</p>
+    <button type="button" class="btn btn-primary" *ngIf="!isSelected" (click)="addToJob()">Add to My Job</button>
+    <button type="button" class="btn btn-danger" *ngIf="isSelected" (click)="removeToJob()"> Remove from my job</button>
+  </div>
+  <div class="list-job-assessment__desc">
+    <p>Description:
+      {{assesment.description}}
+    </p>
+  </div>
+</div>

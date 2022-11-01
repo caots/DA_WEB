@@ -1,0 +1,259 @@
+.posting-item__edits {
+  width: auto;
+  a {
+    height: 35px;
+    width: 35px;
+    margin-right: 6px;
+    cursor: pointer;
+    img {
+      width: 100%;
+    }
+  }
+}
+.posting-item__views.hide-views {
+  visibility: hidden;
+}
+.description {
+  white-space: pre-line;
+  padding-right: 220px;
+  text-align: justify;
+  @media (max-width: 768px) {
+    padding-right: 0;
+  }
+}
+
+.posting-item-desc {
+  max-width: 100%;
+  &.more-info {
+    margin-bottom: 10px;
+  }
+  a{
+    color: #2668a9;
+  }
+}
+
+.total-apply {
+  position: relative;
+  span {
+    position: absolute;
+    right: -5px;
+    top: -9px;
+    height: 20px;
+    min-width: 20px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 17px;
+    border-radius: 25px;
+    border: 2px solid #ddd;
+    display: block;
+    opacity: 1;
+    color: #000;
+    background: #fff;
+    padding: 0 4px;
+  }
+  // &.total-view{
+  //   display: none;
+  //   img{
+  //     border: 1px solid #d5d5d5;
+  //     width: 35px;
+  //     height: 35px;
+  //     object-fit: contain;
+  //     padding: 7px;
+  //     border-radius: 5px;
+  //   }
+  //   @media (max-width: 767px) {
+  //     display: inherit;
+  //   }
+  // }
+}
+
+.row-credit .icon-copy {
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+.box-set-status-job {
+  display: flex;
+  .btn-success {
+    margin-left: 5px;
+  }
+}
+
+.box-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  @media (max-width: 768px) {
+   position: relative;
+   align-items: flex-start;
+   margin: 10px 0;
+   width: 100%;
+   right: inherit;
+   top: inherit;
+  }
+  .posting-item__edits {
+    margin-bottom: 10px;
+  }
+  .box-set-status-job {
+    margin-bottom: 10px;
+    button {
+      min-width: 75px;
+    }
+  }
+  .box-copy {
+    position: relative;
+    input {
+      width: 155px;
+    }
+    .icon-copy {
+      position: absolute;
+      right: -20px;
+      top: 3px;
+      z-index: 23;
+    }
+  }
+}
+
+.box-available {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  .icon {
+    margin-left: 10px;
+    color: #000;
+    font-size: 18px;
+  }
+}
+
+.btn-active {
+  background-color: #4FB648;
+  border-color: #4FB648;
+  border-radius: 30px;
+  padding: 8px 53px;
+}
+.btn-private {
+  border-radius: 30px;
+  padding: 8px 53px;
+}
+
+.btn-share {
+  background-color: #2668a9;
+  border-color: #2668a9;
+  border-radius: 6px;
+  padding: 8px 16px;
+}
+
+.posting-item-header {
+  .title {
+    align-items: center;
+    .img img {
+      width: 30px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+
+.posting-item-header {
+  padding-right: 200px;
+  min-height: 35px;
+  @media (max-width: 768px) {
+    padding-right: 0;
+  }
+  @media (max-width: 480px) {
+    .title{
+      margin-bottom: 5px;
+    }
+  }
+}
+.total-view{
+  display: none;
+}
+.posting-item{
+  @media (max-width: 767px) {
+    &__views {
+      display: none;
+      &.total-view{
+        display: inherit;
+        margin-left: 10px;
+        width: auto;
+      }
+    }
+  }
+  @media (max-width: 480px) {
+    &__pos {
+      margin-right: 0;
+      margin-bottom: 5px;
+      width: 100%;
+    }
+    &__views {
+      width: 100%;
+    }
+    &__title{
+      line-height: 1.25;
+    }
+  }
+}
+
+.posting-item__title{
+  color: #2668a9;
+  text-decoration: underline;
+  cursor: pointer;
+  &:hover{
+    opacity: 0.7;
+    transition: .3s all;
+  }
+}
+
+.box-right{
+  align-items: flex-end;
+  @media (max-width: 768px) {
+    align-items: flex-start;
+  }
+}
+
+.box-share-jobs{
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.btn-share-job-mobile{
+  border-color: #e1e1e1;
+  border-radius: 10px;
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+  }
+
+  &:hover{
+    background: none;
+    color: #72777c;
+  }
+}
+.share-jobs{
+  @media (max-width: 768px) {
+    left: -50px;
+  }
+}
+@media (max-width: 480px) {
+  .total-share{
+    position: static;
+    .share-jobs{
+      left: 50%;
+      bottom: auto;
+      transform: translateX(-50%);
+      top: 55px;
+      right: auto;
+    }
+  }
+}
+
+.btn-activate-draft-job{
+  background-color: #2668a9;
+  border-color: #2668a9;
+}

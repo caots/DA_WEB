@@ -1,0 +1,155 @@
+<form [formGroup]="formUpdate">
+  <div >
+    <div class="row">
+      <div class="form-group col-sm-12 col-md-12 mb-3">
+        <label>Logo (displayed on profile)</label>
+        <div class="box-upload-file">
+          <input class="name-image d-none" type="file" id="imageUpload"
+            #imageUpload name="myfile" accept="image/*" (change)="onFileChangeAvatar($event)" >
+          <img [src]="imageChanged" *ngIf="imageChanged" [alt]="userInfo?.firstName"
+                class="preview-avatar mb-3" onerror="this.src='assets/images/employer_default_photo_1.png'" />
+          <img [src]="userInfo.company_profile_picture" *ngIf="userInfo?.company_profile_picture && !imageChanged" [alt]="userInfo?.firstName"
+            class="preview-avatar mb-3" onerror="this.src='assets/images/employer_default_photo_1.png'" />
+          <p class="file-name-selected mb-3">{{fileNameSelected}}</p>
+          <div>
+            <label for="imageUpload" class="btn btn-success" style="margin-bottom: 0; margin-right: 5px;">Select file</label>
+            <button class="btn-cancel-upload-file btn btn-light" type="button"
+              *ngIf="imageChanged" (click)="cancelImage()">
+              Cancel
+            </button>
+          </div>
+        </div>
+        <div class="text-danger" *ngIf="isMaxSizeImage">{{MAXIMUM_UPLOAD_FILE}}</div>
+        <!-- <div class="text-danger"
+          *ngIf="formUpdate.controls.avtFile.touched && formUpdate.controls.avtFile.errors?.required">
+          Your logo is required!
+        </div> -->
+      </div>
+      <div class="form-group col-sm-12 col-md-12">
+        <label>Company Name<span class="text-danger">*</span></label>
+        <div style="display: flex; position: relative;">
+          <input class="form-control" type="text" formControlName="companyName">
+        </div>
+        <div class="text-danger"
+          *ngIf="formUpdate.controls.companyName.touched && formUpdate.controls.companyName.errors?.required">
+          Company Name is required!
+        </div>
+      </div>
+      <div class="row social-link-company">
+        <div class="form-group col-sm-12 col-md-4">
+          <label>Company Website</label>
+          <div class="input-group" style="display: flex; position: relative;">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="website-url">http://</span>
+            </div>
+            <input class="form-control" type="text" placeholder="Website Link" aria-describedby="website-url" formControlName="employerCompanyUrl">
+          </div>
+          <!-- <div class="text-danger" *ngIf="formUpdate?.controls?.employerCompanyUrl?.errors?.pattern">
+            Company Website is invalid!
+          </div> -->
+        </div>
+        <div class="form-group col-sm-12 col-md-4">
+          <label>Facebook Page</label>
+          <div style="display: flex; position: relative;">
+            <input class="form-control" type="text" placeholder="Facebook Link" formControlName="employerCompanyFacebook">
+          </div>
+          <div class="text-danger" *ngIf="formUpdate?.controls?.employerCompanyFacebook?.errors?.pattern">
+            Facebook Page is invalid!
+          </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-4">
+          <label>Twitter Page</label>
+          <input class="form-control" type="text" placeholder="Twitter Link" formControlName="employerCompanyTwitter">
+          <div class="text-danger" *ngIf="formUpdate?.controls?.employerCompanyTwitter?.errors?.pattern">
+            Twitter Page is invalid!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box-inser-photo-and-video" [cdkDropListData]="gallery" (cdkDropListDropped)="drop($event)"
+    cdkDropList cdkDropListOrientation="horizontal">
+    <div class="cursor-pointer upload-item item-container" *ngFor="let item of gallery" cdkDrag [cdkDragDisabled]="!item.url">
+      <div class="box-icon" (click)="item.type != 'video' || showModalInsertVideoLink(item, true)">
+        <label *ngIf="item.type == 'video' && item.url">
+          <fa-icon [icon]="['fas', 'link']"></fa-icon>
+        </label>
+      </div>
+      <input type="file" id="companyPhoto-{{item.id}}" accept="image/*" class="name-image d-none"
+        (change)="onFileChangeMulti($event, item)">
+      <div class="cursor-pointer upload-item mt-10" (click)="showModalInsertVideoLink(item, false)"
+        *ngIf="item.type == 'video' && !item.url">
+        <label>
+          <fa-icon [icon]="['fas', 'link']"></fa-icon>
+          <p class="font-heavy">Video Link</p>
+        </label>
+      </div>
+      <div class="box-img" *ngIf="item.type != 'video'">
+        <div class="box-icon">
+          <label for="companyPhoto-{{item.id}}" *ngIf="item.type != 'video' && item.url">
+            <fa-icon [icon]="['fas', 'upload']"></fa-icon>
+          </label>
+        </div>
+        <div *ngIf="item.url" class="img-show">
+          <img [src]="item.url" style="height: 63px;" />
+         
+          <fa-icon class="btn-delete" (click)="deleteCompanyPhoto(item.id)" [icon]="['fas', 'times-circle']"></fa-icon>
+        </div>
+        <div class="cursor-pointer upload-item" *ngIf="item.type != 'video' && !item.url">
+          <label for="companyPhoto-{{item.id}}">
+            <fa-icon [icon]="['fas', 'upload']"  *ngIf="item.type != 'video' && !item.url"></fa-icon>
+            <p class="font-heavy">Upload Photo</p>
+          </label>
+        </div>
+      </div>
+      <div class="video-box" *ngIf="item.type == 'video' && item.url">
+        <iframe [src]="item.url" width="100%" height="100" frameborder="0" webkitallowfullscreen
+          mozallowfullscreen allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="company-info__desc">
+    <label>Company Description:</label>
+    <!-- <textarea class="form-control" type="text" placeholder="Enter Description Here" rows="10"
+      formControlName="descriptionCompany"></textarea> -->
+      <quill-editor [modules]="modules" class="content-editor" formControlName="descriptionCompany" [styles]="{height: '300px'}" [placeholder]="'Enter Description Here'"> </quill-editor>
+  </div>
+
+  <div>
+    <div class="box-sum-content" style="display: flex; margin-bottom: 10px;">
+      <div class="icon">
+        <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+      </div>
+      <p class="box-sum-content__title" style="margin-left: 10px;">Company Location</p>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-12 col-md-4">
+        <label>Street Address</label>
+        <div style="display: flex; position: relative;">
+          <input class="form-control input-street-address" type="text" placeholder="Address" formControlName="address">
+        </div>
+      </div>
+      <div class="form-group col-sm-12 col-md-4">
+        <label>State</label>
+        <ng-select
+        (change)="selectState($event)"
+        [items]="listState"
+        formControlName="state"
+        [clearable]="formUpdate.get('state').value"
+        >
+        </ng-select>
+      </div>
+      <div class="form-group col-sm-12 col-md-4" [style]="!formUpdate.get('state').value ? 'pointer-events: none;': ''">
+        <label>City</label>
+        <ng-select
+        [items]="listCity"
+        bindLabel="name"
+        bindValue="name"
+        formControlName="city"
+        [clearable]="formUpdate.get('city').value"
+        >
+        </ng-select>
+      </div>
+    </div>
+    </div>
+</form>

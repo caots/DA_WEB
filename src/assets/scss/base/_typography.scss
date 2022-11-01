@@ -1,0 +1,189 @@
+@import "../helpers/variables";
+/***
+    Import Fonts
+***/
+@font-face {
+  font-family: 'Avenir Regular';
+  src: url('https://cdns.measuredskills.com/cdn/Avenir-Roman.woff');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Avenir Heavy';
+  src: url('https://cdns.measuredskills.com/cdn/Avenir-heavy.woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenir Next";
+  src: url('https://cdns.measuredskills.com/cdn/AvenirNextLTPro-Regular.woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenir Next";
+  src: url('https://cdns.measuredskills.com/cdn/AvenirNextLTPro-Bold.woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avenir Next";
+  src: url('https://cdns.measuredskills.com/cdn/AvenirNextLTPro-MediumCn.woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+/***
+    UIKit
+***/
+html {
+  font-size: var(--font-size-16);
+}
+
+body {
+  font-size: var(--font-size-16);
+  line-height: 22px;
+  color: #72777c;
+  font-family: "Avenir Regular", Arial, Helvetica, sans-serif !important;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  outline: none;
+}
+
+.wrapper {
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  router-outlet{
+    + *{
+        flex: 1;
+    }
+  }
+}
+
+p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #72777c;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover,
+button:hover {
+  text-decoration: none;
+  opacity: 0.8;
+  transition: ease-in-out 0.2s;
+}
+
+input[type="text"] {
+  outline: none;
+}
+
+select {
+  color: #2668a9;
+}
+
+input[type="date"] {
+  color: #72777c;
+}
+
+select,
+.select-control,
+input[type="date"] {
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  height: 45px;
+  background: #fff;
+  font-size: 16px;
+  padding: 0 15px;
+  display: block;
+  width: 100%;
+  // font-family: "Avenir Heavy";
+  &::placeholder {
+    color: #72777c;
+    font-size: 16px;
+  }
+}
+
+select:focus,
+select.form-control:focus,
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style: none;
+  }
+}
+
+.block-title {
+  color: #2668a9;
+  font-size: 24px;
+  line-height: 33px;
+  font-family: "Avenir Heavy";
+  margin: 40px 0;
+}
+
+.btn-radius {
+  height: 45px;
+  border-radius: 22.5px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.btn-icon {
+  i, .icon {
+    margin-right: 10px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  h2 {
+    font-size: var(--font-size-24);
+  }
+}
+
+.btn-primary, .btn-primary.disabled, .btn-primary:disabled {
+  color: #fff;
+  background-color: #2668a9;
+  border-color: #2668a9;
+}
+.btn-outline-primary {
+  color: #2668a9;
+  border-color: #2668a9;
+  &:hover{
+    background-color: #2668a9;
+    border-color: #2668a9;
+  }
+}
+.btn-search-candidates {
+  border-radius: 25px;
+  &:disabled {
+    color: #fff;
+    background-color: #2668a9;
+    border-color: #2668a9;
+  }
+}
+.font-heavy {
+  font-family: "Avenir Heavy", Arial, Helvetica, sans-serif;
+}
+.padding-right-5 {
+  padding-right: 5px;
+}

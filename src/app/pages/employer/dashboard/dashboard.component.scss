@@ -1,0 +1,7 @@
+::ng-deep .modal-add-number-applicants {
+  .modal-dialog {
+    @media (max-width: 992px) {
+      max-width: 90%;
+    }
+  }
+}

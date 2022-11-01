@@ -1,0 +1,96 @@
+<div class="posting-item">
+    <div class="posting-item-header">
+      <div class="posting-item__title">
+        <div class="item-avatar-and-rating">
+          <div class="avatar">
+            <ms-avatar-user *ngIf="candidate" [candidate]="candidate"></ms-avatar-user>
+            <ms-name-user *ngIf="candidate" [candidate]="candidate"></ms-name-user>
+          </div>
+          <ng-template #tipIconResoinsive>
+            <fa-icon [icon]="['fas', 'lock']" [styles]="{'color': '#2668a9'}"></fa-icon> Responsive Job-Seeker.</ng-template>
+          <div class="icon-responsive" [ngbTooltip]="tipIconResoinsive" tooltipClass="tooltip-custom" *ngIf="userData && userData.userResponsive >= 10 ">
+            <svg-icon src="assets/icons/run.svg"></svg-icon>
+          </div>
+        </div>
+        <div class="padding-box mt-2">
+          <div class="overall-scores" *ngIf="candidate.total_point != null">
+            <p [ngClass]="asssessmentService.colorWeightAssessment(candidate.total_point)">Overall Weighted Score: {{ candidate.total_point | number:'1.0-0'}}</p>
+          </div>
+          <div class="overall-scores" *ngIf="candidate.total_point == null">
+            <p [ngClass]="asssessmentService.colorWeightAssessment(candidate.total_point)">Overall Weighted Score: N/A</p>
+          </div>
+        </div>
+        <p style="margin: 10px 0 0 55px;">
+          *Calculated based on {{countAssessmentSelected}} of the {{listAssessmentSelected.length}} assessment(s) you selected
+        </p>
+      </div>
+      <div class="box-location-and-salary">
+        <div class="posting-item__pos" [hidden]="!candidate.city_name && !candidate.state_name">
+          <img src="assets/images/pin-2@2x.png" alt="location">
+          <p>{{ candidate.city_name }}<span [hidden]="!candidate.city_name || !candidate.state_name">, </span>{{candidate.state_name}}</p>
+        </div>
+        <p *ngIf="candidate.asking_salary_type == SALARY_PER_YEAR && candidate.asking_salary">Asking Salary: {{ candidate.asking_salary | currency }} {{findSalaryType(candidate.asking_salary_type)}}</p> 
+      </div>
+  
+      <div class="posting-item__edits">
+        <div class="box-rt-msg">
+          <ng-template #tipContent><fa-icon [icon]="['fas', 'lock']" [styles]="{'color': '#2668a9'}"></fa-icon> Use a Direct Message Credit to Message this Candidate or Invite them to Apply to one of your Active Job Postings.</ng-template>
+          <button class="btn btn-primary btn-message"  tooltipClass="tooltip-custom" [ngbTooltip]="tipContent" [disableTooltip]="candidate.chat_group_id != null"
+            [hidden]="userData && permissionService.checkCantPermissionUser(userData, permission.CANDIDATE)"
+            (click)="redirectToMessageCenter(candidate)"
+            [ngClass]="{ 'lock-button-message': candidate.chat_group_id == null }"
+            >
+            <fa-icon [icon]="['far', 'comments']"></fa-icon>Direct Message
+            <span [hidden]="candidate.chat_group_id != null">&nbsp;<fa-icon [icon]="['fas', 'lock']"></fa-icon></span>
+          </button>
+
+          <button class="btn btn-primary btn-message mt-2"
+            (click)="onInviteJob(candidate)"
+            >
+            <fa-icon [icon]="['fas', 'share-square']"></fa-icon>Invite to Apply
+          </button>
+  
+        </div>
+
+        <div class="item-bookmark cursor-pointer" (click)="bookMark()"
+          [ngClass]="candidate.bookmarked === 1 ? 'active' : ''">
+          <fa-icon [icon]="['fas', 'bookmark']"></fa-icon>
+        </div>
+      </div>
+    </div>
+    <div class="posting-item-footer">
+      <p class="posting-item-footer__title">
+        Selected Assessment Scores:
+      </p>
+      <div class="list-skill">
+        <div  *ngFor='let skill of listAssessmentSelected'>
+          <div class="list-skill__item" *ngIf="getWeightAssessmentCandidate(skill.assessmentId) != null"
+            [ngClass]="asssessmentService.colorWeightAssessment(getWeightAssessmentCandidate(skill.assessmentId))">
+            {{skill.name}}: {{getWeightAssessmentCandidate(skill.assessmentId)}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="posting-item-footer" >
+      <p class="posting-item-footer__title">
+        Additional Assessment Scores: 
+        <span class="view-assessment--item" (click)="viewMoreAssessmentHistory()">View 
+          <fa-icon *ngIf="!viewMoreAssessment" [icon]="['fas', 'angle-double-down']"></fa-icon>
+          <fa-icon *ngIf="viewMoreAssessment" [icon]="['fas', 'angle-double-up']"></fa-icon>
+        </span>
+      </p>
+      <div class="list-skill" *ngIf="viewMoreAssessment && listAssessmentCandidate && listAssessmentCandidate.length > 0">
+        <div class="list-skill__item" *ngFor='let assessment of listAssessmentCandidate'
+          [ngClass]="asssessmentService.colorWeightAssessment(assessment.job_seeker_assessments_weight)">
+          {{assessment.name}}: {{assessment.job_seeker_assessments_weight}}
+        </div>
+        <div class="pagination">
+          <ms-pagination [config]="paginationConfig"
+          (goTo)="paginationCandidate($event)"></ms-pagination>
+        </div>
+      </div>
+      <span *ngIf="viewMoreAssessment && (!listAssessmentCandidate || listAssessmentCandidate.length <=0 )">No assessment
+        found</span>
+    </div>
+  </div>  

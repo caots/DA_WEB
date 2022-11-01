@@ -1,0 +1,81 @@
+.slider-company {
+  width: 1200px;
+}
+
+.header-info {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  &__left {
+    display: flex;
+    ul {
+      margin: 0 0 0 25px;
+      padding: 0;
+      display: flex;
+      li {
+        margin: 0 3px;
+        a {
+          font-size: 18px;
+          color: #72777c;
+        }
+      }
+    }
+  }
+  &__right {
+    text-align: center;
+    p {
+      font-size: 13px;
+    }
+  }
+}
+
+.company-info {
+  &__desc {
+    text-align: justify;
+    margin-bottom: 25px;
+  }
+}
+
+.box-slider {
+  margin-bottom: 25px;
+  padding: 10px 30px;
+  background: var(--color-F8);
+}
+
+.ceo-picture {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  img {
+    width: 120px;
+    height: 100%;
+  }
+}
+
+::ng-deep
+  .box-slider
+  .ng-image-slider
+  .ng-image-slider-container
+  .main
+  .main-inner
+  .img-div
+  img {
+  height: 100%;
+  width: auto;
+}
+
+::ng-deep .ng-image-fullscreen-view .lightbox-wrapper .close {
+  top: 85px !important;
+  right: 40px !important;
+}
+
+.box-sum-content__title {
+  text-transform: capitalize !important;
+  font-size: 16px !important;
+}
+
+.ng-image-fullscreen-view{
+  z-index: 1099;
+}

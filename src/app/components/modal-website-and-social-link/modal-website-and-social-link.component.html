@@ -1,0 +1,39 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">COMPANY WEBSITE & SOCIAL LINKS</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="border-box mb-35">
+      <form [formGroup]="formSocialLink" (ngSubmit)=save(formSocialLink.value)>
+        <div class="form-group">
+          <label>Company Website</label>
+          <input type="text" class="form-control" formControlName="urlWebsite" placeholder="Website link" />
+          <div class="text-danger" *ngIf="formSocialLink?.controls?.urlWebsite?.errors?.pattern">
+            Company Website is invalid!
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Facebook Page</label>
+          <input type="text" class="form-control" formControlName="urlFacebook" placeholder="Facebook link" />
+          <div class="text-danger" *ngIf="formSocialLink?.controls?.urlFacebook?.errors?.pattern">
+            Facebook Page is invalid!
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Twitter Page</label>
+          <input type="text" class="form-control" formControlName="urlTwitter" placeholder="Twitter link" />
+          <div class="text-danger" *ngIf="formSocialLink?.controls?.urlTwitter?.errors?.pattern">
+            Twitter Page is invalid!
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

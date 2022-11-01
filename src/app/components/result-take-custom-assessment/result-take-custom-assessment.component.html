@@ -1,0 +1,29 @@
+<div>
+  <!-- <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Test Completed</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div> -->
+  <div class="modal-body">
+     <div class="content" *ngIf="isTimeUp">
+       <div class="icon timesup">
+        <fa-icon [icon]="['fas', 'exclamation-circle']"></fa-icon>
+       </div>
+       <h3>Time has Expired!</h3>
+       <p class="text-center">Your answers have been automatically submitted.</p>
+     </div>
+     <div class="content" *ngIf="!isTimeUp">
+      <div class="icon success">
+        <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
+       </div>
+      <h3>Congratulations!</h3>
+      <p>You have successfully complete your test.</p>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      <button type="button" (click)="goToResult()" class="btn btn-success">
+        {{isAssessmentPage ? 'Back to Assessment' : 'Back to Job'}}
+      </button>
+    </div>
+  </div>
+</div>

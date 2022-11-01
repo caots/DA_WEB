@@ -1,0 +1,35 @@
+<h2 class="text-center">Welcome to MeasuredSkills. Let's set up your account!</h2>
+<div class="box-steps">
+  <div class="box-steps__item" (click)="onChangeStep(stepConfig.STEP1)">
+    <p class="step-1 step" [ngClass]="{'active': step == stepConfig.STEP1}">1</p>
+    <p class="step-title">User Info</p>
+  </div>
+  <div class="box-steps__item arrow-right">
+    <svg-icon src="assets/icons/arrow-right.svg"></svg-icon>
+  </div>
+  <div class="box-steps__item" (click)="onChangeStep(stepConfig.STEP2)">
+    <p class="step-1 step" [ngClass]="{'active': step == stepConfig.STEP2}">2</p>
+    <p class="step-title">"Find Candidates" Profile</p>
+    <p class="sub-step-title">(Optional)</p>
+  </div>
+  <div class="box-steps__item arrow-right">
+    <svg-icon src="assets/icons/arrow-right.svg"></svg-icon>
+  </div>
+  <div class="box-steps__item" (click)="onChangeStep(stepConfig.STEP3)">
+    <p class="step-1 step" [ngClass]="{'active': step == stepConfig.STEP3}">3</p>
+    <p class="step-title">Demographic</p>
+    <p class="sub-step-title">Survey</p>
+  </div>
+  <!-- <div class="box-steps__item">
+    <p class="step-1" [ngClass]="{'active': step == stepConfig.COMPLETE}">
+      <span class="svg-checked">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+          class="svg-inline--fa fa-check fa-w-16" role="img" viewBox="0 0 512 512">
+          <path fill="currentColor"
+            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z" />
+        </svg>
+      </span>
+    </p>
+    <p class="step-title">Complete</p>
+  </div> -->
+</div>

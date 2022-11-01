@@ -1,0 +1,45 @@
+<div class="skill-works" [ngClass]="{ playing: isHandler && isPlay }">
+  <!-- <div class="container video-bg" > -->
+  <div class="video-bg">
+    <div
+      style="padding: 56.33% 0 0 0; position: relative"
+      id="iframe-featured-video"
+    >
+      <youtube-player
+        #player
+        id="video-landing"
+        [videoId]="ID_VIDEO"
+        (ready)="onReady()"
+        (stateChange)="onStateChange($event)"
+      ></youtube-player>
+    </div>
+  </div>
+  <div class="container video-text">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="sw-content" *ngIf="!isPlay || !isHandler">
+          <p class="sw-content__title">How MeasuredSkills Works</p>
+          <p class="sw-content__desc">
+            {{ description }}
+          </p>
+          <div class="sw-content__options">
+            <a
+              rel="nofollow"
+              (click)="actionVideo()"
+              class="cursor-pointer"
+              href="javascript:;"
+            > 
+              <fa-icon [icon]="['fas', isPlay ? 'pause' : 'play']"></fa-icon>
+              PLAY VIDEO
+            </a>
+            <fa-icon
+              (click)="actionMute()"
+              [icon]="['fas', isMuted ? 'volume-mute' : 'volume-up']"
+            >
+            </fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+.box-step {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 40px;
+    margin-top: 10px;
+
+    @media (max-width: 992px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__item {
+      display: flex;
+      margin: 0 10px;
+      @media (max-width: 992px) {
+        margin: 10px;
+      }
+      &.active {
+        .number {
+          background: #4fb648;
+          color: #fff;
+          border-color: #4fb648;
+        }
+      }
+
+      .number {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        border: 1px solid #7c7c7c;
+        margin-right: 10px;
+        min-width: 40px;
+      }
+    }
+  }

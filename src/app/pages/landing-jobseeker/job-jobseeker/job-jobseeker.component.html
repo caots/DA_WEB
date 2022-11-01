@@ -1,0 +1,91 @@
+<div class="container" (click)="onAbleSwipe()">
+    <swiper class="swiper-container j-employer-slider" [config]="enableSwipe ? jobJobseekerConfigEnable : jobJobseekerConfig"
+        (indexChange)="onIndexChange($event)">
+        <div class="d-flex">
+            <div class="col-lg-4">
+                <div class="j-employer-content">
+                    <h2>Step 1:</h2>
+                    <h3>Search For Jobs</h3>
+                    <p>Sick of job search engines full of irrelevant clutter? Our simplified job search engine is the
+                        place to start your journey to your dream job.</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="j-employer-bg j-jobseeker1 step1-js">
+                  <img loading="lazy" src="{{API_S3}}/cdn/js-step1.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/js-step1.webp" width="100%" height="100%"  alt="search job step1"/>
+                  <svg-icon src="assets/icons/cursor.svg"></svg-icon>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-lg-4">
+                <div class="j-employer-content">
+                    <h2>Step 2:</h2>
+                    <h3>Create A Profile</h3>
+                    <p>Create a MeasuredSkills jobseeker profile for free to apply
+                      for jobs, take skills assessments, save jobs, follow employers, and more. Not a bad deal, right?</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="j-employer-bg j-jobseeker2">
+                  <img loading="lazy" src="{{API_S3}}/cdn/js-step2.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/js-step2.webp" width="100%" height="100%"  alt="search job step2"/>
+                  <svg-icon src="assets/icons/cursor.svg"></svg-icon>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-lg-4">
+                <div class="j-employer-content">
+                    <h2>Step 3:</h2>
+                    <h3>Take Assessments</h3>
+                    <p>Now's your chance to flex your skills. Break free from a traditional resume and build a profile
+                        that showcases exactly what you bring to the team. Take skills assessments required by job
+                        listings or proactively show your potential by taking assessments on your own time.</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="j-employer-bg j-jobseeker3">
+                <img loading="lazy" src="{{API_S3}}/cdn/js-step3.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/js-step3.webp" width="100%" height="100%"  alt="search job step3"/>
+                <svg-icon src="assets/icons/cursor.svg"></svg-icon>
+              </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-lg-4">
+                <div class="j-employer-content">
+                    <h2>Step 4:</h2>
+                    <h3>Apply for Jobs</h3>
+                    <p>Take all of your hand-earned skills and awesome qualities, and start applying for jobs. A
+                        potential employer may reach out and ask you to take further skill assessments. Good luck; you
+                        got this!</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="j-employer-bg j-jobseeker4 jh-500">
+                <img loading="lazy" src="{{API_S3}}/cdn/js-step4.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/js-step4.webp" width="100%" height="100%"  alt="search job step4"/>
+                <svg-icon src="assets/icons/cursor.svg"></svg-icon>
+              </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-lg-4">
+                <div class="j-employer-content">
+                    <h2>Step 5:</h2>
+                    <h3>Message Employers</h3>
+                    <p>Once you’ve applied for a job, it’s now the employer’s turn to reach out and message you
+                      through our messaging portal. Once the employer messages you, you can share additional
+                      information about yourself and send supporting materials. Remember, your last name and profile
+                      picture will remain masked until you’re ready to share your full identity with the employer. Once
+                      you share your contact information, employers are free to setup interviews with you outside of
+                      MeasuredSkills. We think this semi-anonymous application process will break the ice, reduce
+                      hiring bias, and help you land your next job.</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="j-employer-bg j-jobseeker5 jh-500">
+                <img loading="lazy" src="{{API_S3}}/cdn/js-step5.webp" class="bg-image lazyload" data-src="{{API_S3}}/cdn/js-step5.webp" width="100%" height="100%"  alt="search job step5"/>
+              </div>
+            </div>
+        </div>
+    </swiper>
+</div>

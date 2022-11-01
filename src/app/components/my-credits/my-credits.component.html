@@ -1,0 +1,47 @@
+<div class="border-box">
+  <p class="border-box__title">My Credits</p>
+  <div class="credits-content">
+    <div class="row-credit">
+      <div class="row-credit_left">
+        <div class="credit-item d-flex">
+          <p>
+            <span>Available Retake Credits:</span>
+             <span>{{userInfo.nbrCredits}}&nbsp;<span>{{ userInfo.nbrCredits != 1 ? 'Credits' : 'Credit'}}</span></span>
+          </p>
+        </div>
+      </div>
+      <div class="row-credit__center">
+        <!-- <button type="button" msLoadingButton [loading]="isLoadingBuyCredit" class="btn btn-success mr-2 btn-top-up" (click)="showModalBuyCredit(modalPaymentConfirmation)">Buy 1 credit</button> -->
+        <button type="button" class="btn btn-success btn-top-up" (click)="showModalTopUp(modalTopUp)">Buy Retake Credit(s)</button>
+      </div>
+      <div class="row-credit_right" style="display: flex;">
+        <p class="intro-friends"> Introduce MeasuredSkills to your friends and earn free retake credits when they sign up!</p>
+        <div class="box-share-jobs" shareButtonDir>
+          <a class="btn-share-job">
+            <fa-icon [icon]="['fas', 'share-alt']"></fa-icon>
+          </a>
+          <div class="share-jobs">
+            <share-button  button="facebook"  [url]="referLink"></share-button>
+            <share-button  button="twitter"  [url]="referLink"></share-button>
+            <share-button  button="email" [title]="TAG_EMAIL_CREDITS_SUBJECT" [description]="TAG_EMAIL_CREDITS" [url]="referLink"></share-button>
+            <share-button  button="copy"  [url]="referLink"></share-button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #modalTopUp>
+  <ms-modal-top-up [settings]="settings" [isJobseeker]="true" (close)="modalTopUpRef.close()"></ms-modal-top-up>
+</ng-template>
+
+<ng-template #modalPaymentConfirmation>
+  <ms-modal-payment-confirmation-jobseeker
+    [card]="cardInfo"
+    [isCredit]="true"
+    [topup]="selectTopup"
+    (submit)="submitPaymentProcess($event)"
+    (close)="modalPaymentConfirmationRef.close()">
+  </ms-modal-payment-confirmation-jobseeker>
+</ng-template>

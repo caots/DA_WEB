@@ -1,0 +1,47 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.note-select-avatar {
+  color: #e91717;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.text-danger {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.title-step-2{
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.button-submit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.input-with-dollar-sign{
+  width: 120%;
+  
+  .salary-input{
+    width: 30%;
+    @media (max-width: 768px) {
+      width: 40%;
+    }
+  }
+  .text-salary{
+    align-self: center;
+  }
+}

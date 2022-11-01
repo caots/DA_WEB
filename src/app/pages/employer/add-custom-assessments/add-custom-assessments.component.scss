@@ -1,0 +1,70 @@
+.title {
+  margin-bottom: 40px;
+}
+
+.btn-back {
+  cursor: pointer;
+  margin: 20px 0;
+}
+
+.padding-box {
+  padding: 30px 130px;
+  margin-bottom: 40px;
+  @media (max-width: 768px) {
+    padding: 30px;
+  }
+}
+
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.hr-question {
+  margin: 25px 0;
+  position: relative;
+
+  &:before {
+    // height: 1px;
+    // background: #D9D9D9;
+    // left: 0;
+    margin-right: 5px;
+    content: "----";
+  }
+  &::after {
+    margin-left: 5px;
+    content: "------------------------------------";
+  }
+}
+
+
+
+.box-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+  button {
+    min-width: 150px;
+    margin-left: 10px;
+  }
+}
+
+.box-multiple-choices {
+  .group-custom {
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    padding-right: 40px;
+    position: relative;
+    margin-left: 45px;
+  }
+}
+
+.mt-in-mobile {
+  margin-top: 20px;
+}
+
+.text-danger{
+  color: red;
+}
+.text-warning{
+  color: orange;
+}

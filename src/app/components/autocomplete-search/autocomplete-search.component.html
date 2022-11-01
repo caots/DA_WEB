@@ -1,0 +1,16 @@
+<div class="input-group"
+  cescoutClickOutside (clickOutside)="clickOutside()"
+  (keyup.arrowup)="move('UP')" (keyup.arrowdown)="move('DOWN')">
+  <input
+    type="text" (keyup.enter)="onEnter()" [(ngModel)]="query" (focus)="showResult=true"
+    (ngModelChange)="change($event)" [placeholder]="placeholder" class="form-control">
+
+  <div class="search-result position-absolute" *ngIf="showResult && listSuggestion && listSuggestion.length>0">
+    <ul class="list-group shadow">
+      <li class="list-group-item event-cta" *ngFor="let result of listSuggestion; let i = index"
+        (click)="onClickResultDetail(result)" [class.active]="activeRow === i">
+        <div [innerHTML]="result.name"></div>
+      </li>
+    </ul>
+  </div>
+</div>

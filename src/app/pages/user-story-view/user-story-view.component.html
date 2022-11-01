@@ -1,0 +1,78 @@
+<div class="login-form contianer mt-4">
+  <aside class="col-lg-12">
+    <div class="card">
+      <article class="card-body">
+        <div class="logo" (click)="backToHome()">
+          <svg-icon src="assets/icons/logo-only-icon.svg"></svg-icon>
+        </div>
+        <h3 class="card-title text-center title-logo">MeasuredSkills</h3>
+        <h4 class="card-title text-center">Score Report</h4>
+
+        <div class="posting-item mt-4" *ngIf="userStory">
+          <div class="posting-item-header">
+            <div class="title">
+              <a class="posting-item__title">{{userStory.first_name || ''}} {{userStory.last_name || ''}}</a>
+              <div class="posting-item__pos mt-2" *ngIf="userStory.city_name || userStory.state_name">
+                <fa-icon [icon]="['fas', 'map-marker-alt']" class="mr-2"></fa-icon>
+                <p>{{userStory.city_name}}, {{userStory.state_name}}</p>
+              </div>
+            </div>
+            <div class="mr-3">
+              <div>
+                <button type="button" class="btn btn-gopage btn-primary mb-2" (click)="goToPostJob()">Post a Job on MeasuredSkills</button>
+              </div>
+              <div>
+                <button type="button" class="btn btn-gopage btn-success mb-2" (click)="goToFindCandidates()">Find Additional Candidates</button>
+              </div>
+            </div>
+          </div>
+          <div class="posting-item-footer mt-2">
+            <p class="posting-item-footer__title">
+              Assessments scores:
+            </p>
+            <div class="list-skill box-assessment">
+              <div *ngFor="let assessment of userStory.assessment; let i = index" >
+                <div class="list-skill__item {{colorWeightAssessment(assessment.weight)}}" 
+                  (mouseover)="hoverOver(assessment.id, i)" 
+                  (mouseout)="hoverOut()"
+                  (click)="previewAssessment(modalViewAssessment, assessment.id)"
+                  >
+                  {{assessment.name}}: {{assessment.weight}}
+                  <div class="report-body" 
+                   *ngIf="indexAssessment == i">
+                  <div class="item-assessment__content">
+                    <div class="d-flex preview-assessment">
+                      <h3>{{hoverAssessment?.name}}</h3>
+                      <div class="content" (click)="showPreviewAssessment(hoverAssessment?.assessment_id)">
+                        <fa-icon [icon]="['fas', 'search']"></fa-icon>
+                        <span class="pl-1">Preview Assessment</span>
+                      </div>
+                      <div class="time-limit">
+                        <p><span class="icon">№</span> Number of Questions: {{hoverAssessment?.questions}}</p>
+                        <p><span class="icon"><fa-icon [icon]="['fas', 'hourglass-half']"></fa-icon></span> Time limit: {{hoverAssessment?.duration ? hoverAssessment.duration + " min" : "N/A"}}</p>
+                        <p><span class="icon">
+                          <svg-icon src="assets/icons/circle.svg"></svg-icon>
+                          </span> Question Format: {{hoverAssessment?.format}}</p>
+                      </div>
+                    </div>
+                    <div class="desc mt-2">
+                      <p>{{hoverAssessment?.description}}</p>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </aside>
+</div>
+
+<ng-template #modalViewAssessment >
+  <ms-modal-user-story-view *ngIf="listAssessmentUserStory && assessmentId" [listAssessmentUserStory]="listAssessmentUserStory"
+  [(assessmentId)]="assessmentId" (close)="modalViewAssessmentRef.close()" (previewAssessment)="showPreviewAssessment($event)"
+  ></ms-modal-user-story-view>
+</ng-template>

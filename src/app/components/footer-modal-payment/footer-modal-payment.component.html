@@ -1,0 +1,18 @@
+<div class="modal-footer no-flex">
+    <div class="save-card" *ngIf="!isConfirmInformation" >
+        <span class="" style="padding-right: 5px;">Save card information for faster checkout</span>
+        <label class="switch" >
+            <input type="checkbox"
+                [(ngModel)]="isSaveCard"
+                [ngModelOptions]="{standalone: true}"/>
+            <span class="slider round"></span>
+    </label>
+    </div>
+    <div class="modal-button-footer">
+        <button type="button" [hidden]="isDirectMessage || isPaymentAssessment" class="btn btn-secondary" (click)="closeModal()">{{isShoppingCard ? 'Back': 'Cancel'}}</button>
+        <button type="button" class="btn btn-success" msLoadingButton [loading]="isLoadingCard && typeButton == 3" [disabled]="isLoadingCard" (click)="confirmInfomationCard()">Confirm Billing Address</button>
+        <button type="button" *ngIf="!card && !isConfirmInformation" class="btn btn-success" msLoadingButton [loading]="isLoadingCard" [disabled]="isLoadingCard || !isVisiableButtonPayment" (click)="changeCardPaymentSubmit()">Confirm Payment</button>
+        <button type="button" *ngIf="card && !isConfirmInformation" class="btn btn-success" msLoadingButton [loading]="isLoadingCard && typeButton == 1" [disabled]="isLoadingCard || !isVisiableButtonPayment" (click)="changeCardPaymentSubmit()">Change Payment Method</button>
+        <button type="button" *ngIf="card && !isConfirmInformation" class="btn btn-success" msLoadingButton [loading]="isLoadingCard && typeButton == 2" [disabled]="isLoadingCard || !isVisiableButtonPayment" (click)="confirmPaymentSubmit()">Confirm Payment</button>
+    </div>
+</div>

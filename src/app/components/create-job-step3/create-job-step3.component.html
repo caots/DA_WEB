@@ -1,0 +1,153 @@
+<div class="box-step-3">
+  <form [formGroup]="formAddNewJob" (ngSubmit)="submitJob(formAddNewJob.value)">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-7">
+          <div class="form-add-job">
+            <p class="form-add-job__title">Compensation & Benefits</p>
+            <div class="col-left-form">
+              <label for="inputEmail3" class="form-label">Proposed Compensation</label>
+              <div class="row">
+                <div class="form-group col-lg-4 bottom-item ">
+                  <select (change)="changeProposesTypes()" class="form-control" [(ngModel)]="proposedConpensation" formControlName="proposed_conpensation">
+                    <option *ngFor="let type of proposesTypes" [value]="type.id">{{type.title}}</option>
+                  </select>
+                </div>
+                <div class="col-lg-4" *ngIf="proposedConpensation == 0">
+                  <div class="form-group">
+                    <div class="input-with-dollar-sign">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="salary"
+                        msNumbersOnly
+                        [isFormatNumber]="true"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 range-salary" *ngIf="proposedConpensation == 1">
+                  <div class="form-group mr-2">
+                    <label class="form-label">Min</label>
+                    <div class="input-with-dollar-sign">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="salary_min"
+                        msNumbersOnly
+                        [(ngModel)]="salaryMin"
+                        [isFormatNumber]="true"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Max</label>
+                    <div class="input-with-dollar-sign">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="salary_max"
+                        [(ngModel)]="salaryMax"
+                        msNumbersOnly
+                        [isFormatNumber]="true"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 bottom-item">
+                  <div class="form-group item-hour">
+                    <div>
+                      <select class="form-control" [(ngModel)]="valueSalaryType" [ngModelOptions]="{standalone: true}" (change)="selectOptionSalary($event.target.value)">
+                        <option
+                          [value]="item.id"
+                          *ngFor="let item of salaryType"
+                        >
+                          {{ item.title }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-danger"
+                    *ngIf="isShowErrorStep3 && 
+                    (formAddNewJob?.controls?.salary_min?.touched && formAddNewJob?.controls?.salary_min?.errors?.min || 
+                    formAddNewJob?.controls?.salary_max?.touched && formAddNewJob?.controls?.salary_max?.errors?.min)">
+                    Proposed Conpensation must be greater than {{ASSESSMENT_POINT_RANGE.MIN}}!
+               </div>
+               <div class="text-danger" *ngIf="isShowErrorStep3 && warningSalary">{{warningSalary}}</div>
+            </div>
+
+            <div class="list-schedule">
+              <div class="schedule__item">
+                <p class="title-bonus font-heavy">Bonus</p>
+                <div class="box-check-list">
+                  <label
+                    class="check-box__item other"
+                    *ngFor="let bonus of jobsBonus"
+                  >
+                    <input
+                      type="checkbox"
+                      [checked]="bonus.status"
+                      [value]="bonus.status"
+                      (change)="selectBonus(bonus)"
+                    />
+                    <span class="check-icon-custom"></span>
+                    <span  *ngIf="bonus.id != jobsBonus.length - 1" class="text-checkbox">{{ bonus.title }} </span>
+                    <span *ngIf="bonus.id == jobsBonus.length - 1" class="text-checkbox">Other</span>
+                    <div class="specify" *ngIf="bonus.id == jobsBonus.length - 1">
+                      <textarea
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="specifyText"
+                        class="form-control"
+                        rows="2"
+                        placeholder="Please specify:"
+                      ></textarea>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-5">
+          <div class="additional-info">
+            <p class="form-add-job__title">Benefits</p>
+            <div class="list-schedule">
+              <div class="schedule__item">
+                <div
+                  class="box-check-list benefit-list"
+                  *ngFor="let benefit of listBenefits"
+                >
+                  <label class="check-box__item">
+                    <input
+                      type="checkbox"
+                      [checked]="benefit.status"
+                      [value]="benefit.status"
+                      (change)="selectBenefits(benefit)"
+                    />
+                    <span class="check-icon-custom"></span>
+                    <span class="text-checkbox">{{ benefit.title }}</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="add-job-footer">
+            <button type="button" (click)="backToStep()" class="btn btn-secondary">Back</button>
+            <button (click)="closeModal(0)" type="button" class="btn btn-secondary">{{shoppingCart ? 'Cancel' : "Don't save"}}</button>
+            <button [hidden]="(activeTab == tabType.ACTIVE || activeTab == tabType.CART)&& editModalJob === true" (click)="addSaveDraft()" type="button" class="btn btn-info" msLoadingButton
+              [loading]="isSaveDraft">Save as Draft</button>
+            <button type="submit" class="btn btn-success" [hidden]="!addAssessmentToDraftJob || isStep2CreateAccount" msLoadingButton
+              [loading]="isAddingJob">Post</button>
+            <button type="submit" msLoadingButton [hidden]="addAssessmentToDraftJob || isStep2CreateAccount" [loading]="isAddingJob" class="btn btn-success">
+                {{(activeTab == tabType.ACTIVE || activeTab == tabType.CART) && editModalJob === true ? 'Save' : 'Post'}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

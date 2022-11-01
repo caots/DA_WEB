@@ -1,0 +1,37 @@
+<div id="slider">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="slider-inner">
+          <div class="slider-content">
+            <div class="slider-content-left">
+              <p class="top-title">
+                Helping Match Jobseekers and Employers through Assessments
+              </p>
+              <h1 class="slider-title font-bold">
+                <span>Find the Job that </span>
+                <span>
+                  Fits Your Abilities
+                </span>
+              </h1>
+
+              <p class="bottom-title">
+                <span>Don’t let your resume define your worth. Step outside of your typical job search,</span>
+                <span> and get hired based on your skills.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <p class="what-title mobile">Start Your Job Search</p>
+        <div class="search-jobs">
+          <p class="what-title">What</p>
+          <input type="text" name="search" [(ngModel)]="searchName" placeholder="Job title, keywords, or company" />
+          <button (click)="searchInputSlider()" type="button" class="btn btn-find-jobs">
+            <span class="desktop">Find Jobs</span>
+            <fa-icon [icon]="['fas', 'search']" class="mobile"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

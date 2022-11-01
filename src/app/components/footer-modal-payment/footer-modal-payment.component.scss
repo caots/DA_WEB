@@ -1,0 +1,21 @@
+.modal-button-footer {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    margin-top: 25px;
+    .btn {
+      min-width: 215px;
+    }
+  }
+}
+.modal-button-footer > * {
+  margin: 0.25rem;
+}
+
+.modal-footer{
+  border-top: none;
+}

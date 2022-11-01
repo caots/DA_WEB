@@ -1,0 +1,129 @@
+.logo{
+  text-align: center;
+  cursor: pointer;
+}
+
+.title-logo{
+  color: #2668A9;
+  font-weight: bold;
+}
+
+.back-home {
+  cursor: pointer;
+}
+
+.go-home {
+  position: absolute;
+  top: 18px;
+  left: 55px;
+}
+
+.posting-item-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.btn-gopage{
+  min-width: 250px;
+}
+
+.list-skill__item{
+  cursor: pointer;
+}
+
+
+.item-assessment__content {
+  min-height: 114px;
+  width: 100%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 10px #0000001a;
+  border-radius: 5px 0px 0px 5px;
+  padding: 20px;
+  h3 {
+    font-size: 20px;
+    min-width: 400px;
+    max-width: 400px;
+    margin-bottom: 0;
+
+    @media (max-width: 992px) {
+      min-width: 200px;
+      max-width: 200px;
+      padding-right: 10px;
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 768px) {
+      min-width: 100%;
+      max-width: 100%;
+    }
+  }
+  .preview-assessment{
+    flex-wrap: wrap;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+    .content{
+      cursor: pointer;
+      color: #2668a9;
+      font-size: 18px;
+    }
+  }
+}
+
+.time-limit {
+  background: #fda600 0% 0% no-repeat padding-box;
+  border-radius: 100px 0px 0px 100px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px 10px 10px 30px;
+  line-height: 45px;
+  color: #fff;
+  font-family: "Avenir Heavy";
+  p {
+    color: #fff;
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+  @media (max-width: 768px) {
+    position: relative;
+    top: auto;
+    margin-top: 20px;
+    border-radius: 100px 0 0 100px;
+    transform: none
+  }
+  i {
+    margin-right: 10px;
+  }
+}
+
+.desc {
+  padding-top: 20px;
+  max-width: 60%;
+  @media (max-width: 576px) {
+    max-width: 100%;
+  }
+}
+span.icon {
+  width: 23px;
+  display: inline-block;
+}
+
+.report-body{
+  display: none;
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+.box-assessment{
+  position: relative;
+}
+
+.list-skill__item:hover .report-body{
+  font-weight: normal;
+  display: block;
+}

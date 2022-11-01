@@ -1,0 +1,75 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Add Applicants</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> 
+<div class="modal-body">
+  <div class="row">
+    <div class="col-lg-12">
+      <ms-modal-step-shopping-cart [(cardInfo)]="card" [isAddApplicants]="true" [step]="step"></ms-modal-step-shopping-cart>
+    </div>
+  </div>
+  <div class="wrap-body">
+    <div class="container" *ngIf="step === stepCreateJob.STEP_0">
+      <h4 class="modal-title" id="modal-basic-title">How many applicants would you like to add into this private job posting? </h4>
+      <div class="p-4 mt-3 box-content">
+        <div class="row item-number">
+          <div class="col-lg-12">
+             <span class="title">Number of applicants</span>
+              <input type="number" width="40%" min="1" class="form-control" [(ngModel)]="numberJobseeker">
+          </div>
+        </div>
+        <div class="row group-extra-coupon">
+          <div class="col-lg-8">
+            <div class="d-flex align-items-center enter-coupon">
+              <fa-icon [icon]="['fas', 'tags']"></fa-icon>
+              <label class="mb-0 ml-2"><b>Enter Coupon: </b></label>
+              <input style="width: 200px;" type="text" [(ngModel)]="couponText" class="form-control ml-2 mr-2">
+              <button [disabled]="couponText === '' || !couponText" type="button" class="btn btn-success" (click)="checkCoupon()">Apply</button>
+            </div>
+            <div class="coupon-info text-danger" *ngIf="couponData && (!isValidCoupon || couponData.discount_for != COUPON_DISCOUNT_FOR.JOB_POSTING)">Coupon is invalid.</div>
+              <div class="coupon-info" *ngIf="couponData && isValidCoupon && couponData.discount_for == COUPON_DISCOUNT_FOR.JOB_POSTING">
+                <label>Coupon Information:</label>
+                <ul>
+                  <li *ngIf="couponData.discount_type == COUPON_DISCOUNT_TYPE.Percentage">Discount percentage for Job Posting: {{couponData.discount_value}}%</li>
+                  <li *ngIf="couponData.discount_type != COUPON_DISCOUNT_TYPE.Percentage">Discount Fixed Dollar for Job Posting: ${{couponData.discount_value}}</li>
+                  <li [hidden]="couponData.discount_type == COUPON_DISCOUNT_TYPE.FixedDollar || couponData.max_discount_value == 0">Maximum Discount in term of dollar value: ${{couponData.max_discount_value}}</li>
+                  <li [hidden]="couponData.is_nbr_user_limit == NBR_USER_LIMIT.Unlimit">Remaining number of time to apply this coupon: {{couponData.remaining_number}}</li>
+                  <li [hidden]="couponData.expired_type == COUPON_EXPIRED_TYPE.Unlimit">Valid until {{getExpiredFromCoupon()}}</li>
+                </ul>
+              </div>
+          </div>
+          <div class="col-lg-4 total-amount">
+            <h5 *ngIf="couponData && isValidCoupon && couponData.discount_for == COUPON_DISCOUNT_FOR.JOB_POSTING">Sub-Total: {{calcTotalMoney() | currency}}</h5>
+            <h5 *ngIf="couponData && isValidCoupon && couponData.discount_for == COUPON_DISCOUNT_FOR.JOB_POSTING">Discount: -{{getDiscountValueCoupon()| currency}}</h5>
+            <div class="view-details-amount">
+              <h5 *ngIf="couponData">Total Amount: {{caclTotalPayCardWithCoupon() | currency}}</h5>
+              <h5 *ngIf="!couponData">Total Amount: {{calcTotalMoney() | currency}}</h5>
+            </div>
+            <div *ngIf="checkConfirmPayment()">
+              This one is on the house. It would cost us more to process this transaction than the amount you owe, so please enjoy your selection as complimentary.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <!-- <button type="button" class="btn btn-success" (click)="submit()">Proceed to Payment</button> -->
+        <div class="shopping-car-bottom" *ngIf="!checkConfirmPayment()">
+          <button [disabled]="calcTotalMoney() <= 0" type="button" msLoadingButton (click)="continueBillingUpgrade()" class="btn btn-success">Continue</button>
+        </div>
+        <div class="shopping-car-bottom" *ngIf="checkConfirmPayment()">
+          <button [disabled]="calcTotalMoney() <= 0" [disabled]="isLoadingPrivateApplicant" type="button" msLoadingButton (click)="paymentFreeCart()" [loading]="isLoadingPrivateApplicant" class="btn btn-success">Complete</button>
+        </div>
+      </div>
+    </div>
+    <ms-upgrade-job-step1  
+        (close)="closeModal($event)"
+        *ngIf="( step == stepCreateJob.STEP_1 || step == stepCreateJob.STEP_2 ) && senDataStep2"
+        (back)="backStep()"
+        (continueStep)="continuteStep($event)"
+        [senData]="senDataStep2"
+        [isAddApplicant]="true"
+  ></ms-upgrade-job-step1>
+  </div>
+</div>

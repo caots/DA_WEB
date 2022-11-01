@@ -1,0 +1,154 @@
+<div class="info-job">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="info-job__content">
+        <h3 class="sub-title">Job Description</h3>
+        <div class="info-job__desc job-description" [innerHtml]="jobDetails?.description || ''"></div>
+        <div class="proposed-compensation mb-5"
+          *ngIf="(jobDetails.salaryMin != null && jobDetails.salaryMax != null) || this.jobDetails.salary != null">
+          <h3 class="sub-title">Proposed Compensation</h3>
+          <p>
+            <span *ngIf="jobDetails.proposedConpensation === 1">
+              From {{jobDetails.salaryMin | currency}} To {{jobDetails.salaryMax | currency}}
+            </span>
+            <span *ngIf="jobDetails.proposedConpensation === 0">
+              {{jobDetails.salary | currency}}
+            </span>
+            <span>{{salaryType}}</span>
+          </p>
+        </div>
+        <div class="job-list-desc">
+          <div *ngIf="jobDetails.scheduleJob && jobDetails.scheduleJob.length">
+            <h3 class="sub-title">Job Schedule</h3>
+            <ul class="info-job__item">
+              <li *ngFor="let item of jobDetails.scheduleJob" [hidden]="!item.title">{{item.title}}</li>
+            </ul>
+          </div>
+          <div *ngIf="jobDetails.benefits">
+            <h3 class="sub-title">Benefits</h3>
+            <ul class="info-job__item">
+              <li *ngFor="let item of listBenefits">{{item.title}}</li>
+            </ul>
+          </div>
+          <div *ngIf="jobDetails.bonus && jobDetails.bonus.length">
+            <h3 class="sub-title">Bonus</h3>
+            <ul class="info-job__item">
+              <li *ngFor="let item of jobDetails.bonus" [hidden]="!item.title">{{item.title}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cursor-pointer report-desktop text-danger mt-5"
+          (click)="showModalReportJob(modalReportJob)">
+          Report this job post!
+        </div>
+        <!-- <div class="percent-travel">
+          <h3 class="sub-title">Percent Travel</h3>
+          <p>{{percenTravel}}
+            <span *ngIf="jobDetails?.isSpecificPercentTravel && jobDetails?.specificPercentTravel">- {{jobDetails?.specificPercentTravel}}%</span>
+          </p>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="job-info-right">
+        <div class="box-summary">
+          <div class="box-sum-item" *ngIf="jobDetails.isPrivate != 1">
+            <div class="icon">
+              <fa-icon [icon]="['far', 'calendar-check']"></fa-icon>
+            </div>
+            <div class="box-sum-content">
+              <p class="box-sum-content__title">Expiration Date</p>
+              <p>{{ expiredJob(jobDetails.expiredAt)}}</p>
+            </div>
+          </div>
+
+          <div class="box-sum-item" *ngIf="jobDetails.employmentTypeText">
+            <div class="icon">
+              <fa-icon [icon]="['fas', 'user']"></fa-icon>
+            </div>
+            <div class="box-sum-content">
+              <p class="box-sum-content__title">Employment Type</p>
+              <p>{{jobDetails.employmentTypeText}}</p>
+            </div>
+          </div>
+          <div class="box-sum-item" *ngIf="jobDetails.levelId">
+            <div class="icon">
+              <fa-icon [icon]="['fas', 'layer-group']"></fa-icon>
+            </div>
+            <div class="box-sum-content">
+              <p class="box-sum-content__title">Seniority Level</p>
+              <p>{{ jobDetails.levelName }}</p>
+            </div>
+          </div>
+          <div class="box-sum-item">
+            <div class="icon">
+              <fa-icon [icon]="['fas', 'briefcase']"></fa-icon>
+            </div>
+            <div class="box-sum-content">
+              <p class="box-sum-content__title">Workplace Setting</p>
+              <p>{{percenTravel}}
+                <!-- <span *ngIf="jobDetails.isSpecificPercentTravel && jobDetails.specificPercentTravel">- {{jobDetails.specificPercentTravel}}%</span> -->
+              </p>
+            </div>
+          </div>
+          <div class="box-sum-item">
+            <div class="icon">
+              <fa-icon [icon]="['fas', 'plane']"></fa-icon>
+            </div>
+            <div class="box-sum-content">
+              <p class="box-sum-content__title">Percent Travel</p>
+              <p>
+                <span>{{JOB_PERCENT_TRAVEL_TYPE[jobDetails?.specificPercentTravel]?.value}}</span>
+              </p>
+            </div>
+          </div>
+          <div class="box-sum-item" *ngIf="jobDetails.nbrOpen">
+            <div class="icon">
+              <fa-icon [icon]="['far', 'copy']"></fa-icon>
+            </div>
+            <div class="box-sum-content">
+              <p class="box-sum-content__title">Number of Openings</p>
+              <p>{{jobDetails.nbrOpen}}</p>
+            </div>
+          </div>
+          <div class="box-sum-item box-end">
+            <div class="icon">
+              <fa-icon [icon]="['fas', 'database']"></fa-icon>
+            </div>
+            <div class="box-sum-content">
+              <p class="box-sum-content__title">Assessments</p>
+            </div>
+          </div>
+
+          <div class="list-skill mt-2">
+            <div *ngFor="let assessment of jobDetails.listAssessment">
+              <div class="list-skill__item {{colorWeightAssessment(assessment)}}">
+                {{assessment.name}}
+              </div>
+            </div>
+            <p *ngIf="listShowAssessmentCompany.length < 1">No assessment</p>
+          </div>
+
+        </div>
+
+        <div class="loving-jobs">
+          <p class="loving-jobs__header">Other Jobs from this Employer</p>
+          <div class="loving-jobs-content">
+            <ms-other-jobs-card *ngFor="let jobs of listJobsFormEmployer" [jobs]="jobs"></ms-other-jobs-card>
+          </div>
+        </div>
+
+        <div class="cursor-pointer report-mobile text-danger mt-5"
+          (click)="showModalReportJob(modalReportJob)">
+          Report this job post!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalReportJob>
+  <ms-modal-report-job [job_id]="jobId" [company_id]="companyID" (close)="modalReportJobRef.close()">
+  </ms-modal-report-job>
+</ng-template>

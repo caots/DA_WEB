@@ -1,0 +1,118 @@
+<div class="dashboard-page">
+  <div class="header-width-tabs">
+    <div class="container container-extra">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="title">Manage your Job Posts</h2>
+          <div class="tabs-title">
+            <a class="tabs-title__item" (click)="changeTab(tabType.ACTIVE)"
+              [ngClass]="{active: isTabActive == tabType.ACTIVE}">
+              Active <span *ngIf="isTabActive == tabType.ACTIVE">({{jobBadgeNumber['active']}})</span>
+            </a>
+            <a class="tabs-title__item" (click)="changeTab(tabType.CLOSE)"
+              [ngClass]="{active: isTabActive == tabType.CLOSE}">
+              Closed <span *ngIf="isTabActive == tabType.CLOSE">({{jobBadgeNumber['close']}})</span>
+            </a>
+            <a class="tabs-title__item" (click)="changeTab(tabType.DRAFT)"
+              [ngClass]="{active: isTabActive == tabType.DRAFT}">
+              Drafts <span *ngIf="isTabActive == tabType.DRAFT">({{jobBadgeNumber['draft']}})</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container container-extra">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="tabs-content">
+          <div class="tabs-content__active">
+            <ms-search 
+              *ngIf="listCategory && listAssessments && listCategoryRoot && checkMappingCategoryAssessments"
+              [isSearching]="isSearching" 
+              [(orderBy)]="orderBy" 
+              [listCategory]="listCategorySearch"
+              [listCategoryRoot]="listCategoryRoot"
+              [listAssessments]="listAssessments"
+              [listAssessmentSelected]="listAssessmentSelected"
+              [(isShow)]="isShowSearchAdvanced" 
+              (search)="searchJob()" 
+              [query]="querySearch" 
+              [type]="isTabActive"
+              (reset)="resetSearchJob()"
+              (showModalAddNewJobFromScratchOrTemplate)="showModalAddNewJobFromScratchOrTemplate(modalNewJobFromScratchOrTemplate, modalAddNewJob)">
+            </ms-search>
+            <div class="list-postings">
+              <ms-loading-job-detail [numberCard]="paginationConfig.maxRecord" *ngIf="isLoadingListJob">
+              </ms-loading-job-detail>
+              <div *ngIf="!isLoadingListJob">
+                <ms-job-card-employer *ngFor="let job of listJob" [job]="job" [activeTab]="isTabActive"
+                  [mode]="cardMode.FULL" (edit)="showModalEditJob($event, modalAddNewJob)" (delete)="deleteJob($event)"
+                  (copyOutput)="copyJob($event)" (makeActiveDraf)="makeActiveDrafJob($event, modalAddNewJob)"
+                  (comment)="showListApplicants($event)"
+                  (upgradeJob)="upgradteJob($event, modalUpgradeJob)"
+                  (makeActiveClose)="makeActiveClosedJob($event, modalAddNewJob)"
+                  (showModaAddNumbersApplicants)="showModaAddApplicantsIntoPrivateJob($event, modalAddNumberApplicants)">
+                </ms-job-card-employer>
+              </div>
+            </div>
+            <ms-pagination *ngIf="!isLoadingListJob" [config]="paginationConfig" (goTo)="paginationJob($event)">
+            </ms-pagination>
+            <div class="message-not-found" *ngIf="!listJob.length && isGetJobFromSearch">
+              <p>{{messageNotFound}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalAddNumberApplicants>
+  <ms-modal-add-applicants-into-private-job *ngIf="settingsCard"
+    [settingsCard]="settingsCard" 
+    [job]="jobPrivateApplicant"
+    (submit)="paymentPrivateJob()"
+    (close)="closeModalAddPrivate($event)">
+  </ms-modal-add-applicants-into-private-job>
+</ng-template>
+
+
+<ng-template #modalNewJobFromScratchOrTemplate>
+<ms-modal-new-job-scratch-or-template (close)="closeModalNewJob()" (nexStep)="showModalPrivateOrPublic($event, modalAddNewJob, modalAddJobFromtemplate)"></ms-modal-new-job-scratch-or-template>
+</ng-template>
+
+<ng-template #modalAddNewJob>
+  <ms-modal-add-job-with-three-step *ngIf="settingsCard"
+    [settingsCard]="settingsCard"
+    [isTemplate]="isTemplate"
+    [listLevel]="listLevel"
+    [isEdditJob]="isEdditJob"
+    [job]="editingJob"
+    [isAddingJob]="isAddingJob"
+    [isSaveDraft]="isSaveDraft"
+    [activeTab]="isTabActive"
+    [isNotEditField]="isNotEditField"
+    [listCategory]="listCategory"
+    [listAssessment]="listAssessment"
+    [(isPriveJob)]="isPriveJob"
+    (close)="modalAddANewJobRef.close()"
+    (add)="addJob($event)"
+    (edit)="editJob($event)"
+  ></ms-modal-add-job-with-three-step>
+</ng-template>
+
+<ng-template #modalAddJobFromtemplate>
+  <ms-modal-list-previous-jobs 
+  (addJobFromTemplate)="addJobFromTemplate($event, modalAddNewJob)"
+  (close)="modalAddJobFromTemplateRef.close()"
+  ></ms-modal-list-previous-jobs>
+</ng-template>
+
+<ng-template #modalUpgradeJob>
+  <ms-modal-upgrage-job-posting  *ngIf="settingsCard"
+    [job]="upgradeJobData"
+    [settingsCard]="settingsCard"
+    (close)="closeModalUpgrade($event)" 
+  ></ms-modal-upgrage-job-posting>
+</ng-template>

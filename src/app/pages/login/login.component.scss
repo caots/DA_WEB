@@ -1,0 +1,102 @@
+.login-form {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  &-inner {
+    width: 500px;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+  @media (max-width: 768px) {
+    height: auto;
+    display: block;
+    margin: 15px;
+  }
+}
+
+.btn-custom-size {
+  width: 200px;
+}
+
+.text-danger {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.alert-danger {
+  font-size: 14px;
+  text-align: center;
+}
+
+fa-icon {
+  left: 13px;
+  top: 17px;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+}
+
+.go-home {
+  position: absolute;
+  top: 18px;
+  left: 55px;
+}
+
+.back-home {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .back-home {
+    display: none;
+  }
+}
+
+.logo{
+  text-align: center;
+  cursor: pointer;
+}
+
+.title-logo{
+  color: #2668A9;
+  font-weight: bold;
+}
+
+.back-home-incard{
+  display: none;
+  .svg-back {
+    font-size: 13px;
+    top: 5px;
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+
+  fa-icon, span{
+    font-size: 13px;
+    top: 5px;
+  }
+  span{
+    left: 30px;
+  }
+}
+
+.back-home-incard{
+  margin-bottom: 15px;
+}
+
+.svg-back {
+  left: 13px;
+  top: 17px;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+}
+
+a{
+  color: #2668a9;
+}

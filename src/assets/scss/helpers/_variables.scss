@@ -1,0 +1,30 @@
+$color-primary:#72777C;
+$green-color: #4FB648;
+$body-bg:#fff;
+//responsive device
+$breakpoints: (
+        'screen-sm':  ( max-width:  576px ),
+        'screen-md':  ( min-width:  576px ),
+        'screen-lg':  ( min-width:  768px ),
+        'screen-xl':  ( min-width:  992px ),
+        'screen-xxl':  ( min-width: 1200px )
+) !default;
+
+:root {
+        --font-size-14: 14px;
+        --font-size-15: 15px;
+        --font-size-16: 16px;
+        --font-size-18: 18px;
+        --font-size-20: 20px;
+        --font-size-22: 22px;
+        --font-size-24: 24px;
+        --white-color: #fff;
+        --main-color: #72777c;
+        --color-8A9: #2668A9;
+        --color-F8: #F8F8F8;
+        --color-FDA600: #FDA600;
+        --color-648: #4FB648;
+        --color-d9d9d9: #D9D9D9;
+        --border-with-opacity: 1px solid rgba(0, 0, 0, 0.125);
+        --shadow-box: 0px 0px 10px #0000001A;
+}

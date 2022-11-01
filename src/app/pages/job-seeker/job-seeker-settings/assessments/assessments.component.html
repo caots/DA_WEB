@@ -1,0 +1,51 @@
+<div class="job-postings">
+  <h3 class="job-postings__title text-center">Be certified, take our assessments to show your skills. Add your skills and click Validate to begin the test</h3>
+    <ms-add-assessments
+      *ngIf="isAddAssessmentPage"
+      (next)="searchStep()"
+      [dataAssessment]="listSelectedAssessment"
+      (remove)="removeAssessment($event)"
+      (validate)="validateAssessment($event, modalPaymentConfirmation)"
+      (retry)="retryAssessment($event, modalPaymentConfirmation)"
+      >
+    </ms-add-assessments>
+    <ms-search-assessment
+      *ngIf="!isAddAssessmentPage"
+      (next)="searchStep()"
+      [dataAssessment]="dataAssessment"
+      (remove)="removeAssessment($event)"
+      (add)="addAssessment($event)"
+      (validate)="validateAssessment($event, modalPaymentConfirmation)"
+      [listSelectedAssessment]="listSelectedAssessment"
+      [listCategory]="listCategory"
+      [querySearch]="querySearch"
+      [isSearching]="isSearching"
+      (search)="searchAssessment()"
+      [isLoadingListAssessment]="isLoadingListAssessment"
+      (getListAssessment)="getListAssessment()"
+      [isAdding]="isAdding"
+      >
+  </ms-search-assessment>
+  <div class="pagination-step">
+    <ms-pagination *ngIf="!isAddAssessmentPage" [config]="paginationConfig" (goTo)="paginationAssessment($event)"></ms-pagination>
+  </div>
+  <div class="job-postings__continue">
+    <button
+      msLoadingButton
+      [loading]="isCallingApi"
+      type="button"
+      class="btn btn-primary"
+      (click)="continueStep()">
+      Continue
+    </button>
+    <a (click)="continueStep()">Skip this step</a>
+  </div>
+</div>
+<ng-template #modalPaymentConfirmation>
+  <ms-modal-payment-assessment-confirmation *ngIf="assessmentData && settingsCard"
+    [card]="cardInfo"
+    [settingsCard]="settingsCard"
+    [assessmentInfo]="assessmentData" 
+    (submit)="submitPaymentProcess($event)" (close)="modalPaymentConfirmationRef.close()">
+  </ms-modal-payment-assessment-confirmation>
+</ng-template>

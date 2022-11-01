@@ -1,0 +1,40 @@
+
+<div class="container" *ngIf="!isLoading">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="sticky-time" [ngClass]="{'sticky' : isSticky}">
+        <div class="container">
+            <div class="ass-timeout" *ngIf="customAssessment.duration">
+              <!-- <span *ngIf="timeOut != 0 || secondTimeOut != 0">
+                {{ formatTimer(timeOut) }} : {{ formatTimer(secondTimeOut) }}
+              </span> -->
+              <span *ngIf="!isTimeUp">{{timeOut}}</span>
+              <span style="background-color: red;" *ngIf="isTimeUp"> Time has Expired! </span>
+            </div>
+        </div>
+      </div>
+      <ms-take-custome-assessment-info [customAssessment]="customAssessment"></ms-take-custome-assessment-info>
+
+      <ms-take-custome-assessment-question [(customAssessment)]="customAssessment">
+      </ms-take-custome-assessment-question>
+
+      <div class="row-footer">
+        <button type="submit" id="btn-submitResult" (click)="submitTest(modalResultCustomAssessment)"
+          class="btn btn-success">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalResultCustomAssessment>
+  <ms-result-take-custom-assessment 
+    [resultAssessment]="resultAssessment" 
+    [customAssessment]="customAssessment"
+    [isTimeUp]="isTimeUp"
+    [jobDashboard]="jobDashboard"
+    [jobInfo]="jobInfo"
+    [isAssessmentPage]="isAssessmentPage"
+    (close)="modalResultCustomAssessmentRef.close()"></ms-result-take-custom-assessment>
+</ng-template>

@@ -1,0 +1,94 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">You are applying for: <span>Senior Data Engineer</span></h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="md-content">
+
+    <div class="border-box ">
+      <p class="border-box__title">Job Description</p>
+      <p class="desc">
+        Has responsibility for implementation of assigned tasks in making the plan, design, development, technical
+        support related to software development under the project member role/team lead
+      </p>
+    </div>
+
+    <div class="border-box ">
+      <p class="border-box__title">Please take assessment to apply</p>
+      <div class="list-assessments">
+        <div class="list-assessments__item">
+          <div class="col-left">
+            <p>Basic Aptitude</p>
+            <p>N/A</p>
+          </div>
+          <div class="col-right">
+            <button type="button" class="btn btn-success">Take test</button>
+          </div>
+        </div>
+        <div class="list-assessments__item">
+          <div class="col-left">
+            <p>Basic Aptitude</p>
+            <p>N/A</p>
+          </div>
+          <div class="col-right">
+            <button type="button" class="btn btn-success">Take test</button>
+          </div>
+        </div>
+        <div class="list-assessments__item">
+          <div class="col-left">
+            <p>Basic Aptitude</p>
+            <p>N/A</p>
+          </div>
+          <div class="col-right">
+            <button type="button" class="btn btn-success">Take test</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-box ">
+      <p class="border-box__title">My Proposal</p>
+      <div class="content-proposal">
+        <div class="form-group">
+          <label for="">Asking Salary:</label>
+          <div class="row">
+            <div class="col-lg-5">
+              <div class="input-with-dollar-sign">
+                <input type="text" name="" id="" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <select class="form-control">
+                <option>Per Year</option>
+                <option>Per Hour</option>
+                <option>Per Month</option>
+                <option>Per Week</option>
+                <option>Per day</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="box-benefit">
+          <p class="title-benefit">Asking Benefits:</p>
+          <div class="list-benefits">
+            <label class="check-box__item" *ngFor="let benefits of listBenefit">
+              <input type="checkbox" name="" id="" [checked]="benefits.status">
+              <span class="check-icon-custom"></span>
+              <span class="text-checkbox">{{benefits.title}}</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-success">Apply</button>
+  </div>
+</div>

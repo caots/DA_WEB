@@ -1,0 +1,35 @@
+
+/***
+    Block How it works
+***/
+
+.block-how-it-works {
+  margin-bottom: 100px;
+  .how-it-works-item {
+    box-shadow: 0px 0px 10px #0000001a;
+    border-radius: 5px;
+    overflow: hidden;
+    @media (max-width: 768px) {
+      margin-bottom: 20px;
+    }
+    &-info {
+      padding: 20px;
+    }
+    &__img {
+      width: 100%;
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
+    }
+    &__title {
+      font-size: 20px;
+      font-family: "Avenir Heavy";
+      color: #2f3639;
+      margin-bottom: 20px;
+    }
+    &__summary {
+    }
+  }
+}
+

@@ -1,0 +1,26 @@
+<div class="box-get-started box-get-started-large" style=" background-image: url({{API_S3}}/cdn/bg-12.webp);">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="started-content">
+          <h3>Get Started Today!</h3>
+          <button type="button"  *ngIf="!userInfo" (click)="goToLogin()" class="btn btn-success">
+            <fa-icon [icon]="['fas', 'user']"></fa-icon>
+            Create An Account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box-get-started-mobile">
+  <div class="box-get-started" style="background-image: url({{API_S3}}/cdn/bg-12.webp);" >
+  </div>
+  <div class="started-content">
+    <h3>Get Started Today!</h3>
+    <button type="button" *ngIf="!userInfo" (click)="goToLogin()" class="btn btn-success">
+      Create An Account
+    </button>
+  </div>
+</div>

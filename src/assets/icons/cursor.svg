@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40"
+                        height="82.571" viewBox="0 0 74.5 82.571">
+                        <defs>
+                            <filter id="Icon_awesome-hand-pointer" x="0" y="0" width="74.5" height="82.571"
+                                filterUnits="userSpaceOnUse">
+                                <feOffset dy="3" input="SourceAlpha" />
+                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                <feFlood flood-color="#3E3E3E" flood-opacity="0.161" />
+                                <feComposite operator="in" in2="blur" />
+                                <feComposite in="SourceGraphic" />
+                            </filter>
+                        </defs>
+                        <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Icon_awesome-hand-pointer)">
+                            <path id="Icon_awesome-hand-pointer-2" data-name="Icon awesome-hand-pointer"
+                                d="M56.5,30.268V42.375a5.043,5.043,0,0,1-.134,1.155L52.33,60.682a5.045,5.045,0,0,1-4.911,3.889H21.188a5.045,5.045,0,0,1-4.08-2.077L.965,40.3a5.045,5.045,0,1,1,8.16-5.934l3.991,5.488V5.045a5.045,5.045,0,1,1,10.089,0V30.268h1.009V25.223a5.045,5.045,0,0,1,10.089,0v5.045h1.009V27.241a5.045,5.045,0,0,1,10.089,0v3.027h1.009a5.045,5.045,0,0,1,10.089,0ZM24.214,40.357H23.205V52.464h1.009Zm11.1,0H34.3V52.464h1.009Zm11.1,0H45.4V52.464h1.009Z"
+                                transform="translate(9 6)" fill="#fff" />
+                        </g>
+                    </svg>

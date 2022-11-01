@@ -1,0 +1,29 @@
+<div class="add-new-assessment">
+  <p class="modal-title mb-3">
+    Add new assesment to your job posting
+  </p>
+  <div class="row">
+    <div class="col-lg-5">
+      <div class="form-group has-search">
+        <span class="fa fa-search form-control-feedback"></span>
+        <input type="text" placeholder="Search" class="form-control" [(ngModel)]="filterCondition.name" msIgnoreEmojiIcon>
+      </div>
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="filterCondition.category">
+          <option value="">--All Categories--</option>
+          <option [value]="category.id" *ngFor="let category of listCategory">{{category.name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="list-job-assessment mt-4">
+    <ms-assesment-card
+      *ngFor="let assessment of listAssessment | assesmentFilter:filterCondition.name:filterCondition.category"
+      [assesment]="assessment" [isSelected]="isSelected(assessment)" (remove)="removeAssessment($event)"
+      (add)="addAssessment($event)">
+    </ms-assesment-card>
+  </div>
+  <div class="list-job-assessment__footer d-flex mt-4">
+    <button type="button" class="btn btn-success" (click)="closeModal()">Close</button>
+  </div>
+</div>

@@ -1,0 +1,355 @@
+/***
+    Block Search Jobs
+***/
+
+.search-jobs {
+  position: absolute;
+  bottom: -145px;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  box-shadow: 0px 20px 60px #3E3E3E14;
+
+  @media (max-width: 768px) {
+    position: relative;
+    bottom: -100px;
+  }
+
+  .what-title{
+    position: absolute;
+    left: 20px;
+    top: 30px;
+    color: var(--color-231f20);
+    text-align: left;
+    font: normal normal bold 14px/19px Avenir Next;
+  }
+
+  input {
+    background: #ffffff;
+    border-radius: 10px;
+    padding-left: 90px;
+    padding-right: 134px;
+    height: 75px;
+    width: 100%;
+    border: none;
+    @media (max-width: 990px) {
+      padding-left: 75px;
+      padding-right: 55px;
+    }
+    &::placeholder {
+      color: #72777c;
+      font-size: 16px;
+    }
+  }
+  &-icon {
+    position: absolute;
+    left: 10px;
+    top: 20px;
+  }
+  .btn-find-jobs {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #fff;
+    background: #2668a9;
+    text-align: center;
+    height: 75px;
+    width: 114px;
+    font-family: "Avenir Heavy";
+    font-size: 16px;
+    border-radius: 0px 10px 10px 0px;
+    @media (min-width: 991px) {
+      .mobile{
+        display: none;
+      }
+    }
+    @media (max-width: 990px) {
+      .desktop{
+        display: none;
+      }
+      width: auto;
+      .mobile{
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+/***
+    Block Search Jobs with multiple opt
+***/
+
+.search-jobs-options {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  &__top {
+    margin-bottom: 30px;
+
+    .sort-by {
+      height: 45px;
+      margin-left: auto;
+      @media (max-width: 520px){
+        margin-left: 15px;
+      }
+      &:hover {
+        opacity: 1;
+      }
+
+      .sort-dropdown {
+        #dropdownFilterJobs {
+          background: transparent;
+          width: 45px;
+          height: 45px;
+          border-radius: 10px;
+          display: block;
+          font-size: 23px;
+          border: 1px solid #ddd;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #000;
+          cursor: pointer;
+          &:hover {
+            border: 1px solid #4fb648;
+            color: #4fb648;
+          }
+          img {
+            height: auto;
+            width: 100%;
+          }
+          &:after {
+            content: none;
+          }
+        }
+        &.show{
+          #dropdownFilterJobs{
+            border: 1px solid #4fb648;
+            color: #4fb648;
+          }
+        }
+      }
+    }
+  }
+  &__multi {
+    display: flex;
+    margin-bottom: 30px;
+
+    @media (max-width: 992px) {
+      flex-direction: column;
+    }
+
+    .multi-title {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #2f3639;
+      font-family: "Avenir Heavy";
+    }
+
+    .select-category {
+      min-width: 400px;
+      margin-right: 20px;
+      ul.item2 li {
+        &:hover {
+          background: #d9d9d9;
+        }
+      }
+      .multiselect-dropdown {
+        .multiselect-item-checkbox input[type="checkbox"] + div:before {
+          border-color: #e9e9e9 !important;
+          border-radius: 3px;
+        }
+        .multiselect-item-checkbox input[type="checkbox"]:checked + div:before {
+          background: #4fb648 !important;
+          border-color: #4fb648 !important;
+        }
+        .filter-textbox {
+          input {
+            border: 1px solid #d9d9d9 !important;
+            height: 35px !important;
+            border-radius: 10px !important;
+          }
+        }
+        .dropdown-btn {
+          border: 1px solid #d9d9d9 !important;
+          border-radius: 10px !important;
+          min-height: 45px;
+          padding: 10px 12px !important;
+
+          .dropdown-down {
+            display: inline-block !important;
+            top: 10px !important;
+            width: 10px !important;
+            height: 10px !important;
+            border-top: 2px solid #000 !important;
+            border-left: 2px solid #000 !important;
+            border-right: none !important;
+            transform: rotate(-135deg);
+          }
+
+          .dropdown-up {
+            display: inline-block !important;
+            top: 10px !important;
+            width: 10px !important;
+            height: 10px !important;
+            border-top: 2px solid #000 !important;
+            border-left: 2px solid #000 !important;
+            border-right: none !important;
+            transform: rotate(45deg);
+            border-bottom: none !important;
+          }
+        }
+      }
+      @media (max-width: 1199px) {
+        min-width: 200px;
+      }
+
+      @media (max-width: 992px) {
+        margin: 0 0 30px 0;
+      }
+
+      &.select-category-assessments {
+        .multiselect-dropdown {
+          .multiselect-item-checkbox input[type="checkbox"] + div:before {
+            display: none;
+          }
+          .multiselect-item-checkbox input[type="checkbox"]:checked + div:before {
+            display: none;
+          }
+          .multiselect-item-checkbox input[type="checkbox"]:checked + div::after {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .box-create-date {
+      display: flex;
+      margin-right: 20px;
+
+      @media (max-width: 992px) {
+        margin: 0 0 30px 0;
+      }
+
+      @media (max-width: 520px) {
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+
+      &__inner {
+        display: flex;
+        align-items: center;
+
+        @media (max-width: 992px) {
+          flex: 1;
+        }
+
+        @media (max-width: 520px) {
+          margin: 0 0 15px !important;
+        }
+
+        input {
+          width: 183px;
+          @media (max-width: 992px) {
+            width: 100%;
+          }
+        }
+
+        &:last-child {
+          margin-left: 15px;
+          @media (max-width: 520px) {
+            margin-left: 0;
+          }
+        }
+
+        p {
+          margin-right: 10px;
+          @media (max-width: 520px) {
+            min-width: 50px;
+          }
+        }
+      }
+    }
+
+    .box-location {
+      min-width: 200px;
+    }
+  }
+}
+
+.search-box-multi {
+  display: flex;
+  position: relative;
+
+  @media (max-width: 520px) {
+    flex-wrap: wrap;
+  }
+
+  input {
+    border: 1px solid #d9d9d9;
+    height: 45px;
+    border-radius: 10px;
+    padding: 0 10px 0 40px;
+    min-width: 400px;
+    margin-right: 10px;
+
+    @media (max-width: 768px) {
+      min-width: auto;
+    }
+
+    @media (max-width: 520px) {
+      min-width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+
+  .search-box-icon {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
+  .btn-find-jobs {
+    height: 45px;
+    border-radius: 22.5px;
+    background: #2668a9;
+    min-width: 120px;
+  }
+
+  .btn-search-multi {
+    height: 45px;
+    margin-left: 10px;
+
+    img {
+      height: 100%;
+    }
+  }
+  .sort-by {
+    height: 45px;
+
+    img {
+      height: 100%;
+    }
+  }
+}
+
+.options-add-jobs {
+  display: flex;
+  justify-items: right;
+  margin-left: auto;
+
+  a {
+    background: #4fb648;
+    height: 45px;
+    border-radius: 22.5px;
+    padding: 0 20px;
+    color: #fff;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    font-family: "Avenir Heavy";
+    img {
+      margin-right: 10px;
+    }
+  }
+}

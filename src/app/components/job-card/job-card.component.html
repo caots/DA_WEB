@@ -1,0 +1,35 @@
+<div class="jobs-item">
+  <div class="jobs-item-img">
+    <img [src]="job.companyLogo" alt="{{job.companyName}}" onerror="this.src='assets/images/Image-1.png'" alt="logo company"/>
+  </div>
+  <div class="jobs-item-content">
+    <p class="jobs-item-content__title" style="cursor: pointer;" [routerLink]="['/job', job.urlSeo]">
+      {{ job.title }}
+    </p>
+    <a href="#" class="jobs-item-content__company">
+      {{job.companyName}}
+    </a>
+    <div class="jobs-item-content__city">
+      <p>{{ job.cityName }}</p>
+    </div>
+    <p class="jobs-item-content__salary">
+      Offered Compensation:
+      <span *ngIf="isCompensation">
+        From {{job.salaryMin | currency}} To {{job.salaryMax | currency}}
+      </span>
+      <span *ngIf="!isCompensation">
+        {{job.salary | currency}}
+      </span>
+      <span *ngIf="job.salaryMax || job.salaryMin || job.salary">{{salaryType}}</span>
+    </p>
+    <a rel="nofollow" class="jobs-item-content__apply" (click)="applyJob()">
+      Apply now
+    </a>
+    <div class="jobs-item-content__expires">
+      <svg-icon src="assets/icons/filter.svg"></svg-icon>
+      <p>
+        Expires on: {{job.endHotJob | date : 'h:mm a MMM d, y'}}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+<div class="container container-custom">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="profile-page">
+        <div class="profile-page__inner">
+          <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills" orientation="vertical">
+            <li ngbNavItem="profile" [routerLink]="'/employer-profile/profile'">
+              <a ngbNavLink>
+                <fa-icon [icon]="['fas', 'user-alt']" class="mr-2"></fa-icon>
+                <span>User Information</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="user-information">
+                  <h3 class="mb-5 title-profile">User Information</h3>
+                  <ms-company-information></ms-company-information>
+                </div>
+              </ng-template>
+            </li>
+            <li ngbNavItem="company-profile" [routerLink]="'/employer-profile/company-profile'">
+              <a ngbNavLink>
+                <fa-icon [icon]="['fas', 'user-alt']" class="mr-2"></fa-icon>
+                <span>Company Profile</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="user-information">
+                  <h3 class="mb-5 title-profile">Company Profile
+                    <span (click)="goToPreviewEMployer()" class="preview-company"> <fa-icon [icon]="['fas', 'search']" class="ml-2"></fa-icon> Preview</span>
+                  </h3>
+                  <ms-company-profile></ms-company-profile>
+                </div>
+              </ng-template>
+            </li>
+
+            <li ngbNavItem="member" [routerLink]="'/employer-profile/member'">
+              <a ngbNavLink>
+                <fa-icon [icon]="['fas', 'users']" class="mr-2"></fa-icon>
+                <span>Manage Members</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="user-information" >
+                  <!-- <h3 class="mb-5 title-profile">Manage Members</h3> -->
+                  <ms-manage-members></ms-manage-members>
+                </div>
+              </ng-template>
+            </li>
+
+            <li ngbNavItem="tracking-recruitment" [routerLink]="'/employer-profile/tracking-recruitment'">
+              <a ngbNavLink>
+                <fa-icon [icon]="['fas', 'chart-line']" class="mr-2"></fa-icon>
+                <span>Account Statistics</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="user-information" >
+                  <h3 class="mb-5 title-profile">Account Statistics</h3>
+                  <ms-tracking-recruitment></ms-tracking-recruitment>
+                </div>
+              </ng-template>
+            </li>
+            
+            <li ngbNavItem="password" [routerLink]="'/employer-profile/password'">
+              <a ngbNavLink>
+                <fa-icon [icon]="['fas', 'key']" class="mr-2"></fa-icon>
+                <span>Password</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="user-information">
+                  <h3 class="mb-5 title-profile">Password</h3>
+                  <ms-password-management></ms-password-management>
+                </div>
+              </ng-template>
+            </li>
+            <li ngbNavItem="payment" [routerLink]="'/employer-profile/payment'">
+              <a ngbNavLink>
+                <fa-icon [icon]="['far', 'credit-card']" class="mr-2"></fa-icon>
+                <span>Billing and Payment</span>
+              </a>
+              <ng-template ngbNavContent>
+                <h3 class="payment-title mb-4">Billing and Payment</h3>
+                <div class="tab-info-user">
+                  <div class="tabs-title">
+                    <a class="tabs-title__item" (click)="changeTab(TAB_EMPLOYER_BILLINGS.INFO_CARD)"
+                      [ngClass]="{active: tabBillingInfo == TAB_EMPLOYER_BILLINGS.INFO_CARD}">
+                      Payment Information
+                    </a>
+                    <a class="tabs-title__item" (click)="changeTab(TAB_EMPLOYER_BILLINGS.BILLINGS)"
+                      [ngClass]="{active: tabBillingInfo == TAB_EMPLOYER_BILLINGS.BILLINGS}">
+                      Billing History
+                    </a>
+                  </div>
+                </div>
+                <div class="user-information" *ngIf="tabBillingInfo == TAB_EMPLOYER_BILLINGS.INFO_CARD">
+                  <div class="payment-method mb-4" *ngIf="userData">
+                    <ms-payment-methods
+                      [hiddenTitleBox]="true"
+                      [user]="userData"
+                      (updateCard)="updateCard()"
+                      (deleteCard)="deleteCard()"
+                    ></ms-payment-methods>
+                  </div>
+                  <div class="payment-method mb-4" >
+                    <ms-billing-infomation></ms-billing-infomation>
+                  </div>
+                </div>
+                <div class="user-information" *ngIf="tabBillingInfo == TAB_EMPLOYER_BILLINGS.BILLINGS">
+                  <ms-loading-billing-history [numberCard]="10" *ngIf="isLoadingBillingHistory"></ms-loading-billing-history>
+                  <div class="billing-history" *ngIf="!isLoadingBillingHistory">
+                    <ms-billing-history
+                      [hiddenTitle]="true"
+                      [type]="userType.EMPLOYER"
+                      [dataBillings]="dataBillings"
+                      (exportBillingHistory)="exportBillingHistory($event)"
+                    ></ms-billing-history>
+                    <div class="wrap__pagination">
+                      <ms-pagination *ngIf="dataBillings" [config]="paginationConfig" (goTo)="paginationBillHistory($event)"></ms-pagination>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+
+          <div [ngbNavOutlet]="nav" class="ml-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

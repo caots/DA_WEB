@@ -1,0 +1,13 @@
+<div class="base-chart-container" [ngStyle]="{'height': chartSize, 'width': chartSize }">
+    <span class="number" [ngStyle]="{'font-size': iconSize, 'color': color}">{{value}}
+    </span>
+    <canvas *ngIf="chartDataSets" baseChart
+            height="1"
+            width="1"
+            [datasets]="chartDataSets"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+            [options]="chartOptions"
+    >
+    </canvas>
+</div>

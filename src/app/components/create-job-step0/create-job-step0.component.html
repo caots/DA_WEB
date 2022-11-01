@@ -1,0 +1,76 @@
+<div class="box-step-1">
+    <form [formGroup]="formAddNewJob" (ngSubmit)="continuteStep0(formAddNewJob.value)">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="form-add-job">
+              <!-- <p class="form-add-job__title">Job Information</p> -->
+              <div class="col-left-form">
+                <div class="form-group">
+                  <label>Job Title<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="title" msIgnoreEmojiIcon>
+                  <div class="text-danger"
+                    *ngIf="(formAddNewJob.controls.title.touched && formAddNewJob.controls.title.errors?.required) || isCheckTitleSaveDraft ">
+                    Job title is required!
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <label>What category does this job fall under?<span *ngIf="!isPriveJob" class="text-danger">*</span></label>
+                    <div class="wrapper-fall-under" *ngIf="listFallUnder">
+                      <ng-select 
+                        [items]="listFallUnder"
+                        formControlName="fallUnder">
+                      </ng-select>
+                    </div>
+                    <div class="text-danger"
+                    *ngIf="!isPriveJob && formAddNewJob.controls.fallUnder.touched && formAddNewJob.controls.fallUnder.errors?.required ">
+                    Job Category is required!
+                    </div>
+                  </div>
+  
+                  <div class="report-body mt-4" [hidden]="activeTab == tabType.ACTIVE && editModalJob == true">
+                    <div class="content-box">
+                      <h4 class="title">Would you like to make your job post private or public?</h4>
+                      <div class="opt-item">
+                        <div class="radio">
+                          <label>
+                            <input type="radio" [checked]="!isPriveJob"  [value]='SCRATCH_JOB_TYPE.PUBLIC' name="optradio" (change)="onItemChange($event.target.value)">
+                            <div class="ct-right">
+                              <p>Make it public</p>
+                              <p>Job post is accessible to all jobseekers.</p>
+                              <p>Choose this option when you want to advertise your job publicly and maximize its visibility.</p>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="opt-item">
+                        <div class="radio">
+                          <label>
+                            <input type="radio" [checked]="isPriveJob"  [value]="SCRATCH_JOB_TYPE.PRIVATE" name="optradio" (change)="onItemChange($event.target.value)">
+                            <div class="ct-right">
+                              <p>Make it private</p>
+                              <p>Job post is only accessible to those who possess your shareble link.</p>
+                              <p>This option is recommended for internal jobs.</p>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="add-job-footer">
+          <button [hidden]="(activeTab == tabType.ACTIVE || activeTab == tabType.CART)&& editModalJob === true" (click)="addSaveDraft()" type="button" class="btn btn-info" msLoadingButton
+          [loading]="isSaveDraft">Save as Draft</button>
+          <button type="submit" class="btn btn-success">Continue</button>
+          <button type="button" (click)="saveEditJobActive()" msLoadingButton *ngIf="activeTab == tabType.ACTIVE && editModalJob === true" [loading]="isAddingJob" class="btn btn-success">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,107 @@
+<div class="back-home" (click)="backToHome()">
+  <svg-icon src="assets/icons/back.svg"></svg-icon>
+  <span class="go-home">Back to Homepage</span>
+</div>
+<div class="login-form">
+  <aside class="login-form-inner">
+    <div class="card">
+      <article class="card-body">
+        <div class="back-home-incard" (click)="backToHome()">
+          <svg-icon src="assets/icons/back-mobile.svg"></svg-icon>
+          <span class="go-home">Back to Homepage</span>
+        </div>
+        <div  class="logo" (click)="backToHome()">
+          <svg-icon src="assets/icons/logo-only-icon.svg"></svg-icon>
+        </div>
+        <h3 class="card-title text-center title-logo">MeasuredSkills</h3>
+        <h4 class="card-title text-center">{{fromUserStory ? 'Create an Account for Free to Proceed' : 'Create an Account for Free'}}</h4>
+        <form method="post" class="form-register" [formGroup]="formRegister" (ngSubmit)=register(formRegister.value)>
+          <div class="form-group mt-3">
+            <!-- <label>Your email</label> -->
+            <input name="" formControlName="email" class="form-control" placeholder="Email" type="email">
+            <div class="text-danger"
+              *ngIf="formRegister.controls.email.touched &&  formRegister.controls.email.errors?.required ">
+              Email is required!
+            </div>
+            <div class="text-danger" *ngIf="formRegister.controls.email.touched && formRegister?.controls?.email?.errors?.pattern">
+              Email is invalid!
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-lg-6">
+                <label>Password</label>
+                <input class="form-control" formControlName="password" placeholder="******" type="password">
+                <div class="text-danger"
+                  *ngIf=" formRegister?.controls?.password?.touched && formRegister?.controls?.password?.errors?.required ">
+                  Password is required!
+                </div>
+                <div class="text-danger"
+                  *ngIf="formRegister?.controls?.password?.touched && formRegister?.controls?.password?.errors?.pattern">
+                  Password must have at least 6 characters, 1 lowercase letter, 1 uppercase letter, 1 number and 1 special character (!,@,#,$,%,&,*,..).
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label>Re-enter password</label>
+                <input class="form-control" formControlName="confirmPassword" placeholder="******" type="password">
+                <div class="text-danger"
+                  *ngIf=" formRegister?.controls?.confirmPassword?.touched && formRegister?.hasError('mismatchedPasswords')">
+                  Passwords do not match
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="form-row input-phone">
+            <div class="col-6">
+              <label>Phone number</label>
+              <input class="form-control" ng2TelInput [ng2TelInputOptions]="{onlyCountries: listPhoneCountry}"
+                (countryChange)="countryChange($event)" name="" formControlName="phone" placeholder="Your Phone"
+                type="text" msIntegersOnly>
+              <div class="text-danger"
+                *ngIf=" formRegister.controls?.phone.touched &&  formRegister.controls?.phone.errors?.required ">
+                Phone number is required!
+              </div>
+              <div class="text-danger"
+                *ngIf=" formRegister.controls?.phone.touched &&  formRegister.controls?.phone.errors?.wrongNumber &&  formRegister.value?.phone ">
+                Phone number is invalid!
+              </div>
+            </div>
+          </div> -->
+          <div class="form-group group-type-user" *ngIf="!fromUserStory">
+            <label class="text-center d-block"> I am</label>
+            <div class="opt-for-register">
+              <button type="button" class="btn btn-custom-size" (click)="selectUserType(listUserType['JOB_SEEKER'])"
+                [ngClass]="currentUserType == listUserType['JOB_SEEKER'] ? 'btn-primary' : 'btn-secondary'">
+                A Jobseeker
+              </button>
+              <button type="button" class="btn btn-custom-size" (click)="selectUserType(listUserType['EMPLOYER'])"
+              [ngClass]="currentUserType == listUserType['EMPLOYER'] ? 'btn-primary' : 'btn-secondary'">
+              An Employer or Recruiter
+            </button>
+            </div>
+            <div class="text-danger"
+            *ngIf="currentUserType == undefined && isSubmitedRegister">
+            This field is required!
+          </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label> <input type="checkbox" formControlName="condition">
+                I have read and agree to the <span class="hyperlink-text" [routerLink]="'/terms-of-service'">Terms of Service</span> and <span class="hyperlink-text" [routerLink]="'/privacy-policy'">Privacy Policy</span> of MeasuredSkills.</label>
+            </div>
+          </div>
+          <ngb-alert *ngIf="errorMessage" [type]="'danger'" [dismissible]="false">{{errorMessage}}</ngb-alert>
+          <div class="form-group d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary btn-custom-size" msLoadingButton [loading]="isCallingApi"
+              [disabled]="!formRegister.controls?.condition.value">
+              Sign Up
+            </button>
+          </div>
+          <div class="in-member d-flex justify-content-center">
+            Already a member? <a [routerLink]="'/login'" [queryParams]="{fromUserStory: fromUserStory ? fromUserStory : '', assessmentId: assessmentId}"> Sign In</a>
+          </div>
+        </form>
+      </article>
+    </div>
+  </aside>
+</div>

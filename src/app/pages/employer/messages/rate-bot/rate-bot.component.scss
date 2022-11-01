@@ -1,0 +1,43 @@
+.box-bot {
+  display: flex;
+  .bot-img {
+    width: 50px;
+    overflow: hidden;
+    margin-right: 10px;
+  }
+
+  .bot-content {
+    &__title {
+      font-family: "Avenir Heavy";
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
+
+    &__message {
+      border-radius: 15px;
+      border-top-left-radius: 0;
+      background: #17a2b8;
+      color: #fff;
+      padding: 10px;
+    }
+
+    &__vote {
+      display: flex;
+      margin-top: 5px;
+      align-items: center;
+      flex-wrap: wrap;
+      button {
+        margin-right: 10px;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        align-items: center;
+        display: flex;
+        .icon-vote {
+          margin-left: 5px;
+          line-height: 1;
+        }
+      }
+    }
+  }
+}

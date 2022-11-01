@@ -1,0 +1,136 @@
+<div class="posting-item">
+  <div class="posting-item-header">
+    <div class="d-flex title">
+      <h3 class="posting-item__title mr-1" (click)="goToPreviewJob(job)" >{{job.title}}</h3>
+      <div class="img" *ngIf="job.addUrgentHiringBadge !== 0">
+        <img src="assets/images/urgent_hiring_badge.svg" alt="urgent hiring">
+      </div>
+    </div>
+    <div class="posting-item__pos" *ngIf="mode == cardMode.FULL && job.cityName">
+      <fa-icon class="mr-2" [icon]="['fas', 'map-marker-alt']"></fa-icon>
+      <p>{{job.cityName}}, {{job.stateName}}</p>
+    </div>
+    <div class="posting-item__views" [ngClass]="{'hide-views': activeTab === jobStatus.DRAFT}" *ngIf="mode == cardMode.FULL">
+      <img src="assets/images/eye@2x.png" alt="job">
+      <p>{{ job.totalView }} {{job.totalView == 1  ? 'view' : 'views'}}</p>
+    </div>
+    <div class="box-right">
+      <div class="posting-item__edits">
+        <a (click)="editJob()" *ngIf="userData && activeTab !== jobStatus.CLOSE"
+          [hidden]="permissionService.checkCantPermissionUser(userData, permission.CHANGE_JOB)">
+          <img src="assets/images/btn_edit@2x.png" alt="job">
+        </a>
+        <a (click)="deleteJob()" *ngIf="userData"
+          [hidden]="permissionService.checkCantPermissionUser(userData, permission.CHANGE_JOB)">
+          <img src="assets/images/btn_delete@2x.png" alt="job">
+        </a>
+        <a (click)="copyJob()" *ngIf="userData"
+          [hidden]="permissionService.checkCantPermissionUser(userData, permission.CHANGE_JOB)">
+          <img src="assets/images/btn_copy@2x.png" alt="job">
+        </a>
+        <a (click)="commentJob()" *ngIf="mode == cardMode.FULL && activeTab != jobStatus.DRAFT" class="total-apply">
+          <img src="assets/images/btn_comment@2x.png" alt="job">
+          <span *ngIf="activeTab != jobStatus.DRAFT">{{ job.totalApplicants }}</span>
+        </a>
+        <div class="total-apply total-share" shareButtonDir [hidden]="activeTab != jobStatus.ACTIVE">
+          <button type="button" class="btn btn-outline-secondary btn-share-job-mobile"> 
+             <fa-icon [icon]="['fas', 'share-alt']"></fa-icon>
+          </button>
+          <div class="share-jobs">
+            <share-button  button="facebook" [url]="shareUrl()"></share-button>
+            <share-button  button="twitter"  [url]="shareUrl()"></share-button>
+            <share-button  button="email"  [url]="shareUrl(1)"></share-button>
+            <share-button  button="copy"  [url]="shareUrl()"></share-button>
+          </div>
+        </div>
+        <!-- <a class="total-apply total-view" [ngClass]="{'hide-views': activeTab === jobStatus.DRAFT}" *ngIf="mode == cardMode.FULL">
+          <img src="assets/images/eye@2x.png" alt="job">
+          <span>{{ job.totalView }}</span>
+        </a> -->
+      </div>
+      <div class="box-set-status-job">
+        <div class="box-share-jobs btn-share-job" shareButtonDir [hidden]="activeTab != jobStatus.ACTIVE">
+          <button type="button" class="btn btn-primary btn-share mr-2"> 
+            Share <fa-icon [icon]="['fas', 'share-alt']"></fa-icon>
+          </button>
+          <div class="share-jobs">
+            <share-button  button="facebook" [url]="shareUrl()"></share-button>
+            <share-button  button="twitter"  [url]="shareUrl()"></share-button>
+            <share-button  button="email"  [url]="shareUrl(1)"></share-button>
+            <share-button  button="copy"  [url]="shareUrl()"></share-button>
+          </div>
+        </div>
+        <button type="button" style="pointer-events: none;" class="{{job.isPrivate == 1 ? 'btn btn-secondary btn-private' : 'btn btn-secondary btn-active'}}">{{job.isPrivate == 1 ? 'Private' : 'Public'}}</button>
+        <div class="posting-item__views total-view" [ngClass]="{'hide-views': activeTab === jobStatus.DRAFT}" *ngIf="mode == cardMode.FULL">
+          <img src="assets/images/eye@2x.png" alt="job">
+          <p>{{ job.totalView }} {{job.totalView == 1  ? 'view' : 'views'}}</p>
+        </div>
+      </div>
+      <!-- <div class="d-flex box-copy" *ngIf="job.isPrivate == 1 && activeTab == jobStatus.ACTIVE">
+        <input [style]="job.isPrivate == 1 ? 'pointer-events: none;' : ''" [value]="generateLinkPrivteJob(job)" type="text" id="privateLink-{{job.id}}">
+        <div class="icon-copy ml-1 cursor-pointer" (click)="copyClipboard(job.id)">
+          <fa-icon [icon]="['far', 'copy']"></fa-icon>
+        </div>
+      </div> -->
+      <div class="box-available" *ngIf="job.isPrivate == 1 && activeTab == jobStatus.ACTIVE">
+        <p>Available Applicants: {{getAvailableApplicantNumber(job)}}</p>
+        <p class="cursor-pointer icon" (click)="showModaAddApplicantsIntoPrivateJob()">
+          <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="posting-item-content">
+    <p class="posting-item-create-date mb-2 mt-2" *ngIf="mode == cardMode.FULL">Created at {{job.createdAt | date :
+      'h:mm a MMM d, y'}}</p>
+    <p class="posting-item-create-date mb-2 mt-2" *ngIf="mode == cardMode.FULL && job.isPrivate != 1 && activeTab != jobStatus.DRAFT">{{activeTab == jobStatus.CLOSE ? 'Expired' : 'Expires'}} at {{job.expiredAt | date :
+      'h:mm a MMM d, y'}}</p>
+    <button class="btn btn-sm btn-success mb-2" *ngIf="mode == cardMode.FULL" [hidden]="activeTab == jobStatus.ACTIVE && job.isPrivate == 1 "  [ngClass]="{'btn-activate-draft-job': activeTab === jobStatus.DRAFT}"
+      (click)="postDrafJob()">{{activeTab == jobStatus.CLOSE ? 'Repost' : statusJob}}</button>
+    <!-- <p class="posting-item-expires-date mb-2" *ngIf="mode == cardMode.FULL">Expires at {{job.createdAt | date : 'h:mm a MMM d, y'}}</p> -->
+    <div class="posting-item-desc">
+      <div class="posting-item-desc__title">
+        Description:
+      </div>
+      <div class="description" viewMoreDir>
+        <div [innerHtml]="jobDesc || ''"></div>
+        <a *ngIf="viewMoreBtn" class="cursor-pointer" rel="nofollow" (click)="viewMoreDesc()">View more</a>
+        <a *ngIf="viewLessBtn" class="cursor-pointer" rel="nofollow" (click)="viewLessDesc()">View less</a>
+      </div>
+    </div>
+    <div class="posting-item-desc more-info" *ngIf="job.employmentTypeText !== null">
+      <span>
+        Employment Type:
+      </span>
+      <span>
+        {{job.employmentTypeText}}
+      </span>
+    </div>
+    <div class="posting-item-desc more-info" *ngIf="job.levelName !== null">
+      <span>
+        Seniority Level:
+      </span>
+      <span>
+        {{job.levelName}}
+      </span>
+    </div>
+    <div class="posting-item-desc more-info" *ngIf="job.jobTravel !== null">
+      <span>
+        Travel:
+      </span>
+      <span>
+        {{job.jobTravel}}{{job.specificPercentTravel && job.isSpecificPercentTravel ? " - " + job.specificPercentTravel + "%" : ""}}
+      </span>
+    </div>
+  </div>
+  <div class="posting-item-footer">
+    <p class="posting-item-footer__title">
+      Required Assessments with Weighting Factor(s):
+    </p>
+    <div class="list-skill">
+      <div class="list-skill__item skill--success" *ngFor="let assessment of job.listAssessment">
+        {{assessment.name}}: {{assessment.point}}
+      </div>
+    </div>
+  </div>
+</div>

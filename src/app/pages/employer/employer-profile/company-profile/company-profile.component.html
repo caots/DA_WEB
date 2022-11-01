@@ -1,0 +1,48 @@
+<div class="border-box">
+  <div class="company-profile-page">
+    <div class="company-info">
+      <div class="row"
+        [style]="userInfo && permissionService.checkCantPermissionUser(userInfo, permission.INFO_COMPANY) ? 'pointer-events: none;' : ''">
+        <div class="col-lg-8">
+          <ms-update-information-company
+          [userInfo]="userInfo.employer_id > 0 ? userInfo.employerInfo : userInfo"
+          [(formUpdate)]="formUpdate"
+          [gallery]="gallery"
+          [(companyFacebook)]="companyFacebook"
+          [(twitterPage)]="twitterPage"
+          [(companyWebsite)]="companyWebsite"
+          (onShowModalAddWebSiteAndSocialLink)="showModalAddWebSiteAndSocialLink()"
+          (onDrop)="drop($event)"
+          (onShowModalInsertVideoLink)="showModalInsertVideoLink($event)"
+          (onDeleteCompanyPhoto)="deleteCompanyPhoto($event)"
+          (fileChangeMulti)="onFileChangeMulti($event)"
+          ></ms-update-information-company>
+        </div>
+        <div class="col-lg-4">
+          <ms-update-profile-company
+          [(formUpdate)]="formUpdate"
+          [listIndustry]="listIndustry"
+          [ceoPicture]="ceoPicture"
+          (onFileChangeMulti)="onFileChangeMulti($event)"
+          (ondeleteCompanyPhoto)="deleteCompanyPhoto(null)"
+          ></ms-update-profile-company>
+        </div>
+        <div class="footer-page mt-3" style="margin: auto;">
+          <button type="button" msLoadingButton [loading]="isCallingApi" class="btn btn-success"
+            [hidden]="userInfo && permissionService.checkCantPermissionUser(userInfo, permission.INFO_COMPANY)"
+            (click)="save(formUpdate.value)">Save</button>
+          <button [hidden]="userInfo && permissionService.checkCantPermissionUser(userInfo, permission.INFO_COMPANY)"
+            type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalAddWebsiteAndSocialLink>
+  <ms-modal-website-and-social-link (close)="modalAddWebsiteAndSocialLinkRef.close()">
+  </ms-modal-website-and-social-link>
+</ng-template>
+<ng-template #modalInsertVideoLink>
+  <ms-modal-insert-video-link (close)="modalInsertVideoLinkRef.close()"></ms-modal-insert-video-link>
+</ng-template>

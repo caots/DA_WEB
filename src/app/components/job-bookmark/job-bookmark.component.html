@@ -1,0 +1,7 @@
+<div class="bookmark-spin" *ngIf="loading" role="status"></div>
+<ng-container *ngIf="!loading">
+  <!-- <i *ngIf="!bookmark" class="fas fa-bookmark" (click)="addBookmark()" aria-hidden="true"></i> -->
+  <!-- <i *ngIf="bookmark" class="fas fa-bookmark" style="color: red" (click)="deleteBookmark()" aria-hidden="true"></i> -->
+    <fa-icon *ngIf="!bookmark" [icon]="['fas', 'bookmark']" (click)="addBookmark()"></fa-icon>
+    <fa-icon *ngIf="bookmark" [icon]="['fas', 'bookmark']" [styles]="{'color': 'red'}" (click)="deleteBookmark()"></fa-icon>
+</ng-container>

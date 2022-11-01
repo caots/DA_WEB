@@ -1,0 +1,94 @@
+<div class="how-measuredskills-compares">
+    <div class="container">
+        <h3>How MeasuredSkills Compares</h3>
+        <div class="row">
+            <div class="left col-lg-4 col-6">
+                <div class="content-item">
+                    <ul class="list-items">
+                        <li class="item">Transparent Pricing</li>
+                        <li class="item">No Subscription Required</li>
+                        <li class="item">Ready-to-Use Assessments</li>
+                        <li class="item">Custom Assessments</li>
+                        <li class="item">About Employer/Brand Page</li>
+                        <li class="item">Tracking Hiring Stats</li>
+                        <li class="item">Assessments are Directly Linked to Jobs</li>
+                        <li class="item">Unlimited Seats Included</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-8 row show-desktop">
+                <div class="col-5 center">
+                    <div class="content-item">
+                        <div class="item-header">
+                            <p>MeasuredSkills</p>
+                        </div>
+                        <ul class="list-items">
+                            <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                            <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                            <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                            <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                            <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                            <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                            <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                            <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-7 right">
+                    <div class="content-item">
+                        <div class="item-header">
+                            <p>Other Job Sites</p>
+                        </div>
+                        <ul class="list-items">
+                            <li class="item">Other sites often charge hidden add-on fees</li>
+                            <li class="item">Depends on site</li>
+                            <li class="item">Depends on site</li>
+                            <li class="item">Depends on site</li>
+                            <li class="item">Depends on site</li>
+                            <li class="item">Not with most sites</li>
+                            <li class="item"><fa-icon [icon]="['fas', 'times']"></fa-icon></li>
+                            <li class="item"><fa-icon [icon]="['fas', 'times']"></fa-icon></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <swiper class="swiper-container measured-skills-slider show-mobile col-lg-8 col-6" [config]="measuredSkillsConfig"
+            (indexChange)="onIndexChange($event)">
+              <div class="center">
+                  <div class="content-item">
+                      <div class="item-header">
+                          <p>MeasuredSkills</p>
+                      </div>
+                      <ul class="list-items">
+                          <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                          <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                          <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                          <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                          <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                          <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                          <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                          <li class="item"><fa-icon [icon]="['fas', 'check']"></fa-icon></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="right">
+                  <div class="content-item">
+                      <div class="item-header">
+                          <p>Other Job Sites</p>
+                      </div>
+                      <ul class="list-items">
+                          <li class="item">Other sites often charge hidden add-on fees</li>
+                          <li class="item">Depends on site</li>
+                          <li class="item">Depends on site</li>
+                          <li class="item">Depends on site</li>
+                          <li class="item">Depends on site</li>
+                          <li class="item">Not with most sites</li>
+                          <li class="item"><fa-icon [icon]="['fas', 'times']"></fa-icon></li>
+                          <li class="item"><fa-icon [icon]="['fas', 'times']"></fa-icon></li>
+                      </ul>
+                  </div>
+              </div>
+            </swiper>
+        </div>
+    </div>
+</div>

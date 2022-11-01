@@ -1,0 +1,80 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Interview Schedule</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="report-body">
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <label class="col-form-label" for="stage">Interview Status:</label>
+      </div>
+      <div class="col-lg-8">
+        <div ngbDropdown class="d-block">
+          <div class="tool-tip" [ngbTooltip]="tipContent" [disableTooltip]="data.canRateStars && !permissionService.checkCantPermissionUser(userData, permission.CHAT)" placement="right" tooltipClass="tooltip-custom">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle [style]="data.canRateStars == 1 && !permissionService.checkCantPermissionUser(userData, permission.CHAT) ? '' : 'pointer-events: none;'">
+              <ms-list-icon-interview [stage]="stageIcon"></ms-list-icon-interview>
+            </button>
+          </div>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem (click)="selectInterViewStatus(stage)" *ngFor="let stage of listStages">
+              <ms-list-icon-interview [stage]="stage"></ms-list-icon-interview>
+              {{stage.value}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <label class="col-form-label" for="stage">Interview Schedule:</label>
+      </div>
+      <div class="col-lg-8">
+        <div class="d-flex form-group-date box-date-custom">
+          <input class="form-control input-date" placeholder="mm-dd-yyyy" style="background-color: #fff !important;"
+            [readonly]="true" [value]="formatter.format(placeHolderExpired)" [placeholder]="" name="dp" ngbDatepicker
+            [minDate]="initDateValue"
+            #dTo="ngbDatepicker" (dateSelect)="onDateSelectionTo($event)" [footerTemplate]="footerTemplate"
+            [firstDayOfWeek]="7">
+          <div class="input-group-append" [ngbTooltip]="tipContent" [disableTooltip]="data.canRateStars && !permissionService.checkCantPermissionUser(userData, permission.CHAT)" placement="top" tooltipClass="tooltip-custom">
+            <button class="btn btn-outline-secondary calendar" (click)="dTo.toggle()" type="button" [style]="data.canRateStars == 1 && !permissionService.checkCantPermissionUser(userData, permission.CHAT) ? '' : 'pointer-events: none;'">
+              <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+            </button>
+          </div>
+        </div>
+        <ng-template #footerTemplate>
+          <div class="time-select">
+            <h4>Time</h4>
+            <ngb-timepicker [(ngModel)]="time" [meridian]="meridian"></ngb-timepicker>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="form-group row" [style]="data.canRateStars == 1 && !permissionService.checkCantPermissionUser(userData, permission.CHAT) ? '' : 'pointer-events: none;'">
+      <div class="col-lg-4">
+        <label class="col-form-label" for="comment">Interview Time: </label>
+      </div>
+      <div class="col-lg-8">
+        <p style="padding: 10px 0 0;">{{ strTime }}</p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <label class="col-form-label" for="comment">Notes: </label>
+      </div>
+      <div class="col-lg-8">
+        <textarea class="form-control" rows="5" [(ngModel)]="comment" id="comment"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="submit()" msLoadingButton [loading]="isCallingApi"
+        [disabled]="isChecked">Save</button>
+      <button type="button" class="btn btn-danger" (click)="closeModal(false)">Cancel</button>
+      
+    </div>
+    <ng-template #tipContent>
+      <!-- <fa-icon [icon]="['fas', 'lock']" [styles]="{'color': '#2668a9'}"></fa-icon> -->
+      <fa-icon [icon]="['far', 'lock']" [style]="{'color': '#2668a9'}"></fa-icon> Message Applicant to Unlock this Feature.</ng-template>
+  </div>
+</div>

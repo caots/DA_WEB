@@ -1,0 +1,38 @@
+<div (click)="showModalPreviewFileComponent()">
+  <!-- <a [ngClass]="{'preview-tool': previewType == FILE_PREVIEW_TYPE.office}"> -->
+  <a>
+    <fa-icon [icon]="faIcon"></fa-icon>
+    <span class="file-name">
+      {{fileName}}
+    </span>
+  </a>
+
+  <div [hidden]="isLoading" *ngIf="previewType == FILE_PREVIEW_TYPE.office">
+    <!-- <ngx-doc-viewer
+    [viewerUrl]="reviewUrl"
+    [url]="url"
+    viewer="google"
+    disableContent="all"
+    googleCheckContentLoaded="true"
+    (loaded)="loaded($event)"
+    ></ngx-doc-viewer> -->
+  </div>
+  <div class="preview-content" [hidden]="isLoading" *ngIf="previewType == FILE_PREVIEW_TYPE.mp3">
+    <audio controls>
+      <source src="{{url}}" type="audio/mpeg"> Your browser does not support the audio element.
+    </audio>
+  </div>
+  <div class="preview-content" [hidden]="isLoading" *ngIf="previewType == FILE_PREVIEW_TYPE.mp4">
+    <video width="100%" controls>
+      <source src="{{url}}" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+  </div>
+  <div [hidden]="isLoading" *ngIf="previewType == FILE_PREVIEW_TYPE.otherVideo || previewType == FILE_PREVIEW_TYPE.zip || previewType == FILE_PREVIEW_TYPE.other">
+    <!-- <div>file</div> -->
+  </div>
+  <div class="preview-content animated-background" *ngIf="isLoading" style="height: 150px;width: 330px;">
+
+  </div>
+</div>
+

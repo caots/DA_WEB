@@ -1,0 +1,33 @@
+<div class="border-box job-list-assessment">
+  <p class="border-box__title">Assessment Catalog</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="block-search-asessment">
+          <ms-assessments-search [listCategory]="listCategory" [query]="querySearch" (search)="searchAssessment()"
+            (takeAssessment)="switchAssessment($event)" [isSearching]="isSearching">
+          </ms-assessments-search>
+        </div>
+        <p class="warning-search" *ngIf="dataAssessment.length <= 0">{{textWarningSearch}}</p>
+        <!-- <div class="border-box job-list-assessment" *ngIf="dataAssessment.length > 0"> -->
+        <!-- <p class="border-box__title">Assessments</p> -->
+        <!-- <div *ngIf="!isAddAssessment"> -->
+          <ms-assessments-card *ngFor="let assessment of dataAssessment" [isAddAssessment]="isAddAssessment" [settingsCard]="settingsCard"
+            [assessment]="assessment" (add)="addAssessment($event)" (remove)="removeAssessment($event)"
+            [isSelected]="isSelected(assessment)" (validate)="validateAssessment($event)" (retry)="retryAssessment($event)" [isAdding]="isAdding">
+          </ms-assessments-card>
+        <!-- </div> -->
+        <!-- <div *ngIf="isAddAssessment">
+          <ms-assessments-card *ngFor="let assessment of listSelectedAssessment" [isAddAssessment]="isAddAssessment"
+            [assessment]="assessment" (add)="addAssessment($event)" (remove)="removeAssessment($event)"
+            [isSelected]="isSelected(assessment)" (validate)="validateAssessment($event)" [isAdding]="isAdding">
+          </ms-assessments-card>
+        </div> -->
+        <div class="pagination-assessment">
+          <ms-pagination [config]="paginationConfig" (goTo)="paginationAssessment($event)"></ms-pagination>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</div>

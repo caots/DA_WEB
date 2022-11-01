@@ -1,0 +1,74 @@
+<div id="slider" class="show-desktop" style="background-image: url({{API_S3}}/cdn/bg-16.webp);">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="slider-inner">
+          <div class="slider-content">
+            <div class="slider-content-left">
+              <p class="top-title">
+                Matching Jobseekers And Employers Through Skills Assessments
+              </p>
+              <h1 class="slider-title font-bold">
+                <span>Jumpstart Your </span>
+                <span>
+                  Career Now!
+                </span>
+              </h1>
+
+              <p class="bottom-title">
+                <span>Don’t let your resume define your worth. Step outside of your typical job search, and get</span>
+                <span> hired based on your skills. Apply to your next job with our skills assessments, not a resume.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <p class="what-title mobile">Start Your Job Search</p>
+        <div class="search-jobs">
+          <p class="what-title text-what">What</p>
+          <input type="text" class="input-search" [(ngModel)]="searchName" placeholder="Job title, keywords, or company">
+          <button type="button" (click)="searchInputSlider()" class="btn btn-find-jobs" name="btn find-jobs" aria-label="btn-find-jobs">
+            <span class="desktop">Find Jobs</span>
+            <fa-icon [icon]="['fas', 'search']" class="mobile"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="slider" class="show-mobile" style="background-image: url({{API_S3}}/cdn/slider-extra2.webp);">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="slider-inner">
+          <div class="slider-content">
+            <div class="slider-content-left">
+              <p class="top-title">
+                Matching Jobseekers And Employers Through Skills Assessments
+              </p>
+              <h1 class="slider-title font-bold">
+                <span>Jumpstart Your </span>
+                <span>
+                  Career Now!
+                </span>
+              </h1>
+
+              <p class="bottom-title">
+                <span>Don’t let your resume define your worth. Step outside of your typical job search, and get</span>
+                <span> hired based on your skills. Apply to your next job with our skills assessments, not a resume.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <p class="what-title mobile">Start Your Job Search</p>
+        <div class="search-jobs">
+          <p class="what-title text-what">What</p>
+          <input type="text" class="input-search" [(ngModel)]="searchName" placeholder="Job title, keywords, or company">
+          <button type="button" (click)="searchInputSlider()" class="btn btn-find-jobs">
+            <span class="desktop">Find Jobs</span>
+            <fa-icon [icon]="['fas', 'search']" class="mobile"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

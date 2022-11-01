@@ -1,0 +1,39 @@
+.bold{
+    font-weight: bold;
+    color: #333;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.view-answer {
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  max-height: 108px;
+  width: 100%;
+  overflow: auto;
+  pointer-events: visible;
+}
+
+.intruction-assessment{
+  color: #333 !important;
+  display: flex;
+  margin-bottom: 10px;
+  span.block{
+    display: block;
+    margin-right: 10px;
+  }
+  label{
+    display: inline;
+  }
+}

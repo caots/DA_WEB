@@ -1,0 +1,22 @@
+.opt-item {
+  margin-bottom: 15px;
+  label {
+    display: flex;
+    justify-content: flex-start;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    input {
+      margin-top: 4px;
+      margin-right: 10px;
+    }
+  }
+}
+
+.title {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.ct-right{
+  flex: 1;
+}

@@ -1,0 +1,16 @@
+<div class="header-assessment">
+    <div [innerHTML]="textIntruction"></div>
+    <div *ngIf="customAssessment.instruction">
+        <p class="intruction-assessment"><span class="block">6.</span> <span class="text-left block"><b>Employer's Instructions: </b><label [innerHTML]="customAssessment.instruction"></label></span></p>
+    </div>
+    <div class="text-center mt-3">Good luck!</div>
+  </div>
+<div class="header-assessment mt-5">
+    <h3>{{customAssessment.name}}</h3>
+    <div class="time-limit" *ngIf="customAssessment.duration"><span class="font-heavy">Time limit: </span> {{customAssessment.duration}} minute{{customAssessment.duration > 1 ? "s" : ""}}</div>
+    <!-- <div class="time-limit" *ngIf="!customAssessment.duration"><span class="font-heavy" >Time limit: </span>N/A</div> -->
+    <div class="desc font-heavy" *ngIf="customAssessment.description">Descriptions</div>
+    <div class="desc-content">
+        {{customAssessment.description}}
+    </div>
+</div>

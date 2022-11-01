@@ -1,0 +1,63 @@
+<div class="applicants-page">
+  <div class="header-width-tabs">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="pt-3">
+            <h2 class="title">{{isPreviewCustomAssessment? 'Assessment Preview' : 'Custom Assessment Creator'}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <a class="btn-back mb-4 d-block" (click)="goToCustomAssessment()">
+          <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
+          <span>Back</span>
+        </a>
+
+        <div class="padding-box" [ngClass]="{'border-box': !isPreviewCustomAssessment}">
+          <p *ngIf="!isPreviewCustomAssessment" class="border-box__title">Create Custom Assessment</p>
+
+          <div [style]="isPreviewCustomAssessment ? 'pointer-events:none;' : ''">
+            <ms-custom-assessment-info
+            [isPreviewCustomAssessment]="isPreviewCustomAssessment"
+            [(formUpdate)]="customAssessmentInfoForm"
+            ></ms-custom-assessment-info>
+  
+            <div *ngIf="updateData">
+              <ms-custom-assessment-question *ngIf="listQuestionAssessment && customAssessmentEdit"
+              [isPreviewCustomAssessment]="isPreviewCustomAssessment"
+              [(questionAssessments)]="listQuestionAssessment"
+              [customAssessmentEdit]="customAssessmentEdit"
+              [(requireQuestion)]="requireQuestion"
+              (limitQuestion)="setLimitQuestion($event)"
+              ></ms-custom-assessment-question>
+            </div>
+            <div *ngIf="!updateData">
+              <ms-custom-assessment-question *ngIf="listQuestionAssessment"
+              [isPreviewCustomAssessment]="isPreviewCustomAssessment"
+              [(questionAssessments)]="listQuestionAssessment"
+              [(requireQuestion)]="requireQuestion"
+              [(requireQuestion)]="requireQuestion"
+              (limitQuestion)="setLimitQuestion($event)"
+              ></ms-custom-assessment-question>
+            </div>
+          </div>
+
+          <div class="text-danger" *ngIf="messageValidateAssessment">{{messageValidateAssessment}}</div>
+          <div class="text-warning" *ngIf="msgLimitQuestion">{{msgLimitQuestion}}</div>
+          <div class="box-footer" [hidden]="isPreviewCustomAssessment">
+            <button type="button" class="btn btn-success" msLoadingButton [loading]="isLoadingSave" [disabled]="isLoadingSave" (click)="saveCustomAssessment()">Save</button>
+            <button type="button" class="btn btn-secondary" (click)="goToCustomAssessment()">Cancel</button>
+          </div>
+          <div class="box-footer" [hidden]="!isPreviewCustomAssessment">
+            <button type="button" class="btn btn-success" (click)="goToCustomAssessment()">Back</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

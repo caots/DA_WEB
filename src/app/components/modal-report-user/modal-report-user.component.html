@@ -1,0 +1,31 @@
+<div>
+    <div class="modal-header">
+      <h4 class="modal-title" *ngIf="!isCandidate" id="modal-basic-title">Report this {{type === USER_TYPE.EMPLOYER ? 'Applicant' : 'Employer' }}</h4>
+      <h4 class="modal-title" *ngIf="isCandidate && type === USER_TYPE.EMPLOYER" id="modal-basic-title">Report this Candidate</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="report-body">
+          <div class="form-group" *ngFor="let data of dataReasonReport; let i=index">
+            <label class="radio-block">
+              <input class="form-check-input" type="radio" name="check-report" [value]="data.id" (change)="onItemChange($event.target.value)"/> {{data.title}}
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="comment">Additional Information:</label>
+            <textarea class="form-control" rows="5" [(ngModel)]="comment" (ngModelChange)="onChange()" id="comment"></textarea>
+            <div class="text-danger"
+              *ngIf="checkRequire">
+              Additional information: is required
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" msLoadingButton [loading]="isCallingApi" class="btn btn-success" [disabled]="!isChecked" (click)="submit()">Report</button>
+            <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+          </div>
+      </div>
+    </div>
+  </div>
+  

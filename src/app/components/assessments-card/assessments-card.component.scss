@@ -1,0 +1,108 @@
+button {
+    min-width: 100px;
+    margin-left: 0 !important;
+}
+
+.score {
+    min-width: 100px;
+    margin-right: 25px;
+    @media (max-width: 992px) {
+        margin-right: 5px;
+    }
+}
+
+.cursor-pointer {
+    width: 100%;
+    text-align: center;
+}
+
+.block-right-hand {
+    min-width: 300px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex: 1;
+    @media (max-width: 992px) {
+        min-width: auto;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        .btn {
+            margin: 0;
+        }
+    }
+    @media (max-width: 480px) {
+        flex-flow: column-reverse;
+        .box-actions {
+            margin-top: 10px;
+        } 
+        align-items: flex-end;
+    }
+}
+
+.list-job-assessment-item{
+    margin-bottom: 15px;
+}
+
+.list-job-assessment__title {
+    min-width: 294px;
+}
+.list-job-assessment__time{
+    margin-right: 40px;
+}
+@media (max-width: 992px) {
+    .list-job-assessment__time {
+        margin-left: 0 !important;
+    }
+}
+
+.list-job-assessment-header {
+    align-items: flex-start;
+}
+
+.show-history {
+    box-shadow: 0px 0px 10px #0000001a;
+    position: relative;
+    .arrow-hide {
+        position: absolute;
+        right: 10px;
+        top: 14px;
+        color: #2668a9;
+        cursor: pointer;
+    }
+}
+
+.box-score {
+    margin-right: 10px;
+    flex: 1;
+    .view-score {
+        color: #2668a9;
+        cursor: pointer;
+    }
+    @media (max-width: 480px) {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+.info-test {
+    background: #faa602;
+    padding: 5px 10px 5px 40px;
+    border-radius: 25px 0 0 25px;
+    margin-bottom: 15px;
+    p{
+        color: #fff;
+        font-size: 15px;
+    }
+}
+.box-actions{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+    button{
+        width: max-content;
+    }
+}
+span.icon {
+    width: 23px;
+    display: inline-block;
+}

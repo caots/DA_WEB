@@ -1,0 +1,117 @@
+<div class="modal-header">
+  <h4>You are applying for: <span>{{job.title}}</span></h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="formApplyJob" (ngSubmit)=submitJob(formApplyJob.value)>
+  <div class="modal-body">
+    <div class="md-content">
+      <div class="border-box ">
+        <p class="border-box__title">Job Description</p>
+        <p class="desc" [innerHTML]="job.description"></p>
+      </div>
+
+      <div class="border-box">
+        <p class="border-box__title">Please Take Assessment(s) to Apply</p>
+        <!-- <p class="show-warning" *ngIf="(!validateAssessments || validateAssessments.length < listAssessmentJob.length) && !assessmentStatus">
+          <fa-icon [icon]="['fas', 'exclamation-circle']" style="color:#FFCC00"></fa-icon>
+          Please wait while we calculate your test score. This could take up to one (1) minute.
+        </p> -->
+        <!-- <p class="show-warning">
+          <fa-icon [icon]="['fas', 'exclamation-circle']" style="color:#FFCC00"></fa-icon>
+          Please wait while we calculate your test score. This could take up to one (1) minute.
+        </p> -->
+        <div class="list-assessments">
+          <div class="list-assessments__item" *ngFor="let assessment of listAssessmentJob">
+            <div class="col-left">
+              <div class="list-skill__item {{assessmentService.colorWeightAssessment(assessment.weight)}}">
+                <span *ngIf="assessment.weight">{{assessment.name}}: {{assessment.weight}}</span>
+                <span *ngIf="assessment.weight == null">{{assessment.name}}</span>
+              </div>
+            </div>
+            <div class="col-right">
+              <button type="button" [hidden]="assessment.type === assessmentType.Custom && !checkRetryCustomAssessment(assessment)" (click)="goToValidateOrRetry(assessment, modalPaymentConfirmation)"
+              class="btn assessments-scrore skill--pass" >{{assessment.totalTake ? 'Retry' : 'Take Assessment'}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-box mb-0">
+        <p class="border-box__title">My Proposal (Optional)</p>
+        <div class="content-proposal">
+          <div class="form-group">
+            <label for="">Desired Compensation:</label>
+            <div class="row">
+              <div class="col-lg-5">
+                <div class="input-with-dollar-sign">
+                  <input type="text" class="form-control" formControlName="salary" msNumbersOnly
+                    [isFormatNumber]="true">
+                </div>
+              </div>
+              <div class="col-lg-5 text-per-hour">
+                <span>{{titleSalaryType}}</span>
+                <!-- <select class="form-control" [formControlName="salaryType" [ngModelOptions]="{standalone: true}" (change)="selectOptionSalary($event.target.value)"> -->
+                <!-- <select class="form-control" formControlName="salaryType">
+                  <option [value]="item.id" *ngFor="let item of salaryType">
+                    {{ item.title }}
+                  </option>
+                </select> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="box-benefit">
+            <p class="title-benefit">Desired Benefits:</p>
+            <!-- <div class="list-benefits">
+                <label class="check-box__item" *ngFor="let benefits of listBenefit">
+                  <input type="checkbox" [checked]="benefits.status">
+                  <span class="check-icon-custom"></span>
+                  <span class="text-checkbox">{{benefits.title}}</span>
+                </label>
+              </div> -->
+            <div class="list-benefits">
+              <label class="check-box__item" *ngFor="let benefit of listBenefits">
+                <input type="checkbox" [checked]="benefit.status" [value]="benefit.status"
+                  (change)="selectBenefits(benefit)" />
+                <span class="check-icon-custom"></span>
+                <span class="text-checkbox">{{ benefit.title }}</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" type="submit"
+    [disabled]="isCallingApi || !validateAssessments || validateAssessments.length < listAssessmentJob.length || !assessmentStatus">
+    Apply</button>
+    <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+  </div>
+</form>
+<!-- <ng-template #modalPaymentConfirmation>
+  <ms-modal-payment-assessment-confirmation *ngIf="assessmentData && settingsCard" [card]="cardInfo"
+    [settingsCard]="settingsCard" [assessmentInfo]="assessmentData" (submit)="submitPaymentProcess($event)"
+    (close)="modalPaymentConfirmationRef.close()">
+  </ms-modal-payment-assessment-confirmation>
+</ng-template> -->
+
+<ng-template #modalPaymentConfirmation>
+  <ms-modal-payment-assessment  *ngIf="settingsCard && assessmentData"
+  [sendDataAssessment]="assessmentData"
+  (close)="modalPaymentConfirmationRef.close()"
+  [settings]="settingsCard"
+  ></ms-modal-payment-assessment>
+</ng-template>
+
+
+<ng-template #modalPaymentFree>
+  <ms-modal-confirm-free-payment *ngIf="settingsCard"
+  (close)="modalPaymentFreeRef.close()"
+  (complete)="takeTestForPaymentFree()"
+  [cardSettings]="settingsCard"
+  ></ms-modal-confirm-free-payment>
+</ng-template>

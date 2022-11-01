@@ -1,0 +1,245 @@
+<div class="container desktop-measuredskill">
+    <div class="measured-skills-slider">
+        <h3>Why Post Your Job With MeasuredSkills?</h3>
+    </div>
+    <swiper (click)="enableSwipeSlide()" class="swiper-container measured-skills-slider" [config]=" enableSwipe ? measuredSkillsConfigEnable : measuredSkillsConfig"
+        (indexChange)="onIndexChange($event)">
+        <div class="measured-skills-content">
+            <div class="d-flex">
+                <div class="col-lg-4">
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/accurate.svg"></svg-icon>
+                            <p class="sub-title"> Accurate Skill Verification </p>
+                        </div>
+                        <div class="slider-item-bottom">
+                            <p class="desc">
+                                <span style="font-weight: bold;">with Over 140 Prebuilt Skills Assessments plus Custom Option</span><br>
+                                Our skill verification assessments are EEOC compliant and provide an
+                                accurate
+                                measure of applicants’ skills. They give you a true look at just what they can bring to
+                                your
+                                team.</p>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/efficient.svg"></svg-icon>
+                            <p class="sub-title2">Very Cost Efficient</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/applicants.svg"></svg-icon>
+                            <p class="sub-title">Find Quality Applicants</p>
+                        </div>
+                        <div class="slider-item-bottom">
+                            <p class="desc">MeasuredSkills is entirely dedicated to connecting employers to potential
+                                employees. Our skills assessments connect you to applicants who fit what you need.</p>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/wasted.svg"></svg-icon>
+                            <p class="sub-title2">No Time Wasted</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/manage.svg"></svg-icon>
+                            <p class="sub-title">Manage Your Listings</p>
+                        </div>
+                        <div class="slider-item-bottom">
+                            <p class="desc">Manage your listing with our simple platform. Create listings when you have
+                                openings, and close them once you fill those openings.</p>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/compliant.svg"></svg-icon>
+                            <p class="sub-title2">We are EEOC Compliant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="measured-skills-content">
+            <div class="d-flex">
+                <div class="col-lg-4">
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/accurate-2.svg"></svg-icon>
+                            <p class="sub-title2">Accurate Skill Verification</p>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/wasted-2.svg"></svg-icon>
+                            <p class="sub-title">No Time Wasted</p>
+                        </div>
+                        <div class="slider-item-bottom">
+                            <p class="desc">Our skill verification assessments are EEOC compliant and provide an
+                                accurate
+                                measure of applicants’ skills. They give you a true look at just what they can bring to
+                                your
+                                team.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/applicants-2.svg"></svg-icon>
+                            <p class="sub-title2">Find Quality Applicants</p>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/efficient-2.svg"></svg-icon>
+                            <p class="sub-title">Very Cost Efficient</p>
+                        </div>
+                        <div class="slider-item-bottom">
+                            <p class="desc">MeasuredSkills is entirely dedicated to connecting employers to potential
+                                employees. Our skills assessments connect you to applicants who fit what you need.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/manage-2.svg"></svg-icon>
+                            
+                            <p class="sub-title2">Manage Your Listings</p>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header">
+                            <svg-icon src="assets/icons/compliant-2.svg"></svg-icon>
+                            <p class="sub-title">We are EEOC Compliant</p>
+                        </div>
+                        <div class="slider-item-bottom">
+                            <p class="desc">Manage your listing with our simple platform. Create listings when you have
+                                openings, and close them once you fill those openings.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </swiper>
+</div>
+<div class="mobile-measuredskill measured-skills-slider">
+    <div class="container">
+        <div class="measured-skills-content">
+            <div class="measured-skills-title">
+                <h3>Why Post Your Job With MeasuredSkills?</h3>
+            </div>
+            <div class="d-flex">
+                <div class="col-lg-4">
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header" (click)="isAccurateSkillVerification = !isAccurateSkillVerification"
+                        [attr.aria-expanded]="!isAccurateSkillVerification" aria-controls="collapseExample">
+                            <svg-icon src="assets/icons/accurate-3.svg"></svg-icon>
+                            <div class="read-information">
+                                <p class="sub-title2">Accurate Skill Verification</p>
+                                <p class="show-more show-text">Read More</p>
+                                <div #collapse="ngbCollapse" [(ngbCollapse)]="isAccurateSkillVerification" class="slider-item-bottom">
+                                    <p class="desc">
+                                        <span style="font-weight: bold;">with Over 140 Prebuilt Skills Assessments plus Custom Option</span><br>
+                                        Our skill verification assessments are EEOC compliant and provide an
+                                        accurate measure of applicants’ skills. They give you a true look at just what they
+                                        can bring to your team.</p>
+                                </div>
+                                <p class="show-less show-text">Show Less</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header" (click)="isFindQualityApplicants = !isFindQualityApplicants"
+                        [attr.aria-expanded]="!isFindQualityApplicants" aria-controls="collapseExample">
+                            <svg-icon src="assets/icons/applicants-3.svg"></svg-icon>
+                            <div class="read-information">
+                                <p class="sub-title2">Find Quality Applicants</p>
+                                <p class="show-more show-text">Read More</p>
+                                <div #collapse="ngbCollapse" [(ngbCollapse)]="isFindQualityApplicants" class="slider-item-bottom">
+                                    <p class="desc">Our skill verification assessments are EEOC compliant and provide an
+                                        accurate measure of applicants’ skills. They give you a true look at just what they
+                                        can bring to your team.</p>
+                                </div>
+                                <p class="show-less show-text">Show Less</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header" (click)="isManageYourListings = !isManageYourListings"
+                        [attr.aria-expanded]="!isManageYourListings" aria-controls="collapseExample">
+                            <svg-icon src="assets/icons/manage-3.svg"></svg-icon>
+                            <div class="read-information">
+                                <p class="sub-title2">Manage Your Listings</p>
+                                <p class="show-more show-text">Read More</p>
+                                <div #collapse="ngbCollapse" [(ngbCollapse)]="isManageYourListings" class="slider-item-bottom">
+                                    <p class="desc">Our skill verification assessments are EEOC compliant and provide an
+                                        accurate measure of applicants’ skills. They give you a true look at just what they
+                                        can bring to your team.</p>
+                                </div>
+                                <p class="show-less show-text">Show Less</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header" (click)="isNoTimeWasted = !isNoTimeWasted"
+                        [attr.aria-expanded]="!isNoTimeWasted" aria-controls="collapseExample">
+                            <svg-icon src="assets/icons/wasted-3.svg"></svg-icon>
+                            <div class="read-information">
+                                <p class="sub-title2">No Time Wasted</p>
+                                <p class="show-more show-text">Read More</p>
+                                <div #collapse="ngbCollapse" [(ngbCollapse)]="isNoTimeWasted" class="slider-item-bottom">
+                                    <p class="desc">Our skill verification assessments are EEOC compliant and provide an
+                                        accurate measure of applicants’ skills. They give you a true look at just what they
+                                        can bring to your team.</p>
+                                </div>
+                                <p class="show-less show-text">Show Less</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header" (click)="isVeryCostEfficient = !isVeryCostEfficient"
+                        [attr.aria-expanded]="!isVeryCostEfficient" aria-controls="collapseExample">
+                            <svg-icon src="assets/icons/efficient-3.svg"></svg-icon>
+                            <div class="read-information">
+                                <p class="sub-title2">Very Cost Efficient</p>
+                                <p class="show-more show-text">Read More</p>
+                                <div #collapse="ngbCollapse" [(ngbCollapse)]="isVeryCostEfficient" class="slider-item-bottom">
+                                    <p class="desc">Our skill verification assessments are EEOC compliant and provide an
+                                        accurate measure of applicants’ skills. They give you a true look at just what they
+                                        can bring to your team.</p>
+                                </div>
+                                <p class="show-less show-text">Show Less</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="measured-skills-list__item">
+                        <div class="slider-item-header" (click)="isWeareEEOCCompliant = !isWeareEEOCCompliant"
+                        [attr.aria-expanded]="!isWeareEEOCCompliant" aria-controls="collapseExample">
+                            <svg-icon src="assets/icons/compliant-3.svg"></svg-icon>
+                            <div class="read-information">
+                                <p class="sub-title2">We are EEOC Compliant</p>
+                                <p class="show-more show-text">Read More</p>
+                                <div #collapse="ngbCollapse" [(ngbCollapse)]="isWeareEEOCCompliant" class="slider-item-bottom">
+                                    <p class="desc">Our skill verification assessments are EEOC compliant and provide an
+                                        accurate measure of applicants’ skills. They give you a true look at just what they
+                                        can bring to your team.</p>
+                                </div>
+                                <p class="show-less show-text">Show Less</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

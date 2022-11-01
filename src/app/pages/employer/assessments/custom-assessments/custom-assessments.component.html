@@ -1,0 +1,56 @@
+<div class="page-custom-assessments">
+  <div class="mt-4 mb-4">
+    <button
+      type="button"
+      class="btn btn-success btn-radius mr-2 btn-icon mb-2"
+      (click)="addCustomAssessment()"
+      [hidden]="userData ? permissionService.checkCantPermissionUser(userData, permission.CHANGE_JOB): true"
+    >
+      <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+      Create a New Custom Assessment 
+    </button>
+  </div>
+  <ms-loading-assessment-item [numberCard]="paginationConfig.maxRecord" *ngIf="isLoadingAssessment">
+  </ms-loading-assessment-item>
+  <div class="list-custom-assessment" *ngIf="!isLoadingAssessment">
+    <div class="item-assessment" *ngFor="let customAssessment of listCustomAssessment">
+      <div class="item-assessment__content">
+        <div class="row-top">
+          <h3 class="title">{{customAssessment.name}}</h3>
+          <p class="time-limit">Time limit: {{customAssessment.duration ? customAssessment.duration + " min" : "N/A"}} </p>
+          <div class="box-opt">
+            <div class="cursor-pointer" 
+            (click)="onEditCustomAssessment(false, customAssessment)">
+              <fa-icon [icon]="['fas', 'eye']"></fa-icon>
+            </div>
+            <div class="cursor-pointer" 
+            [hidden]="userData ? permissionService.checkCantPermissionUser(userData, permission.CHANGE_JOB): true"
+            (click)="onEditCustomAssessment(true, customAssessment)">
+              <fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon>
+            </div>
+            <div class="cursor-pointer" 
+            [hidden]="userData ? permissionService.checkCantPermissionUser(userData, permission.CHANGE_JOB): true"
+            (click)="onDuplicateCustom(customAssessment)">
+              <fa-icon [icon]="['far', 'copy']"></fa-icon>
+              
+            </div>
+            <div class="cursor-pointer" *ngIf="customAssessment.totalJob <= 0"
+              [hidden]="userData ? permissionService.checkCantPermissionUser(userData, permission.CHANGE_JOB): true"
+              (click)="onDeleteCustomAssessment(customAssessment)">
+              <fa-icon [icon]="['far', 'trash-alt']"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>
+            {{customAssessment.description}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap__pagination">
+    <ms-pagination *ngIf="!isLoadingAssessment" [config]="paginationConfig" (goTo)="paginationAssessment($event)">
+    </ms-pagination>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+
+<div class="job-detail__header">
+  <div class="row">
+    <div class="col-md-2">
+      <a class="btn-back mb-4 d-block" (click)="goBack()">
+        <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
+        <span>Back</span>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-logo">
+      <div class="img">
+        <img onerror="this.src='assets/images/employer_default_photo_1.png'" alt="{{userInfo?.companyName}}"
+          [src]="jobDetails?.companyLogo">
+      </div>
+    </div>
+    <div class="col-md-10 col-content-wrapper">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-content">
+          <div class="title-header" [hidden]="!isSearchJobPage">
+            <h2 class="job-title" >{{jobDetails?.title}}</h2>
+            <img *ngIf="jobDetails?.addUrgentHiringBadge !== 0 && !checkExpired"
+              src="assets/images/urgent_hiring_badge.svg" alt="urgent hiring">
+          </div>
+          <div class="d-flex row-name-company">
+            <ng-template #tipIconResoinsive>Responsive employer.</ng-template>
+            <div class="d-flex mr-2">
+              <div class="group-name">
+                <p class="company-name" [ngClass]="{'title-company': !isSearchJobPage}">{{userInfo?.companyName}}</p>
+              </div>
+              <div class="icon-responsive ml-3" [ngbTooltip]="tipIconResoinsive" tooltipClass="tooltip-custom" *ngIf="jobDetails && jobDetails.employerUserResponsive >= USER_RESPONSIVE.EMPLOYER ">
+                <svg-icon src="assets/icons/run.svg"></svg-icon>
+              </div>
+            </div>
+            <button  type="button" class="btn btn-primary btn-follow disable-apply ">Follow</button>
+          </div>
+          <p class="view-and-expires mt-2" [hidden]="!isSearchJobPage" *ngIf="jobDetails?.isPrivate != 1 && jobDetails?.expiredAt">
+            <span>Job Expires In: </span> <span [hidden]="checkExpired">{{subDateHotJob(jobDetails?.expiredAt)}} | </span>
+            <span>{{subTimeHotJob(jobDetails?.expiredAt)}}</span>
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-3" >
+          <div class="box-sum-item no-border"  *ngIf="companyLocation" >
+            <div class="icon">
+              <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+            </div>
+            <div class="box-sum-content">
+              <p>{{companyLocation}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-btn">
+          <div class="top-col-btn">
+            <div class="box-share-jobs btn-share-job" shareButtonDir [ngClass]="{'disable-apply' : !activeJob}">
+              <a class="cursor-pointer" rel="nofollow">
+                <span>Share</span>
+                <fa-icon [icon]="['fas', 'share-alt']"></fa-icon>
+              </a>
+              <div class="share-jobs">
+                <share-button  button="facebook" [url]="shareUrl()"></share-button>
+                <share-button  button="twitter"  [url]="shareUrl()"></share-button>
+                <share-button  button="email"  [url]="shareUrl(1)"></share-button>
+                <share-button  button="copy"  [url]="shareUrl()"></share-button>
+              </div>
+            </div>
+            <div class="item-bookmark cursor-pointer disable-apply" style="pointer-events: none" >
+              <span>Save</span>
+              <fa-icon [icon]="['fas', 'bookmark']"></fa-icon>
+            </div>
+          </div>
+          <div style="pointer-events: none" class="cursor-pointer btn-apply-now disable-apply" id="applyBtn">
+            Apply Now</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+.od-sum {
+  font-size: 18px;
+  color: #000;
+}
+
+.item-number {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .form-control {
+    width: 70px;
+    margin-left: 10px;
+  }
+}
+
+.toogle-save-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 10px 0 15px;
+  .box-switch {
+    margin-left: 10px;
+    label {
+      margin: 0;
+    }
+  }
+}
+
+.box-content{
+  border: 1px solid #80808045;
+}
+
+.enter-coupon{
+  fa-icon{
+    font-size: 20px;
+    color: #f99901;
+  }
+}

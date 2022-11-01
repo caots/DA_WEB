@@ -1,0 +1,42 @@
+
+<div class="footer-bottom" *ngIf="isWaitLoadData">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer-bottom-content">
+                    <p>
+                        © {{getCurrentYear()}} MeasuredSkills | All Rights Reserved
+                    </p>
+                    <ul>
+                        <li (click)="goToJobseekerPage()">
+                            <a rel="nofollow">
+                                Jobseeker Home
+                            </a>
+                        </li>
+                        <li (click)="goToEmployerPage()">
+                            <a rel="nofollow">
+                                Employer Home
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="'/contact'">
+                                Contact Us
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="'/terms-of-service'">
+                                Terms of Service
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="'/privacy-policy'">
+                                Privacy Policy
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

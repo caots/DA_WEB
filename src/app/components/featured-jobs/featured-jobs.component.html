@@ -1,0 +1,84 @@
+<div class="ft-job-carousel">
+  <ngb-carousel class="ft-carousel ft-carousel-dots show-desktop">
+    <ng-template ngbSlide *ngFor="let item of listImageSlide;">
+      <div class="box-featured-jobs box-featured-jobs--background-image">
+        <img data-src="{{item.value}}" [src]="item.value" width="100%" height="100%" class="lazyload" loading="lazy"/>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+  <div class="ft-carousel ft-carousel-dots show-mobile">
+    <div class="box-featured-jobs box-featured-jobs--background-image">
+    </div>
+  </div>
+  <div class="box-featured-jobs-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="wraper-slider">
+            <div class="fj-slider">
+              <h1 class="fj-title">
+                Featured Jobs
+              </h1>
+              <div class="container">
+                <swiper class="swiper-container j-slider-group" (slideChange)="onSlideChange($event)"  *ngIf="!isLoadingListJob && !isShowDefaultJob" [config]="jobJobseekerConfig">
+                  <div class="fj-slider-item swiper-slide" *ngFor="let job of listFeatureJob">
+                    <div class="fj-slider-item__top">
+                      <span>{{job.cityName}}, {{job.stateName}}</span>
+                      <span>{{job.employmentTypeText}}</span>
+                    </div>
+                    <a [routerLink]="['/job', job.urlSeo]" class="fj-slider-item__title posting-item__title">
+                      {{job.title}}
+                    </a>
+                    <h3 class="fj-slider-item__imageCompany">
+                      <div class="img-company">
+                        <img [src]="job.companyLogo"  onerror="this.src='assets/images/employer_default_photo_1.png'"
+                          alt="{{job.companyName}}" width="100%" height="100%">
+                      </div>
+                      <a class="job-company-name" [routerLink]="['/job', job.urlSeo]" [queryParams]="{tab: 'employer'}">{{job.companyName}}</a>
+                    </h3>
+                    <p class="fj-slider-item__desc">
+                      {{job.description}}
+                    </p>
+                    <p class="fj-slider-item__price">
+                      <span *ngIf="job.salary">{{job.salary | currency}}
+                        <span>{{getSalaryType(job.salaryType)}}</span></span>
+                      <span *ngIf="!job.salary && (job.salaryMin || job.salaryMax) ">{{job.salaryMin | currency}} -
+                        {{job.salaryMax | currency}} <span>{{getSalaryType(job.salaryType)}}</span></span>
+                    </p>
+                    <p class="fj-slider-item__date">
+                      <span>Job Expires In: </span> <span [ngClass]="{'time-expired' : isCheckDangerTime}">{{subDateHotJob(job.expiredAt)}}</span>
+                    </p>
+                    <p class="fj-slider-item__date">
+                      {{subTimeHotJob(job.expiredAt)}}
+                    </p>
+                  </div>
+                </swiper>
+                <div class="j-slider-group">
+                  <div class="fj-slider-item swiper-slide" *ngIf="!isLoadingListJob && isShowDefaultJob">
+                    <div class="fj-slider-item__top">
+                      <span>Your Job Location</span>
+                      <!-- <span>{{job.employmentTypeText}}</span> -->
+                    </div>
+                    <p class="fj-slider-item__title">
+                      Employers: Feature Your Job Here!
+                    </p>
+                    <h3 class="fj-slider-item__imageCompany">
+                      <div class="img-company">
+                        <img class="lazyload" width="100%" alt="logo company" height="100%" src="assets/images/employer_default_photo_1.png" onerror="this.src='assets/images/employer_default_photo_1.png'" loading="lazy">
+                      </div>
+                      <a>Your Company</a>
+                    </h3>
+                    <p class="fj-slider-item__desc">
+                      Feature Your Job for More Visibility
+                    </p>
+                  </div>
+                </div>
+             
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

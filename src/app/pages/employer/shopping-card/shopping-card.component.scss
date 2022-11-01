@@ -1,0 +1,339 @@
+.shopping-card-page {
+  width: 100%;
+  min-height: 787px;
+}
+.shopping-cart-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+  .back {
+    font-size: 22px;
+    color: #000;
+    font-family: "Avenir heavy";
+    fa-icon {
+      margin-right: 10px;
+    }
+  }
+}
+
+.shopping-car-bottom {
+  display: flex;
+  justify-content: center;
+  @media (max-width: 768px) {
+   flex-direction: column;
+   overflow: hidden;
+  }
+}
+
+.item-card {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 20px;
+  position: relative;
+  &__content {
+    width: 100%;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 10px #0000001a;
+    border-radius: 5px 0px 0px 5px;
+    padding: 20px;
+    display: flex;
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
+    .title {
+      color: #000;
+      font-family: "Avenir Heavy";
+      width: 35%;
+      span{
+        cursor: pointer;
+      }
+      @media (max-width: 1024px) {
+        width: 100%;
+      }
+    }
+
+    .feature-job {
+      color: #000;
+      flex-basis: 330px;
+      @media (max-width: 1024px) {
+        flex-basis: inherit;
+      }
+      .show-calendar {
+        label {
+          font-family: "Avenir Heavy";
+          display: flex;
+          align-items: center;
+          input {
+            margin-right: 7px;
+          }
+        }
+        @media (max-width: 768px) {
+          position: relative;
+          z-index: 3;
+        }
+      }
+      .total-days {
+        font-size: 14px;
+        font-style: italic;
+      }
+    }
+
+    .price-total {
+      color: #000;
+      font-family: "Avenir Heavy";
+      margin-left: auto;
+    }
+  }
+  &__delete {
+    font-size: 25px;
+    margin-left: 20px;
+    margin-top: 18px;
+  }
+}
+
+.checkbox {
+  display: block;
+  width: 50px;
+  font-size: 2rem;
+  color: #4fb648;
+  margin-top: 14px;
+
+  &--disabled {
+    color: #ddd;
+  }
+}
+
+.checkbox__control {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 0.25em;
+  border: 2px solid #d9d9d9;
+  cursor: pointer;
+
+  svg {
+    transform: scale(0);
+  }
+}
+
+.checkbox__input {
+  display: grid;
+  grid-template-areas: "checkbox";
+
+  > * {
+    grid-area: checkbox;
+  }
+
+  input {
+    cursor: pointer;
+    opacity: 0;
+    width: 1em;
+    height: 1em;
+    display: none;
+
+    &:focus + .checkbox__control {
+    }
+
+    &:checked + .checkbox__control {
+      border: 2px solid #4fb648;
+    }
+
+    &:checked + .checkbox__control svg {
+      transform: scale(1);
+      display: block;
+    }
+
+    &:disabled + .checkbox__control {
+      color: green;
+    }
+  }
+}
+
+.margin-card {
+  margin: 35px 0;
+}
+
+.wrapp-shopping-card {
+  padding: 30px 0 0 0;
+}
+
+.form-group.hidden {
+  width: 0;
+  margin: 0;
+  border: none;
+  padding: 0;
+  input {
+    border: none;
+  }
+}
+// .custom-day {
+//   text-align: center;
+//   padding: 0.185rem 0.25rem;
+//   display: inline-block;
+//   height: 2rem;
+//   width: 2rem;
+// }
+// .custom-day.focused {
+//   background-color: #e6e6e6;
+// }
+// .custom-day.range,
+// .custom-day:hover {
+//   background-color: rgb(2, 117, 216);
+//   color: white;
+// }
+// .custom-day.faded {
+//   background-color: rgba(2, 117, 216, 0.5);
+// }
+
+.form-inline .form-group:not(.hidden) {
+  width: 160px;
+}
+
+.total-amount {
+  display: flex;
+  margin: 20px 0;
+  justify-content: flex-end;
+  margin-right: 52px;
+  align-items: center;
+  .view-details-link {
+    margin-right: 10px;
+    text-decoration: underline;
+  }
+  p {
+    font-family: "Avenir Heavy";
+  }
+}
+
+@media (max-width: 768px) {
+  .border-box {
+    border: 1px solid #d9d9d9;
+    position: relative;
+    padding: 20px 15px;
+  }
+  .box-range-calendar {
+    form {
+      flex-direction: column;
+      .form-group:not(.hidden) {
+        width: 100%;
+        margin: 10px 0 !important;
+        padding: 0;
+        .input-group {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+.save-card {
+  position: absolute;
+  right: 81px;
+  margin: 8px 0;
+  @media (max-width: 768px) {
+    position: relative;
+    right: auto;
+    align-items: center;
+   }
+}
+
+.box-select-percent {
+  position: relative;
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  .btn-increase {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    border: navajowhite;
+    background: none;
+    line-height: 1;
+  }
+  .btn-decrease {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: none;
+    outline: none;
+    background: none;
+    line-height: 1;
+  }
+}
+
+.show-hiring{
+  display: flex;
+  .svg-icon {
+    margin-left: 10px;
+    position: relative;
+    top: -9px;
+  }
+}
+
+.disbale-button{
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.group-extra-coupon{
+  margin-bottom: 30px;
+  .enter-coupon{
+    margin-bottom: 30px;
+    width: 90%;
+    @media (max-width: 767px){
+      flex-flow: row wrap;
+      > *{
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+    }
+    .form-control {
+      width: auto;
+      flex: 1;
+      margin-right: 15px;
+    }
+    fa-icon{
+      font-size: 20px;
+      color: #f99901;
+    }
+    label {
+      margin: 0 30px 0 5px;
+      white-space: nowrap;
+      color: #333;
+    }
+  }
+  .coupon-info {
+    margin-left: 30px;
+    ul{
+      li{
+        list-style: decimal;
+      }
+    }
+  }
+  .total-amount {
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 0px;
+    @media (max-width: 576px){
+      align-items: flex-start
+    }
+    h4 {
+      font-weight: bold;
+      color: #333;
+      font-size: 1.15rem;
+    }
+  }
+  .view-details-amount{
+    display: flex;
+  }
+}
+
+.price--color{
+  color: #2668a9;
+}

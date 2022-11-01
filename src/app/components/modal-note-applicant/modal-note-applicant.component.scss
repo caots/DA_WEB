@@ -1,0 +1,23 @@
+.require-value {
+  top: -3px;
+  color: red;
+}
+
+.form-group > input.input-date {
+  background-color: #fff !important;
+}
+
+.time-select {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 10px;
+  h4 {
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+.tool-tip {
+  width: 40px;
+}

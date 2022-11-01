@@ -1,0 +1,104 @@
+
+::ng-deep .modal-add-new-job {
+  .modal-xl {
+    max-width: 1500px !important;
+    .container {
+      max-width: 100%;
+    }
+  }
+}
+
+
+.title-suggess {
+  margin-bottom: 20px;
+}
+
+.req-assessments {
+}
+
+.text-danger {
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  /* Firefox */
+}
+
+.warning-text {
+  color: #ffc409;
+  font-size: 13px;
+  display: block;
+}
+
+.modal-add-new-job {
+  position: relative;
+}
+
+.box-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__item {
+    display: flex;
+    margin: 0 10px;
+    cursor: pointer;
+    @media (max-width: 992px) {
+      margin: 10px;
+    }
+    &.active {
+      .number {
+        background: #4fb648;
+        color: #fff;
+        border-color: #4fb648;
+      }
+    }
+
+    .number {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid #7c7c7c;
+      margin-right: 10px;
+      min-width: 40px;
+    }
+  }
+}
+
+.select-for-1 {
+  margin-top: 30px;
+}
+
+.title-bonus {
+  font-size: 16px;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+
+.box-step__item{
+  cursor: pointer;
+}
+
+.hidden-step{
+  display: none;
+}

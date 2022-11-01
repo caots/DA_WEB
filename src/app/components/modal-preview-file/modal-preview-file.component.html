@@ -1,0 +1,33 @@
+<div class="modal-view-image-comp">
+  <div style="background-color: var(--color-8A9);right: 8px;">
+    <div class="modal-header" style="border: none;">
+      <a (click)="imageService.downloadImage(url)" class="icon-down"><fa-icon [icon]="['fas', 'arrow-circle-down']"></fa-icon></a>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="main" [hidden]="isLoading" *ngIf="previewType == FILE_PREVIEW_TYPE.office">
+    <ngx-doc-viewer
+      [viewerUrl]="reviewUrl"
+      [url]="url"
+      viewer="google"
+      style="height: 90vh"
+      disableContent="popout"
+      googleCheckContentLoaded="true"
+      (loaded)="loaded($event)"
+      ></ngx-doc-viewer>
+  </div>
+  <div class="main" [hidden]="isLoading" *ngIf="previewType == FILE_PREVIEW_TYPE.mp4">
+    <video controls>
+      <source src="{{url}}" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+  </div>
+  <div class="main" *ngIf="isLoading">
+  <!-- <div class="main"> -->
+    <div class="spinner-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</div>

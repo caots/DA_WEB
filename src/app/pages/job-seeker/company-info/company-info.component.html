@@ -1,0 +1,38 @@
+<div class="company-info">
+  <div class="company-info__inner" *ngIf="!isCallingApi">
+    <h4 class="mb-3">{{ companyDetails.companyName }}</h4>
+    <div class="comp-header d-flex mb-3">
+      <div class="comp-header__logo">
+        <img onerror="this.src='assets/images/employer_default_photo_1.png'" alt="{{companyDetails.companyName}}"
+          [src]="companyDetails.companyLogo">
+      </div>
+      <a class="text-danger cursor-pointer"
+      (click)="showModalReportCompany(modalReportCompany)">
+        Report this company!
+      </a>
+    </div>
+    <div class="box-location d-flex mb-3">
+      <div class="emp-number mr-4">
+        <fa-icon [icon]="['fas', 'users']" class="mr-2"></fa-icon>
+        <span>{{ companyDetails.minSize }} - {{ companyDetails.maxSize }}</span>
+      </div>
+      <div class="emp-number">
+        <fa-icon [icon]="['fas', 'map-marker-alt']" class="mr-2"></fa-icon>
+        <span>Ha Noi</span>
+      </div>
+    </div>
+    <div class="box-desc mb-3">
+      <h5>Description:</h5>
+      <p>
+        {{ companyDetails.description }}
+      </p>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-success" (click)="goBack()">Back to details</button>
+    </div>
+  </div>
+</div>
+<ng-template #modalReportCompany>
+  <ms-modal-report-company [company_id]="companyDetails.companyID" (close)="modalReportCompanyRef.close()">
+  </ms-modal-report-company>
+</ng-template>

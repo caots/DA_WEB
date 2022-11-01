@@ -1,0 +1,120 @@
+.mul-item {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.mul-item input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.mul-item label {
+  position: relative;
+  cursor: pointer;
+  padding-left: 40px;
+}
+
+.mul-item label:before {
+  content: "";
+  background-color: transparent;
+  background: #9c9c9c;
+  cursor: pointer;
+  margin-right: 5px;
+  left: 0;
+  top: -2px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: block;
+  position: absolute;
+}
+
+.mul-item label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  width: 9px;
+  height: 14px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.mul-item input:checked + label:before {
+  background: #4fb648;
+}
+
+.mul-item.square input:checked + label:after {
+  border: solid #4fb648;
+  border-width: 0 3px 3px 0;
+}
+
+.mul-item.square label:before {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  background: transparent;
+}
+
+.mul-item.square input:checked + label:before {
+  background: transparent;
+}
+
+.question-item {
+  border: 1px solid #d9d9d9;
+  position: relative;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+}
+
+.question-item {
+  font-size: 18px;
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: flex-start;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+    .ques-point {
+      min-width: 155px;
+      border: 2px solid #148a53;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @media (max-width: 768px) {
+        order: 1;
+        margin-bottom: 20px;
+      }
+    }
+    .question-desc {
+      margin-right: 20px;
+      @media (max-width: 768px) {
+        order: 2;
+        margin: 0;
+      }
+      span {
+        font-size: 25px;
+        @media (max-width: 768px) {
+          font-size: 20px;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.image-question{
+  margin: 20px 0;
+  position: relative;
+  img{
+    width: 100%;
+  }
+}

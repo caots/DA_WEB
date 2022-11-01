@@ -1,0 +1,25 @@
+.title-profile {
+  font-size: 25px;
+}
+
+.wrap__pagination {
+  text-align: right;
+  margin-top: 20px;
+  overflow: auto;
+  @media (min-width: 768px)  {
+    max-width: calc(100vw - 280px - 1.5rem);
+  }
+}
+
+.container.container-custom {
+  max-width: 1400px;
+}
+
+.tab-info-user{
+  margin-bottom: 50px;
+}
+.preview-company{
+  color: #2668a8;
+  font-size: 18px;
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+/***
+    Feature Companies
+***/
+
+.featured-companies {
+  background: #f8f8f8;
+  .list-companies {
+    // display: flex;
+    // flex-wrap: wrap;
+    &-item {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

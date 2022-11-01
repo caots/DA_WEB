@@ -1,0 +1,190 @@
+<div class="box-add-jobs">
+  <form [formGroup]="formAddNewJob" (ngSubmit)=submitJob(formAddNewJob.value)>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="job-postings__title text-center">{{job ? 'Edit job' : 'Add a new job' }}</h3>
+          <button type="button" class="close btn-close" aria-label="Close" (click)="closeModal(1)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="col-xl-7">
+          <div class="form-add-job">
+            <p class="form-add-job__title">{{job ? 'Job editing' : 'New job posting'}}</p>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Job title<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="title" msIgnoreEmojiIcon>
+                <div class="text-danger"
+                  *ngIf="formAddNewJob.controls.title.touched && formAddNewJob.controls.title.errors?.required ">
+                  Job title is required!
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Proposed Compensation<span class="text-danger">*</span></label>
+                <div class="input-with-dollar-sign">
+                  <input type="text" class="form-control" formControlName="salary" msNumbersOnly [isFormatNumber]="true">
+                </div>
+                <div class="text-danger"
+                  *ngIf="formAddNewJob.controls.salary.touched && formAddNewJob.controls.salary.errors?.required ">
+                  Proposed Compensation is required!
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputAddress">Job Description<span class="text-danger">*</span></label>
+              <textarea class="form-control" rows="5" formControlName="description" msIgnoreEmojiIcon></textarea>
+              <div class="text-danger"
+                *ngIf="formAddNewJob.controls.description.touched && formAddNewJob.controls.description.errors?.required ">
+                Job Description is required!
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputAddress">Benefits:<span class="text-danger">*</span></label>
+              <textarea class="form-control" rows="5" formControlName="benefits" msIgnoreEmojiIcon></textarea>
+              <div class="text-danger"
+                *ngIf="formAddNewJob.controls.benefits.touched && formAddNewJob.controls.benefits.errors?.required ">
+                Benefits is required!
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputAddress">City<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" [ngbTypeahead]="selectCountry" formControlName="city"
+                  msIgnoreEmojiIcon>
+                <div class="text-danger"
+                  *ngIf="formAddNewJob.controls.city.touched && formAddNewJob.controls.city.errors?.required ">
+                  City is required!
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputAddress">State<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" [ngbTypeahead]="selectState" formControlName="state"
+                  msIgnoreEmojiIcon>
+                <div class="text-danger"
+                  *ngIf="formAddNewJob.controls.state.touched && formAddNewJob.controls.state.errors?.required ">
+                  State is required!
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label>Seniority level</label>
+                <select class="form-control" formControlName="level">
+                  <option value>--Select--</option>
+                  <option *ngFor="let level of listLevel" [value]="level.id">{{level.name}}</option>
+                </select>
+                <div class="text-danger"
+                  *ngIf="formAddNewJob.controls.level.touched && formAddNewJob.controls.level.errors?.required ">
+                  Senior level is required!
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputPassword4">Number of openings<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="openings" msIntegersOnly>
+                <div class="text-danger"
+                  *ngIf="formAddNewJob.controls.openings.touched && formAddNewJob.controls.openings.errors?.required ">
+                  Number of openings is required!
+                </div>
+                <div class="text-danger"
+                  *ngIf="formAddNewJob?.controls?.openings?.touched && formAddNewJob?.controls?.openings?.errors?.min">
+                  Number of openings must be greater than {{openingNumberRange.MIN}}!
+                </div>
+                <div class="text-danger"
+                  *ngIf="formAddNewJob?.controls?.openings?.touched && formAddNewJob?.controls?.openings?.errors?.max">
+                  Number of openings must be less than {{openingNumberRange.MAX}}!
+                </div>
+              </div>
+              <div class="form-group col-md-4" [style]="activeTab === tabType.ACTIVE && editModalJob === true ? 'pointer-events: none;': ''">
+                <label>Expiration date<span class="text-danger">*</span></label>
+                <div class="input-group box-date-custom">
+                  <input class="form-control" placeholder="yyyy-MM-dd" [readonly]="true" [firstDayOfWeek]="7"
+                    [value]="formatter.format(placeHolderExpired)" [startDate]="currentExpireValue"
+                    [minDate]="initDateValue" [maxDate]='maxExpireDateValue' [placeholder]="" name="dp" ngbDatepicker
+                    #dTo="ngbDatepicker" (dateSelect)="onDateSelectionTo($event)">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="dTo.toggle()" type="button">
+                      <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+                <div class="text-danger" *ngIf="checkedDatepicker && !expireDay ">Expiration date is required!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-5">
+          <div class="additional-info">
+            <p class="title-suggess">
+              Additional info:
+            </p>
+            <div class="additional-info__content">
+              <div class="form-group">
+                <label for="inputAddress">Category<span class="text-danger">*</span></label>
+                <select class="form-control" formControlName="category">
+                  <option value="">--Select Category--</option>
+                  <option *ngFor="let category of listCategory" [value]="category.id">{{category.name}}</option>
+                </select>
+                <div class="text-danger"
+                  *ngIf="formAddNewJob.controls.category.touched && formAddNewJob.controls.category.errors?.required ">
+                  Category is required!
+                </div>
+              </div>
+              <p class="title-suggess" *ngIf="formAddNewJob.value.category">Suggested Assessments</p>
+              <div class="list-item-choose">
+                <ms-assessments-tag
+                  *ngFor="let assesment of listAssessment | filter:'categoryId':formAddNewJob.value.category"
+                  [assesment]="assesment" (add)="addAssessment($event)" [isAdded]="false">
+                </ms-assessments-tag>
+              </div>
+            </div>
+
+            <div class="req-assessments">
+              <p class="title-suggess">Required Assessments
+                <span class="warning-text">Total weight must equal 100%</span>
+              </p>
+              <div class="list-item-choose mb-5">
+                <ms-assessments-tag *ngFor="let assesment of listSelectedAssesment" [assesment]="assesment"
+                  (edit)="showEditAssessment($event, modalEditAssessmentTag)" (delete)="deleteAssessment($event)"
+                  [isAdded]="true">
+                </ms-assessments-tag>
+                <div class="text-danger" *ngIf="messageValidateAssessment">{{messageValidateAssessment}}</div>
+              </div>
+              <button type="button" class="btn btn-success mb-4" (click)="addNewAssessment(modalAddAssessment)">Add
+                Assessment</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="add-job-footer">
+            <button (click)="closeModal(0)" type="button" class="btn btn-secondary">Don't save</button>
+            <button [hidden]="activeTab === tabType.ACTIVE && editModalJob === true" (click)="addSaveDraft()" type="button" class="btn btn-info" msLoadingButton
+              [loading]="isSaveDraft">Save draft</button>
+            <button type="submit" class="btn btn-success" [hidden]="!addAssessmentToDraftJob" msLoadingButton
+              [loading]="isAddingJob">Post</button>
+            <button type="submit" msLoadingButton [hidden]="addAssessmentToDraftJob" [loading]="isAddingJob"
+              class="btn btn-success">
+              {{activeTab === tabType.ACTIVE && editModalJob === true ? 'Save' : 'Post'}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #modalAddAssessment>
+  <ms-add-new-assessment [listCategory]="listCategory" [listAssessment]="listAssessment"
+    [listSelectedAssesment]="listSelectedAssesment" (add)="addAssessment($event)" (remove)="removeAssessment($event)"
+    (close)="modalAddAssessmentTagRef.close()">
+  </ms-add-new-assessment>
+</ng-template>
+
+<ng-template #modalEditAssessmentTag>
+  <ms-modal-edit-assessment-tag [assessment]="editingAssessment" (update)="updateAssessment($event)"
+    (close)="modalEditAssessmentTagRef.close()">
+  </ms-modal-edit-assessment-tag>
+</ng-template>

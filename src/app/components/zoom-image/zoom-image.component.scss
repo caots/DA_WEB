@@ -1,0 +1,18 @@
+.zoom {
+  width: 100%;
+  display: flex;
+  margin: 20px 0 20px;
+  .range {
+    width: 90%;
+  }
+  fa-icon {
+    color: #2668a9;
+    cursor: pointer;
+    &.minus {
+      margin-right: 5px;
+    }
+    &.plus {
+      margin-left: 5px;
+    }
+  }
+}

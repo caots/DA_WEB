@@ -1,0 +1,4 @@
+<div class="loving-jobs__item">
+  <a class="cursor-pointer loving-jobs__title" (click)="gToPreviewOtherJob(jobs)">{{ jobs.title }}</a>
+  <p><span>Job Expires In: </span> <span [ngClass]="{'time-expired' : isCheckDangerTime}">{{subDateHotJob(jobs.expiredAt)}}</span> | {{subTimeHotJob(jobs.expiredAt)}}</p>
+</div>

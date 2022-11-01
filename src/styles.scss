@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+/* Importing custom SCSS file. */
+@import '~ngx-sharebuttons/themes/modern/modern-light-theme';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+// @import '~swiper/swiper-bundle';
+@import "./assets/scss/main.scss";
+
+
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';

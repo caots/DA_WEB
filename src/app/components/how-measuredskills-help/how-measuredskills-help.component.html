@@ -1,0 +1,104 @@
+<swiper (click)="onAbleSwipe()" class="swiper-container measured-help-carousel dot-slider-swiper" [config]="enableSwipe ? measureHelpConfigEnable :measureHelpConfig">
+        <div>
+            <div class="box-measured-help slide-1" style="background-image: url({{API_S3}}/cdn/bg-19.webp);">
+                <div class="col-lg-6"></div>
+                <div class="col-lg-6">
+                    <h3>How MeasuredSkills Will Help You</h3>
+                    <div class="average-time">
+                        <h4>the average time spent reviewing a resume is</h4>
+                        <h5>6 Seconds</h5>
+                    </div>
+                    <p>MeasuredSkills helps you find and get hired for jobs that fit your capabilities, not your work history.</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="box-measured-help slide-2" style="background-image: url({{API_S3}}/cdn/bg-20.webp);">
+                <div class="col-lg-6"></div>
+                <div class="col-lg-6">
+                    <h3>How MeasuredSkills Will Help You</h3>
+                    <div class="average-time-process">
+                        <ms-doughnut-chart [chartSize]="chartOrksByStatus1.chartSize"
+                            [chartDataSets]="chartOrksByStatus1.chartDataSets" [value]="chartOrksByStatus1.value"
+                            [iconSize]="chartOrksByStatus1.iconSize">
+                        </ms-doughnut-chart>
+                        <h4>of hiring managers believe that the hiring process should be more data-driven.</h4>
+                        <p>That means resumes are becoming less important than your skills.
+                            MeasuredSkills highlights those.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="box-measured-help slide-3" style="background-image: url({{API_S3}}/cdn/bg-21.webp);">
+                <div class="col-lg-6"></div>
+                <div class="col-lg-6">
+                    <h3>How MeasuredSkills Will Help You</h3>
+                    <div class="average-time-process2">
+                        <ms-doughnut-chart [chartSize]="chartOrksByStatus2.chartSize"
+                            [chartDataSets]="chartOrksByStatus2.chartDataSets" [value]="chartOrksByStatus2.value"
+                            [iconSize]="chartOrksByStatus2.iconSize">
+                        </ms-doughnut-chart>
+                        <h4>of jobseekers use online job boards to find their next job. But only <b>14.9%</b> of companies'
+                            new hires come from traditional job boards.</h4>
+                        <p>MeasuredSkills breaks free from typical job boards, and matches jobseekers with employers who
+                            need their skills.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</swiper>
+<!-- <ngb-carousel class="measured-help-carousel">
+    <ng-template ngbSlide>
+        <div class="box-measured-help">
+            <div class="col-lg-6"></div>
+            <div class="col-lg-6">
+                <h3>How MeasuredSkills Will Help You</h3>
+                <div class="average-time">
+                    <h4>the average time spent reviewing a resume is</h4>
+                    <h5>6 Seconds</h5>
+                </div>
+                <p>How could anyone properly access your capabilities with such a cursory review?</p>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template ngbSlide>
+        <div class="box-measured-help" style="background-image: url({{API_S3}}/cdn/bg-20.jpg);">
+            <div class="col-lg-6"></div>
+            <div class="col-lg-6">
+                <h3>How MeasuredSkills Will Help You</h3>
+                <div class="average-time-process">
+                    <ms-doughnut-chart [chartSize]="chartOrksByStatus1.chartSize"
+                        [chartDataSets]="chartOrksByStatus1.chartDataSets" [value]="chartOrksByStatus1.value"
+                        [iconSize]="chartOrksByStatus1.iconSize">
+                    </ms-doughnut-chart>
+                    <h4>of hiring managers believe that the hiring process should be more data-driven.</h4>
+                    <p>That means resumes are becoming less important than your skills.
+                        MeasuredSkills highlights those.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template ngbSlide>
+        <div class="box-measured-help" style="background-image: url({{API_S3}}/cdn/bg-21.jpg);">
+            <div class="col-lg-6"></div>
+            <div class="col-lg-6">
+                <h3>How MeasuredSkills Will Help You</h3>
+                <div class="average-time-process2">
+                    <ms-doughnut-chart [chartSize]="chartOrksByStatus2.chartSize"
+                        [chartDataSets]="chartOrksByStatus2.chartDataSets" [value]="chartOrksByStatus2.value"
+                        [iconSize]="chartOrksByStatus2.iconSize">
+                    </ms-doughnut-chart>
+                    <h4>of jobseekers use online job boards to find their next job. But only <b>14.9%</b> of companies'
+                        new hires come from traditional job boards.</h4>
+                    <p>MeasuredSkills breaks free from typical job boards, and matches jobseekers with employers who
+                        need their skills.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</ngb-carousel> -->

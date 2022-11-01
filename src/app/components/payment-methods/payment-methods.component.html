@@ -1,0 +1,24 @@
+<div [ngClass]="{'border-box': !hiddenTitle}" >
+  <p [hidden]="hiddenTitle || hiddenTitleBox" class="border-box__title">Payment Method</p>
+  <div class="payment-content">
+    <div class="card-item" *ngIf="cardInfo">
+      <div class="card-item__img">
+        <img [src]="paymentService.getImageBank(cardInfo)" />
+      </div>
+      <div class="card-item__content">
+        <p class="card-num">{{cardInfo.ssl_card_type}} {{cardInfo.ssl_card_number}}</p>
+        <p class="expiration">Expiration: {{cardInfo.ssl_exp_date.substr(0,2)}}/{{cardInfo.ssl_exp_date.substr(2,2)}}</p>
+      </div>
+      <!-- <div class="card-item__priority">
+        PRIMARY
+      </div> -->
+      <div class="card-item__options cursor-pointer" (click)="onDeleteCard()" [hidden]="hiddenUpdate">
+        <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+      </div>
+    </div>
+    <div class="add-method">
+      <button type="button" msLoadingButton [loading]="isLoadingCard" [disabled]="isLoadingCard" [hidden]="hiddenUpdate" class="btn btn-primary btn-add-payment" (click)="addPaymentMethod()">Update Payment Method</button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,37 @@
+<svg _ngcontent-ipn-c169="" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" width="22.135" height="22.135"
+                    viewBox="0 0 22.135 22.135">
+                    <defs _ngcontent-ipn-c169="">
+                      <style _ngcontent-ipn-c169="">
+                        .ac2 {
+                          fill: #b5b5c3;
+                        }
+
+                        .bc2 {
+                          clip-path: url(#a);
+                        }
+
+                        .cc2 {
+                          fill: none;
+                          stroke: #b5b5c3;
+                          stroke-linecap: round;
+                          stroke-linejoin: round;
+                          stroke-width: 1.5px;
+                        }
+                      </style>
+                      <clipPath _ngcontent-ipn-c169="" id="ac2">
+                        <path _ngcontent-ipn-c169="" d="M-2-23.865H20.135V-46H-2Z" transform="translate(2 46)"
+                          class="ac2"></path>
+                      </clipPath>
+                    </defs>
+                    <g _ngcontent-ipn-c169="" class="bc2">
+                      <g _ngcontent-ipn-c169="" transform="translate(1.845 1.845)">
+                        <path _ngcontent-ipn-c169=""
+                          d="M7.378,14.757A7.378,7.378,0,1,0,0,7.378,7.378,7.378,0,0,0,7.378,14.757Z" class="cc2">
+                        </path>
+                      </g>
+                      <g _ngcontent-ipn-c169="" transform="translate(14.757 14.757)">
+                        <path _ngcontent-ipn-c169="" d="M5.534,5.534,0,0" class="cc2"></path>
+                      </g>
+                    </g>
+                  </svg>

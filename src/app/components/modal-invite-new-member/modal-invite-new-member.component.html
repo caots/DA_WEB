@@ -1,0 +1,79 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="checkInvite" id="modal-basic-title">Invite New Member</h4>
+    <h4 class="modal-title" *ngIf="!checkInvite" id="modal-basic-title">Edit Delegate Information</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="report-body">
+      <form [formGroup]="formInviteMember" (ngSubmit)=inviteMembers(formInviteMember.value)>
+        <div class="form-group">
+          <label>First Name<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="firstName" />
+          <div class="text-danger"
+            *ngIf="formInviteMember.controls.firstName.touched && formInviteMember.controls.firstName.errors?.required">
+            First Name is required!
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Last Name<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="lastName" />
+          <div class="text-danger"
+            *ngIf="formInviteMember.controls.lastName.touched && formInviteMember.controls.lastName.errors?.required">
+            Last Name is required!
+          </div>
+        </div>
+        <div class="form-group" *ngIf="checkInvite">
+          <label>Email Address<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="email" />
+          <div class="text-danger"
+            *ngIf="formInviteMember.controls.email.touched && formInviteMember.controls.email.errors?.required">
+            Email is required!
+          </div>
+          <div class="text-danger" *ngIf="formInviteMember?.controls?.email?.errors?.pattern">
+            Email is invalid!
+          </div>
+          <div class="text-danger" *ngIf="warningEmailExists">
+            {{warningEmailExists}}
+          </div>
+        </div>
+        <!-- <div class="form-group" *ngIf="checkInvite">
+          <label>Password</label>
+          <input class="form-control" type="password" placeholder="******" formControlName="password">
+          <div class="text-danger"
+            *ngIf="formInviteMember.controls.password.touched && formInviteMember.controls.password.errors?.required">
+            Password is required!
+          </div>
+        </div> -->
+        <div class="form-group">
+          <label>Job Title<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="jobTitle" />
+          <div class="text-danger"
+            *ngIf="formInviteMember.controls.jobTitle.touched && formInviteMember.controls.jobTitle.errors?.required">
+            Job Title is required!
+          </div>
+        </div>
+        <div class="list-permission">
+          <h5 class="mb-3">Permission<span class="text-danger">*</span>: </h5>
+          <div class="form-check" *ngFor="let itemPer of listPermission ; let i=index">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input"
+                (change)="onChangeCheckbox(itemPer, itemPer.id)" value="" [checked]="itemPer.checked">
+              {{ itemPer.name }}
+            </label>
+          </div>
+          <div class="text-danger"
+            *ngIf="validatePermission() && !isFirstTime">
+            Permission is required!
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">{{ checkInvite ? 'Invite': 'Save'}}</button>
+          <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

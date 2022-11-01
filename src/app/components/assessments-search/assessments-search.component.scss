@@ -1,0 +1,35 @@
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #4FB648;
+    background-color: #4FB648;
+}
+.custom-control {
+    min-height: 2.25rem;
+    .custom-control-input{
+        height: 1.75rem;
+    }
+    .custom-control-label::before{
+        height: 1.25rem;
+        width: 2.25rem;
+        border-radius: 0.75rem;
+    }
+    &.custom-switch{
+        .custom-control-label::after {
+            width: calc(1.25rem - 4px);
+            height: calc(1.25rem - 4px);
+        }
+        .custom-control-input:checked ~ .custom-control-label::after {
+            background-color: #fff;
+            transform: translateX(1rem);
+        }
+    }
+    .custom-control-label {
+        padding-left: 10px;
+        line-height: 28px;
+    }
+}
+@media (max-width: 992px){
+    .search-jobs-options__multi {
+        align-items: flex-start !important;
+    }
+}

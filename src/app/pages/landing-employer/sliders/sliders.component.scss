@@ -1,0 +1,134 @@
+.bottom-title {
+    color: #666;
+    font-size: 14px;
+    font-weight: 100;
+    max-width: 570px;
+}
+.mail-subscribe{
+    .btn-find-jobs {
+        width: auto;
+        white-space: nowrap;
+        position: relative;
+        padding-left: 20px;
+        padding-right: 20px;
+        @media (max-width: 992px){
+            white-space: normal;
+        }
+    }
+    box-shadow: none;
+    input {
+        padding-left: 30px;
+        padding-right: 30px;
+        width: 420px;
+        height: 75px;
+        border-radius: 10px 0 0 10px;
+        @media (max-width: 1200px){
+            width: 300px;
+        }
+        @media (max-width: 1023px){
+            width: 100%;
+        }
+    }
+    > *{
+       box-shadow: 0px 20px 60px #3E3E3E14;
+       border-radius: 10px;
+    }
+    .btn-create-account{
+        background-color: #4eb448;
+        padding: 0 60px;
+        @media (max-width: 992px){
+            &.btn-desktop {
+                display: none;
+            }
+        }
+    }
+}
+.disbale-button{
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.text-warning-search{
+  position: absolute;
+  bottom: -175px;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+}
+
+.btn-mobile {
+    background-color: #4eb448;
+    padding: 15px 30px;
+    color: #fff;
+    font-weight: 600;
+    margin-top: 25px;
+    display: none;
+    @media (max-width: 992px){
+        display: block;
+    }
+}
+
+.slider-title {
+    max-width: 710px;
+    span{
+        display: block;
+    }
+}
+@media (max-width: 992px){
+    #slider .slider-inner .slider-content-left .slider-title {
+        font-size: 35px;
+        line-height: 42px;
+    }
+    .mail-subscribe{
+        flex-flow: column;
+        .btn-create-account{
+            margin-top: 15px;
+        }
+        .d-flex{
+            > div{
+                width: 100%;
+            }
+        }
+    }
+    .btn-desktop{
+        display: none;
+    }
+}
+
+
+#slider {
+    background-position: top;
+    position: relative;
+    &:before{
+        content: '';
+        position: absolute;
+        background: linear-gradient(90deg, #020024 0%, white 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+    }
+    @media (max-width: 767px){
+        z-index: 1;
+        background-position: 64% 55px;
+        padding-bottom: 30px;
+        &:before{
+            background: linear-gradient(288deg, #020024 0%, white 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0) 100%);
+        }
+        p.what-title.mobile {
+            display: block;
+            bottom: -30px;
+        }
+        .search-jobs {
+            position: relative;
+            bottom: -50px;
+        }
+        .slider-inner .slider-content-left {
+            padding-top: 130px;
+            .slider-title{
+                font-size: 28px;
+            }
+        }
+    }
+}

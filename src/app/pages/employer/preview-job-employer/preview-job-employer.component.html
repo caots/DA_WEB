@@ -1,0 +1,27 @@
+<div class="wrapper-page">
+  <div class="container">
+    <div class="job-details-page">
+      <div class="job-details-top">
+        <ms-job-card-preview-employer *ngIf="!isCallingApi && user" [activeJob]="activeJob" [userInfo]="user" [isSearchJobPage]="isSearchJobPage" [jobDetails]="jobDetails" (back)="goBack()"></ms-job-card-preview-employer>
+      </div>
+
+     <div class="job-detail__tabs d-flex">
+        <div [hidden]="!isSearchJobPage" class="job-detail__tabs-item cursor-pointer" (click)="changeTabs('job-info')"
+          [ngClass]="{active: jobInfoTab}">Job Info</div>
+        <div class="job-detail__tabs-item cursor-pointer" (click)="changeTabs('company-info')"
+          [ngClass]="{active: companyInfoTab}">About This Employer</div>
+      </div>
+
+      <div class="job-detail__content">
+        <div class="wrapper-job-details" *ngIf="jobInfoTab">
+          <ms-job-preview-info (back)="goBack()" *ngIf="!isCallingApi" [listJobsFormEmployer]="listJobsFormEmployer" [jobDetails]="jobDetails">
+          </ms-job-preview-info>
+        </div>
+        <div class="wrapper-company-details" *ngIf="companyInfoTab">
+            <ms-company-preview-info *ngIf="!isCallingApi" [jobDetails]="jobDetails" [isSearchJobPage]="isSearchJobPage"
+            [listJobsFormEmployer]="listJobsFormEmployer"></ms-company-preview-info>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

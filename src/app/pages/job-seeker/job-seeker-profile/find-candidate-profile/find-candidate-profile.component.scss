@@ -1,0 +1,12 @@
+.input-salary {
+  display: flex;
+  .salary-input{
+    width: 30%;
+    @media (max-width: 768px) {
+      width: 40%;
+    }
+  }
+  .text-salary{
+    align-self: center;
+  }
+}

@@ -1,0 +1,78 @@
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="f-assessment-content">
+          <div class="f-assessment-content-top">
+            <h3 style="font-size: 24px;" class="f-assessment-content-top__title">
+              Our Catalog offers over 140 Prebuilt Skills Assessments <br>
+              {{isEmployer ? 'and Employers can also Create their Own' : ''}}
+              <p style="font-style: italic;">Right Scroll through the Cards to Take a Look</p>
+            </h3>
+            <div class="f-assessment-content-top__right">
+              <p>
+                Filter Assessments by Job Field
+              </p>
+              <select class="form-control" (change)="changeSelectCategory($event.target.value)">
+                <option value="" selected>All Categories</option>
+                <option [value]="category.id" *ngFor="let category of listCategory">{{category.name}}</option>
+              </select>
+            </div>
+          </div>
+          <swiper (click)="enableSwipeSlide()" *ngIf="checkDeviceWidth" class="swiper-container f-assessments-slider row" [config]="enableSwipe ? assessmentsConfigEnable : assessmentsConfig" [disabled]='false' [(index)]="currentIndexSwiper" (indexChange)="onIndexChange($event)">
+              <div *ngFor="let assessment of listAssessment" class="f-assessments-slider-list">
+                <div *ngFor="let assessment of assessment" class="col-lg-4">
+                  <div class="f-assessments-slider-list__item active">
+                    <div class="slider-item-header">
+                      <div class="sub-title" *ngIf="assessment.categoriesName">
+                        <p *ngFor="let category_name of assessment.categoriesName">{{category_name}} </p>
+                      </div>
+                      <p class="title">
+                        {{assessment.name}} 
+                      </p>
+                    </div>
+                    <div class="slider-item-bottom">
+                      <p class="desc">
+                        {{assessment.description}}
+                      </p>
+                      <button type="button" (click)="goToSignIn()" *ngIf="!userInfo" class="btn btn-success">{{!isEmployer ? 'Sign In to Take Assessment' : 'Sign In to Preview Assessment'}}</button>
+                      <button type="button" (click)="previewAssessment(assessment)" *ngIf="userInfo && isEmployer" class="btn btn-success">Preview Assessment</button>
+                      <button type="button" (click)="TakeTestAssessment(assessment, modalPaymentConfirmation)" *ngIf="userInfo && !isEmployer" class="btn btn-success btn-take-assessment">{{assessment.totalTake ? 'Retry' : 'Take Assessment'}}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             </swiper>
+            <swiper (click)="enableSwipeSlide()" *ngIf="!checkDeviceWidth" class="swiper-container f-assessments-slider" [config]="enableSwipe ? assessmentsConfigEnable : assessmentsConfig" [(index)]="currentIndexSwiper" (indexChange)="onIndexChange($event)">
+              <div *ngFor="let assessment of listAssessment" class="f-assessments-slider-list">
+                <div class="f-assessments-slider-list__item active">
+                  <div class="slider-item-header">
+                    <div class="sub-title" *ngIf="assessment.categoriesName">
+                      <p *ngFor="let category_name of assessment.categoriesName">{{category_name}} </p>
+                    </div>
+                    <p class="title">
+                      {{assessment.name}} 
+                    </p>
+                  </div>
+                  <div class="slider-item-bottom">
+                    <p class="desc">
+                      {{assessment.description}}
+                    </p>
+                    <button type="button" (click)="goToSignIn()" *ngIf="!userInfo" class="btn btn-success">{{!isEmployer ? 'Sign In to Take Assessment' : 'Sign In to Preview Assessment'}}</button>
+                    <button type="button" (click)="previewAssessment(assessment)" *ngIf="userInfo && isEmployer" class="btn btn-success">Preview Assessment</button>
+                    <button type="button" (click)="TakeTestAssessment(assessment, modalPaymentConfirmation)" *ngIf="userInfo && !isEmployer" class="btn btn-success btn-take-assessment">{{assessment.totalTake ? 'Retry' : 'Take Assessment'}}</button>
+                  </div>
+                </div>
+              </div>
+          </swiper>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #modalPaymentConfirmation>
+    <ms-modal-payment-assessment-confirmation *ngIf="assessmentData && settingsCard" [card]="cardInfo"
+      [settingsCard]="settingsCard" [assessmentInfo]="assessmentData" (submit)="submitPaymentProcess($event)"
+      (close)="modalPaymentConfirmationRef.close()">
+    </ms-modal-payment-assessment-confirmation>
+  </ng-template>

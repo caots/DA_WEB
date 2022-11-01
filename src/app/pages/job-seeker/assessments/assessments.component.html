@@ -1,0 +1,86 @@
+<div class="header-width-tabs no-tab">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2 class="title">Assessments</h2>
+        <!-- <p class="sub-title">Be certified, take our assessments to show your skills. Add your skills and click Validate
+          to begin the test.</p> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="my-credits mt-10" >
+        <ms-my-credits
+          *ngIf="settingsCard && userData"
+          [userInfo]="userData"
+          [settings]="settingsCard"
+        ></ms-my-credits>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="block-search-asessment">
+        <!-- <ms-add-assessments
+          *ngIf="isAddAssessmentPage && userData"
+          [userData]="userData"
+          (next)="searchStep()"
+          [dataAssessment]="listSelectedAssessment"
+          (remove)="removeAssessment($event)"
+          (validate)="validateAssessment($event, modalPaymentConfirmation)"
+          (retry)="retryAssessment($event, modalPaymentConfirmation)"
+          (payment)="paymentAssessment($event, modalPaymentConfirmation)"
+          >
+        </ms-add-assessments> -->
+        <ms-search-assessment *ngIf="settingsCard"
+        (next)="searchStep()"
+        [dataAssessment]="dataAssessment"
+        (remove)="removeAssessment($event)"
+        (add)="addAssessment($event)"
+        (validate)="validateAssessment($event, modalPaymentConfirmation)"
+        (retry)="retryAssessment($event, modalPaymentConfirmation)"
+        [listSelectedAssessment]="listSelectedAssessment"
+        [listCategory]="listCategory"
+        [querySearch]="querySearch"
+        [isSearching]="isSearching"
+        (search)="searchAssessment()"
+        [isLoadingListAssessment]="isLoadingListAssessment"
+        (getListAssessment)="getListAssessment()"
+        [isAdding]="isAdding"
+        (takeAssessment)="isSwitchAssessment($event)"
+        [settingsCard]="settingsCard"
+        >
+      </ms-search-assessment>
+      </div>
+      <div class="pagination-assessment">
+        <ms-pagination [config]="paginationConfig" (goTo)="paginationAssessment($event)"></ms-pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalPaymentConfirmation>
+  <ms-modal-payment-assessment  *ngIf="settingsCard && assessmentData"
+  [sendDataAssessment]="assessmentData"
+  (close)="modalPaymentConfirmationRef.close()"
+  [settings]="settingsCard"
+  ></ms-modal-payment-assessment>
+</ng-template>
+
+<!-- <ng-template #modalPaymentConfirmationaaaaa>
+  <ms-modal-payment-assessment-confirmation *ngIf="assessmentData && settingsCard"
+    [card]="cardInfo"
+    [settingsCard]="settingsCard"
+    [assessmentInfo]="assessmentData"
+    (submit)="submitPaymentProcess($event)" (close)="modalPaymentConfirmationRef.close()">
+  </ms-modal-payment-assessment-confirmation>
+</ng-template> -->
+
+<ng-template #modalPaymentFree>
+  <ms-modal-confirm-free-payment *ngIf="settingsCard"
+  (close)="modalPaymentFreeRef.close()"
+  (complete)="takeTestForPaymentFree()"
+  [cardSettings]="settingsCard"
+  ></ms-modal-confirm-free-payment>
+</ng-template>

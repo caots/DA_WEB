@@ -1,0 +1,135 @@
+.login-form {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  &-inner {
+    width: 500px;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+  @media (max-width: 768px) {
+    height: auto;
+    display: block;
+    margin: 15px;
+  }
+}
+
+.card-body {
+  .logo {
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+.btn-custom-size {
+  width: 200px;
+}
+
+.opt-for-register {
+  display: flex;
+  justify-content: center;
+  button {
+    margin: 0 5px;
+    flex: 1;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+.text-danger {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.alert-danger {
+  font-size: 14px;
+  text-align: center;
+}
+
+.input-phone {
+  margin-top: 12px;
+}
+
+a {
+  padding-left: 5px;
+}
+
+.group-type-user,
+.form-register {
+  margin-top: 3rem;
+}
+
+.hyperlink-text {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #2668a9;
+}
+
+.title-logo{
+  color: #2668A9;
+  font-weight: bold;
+}
+
+.back-home-incard{
+  display: none;
+  margin-bottom: 15px;
+  .svg-back {
+    font-size: 13px;
+    top: 5px;
+  }
+  @media (max-width: 768px) {
+    display: block;
+  }
+
+  fa-icon, span{
+    font-size: 13px;
+    top: 5px;
+  }
+  span{
+    left: 30px;
+  }
+}
+.back-home {
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .back-home {
+    display: none;
+  }
+}
+
+fa-icon {
+  left: 13px;
+  top: 17px;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+}
+
+.go-home {
+  position: absolute;
+  top: 18px;
+  left: 55px;
+}
+
+.svg-back {
+  left: 13px;
+  top: 17px;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+}
+
+a{
+  color: #2668a9;
+}

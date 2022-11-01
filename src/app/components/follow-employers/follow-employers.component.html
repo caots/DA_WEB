@@ -1,0 +1,82 @@
+<div class="follow-pages">
+    <div class="follow-pages-header">
+        <div class="box-search-left search-box-multi">
+            <div class="box-search-left__content">
+                <input type="text" placeholder="Search employer name" (keydown.enter)="searchCompanyFollow()" [(ngModel)]="querySearch.name" name="location">
+                <button type="submit" (click)="searchCompanyFollow()" class="btn btn-primary btn-find-jobs" msLoadingButton [loading]="isLoadingListCompany">
+                Search
+              </button>
+                <div class="search-box-icon">
+                    <svg-icon src="assets/icons/search.svg"></svg-icon>
+                </div>
+            </div>
+        </div>
+        <div class="sort-by">
+            <div ngbDropdown class="d-inline-block sort-dropdown">
+                <a id="dropdownFilterFollow" ngbDropdownToggle [ngClass]="{active : orderBy !== undefined}">
+                    <fa-icon [icon]="['fas', 'sort-amount-up']"></fa-icon>
+                </a>
+                <div ngbDropdownMenu aria-labelledby="dropdownFilterFollow" >
+                    <button type="button" ngbDropdownItem [ngClass]="{active : orderBy == sort.id}"
+                        (click)="changeSort(sort)" *ngFor="let sort of listSort">
+                        {{sort.name}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-unfollow" *ngIf="!isLoadingListCompany && listCompanyFollow.length > 0">
+        <button type="button" class="btn btn-secondary" (click)="unFollow()">Unfollow</button>
+    </div>
+    <div class="follow-list" *ngIf="isLoadingListCompany" >
+        <ms-loading-assessment-item [numberCard]="10"></ms-loading-assessment-item>
+    </div>
+    <div class="follow-content" *ngIf="!isLoadingListCompany && listCompanyFollow.length > 0">
+        <div class="follow-header">
+            <div class="follow-header__select-all">
+                <label class="check-box__item">
+                    <input [checked]="isCheckAllEmployer" (change)="ChangeCheckAllEmplyer(isCheckAllEmployer)" type="checkbox" />
+                    <span class="check-icon-custom"></span>
+                </label>
+            </div>
+
+            <div class="follow-header__title">
+                <p class="follow-header__text emp-name">
+                    Employer Name
+                </p>
+                <p class="follow-header__text date">
+                    <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
+                    Started Following
+                </p>
+            </div>
+
+        </div>
+       
+        <div class="follow-list" *ngIf="!isLoadingListCompany">
+            <div class="follow-item" *ngFor="let company of listCompanyFollow" >
+                <div class="follow-item__left">
+                    <label class="check-box__item">
+                        <input [checked]="company.isSelected" [(ngModel)]="company.isSelected" type="checkbox" />
+                        <span class="check-icon-custom"></span>
+                    </label>
+                    <div class="follow-item__img">
+                        <img onerror="this.src='assets/images/employer_default_photo_1.png'" alt="logo company" 
+                        [src]="company.company_image">
+                    </div>
+                    <div class="follow-item__name">
+                        {{company.company_name}}
+                    </div>
+                </div>
+                <div class="follow-item__right">
+                    <p>{{company.updated_at | date : 'MMM d, y'}}</p>
+                </div>
+            </div>
+            <div class="d-flex" style="justify-content: flex-end;" >
+                <ms-pagination [config]="paginationConfig" (goTo)="paginationJob($event)"></ms-pagination>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!isLoadingListCompany && listCompanyFollow.length <= 0">No results found. Please try again.</div>
+
+</div>

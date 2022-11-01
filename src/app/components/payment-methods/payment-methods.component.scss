@@ -1,0 +1,33 @@
+.card-item {
+  padding: 10px 0 20px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  display: flex;
+  &__img {
+    width: 60px;
+    height: auto;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-right: 25px;
+    padding: 3px 6px;
+    align-self: flex-start;
+    img {
+      width: 100%;
+    }
+  }
+
+  &__options {
+    margin-left: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      border-color: #2668a9;
+    }
+  }
+}

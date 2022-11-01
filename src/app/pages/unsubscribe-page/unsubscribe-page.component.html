@@ -1,0 +1,41 @@
+<div class="login-form">
+  <aside class="col-lg-6">
+    <div class="card">
+      <article class="card-body">
+        <div class="logo">
+          <svg-icon src="assets/icons/logo-only-icon.svg"></svg-icon>
+        </div>
+        <h3 class="card-title text-center title-logo">MeasuredSkills</h3>
+        <h4 class="card-title title-form">Unsubscribe Successful</h4>        
+        <form method="post">
+          <div class="form-group mb-4">
+            <div class="list-permission">
+              <p class="mb-3">You will no longer receive emails from this list.</p>
+              <b class="note">If you have a moment, please let us know why you unsubscribed:</b>
+              <div class="form-check mb-4 mt-2" *ngFor="let item of listReason ; let i=index">
+                <label class="form-check-label">
+                  <input type="radio" name="reason" class="form-check-input"
+                    (change)="onChangeCheckbox(item, i)" value="" [checked]="item.checked">
+                  {{ item.name }}
+                </label>
+                <div class="mt-2 specify" *ngIf="item.id == REASON_UNSUBSCRIBE_EMAIL.OTHER && item.checked">
+                  <textarea [ngModelOptions]="{standalone: true}" [(ngModel)]="reasonUnsubcribe" class="form-control" rows="6" placeholder="Enter reason"></textarea>
+                </div>
+              </div>
+              <div class="text-danger"
+                *ngIf="validateReason() && isSubmit">
+                Reason is required!
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit"
+              msLoadingButton
+              class="btn btn-primary btn-custom-size" [disabled]="submitSuccess" (click)="confirm()"> Submit </button>
+          </div>
+        </form>
+        <p class="return-website" (click)="goToHomePage()">return to our website</p>
+      </article>
+    </div>
+  </aside>
+</div>

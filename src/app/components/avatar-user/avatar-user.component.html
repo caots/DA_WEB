@@ -1,0 +1,51 @@
+<div class="avatar-img" *ngIf="applicant"
+(click)="viewApplicantWithPrivateJob(isShowApplicant, APPLICANT_PRIVATE_TYPE.APPLICANT)">
+  <!-- <div class="blurry-div" *ngIf="applicant.canViewProfile === null"></div> -->
+  <div class="mask-avatar" [ngbTooltip]="tipContent" placement="bottom" tooltipClass="tooltip-custom" *ngIf="applicant.canViewProfile !== 1">
+    <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
+  </div>
+  
+  <img [src]="applicant.picture" *ngIf="applicant.canViewProfile === 1" alt="{{applicant.firstName}}" onerror="this.src='assets/images/jobseeker_1.jpg'" alt="avatar-applicant"/>
+  <img *ngIf="applicant.canViewProfile !== 1" src="assets/images/mask-avatar.png" alt="{{applicant.firstName}}" alt="avatar-applicant"/>
+</div>
+<div class="avatar-img" *ngIf="message">
+  <!-- <div class="blurry-div" *ngIf="canViewProfile === null"></div> -->
+  <div class="mask-avatar" [ngbTooltip]="tipContent" placement="bottom" tooltipClass="tooltip-custom" *ngIf="canViewProfile !== 1">
+    <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
+  </div>
+  <img [src]="message.user_profile_picture" *ngIf="canViewProfile === 1" alt="{{message.user_first_name}}" alt="avatar-message"
+    onerror="this.src='assets/images/jobseeker_1.jpg'" />
+  <img *ngIf="canViewProfile !== 1" src="assets/images/mask-avatar.png" alt="avatar-message" />
+</div>
+<div class="avatar-img" *ngIf="conversation"
+(click)="viewApplicantWithPrivateJob(isShowMesasge, APPLICANT_PRIVATE_TYPE.CONVERSATION)">
+  <!-- <div class="blurry-div" *ngIf="conversation.can_view_profile === null"></div> -->
+  <div class="mask-avatar" [ngbTooltip]="tipContent" placement="bottom" tooltipClass="tooltip-custom" *ngIf="conversation.can_view_profile !== 1">
+    <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
+  </div>
+  <img *ngIf="conversation.can_view_profile === 1" [src]="conversation.jobSeeker_profile_picture" alt="{{conversation.jobSeeker_first_name}}" alt="avatar-conversation"
+    onerror="this.src='assets/images/jobseeker_1.jpg'" />
+  <img *ngIf="conversation.can_view_profile !== 1" src="assets/images/mask-avatar.png" alt="avatar-conversation"/>
+  <div class="rating" *ngIf="conversation.job_id">
+    <div *ngFor="let index of numberStar">
+      <!-- <i [ngClass]="conversation.job_seeker_rate >= index + 1 ? 'rating-light': 'rating-dark'" class="fas fa-star"></i> -->
+      <fa-icon [ngClass]="conversation.job_seeker_rate >= index + 1 ? 'rating-light': 'rating-dark'" [icon]="['fas', 'star']"></fa-icon>
+    </div>
+  </div>
+</div>
+<div class="avatar-img" *ngIf="candidate">
+  <!-- <div class="blurry-div" *ngIf="applicant.canViewProfile === null"></div> -->
+  <div class="mask-avatar" [ngbTooltip]="tipContentCandidate" placement="bottom" tooltipClass="tooltip-custom" *ngIf="candidate.can_view_profile !== 1">
+    <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
+  </div>
+  <img *ngIf="candidate.can_view_profile === 1" [src]="urlShot + candidate.profile_picture" alt="{{candidate?.first_name}}" onerror="this.src='assets/images/jobseeker_1.jpg'" alt="avatar-candidate"/>
+  <img *ngIf="candidate.can_view_profile !== 1" src="assets/images/mask-avatar.png" alt="avatar-candidate"/>
+</div>
+
+<ng-template #tipContent>
+  Message Applicant and Request Unmask to View Full Name and Profile Picture.
+</ng-template>
+
+<ng-template #tipContentCandidate>
+  Message Candidate and Request Unmask to View Full Name and Profile Picture.
+</ng-template>

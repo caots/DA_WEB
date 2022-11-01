@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="accounts-settings">
+        <ms-menu-step
+          (changeStep)="changeStepHeader($event)"
+          [step]="step"
+        ></ms-menu-step>
+        <a class="btn-back mb-4" *ngIf="step != stepConfig.STEP1">
+          <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon><span>Back</span>
+        </a>
+        <ms-user-info
+          *ngIf="step == stepConfig.STEP1"
+          (next)="nextStep(stepConfig.STEP2)"
+        >
+        </ms-user-info>
+
+        <ms-user-find-candidate-profile
+          *ngIf="step == stepConfig.STEP2"
+          (next)="nextStep(stepConfig.STEP3)"
+          (back)="goBack()"
+        ></ms-user-find-candidate-profile>
+
+        <ms-demographic-survey
+          *ngIf="step == stepConfig.STEP3"
+          (back)="goBack()"
+          (next)="goToSearchJobPage()"
+        ></ms-demographic-survey>
+      </div>
+    </div>
+  </div>
+</div>

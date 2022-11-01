@@ -1,0 +1,32 @@
+<form (ngSubmit)="submit()">
+  <div class="search-jobs-options">
+    <div class="search-jobs-options__top">
+      <div class="search-box-multi">
+        <input type="text" placeholder="Search" [(ngModel)]="query.name" name="name" [ngModelOptions]="{standalone: true}">
+        <div class="search-box-icon">
+          <svg-icon src="assets/icons/search.svg"></svg-icon>
+        </div>
+        <button type="submit" class="btn btn-primary btn-find-jobs" id="form-search" msLoadingButton [loading]="isSearching">
+          Search Assessments
+        </button>
+      </div>
+    </div>
+    <div class="search-jobs-options__multi align-items-end">
+      <div class="select-category select-category-assessments">
+        <p class="multi-title">Category</p>
+        <!-- <ng-multiselect-dropdown [placeholder]="'Select Category'" [settings]="dropdownSettings" [data]="listCategory"
+          [ngModelOptions]="{standalone: true}" [(ngModel)]="query.category" (onSelect)="onSelect($event)">
+        </ng-multiselect-dropdown> -->
+        <select class="search-box-multi" [ngModelOptions]="{standalone: true}" [(ngModel)]="ngModalCategory" (change)="onSelect($event.target.value)">
+          <option value="0" selected>--All Categories--</option>
+          <option *ngIf="isTakeAssessment" value="1">Custom Employer Assessments</option>
+          <option [value]="category.id" *ngFor="let category of listCategory" [hidden]="ASSESSMENT_CUSTOM_CATEGORY.name == category.name">{{category.name}}</option>
+        </select>
+      </div>
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="customSwitch1" (change)="changeTakeAssessment($event.target.checked)">
+        <label class="custom-control-label" for="customSwitch1">View only previously taken assessment(s)</label>
+      </div>
+    </div>
+  </div>
+</form>

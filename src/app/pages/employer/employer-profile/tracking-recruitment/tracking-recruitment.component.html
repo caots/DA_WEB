@@ -1,0 +1,94 @@
+<div class="tracking-recruitment">
+  <!-- <div class="row-top">
+    <h3>Account statistics</h3>
+  </div> -->
+  <div class="row">
+    <div class="col-lg-4">
+      <h3>Current Follower Count</h3>
+      <!-- <p class="count">{{totalFollower}}</p> -->
+      <div class="total-chart" *ngIf="!isFetchingData">
+        <ms-doughnut-chart [chartSize]="chartOrksByStatus2.chartSize"
+          [chartDataSets]="chartOrksByStatus2.chartDataSets" [value]="totalFollower"
+          [iconSize]="chartOrksByStatus2.iconSize">
+        </ms-doughnut-chart>
+
+        <div class="item__views">
+          <svg-icon src="assets/icons/eye.svg"></svg-icon>
+            <span class="pl-2"> {{ totalEmployerViews }} {{ totalEmployerViews == 1  ? 'view' : 'views'}}</span>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8 pl-5">
+      <div class="title-and-date">
+        <h3>Follower Count History</h3>
+        <!-- <div class="box-create-date__inner">
+          <div class="input-group box-date-custom">
+            <select class="form-control" [(ngModel)]="followerSelect" (ngModelChange)="onChangeFollowerSelect($event)">
+                <option *ngFor="let level of followerSelects" [value]="level.value">{{level.name}}</option>
+            </select>
+          </div>
+        </div> -->
+      </div>
+      <div class="chart" *ngIf="followerHistory.label && followerHistory.data">
+        <ms-follower-chart
+        [lineChartLabels]="followerHistory.label"
+        [lineChartData]="followerHistory.data"
+        [totalFollower]="totalFollower"
+        [totalEmployerViews]="totalEmployerViews"
+        >
+        </ms-follower-chart>
+      </div>
+      <div class="title-and-date mt-4 select-timeline">
+        <div class="box-create-date__inner">
+          <!--Ng datepicker-->
+          <div class="input-group box-date-custom">
+            <select class="form-control" [(ngModel)]="followerSelect" (ngModelChange)="onChangeFollowerSelect($event)">
+                <!-- <option value='' selected>Select Date Range</option> -->
+                <option *ngFor="let level of followerSelects" [value]="level.value">{{level.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="funnel">
+    <div class="row">
+      <div class="col-lg-7 mb-0">
+        <h3 class="title">Recruitment Funnel</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="chart" *ngIf="recruitmentFunnel">
+
+          <ms-recruitment-funnel
+            [recruitmentFunnel]="recruitmentFunnel"
+            [jobId]="jobId"
+          >
+          </ms-recruitment-funnel>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="box-create-date__inner mb-4">
+          <div class="input-group box-date-custom">
+            <select class="form-control" [(ngModel)]="recruitmentSelect" (ngModelChange)="onChangeRecruitmentFunnelSelect($event)" >
+              <!-- <option value='' selected>Select Date Range</option> -->
+              <option *ngFor="let level of recruitmentSelects" [value]="level.value">{{level.name}}</option>
+          </select>
+          </div>
+        </div>
+        <div class="box-select__inner mb-4">
+          <!-- <ng-multiselect-dropdown [placeholder]="'Choose'" [settings]="dropdownSettings" [data]="dropdownList"
+            (onSelectAll)="onSelectAll($event)">
+          </ng-multiselect-dropdown> -->
+          <select class="form-control" [(ngModel)]="jobId" (ngModelChange)="onChangeSelectJob($event)" >
+            <option value='0' selected>Overall Total</option>
+            <option value='-1' selected>Per Job Average</option>
+            <option *ngFor="let job of jobList" [value]="job.id">{{job.title}}</option>
+        </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

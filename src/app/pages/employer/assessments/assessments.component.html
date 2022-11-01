@@ -1,0 +1,115 @@
+<div class="applicants-page">
+  <div class="header-width-tabs">
+    <div class="container container-extra">
+      <div class="row">
+        <div class="col-lg-12">
+          <div>
+            <h2 class="title title-assessment">Assessments</h2>
+            <div class="tabs-title">
+              <a class="tabs-title__item" [ngClass]="{'active': tabCatalogue}" (click)="changeTab(currentTag.catalogue)"> Assessment Catalog</a>
+              <a class="tabs-title__item" [ngClass]="{'active': tabCustomAssessments}" (click)="changeTab(currentTag.custom)"> Custom Assessments</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container container-extra">
+    <div class="row">
+      <div class="col-lg-12">
+        <div *ngIf="tabCatalogue">
+          <div class="tabs-content">
+            <div class="tabs-content__active">
+              <form>
+                <div class="search-jobs-options">
+                  <div class="search-jobs-options__top">
+                    <div class="search-box-multi">
+                      <input type="text" placeholder="Search" [(ngModel)]="filterCondition.name"
+                        [ngModelOptions]="{standalone: true}" msIgnoreEmojiIcon
+                        (keydown.enter)="searchEnterData($event)">
+                      <div class="search-box-icon">
+                        <svg-icon src="assets/icons/search.svg"></svg-icon>
+                      </div>
+                      <button type="submit" class="btn btn-primary btn-find-jobs" (click)="searchAssessment()"
+                        msLoadingButton [loading]="isLoading">
+                        Search Assessments
+                      </button>
+                    </div>
+                  </div>
+                  <div class="search-jobs-options__multi">
+                    <div class="select-category">
+                      <p class="multi-title">Category</p>
+                      <select class="select-control" [(ngModel)]="filterCondition.category"
+                        [ngModelOptions]="{standalone: true}" (change)="searchAssessment()" (keydown.enter)="searchEnterData($event)">
+                        <option value="">--All Categories--</option>
+                        <option [value]="category.id" *ngFor="let category of listCategory">{{category.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="mt-2 mb-4">
+                <button type="button" class="btn btn-success btn-radius btn-icon mb-2" (click)="addToJobs()"
+                  [hidden]="userData ? permissionService.checkCantPermissionUser(userData, permission.CHANGE_JOB): true">
+                  <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                  Add to Job(s)
+                </button>
+              </div>
+              <ms-loading-assessment-item [numberCard]="paginationConfig.maxRecord" *ngIf="isLoading">
+              </ms-loading-assessment-item>
+              <div class="manage-assessments">
+                <div *ngIf="!isLoading">
+                  <p class="warning-info" *ngIf="listAssessment.length <= 0">
+                    {{textConfirmNoSearchData}}
+                  </p>
+                  <ms-assessment-item *ngFor="let assessment of listAssessment" [assessment]="assessment"
+                    (checkAssessment)="checkAssessment($event)"></ms-assessment-item>
+                </div>
+                <div class="wrap__pagination">
+                  <ms-pagination *ngIf="!isLoading" [config]="paginationConfig" (goTo)="paginationAssessment($event)">
+                  </ms-pagination>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-12">
+        <div *ngIf="tabCustomAssessments && userData">
+          <ms-custom-assessments [userData]="userData"></ms-custom-assessments>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #modalAddJob>
+    <ms-modal-add-job-with-three-step *ngIf="settingsCards"
+      [isTemplate]="false"
+      [isPriveJob]="isPriveJob"
+      [isEdditJob]="false"
+      [listLevel]="listLevel" 
+      [settingsCard]="settingsCards"
+      [listCategory]="listCategory" 
+      [listAssessment]="listAssessmentSuggest"
+      [listSelectedAssessmentRef]="listCheckedIds" 
+      [isAddingJob]="isAddingJob" 
+      [isSaveDraft]="isSaveDraft"
+      [addAssessmentToDraftJob]="true" 
+      [job]='null' 
+      (add)="addToNewJob($event)" 
+      (close)="modalAddJobRef.close()">
+    </ms-modal-add-job-with-three-step>
+  </ng-template>
+
+  <ng-template #modalEditJob>
+    <ms-modal-add-assessment-to-exists-job 
+      [listLevel]="listLevel" 
+      [listCategory]="listCategory"
+      [listAssessment]="listAssessmentSuggest" 
+      [isAddingJob]="isAddingJob" 
+      [isSaveDraft]="isSaveDraft"
+      [listSelectedAssessment]="listCheckedIds" 
+      (close)="modalEditJobRef.close()">
+    </ms-modal-add-assessment-to-exists-job>
+  </ng-template>

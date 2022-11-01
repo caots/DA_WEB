@@ -1,0 +1,110 @@
+<div class="posting-item">
+  <div class="posting-item-header">
+    <div class="posting-item__title">
+      <div class="item-avatar-and-rating">
+        <div class="avatar">
+          <ms-avatar-user *ngIf="applicant" [applicant]="applicant"></ms-avatar-user>
+          <ms-name-user *ngIf="applicant" [applicant]="applicant"></ms-name-user>
+        </div>
+        <ng-template #tipIconResoinsive>
+         Responsive Job-Seeker.</ng-template>
+        <div class="icon-responsive" [ngbTooltip]="tipIconResoinsive" tooltipClass="tooltip-custom" *ngIf="applicant && applicant.job_seeker_user_responsive >= USER_RESPONSIVE.JOBSEEKER ">
+          <svg-icon src="assets/icons/run.svg"></svg-icon>
+        </div>
+      </div>
+      <div class="padding-box">
+        <h5 class="job-title">
+          {{ applicant.title }}
+        </h5>
+        <div class="overall-scores" *ngIf="applicant.totalPoint >= 0">
+          <p [ngClass]="asssessmentService.colorWeightAssessment(applicant.totalPoint)">Overall Weighted Score: {{ applicant.totalPoint | number:'1.0-0'}}</p>
+        </div>
+        <div class="overall-scores" *ngIf="applicant.totalPoint == null">
+          <p [ngClass]="asssessmentService.colorWeightAssessment(applicant.totalPoint)">Overall Weighted Score: N/A</p>
+        </div>
+      </div>
+    </div>
+    <div class="box-location-and-salary">
+      <div class="posting-item__pos" *ngIf="applicant.cityName || applicant.stateName">
+        <fa-icon class="mr-2" [icon]="['fas', 'map-marker-alt']"></fa-icon>
+        <p class="d-flex"><span>{{ applicant.cityName }},</span>&nbsp;<span>{{applicant.stateName}}</span></p>
+      </div>
+      <div class="posting-item__pos mb-0">
+        <fa-icon class="mr-2 opacity-hidden" [icon]="['fas', 'map-marker-alt']"></fa-icon>
+        <p class="d-flex" [hidden]="typeCandidate">
+          <span style="width: max-content">Asking Compensation:</span>
+        </p> 
+      </div>
+      <div class="posting-item__pos">
+         <fa-icon class="mr-2 opacity-hidden" [icon]="['fas', 'map-marker-alt']"></fa-icon>
+        <p class="d-flex" [hidden]="typeCandidate">
+          <span>{{ applicant.salary | currency }}</span>&nbsp;<span *ngIf="applicant.salary">{{salaryType}}</span> 
+        </p> 
+       
+      </div>
+    </div>
+
+    <div class="box-location-and-salary" [hidden]="typeCandidate">
+      <div class="posting-item__pos">
+        <div class="box-interview">
+          <span class="title-interview" *ngIf="stageName">Interview Status: </span>
+          <!-- <span>{{ stageName }}</span> -->
+          <ms-list-icon-interview [stage]="stageName"></ms-list-icon-interview>
+        </div>
+      </div>
+      <div *ngIf="applicant?.scheduleTime">
+        <span class="title-interview">Interview Schedule: </span>
+        <p>{{applicant?.scheduleTime | date : 'MMM d, y'}}</p>
+        <p>{{applicant?.scheduleTime | date : 'h:mm a'}}</p>
+      </div>
+    </div>
+
+    <div class="posting-item__edits">
+      <div class="box-rt-msg">
+        <ng-template #tipContent><fa-icon [icon]="['fas', 'lock']" [styles]="{'color': '#2668a9'}"></fa-icon> Message Applicant to Unlock Star Rating and Notes.</ng-template>
+        <div [ngbTooltip]="tipContent" [disableTooltip]="applicant.canRateStars" tooltipClass="tooltip-custom">
+          <div class="rating" [style]="applicant.canRateStars == 1 ? '' : 'pointer-events: none;'">
+            <div *ngFor="let index of numberStar" (click)="rateStarNumber(index + 1)">
+              <fa-icon [ngClass]="rateStar >= index + 1 ? 'rating-light': 'rating-dark'" [icon]="['fas', 'star']"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-message"
+          [hidden]="userData && permissionService.checkCantPermissionUser(userData, permission.CHAT)"
+          (click)="redirectToMessageCenter(applicant)">
+          <fa-icon [icon]="['far', 'comments']"></fa-icon>Message</button>
+
+          <p class="posting-item-footer__title withdrew mt-2" *ngIf="applicant.status == statusApplicant.withdrawn">WITHDREW</p>
+      </div>
+      <div class="box-add-note cursor-pointer" [hidden]="typeCandidate" (click)="openModalNoteApplicant(modalNoteApplicant)">
+        <svg-icon src="assets/icons/add-note.svg"></svg-icon>
+      </div>
+      <div class="item-bookmark cursor-pointer" (click)="bookMark()"
+        [hidden]="userData && permissionService.checkCantPermissionUser(userData, permission.CHANGE_JOB)"
+        [ngClass]="applicant.bookmarked === 1 ? 'active' : ''">
+        <fa-icon [icon]="['fas', 'bookmark']"></fa-icon>
+      </div>
+    </div>
+  </div>
+  <div class="posting-item-footer" *ngIf="applicant">
+
+    <p class="posting-item-footer__title">
+      Assessment scores: <span *ngIf="!applicant.listAssessment || applicant.listAssessment == 0">No assessment
+        found</span>
+    </p>
+    <div class="list-skill" *ngIf="applicant.listAssessment">
+      <div class="list-skill__item" *ngFor='let skill of applicant.listAssessment'
+        [ngClass]="asssessmentService.colorWeightAssessment(getJobseekerPoint(skill.job_seeker_point, skill.job_assessments_point))">
+        {{skill.name}}: {{getJobseekerPoint(skill.job_seeker_point, skill.job_assessments_point)}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalNoteApplicant>
+  <ms-modal-note-applicant [userId]="applicant.userId" [userData]="userData"  (changeNote)="changeNote($event)" [data]="applicant"
+    (close)="closeModalNote($event)">
+  </ms-modal-note-applicant>
+</ng-template>
+
+<div *ngIf="!applicant || !applicant.jobId">Not applicant found</div>

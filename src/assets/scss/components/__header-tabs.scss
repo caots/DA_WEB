@@ -1,0 +1,48 @@
+.header-width-tabs {
+  background: #f8f8f8;
+  &.no-tab {
+    padding: 35px 0;
+    .title {
+      margin: 0;
+    }
+  }
+  .title {
+    color: #2668a9;
+    font-family: "Avenir Heavy";
+    font-size: 24px;
+    margin: 25px 0 10px;
+  }
+
+  .sub-title {
+    font-size: 18px;
+    font-family: "Avenir Heavy";
+    margin-top: 10px;
+  }
+}
+
+.tabs-title {
+  display: flex;
+  a {
+    font-size: 18px;
+    color: #72777c;
+    padding: 15px 10px;
+    font-family: "Avenir Heavy";
+    transition: none;
+    &.active {
+      color: #2f3639;
+      border-bottom: 3px solid #2668a9;
+    }
+  }
+}
+
+/***
+    Block Search multiple options
+***/
+
+.tabs-content {
+  padding: 30px 0;
+}
+
+.tabs-title__item {
+  cursor: pointer;
+}

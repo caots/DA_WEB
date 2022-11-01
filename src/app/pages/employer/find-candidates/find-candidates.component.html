@@ -1,0 +1,385 @@
+<div class="applicants-page find-candidates-page">
+  <div class="header-width-tabs">
+    <div class="container container-extra">
+      <div class="row">
+        <!-- <div class="col-md-2">
+          <a class="btn-back" (click)="goBack()">
+            <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
+            <span>Back</span>
+          </a>
+        </div> -->
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div>
+            <h2 class="title">Find Candidates</h2>
+            <div class="d-flex flex-wrap justify-content-between">
+              <div class="tabs-title">
+                <a class="tabs-title__item active" [ngClass]="{'active': tabActive === TAB_CANDIDATE.ALL}" (click)="changeTab(TAB_CANDIDATE.ALL)">
+                   All {{tabActive === TAB_CANDIDATE.ALL && !isLoadingCandaidate  ? '(' +paginationConfig.totalRecord + ')' : ''}}
+                </a>
+                <a class="tabs-title__item" [ngClass]="{'active': tabActive === TAB_CANDIDATE.SHORT_LISTED}" (click)="changeTab(TAB_CANDIDATE.SHORT_LISTED)"> 
+                  Shortlisted  {{tabActive === TAB_CANDIDATE.SHORT_LISTED && !isLoadingCandaidate  ? '(' +paginationConfig.totalRecord + ')' : ''}}
+                </a>
+              </div>
+              <div class="d-flex align-items-center message-credit">
+                <p>Available Direct Message Credit(s):</p>
+                <p class="px-5">{{creditDM}} Credit(s)</p>
+                <button class="btn btn-success" (click)="openModalTopupDM(modalTopUp)">Buy Credit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container container-extra">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="tabs-content">
+          <div class="tabs-content__active">
+            <form>
+              <div class="search-jobs-options">
+                <div class="search-jobs-options__top mb-0">
+                  <div class="search-box-multi">
+                    <!-- <a class="sort-by">
+                      <div ngbDropdown class="d-inline-block sort-dropdown">
+                        <a id="dropdownFilterJobs" ngbDropdownToggle>
+                          <fa-icon [icon]="['fas', 'sort-amount-up']"></fa-icon>
+                        </a>
+                        <div
+                          ngbDropdownMenu
+                          aria-labelledby="dropdownFilterJobs"
+                        >
+                          <button ngbDropdownItem>
+                            Highest Overall Weighted Score
+                          </button>
+                        </div>
+                      </div>
+                    </a> -->
+                  </div>
+                  <div class="d-flex flex-wrap">
+                    <div class="search-box-multi search-jobs-options__multi">
+                      <div class="select-category">
+                        <p class="multi-title">Assessments (Skills)</p>
+                        <div
+                          class="all-select-results"
+                          *ngIf="isApplySearchAssessment"
+                        >
+                          <div
+                            class="select-result name-selected-assessment"
+                            *ngFor="
+                              let assessment of listAssessmentSelected;
+                              let i = index
+                            "
+                          >
+                            <input
+                              type="text"
+                              [value]="assessment.name"
+                              class="mb-2 input-name-assessment"
+                              disabled
+                            />
+                            <span
+                              class="icon"
+                              (click)="removeAssessment(assessment, i)"
+                            >
+                              <fa-icon
+                                [icon]="['far', 'times-circle']"
+                              ></fa-icon>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="search-jobs-options__multi2 mb-3 group-weighting-assessment"
+                      *ngIf="
+                        listAssessmentSelected.length > 0 && isApplySearchAssessment && 
+                        isApplySearchAssessment
+                      "
+                    >
+                      <div class="select-category weighting-assessment">
+                        <p class="multi-title">Weighting</p>
+                        <div class="all-select-results">
+                          <div
+                            class="select-result"
+                            *ngFor="let assessment of listAssessmentSelected"
+                          >
+                            <input
+                              type="number"
+                              (change)="
+                                changeWeightAssessment($event, assessment)
+                              "
+                              [value]="assessment?.point || ''"
+                              class="mb-2 input-value-point-assessment"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-danger text-danger-assessment-weighting">
+                        {{ messageValidateAssessment }}
+                      </div>
+                    </div>
+                    <div
+                      class="search-jobs-options__multi3 mb-3"
+                      *ngIf="isSearchCandidate && isApplySearchAssessment && listAssessmentSelected.length > 0"
+                    >
+                      <div class="select-category select-location">
+                        <p class="multi-title">Location</p>
+                        <div class="all-select-results">
+                          <div class="select-result">
+                            <input [(ngModel)]="place" [ngbTypeahead]="selectCountry" [ngModelOptions]="{standalone: true}" type="text" value="" class="mb-2" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="search-jobs-options__multi4 mb-3"
+                      *ngIf="isSearchCandidate && isApplySearchAssessment && listAssessmentSelected.length > 0"
+                    >
+                      <div class="select-category" *ngIf="place">
+                        <p class="multi-title">Distance</p>
+                        <div class="all-select-results">
+                          <div class="select-result">
+                            <select class="select-control" [(ngModel)]="querySearch.within" [ngModelOptions]="{standalone: true}">
+                              <option
+                                [defaultSelected]="within.id == DEFAULT_WITHIN.id"
+                                [value]="within.id"
+                                *ngFor="let within of WITHIN_MILES"
+                              >
+                                {{ within.value }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="search-jobs-options__multi5 mb-3"
+                      *ngIf="isSearchCandidate && isApplySearchAssessment && listAssessmentSelected.length > 0"
+                    >
+                      <div class="select-category">
+                        <p class="multi-title">
+                          Maximum Compensation
+                        </p>
+                        <div class="all-select-results">
+                          <div class="select-result input-with-dollar-sign">
+                            <input [(ngModel)]="querySearch.salary" [ngModelOptions]="{standalone: true}" type="number" min="0"/>
+                            <p class="per-year">Per Year</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="search-box-on-bottom">
+                    <div class="search-box-multi search-jobs-options__multi">
+                      <div class="select-category">
+                        <div class="select-control" ngbDropdown  >
+                          <a ngbDropdownToggle><span class="title-menu-selected" (click)="isShowMenuAssessmentSelected = true">Select Assessment(s)</span></a>
+                          <div class="select-items" ngbDropdownMenu *ngIf="isShowMenuAssessmentSelected">
+                            <div class="search-box-multi mb-3">
+                              <input
+                                type="text"
+                                (keyup.enter)="SearchAssessmentSuggest()"
+                                [(ngModel)]="nameAssessmentSearch"
+                                [ngModelOptions]="{ standalone: true }"
+                                class="input-search-box"
+                                placeholder="Search"
+                              />
+
+                              <div
+                                class="search-box-icon"
+                                (click)="SearchAssessmentSuggest()"
+                              >
+                              <svg-icon src="assets/icons/search.svg"></svg-icon>
+                              </div>
+                              <button
+                              type="button"
+                              class="btn btn-primary btn-search-box"
+                              (click)="SearchAssessmentSuggest()"
+                            >
+                              Search
+                            </button>
+                            </div>
+                            <p class="result">
+                              {{ listAssessmentSelected.length }} selected
+                            </p>
+                            <ul class="items" *ngIf="listCategory.length > 0">
+                              <li
+                                class="parent"
+                                *ngFor="let category of listCategory"
+                              >
+                                <p>
+                                  <label
+                                  ><input
+                                    style="cursor: pointer"
+                                    (change)="onSelectedCategory(category)"
+                                    [checked]="checkSelectedListAssessment(category)"
+                                    id="select-category-{{category.id}}"
+                                    type="checkbox"
+                                    name="checkbox"
+                                    value="value"
+                                  /><span class="flex-1">{{ category.name }}</span></label>
+                                  <button
+                                    type="button"
+                                    class="btn btn-collapse"
+                                    (click)="
+                                      category.isShowListAssessment = !category.isShowListAssessment
+                                    "
+                                    [attr.aria-expanded]="
+                                      category.isShowListAssessment
+                                    "
+                                    aria-controls="collapseExample"
+                                  >
+                                    <fa-icon
+                                      class="icon-color close-icon"
+                                      [icon]="['fas', 'caret-up']"
+                                    ></fa-icon>
+                                    <fa-icon
+                                      class="icon-color open"
+                                      [icon]="['fas', 'caret-down']"
+                                    ></fa-icon>
+                                  </button>
+                                </p>
+                                <ul
+                                  #collapse="ngbCollapse"
+                                  [(ngbCollapse)]="
+                                    !category.isShowListAssessment
+                                  "
+                                  class="child"
+                                >
+                                  <li
+                                    *ngFor="
+                                      let assessment of category.listAssessment
+                                    "
+                                  >
+                                    <label [ngClass]="{'disable-assessment-duplicate': assessment?.disableDuplicate}"
+                                      ><input
+                                        style="cursor: pointer"
+                                        (change)="
+                                          onSelectedAssessemnt(
+                                            assessment,
+                                            category
+                                          )
+                                        "
+                                        [checked]="assessment.selectedCandidate"
+                                        id="select-assessment-{{
+                                          assessment.id
+                                        }}"
+                                        type="checkbox"
+                                        name="checkbox"
+                                        value="value"
+                                      /><span class="flex-1">{{ assessment.name }}</span></label
+                                    >
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                            <div class="text-right">
+                              <button
+                                class="btn btn-success"
+                                [disabled]="listAssessmentSelected.length <= 0"
+                                (click)="applySearchAssessemnt()"
+                              >
+                                Apply
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-100 mb-3">
+                  <button
+                    type="submit"
+                    [disabled]="
+                      listAssessmentSelected.length <= 0 ||
+                      !isApplySearchAssessment
+                    "
+                    (click)="searchCandidate()"
+                    class="btn btn-primary btn-search-candidates"
+                  >
+                    Search Candidates
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="manage-candidates" [hidden]="isSearchCandidate">
+              <div class="item-candidate text-center">
+                <p>
+                  Search our database of jobseekers and find your next hire.
+                </p>
+                <p>
+                  Please complete the fields above and click Search Candidates
+                  to get started!
+                </p>
+              </div>
+            </div>
+            <div class="manage-candidates">
+              <ms-loading-job-detail [numberCard]="5" *ngIf="isLoadingCandaidate && isSearchCandidate">
+              </ms-loading-job-detail>
+              <div *ngIf="!isLoadingCandaidate && isSearchCandidate">
+                <ms-candidate-item  *ngFor="let candidate of listCandidate" 
+                  (bookApplicant)="bookMark($event)"
+                  [candidate]="candidate" 
+                  [userData]="userInfo"
+                  (inviteJob)="showModalInviteJob($event, modalInviteCandidate)"
+                  (sendMessageCandidadate)="messageDMCandidate($event, modalPaymentConfirmation)"
+                  [listAssessmentSelected]="listAssessmentSelected"
+                ></ms-candidate-item>
+                  <div *ngIf="listCandidate &&listCandidate.length == 0">No results found. Please try again.</div>
+              </div>
+              <div class="pagination">
+                <ms-pagination *ngIf="!isLoadingCandaidate" [config]="paginationConfig"
+                (goTo)="paginationCandidate($event)"></ms-pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #modalInviteCandidate>
+  <ms-modal-invite-job-candidate *ngIf="candidateToInvite"
+    [candidate]="candidateToInvite"
+    (close)="modalInviteCandidateRef.close()">
+  </ms-modal-invite-job-candidate>
+</ng-template>
+
+<ng-template #modalTopUp>
+  <ms-modal-top-up [isDmCandidate]="true" [settings]="settingsCard" (close)="modalTopUpRef.close()"></ms-modal-top-up>
+</ng-template>
+
+<ng-template #modalPaymentConfirmation>
+  <ms-modal-payment-direct-message  *ngIf="settingsCard && candidateInfo"
+  [candidateInfo]="candidateInfo"
+  [sendDmCandidateData]="sendDmCandidateData"
+  (close)="modalPaymentConfirmationRef.close()"
+  [settings]="settingsCard"
+  ></ms-modal-payment-direct-message>
+</ng-template>
+<!-- 
+<ng-template #modalPaymentConfirmation>
+  <ms-modal-payment-assessment-confirmation *ngIf="settingsCard && candidateInfo"
+    [candidateInfo]="candidateInfo"
+    [card]="cardInfo"
+    [isDmCandidate]="true"
+    [sendDmCandidateData]="sendDmCandidateData"
+    [settingsCard]="settingsCard"
+    (submit)="submitPaymentProcess($event)" (close)="modalPaymentConfirmationRef.close()">
+  </ms-modal-payment-assessment-confirmation>
+</ng-template> -->
+
+<ng-template #modalPaymentFree>
+  <ms-modal-confirm-free-payment *ngIf="settingsCard"
+  (close)="modalPaymentFreeRef.close()"
+  [isDirectMessage]="true"
+  (complete)="takeTestForPaymentFree()"
+  [cardSettings]="settingsCard"
+  ></ms-modal-confirm-free-payment>
+</ng-template>

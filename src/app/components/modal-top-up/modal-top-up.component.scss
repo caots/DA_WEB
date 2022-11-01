@@ -1,0 +1,225 @@
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.change-card {
+  color: var(--color-8A9);
+}
+
+.cards-item {
+  margin-bottom: 20px;
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  img {
+    width: 50px;
+    height: auto;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-right: 25px;
+    padding: 3px 6px;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.list-credits {
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    li {
+      padding: 5px 0;
+      margin: 0 10px;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      &.active {
+        border-bottom: 3px solid #f79e1c;
+      }
+    }
+  }
+}
+
+.summary-credits {
+  margin-bottom: 20px;
+}
+
+.top-up-credits {
+  width: 100%;
+  overflow: auto;
+  padding-bottom: 5px;
+  &::-webkit-scrollbar-track {
+    background: #EDF1F7;
+    border-radius: 20px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 20px;
+    border: 2px solid #EDF1F7;
+  }
+  &::-webkit-scrollbar {
+    height: 12px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    overflow: hidden;
+  }
+  .add-topup {
+    display: flex;
+    justify-content: space-between;
+    max-width: 320px;
+    margin-bottom: 20px;
+    .title {
+      font-weight: 700;
+      font-size: 30px;
+    }
+
+    .icon-add {
+      nb-icon {
+        font-size: 20px !important;
+        width: 30px !important;
+        height: 30px !important;
+      }
+    }
+  }
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    &.max-items {
+      justify-content: flex-start;
+      @media (max-width: 768px) {
+        justify-content: center;
+      }
+    }
+    .top-up-item {
+      cursor: pointer;
+      position: relative;
+      border: 1px solid #e4e9f2;
+      margin: 0 30px 0 0;
+      border-radius: 5px;
+      border-top-color: #0095ff;
+      border-top-width: 4px;
+      flex: 0 0 240px;
+      transition: .2s ease-in;
+      @media (max-width: 768px) {
+        width: 100%;
+        margin-bottom: 20px;
+        margin-right: 0;
+      }
+      &:hover{
+        border: 1px solid #0095ff;
+        border-top-width: 4px;
+      }
+
+      &__header {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #edf1f7;
+        text-align: center;
+        .title {
+          font-family: "Avenir Heavy";
+        }
+      }
+      .top-up-content {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 15px 10px;
+        .row-topup {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
+          p {
+            margin: 0 10px 0 0;
+          }
+          input {
+            margin: 0 10px 0 0;
+            width: 50px;
+            height: 30px;
+          }
+        }
+        p.pay-only {
+          line-height: 1;
+          margin-bottom: 40px;
+        }
+        p.total-price {
+          font-size: 35px;
+          font-weight: 700;
+          margin-bottom: 35px;
+          line-height: 1;
+        }
+      }
+    }
+  }
+
+  .select-topup{
+    border: 1px solid #0095ff;
+    border-top-width: 4px;
+  }
+
+  .topup-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding-right: 382px;
+  }
+
+  p.icon-remove {
+    position: absolute;
+    right: 35px;
+    font-size: 24px;
+    top: 15px;
+    margin: 0;
+    nb-icon {
+      font-size: 20px !important;
+      width: 30px !important;
+      height: 30px !important;
+    }
+  }
+  .top-up-header {
+    .title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+}
+
+.top-up-body {
+  margin-bottom: 20px;
+}
+
+.group-extra-coupon{
+  padding: 10px 50px;
+  @media (max-width: 767px){
+    padding: 10px 0;
+    .enter-coupon{
+      flex-flow: row wrap;
+      margin-bottom: 15px;
+      input[type=text] {
+        width: 100% !important;
+        margin: 10px 0 !important;
+      }
+    }
+  }
+}
+
+
+.enter-coupon{
+  fa-icon{
+    font-size: 20px;
+    color: #f99901;
+  }
+}
