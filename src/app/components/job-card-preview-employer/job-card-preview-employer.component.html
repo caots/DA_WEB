@@ -52,25 +52,16 @@
         </div>
         <div class="col-lg-3 col-md-3 col-btn">
           <div class="top-col-btn">
-            <div class="box-share-jobs btn-share-job" shareButtonDir [ngClass]="{'disable-apply' : !activeJob}">
-              <a class="cursor-pointer" rel="nofollow">
-                <span>Share</span>
-                <fa-icon [icon]="['fas', 'share-alt']"></fa-icon>
-              </a>
-              <div class="share-jobs">
-                <share-button  button="facebook" [url]="shareUrl()"></share-button>
-                <share-button  button="twitter"  [url]="shareUrl()"></share-button>
-                <share-button  button="email"  [url]="shareUrl(1)"></share-button>
-                <share-button  button="copy"  [url]="shareUrl()"></share-button>
-              </div>
-            </div>
             <div class="item-bookmark cursor-pointer disable-apply" style="pointer-events: none" >
               <span>Save</span>
               <fa-icon [icon]="['fas', 'bookmark']"></fa-icon>
             </div>
           </div>
-          <div style="pointer-events: none" class="cursor-pointer btn-apply-now disable-apply" id="applyBtn">
-            Apply Now</div>
+          <div class="top-col-btn mt-2">
+            <div class="item-bookmark cursor-pointer disable-apply" style="pointer-events: none" >
+              <span>Apply Now</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

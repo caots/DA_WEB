@@ -4,7 +4,7 @@ import { JobCategory } from 'src/app/interfaces/jobCategory';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MESSAGE } from 'src/app/constants/message';
 import { FormGroup } from '@angular/forms';
-import { STEP_CREATE_JOB, ASSESSMENTS_TYPE, EMPLOYMENT_TYPE, MAX_ASSESSMENT_IMOCHA } from 'src/app/constants/config';
+import { STEP_CREATE_JOB, ASSESSMENTS_TYPE, EMPLOYMENT_TYPE, MAX_ASSESSMENT_IMOCHA, ASSESSMENT_CUSTOM_CATEGORY } from 'src/app/constants/config';
 import { HelperService } from 'src/app/services/helper.service';
 import { Job } from 'src/app/interfaces/job';
 import { uniqBy } from 'lodash';
@@ -73,6 +73,7 @@ export class CreateJobStep1Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.bindingCreateData();
     // check swicth step in header
     this.subjectService.switchStepCreateJob.subscribe(data => {
@@ -111,7 +112,6 @@ export class CreateJobStep1Component implements OnInit {
           listSelectedAssesment.push(Object.assign({}, data, { point: 0 }));
         })
       }
-      // this.formAddNewJob.get('listAssessment').setValue(listSelectedAssesment);
       this.listSelectedAssesment = listSelectedAssesment;
     }else{
       this.listSelectedAssesment = this.listSelectedAssessmentRef && this.listSelectedAssessmentRef;
@@ -274,27 +274,7 @@ export class CreateJobStep1Component implements OnInit {
     this.formAddNewJob.get('listAssessment').setValue(this.listSelectedAssesment);
   }
 
-  addNewAssessment(modalAddAssessment) {
-    this.modalAddAssessmentTagRef = this.modalService.open(modalAddAssessment, {
-      windowClass: 'modal-add-new-assessment',
-      size: 'lg'
-    })
-  }
-
   addAssessment(assessment) {
-    let numberAssessmentImocha = 0;
-    this.listSelectedAssesment.map((ass: Assesment) => {
-      if (ass.type == ASSESSMENTS_TYPE.IMocha) numberAssessmentImocha += 1;
-    })
-    if (numberAssessmentImocha >= MAX_ASSESSMENT_IMOCHA && assessment.type == ASSESSMENTS_TYPE.IMocha) {
-      const indexRoot = this.listAssessment.findIndex(ass => ass.id == assessment.id);
-      if (indexRoot >= 0) this.listAssessment[indexRoot].selectJobStatus = false;
-      this.disbaleSuggestAssessment = true;
-      const id = `select-assessment-${this.listAssessment[indexRoot].id}`
-      const selectEndAssessment: any = document.getElementById(id);
-      selectEndAssessment.checked = false;
-      return;
-    }
     const indexRoot = this.listAssessment.findIndex(ass => ass.id == assessment.id);
     if (indexRoot >= 0) this.listAssessment[indexRoot].selectJobStatus = true;
     if (!this.listSelectedAssesment.find(item => item.id == assessment.id)) {
@@ -326,8 +306,8 @@ export class CreateJobStep1Component implements OnInit {
     this.submit.emit(this.isSubmited);
   }
 
-  filterCategoryAssessments(category){
-    const results = this.listAssessment.filter(assessment => assessment.categories.some(item => item.category_id == category));
+  filterCategoryAssessments(){
+    const results = this.listAssessment.filter(assessment => assessment.categoryId  == ASSESSMENT_CUSTOM_CATEGORY.categoryId);
     return results;
   }
 }

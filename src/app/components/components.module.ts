@@ -96,7 +96,6 @@ import { MinimaLight, MinimaDark } from '@alyle/ui/themes/minima';
 import { FooterComponent } from './footer/footer.component';
 import { UserSayingSliderComponent } from './user-saying-slider/user-saying-slider.component';
 import { GetStartedTodayComponent } from './get-started-today/get-started-today.component';
-import { FindYourNextJobComponent } from './find-your-next-job/find-your-next-job.component';
 import { FeaturedAssessmentsComponent } from './featured-assessments/featured-assessments.component';
 import { SkillWorksComponent } from './skill-works/skill-works.component';
 import { FeaturedJobsComponent } from './featured-jobs/featured-jobs.component';
@@ -106,7 +105,6 @@ import { environment } from 'src/environments/environment';
 import { MeasuredSkillsComponent } from './measured-skills/measured-skills.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { JobEmployerComponent } from './job-employer/job-employer.component';
-import { OurPricingComponent } from './our-pricing/our-pricing.component';
 import { FreqentlyAskedQuestionsComponent } from './freqently-asked-questions/freqently-asked-questions.component';
 import { HowMeasuredskillsHelpComponent } from './how-measuredskills-help/how-measuredskills-help.component';
 import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
@@ -132,7 +130,6 @@ import { UpgradeJobStep0Component } from './upgrade-job-step0/upgrade-job-step0.
 import { UpgradeJobStep1Component } from './upgrade-job-step1/upgrade-job-step1.component';
 import { ModalStepShoppingCartComponent } from './modal-step-shopping-cart/modal-step-shopping-cart.component';
 import { PaymentShoppingCartStep1Component } from './payment-shopping-cart-step1/payment-shopping-cart-step1.component';
-import { HowMeasuredskillsComparesComponent } from './how-measuredskills-compares/how-measuredskills-compares.component';
 import { NotificationComponent } from './notification/notification.component';
 import { FooterBottomComponent } from './footer-bottom/footer-bottom.component';
 import { ModalPaymentDirectMessageComponent } from './modal-payment-direct-message/modal-payment-direct-message.component';
@@ -143,7 +140,6 @@ import { JobCardPreviewEmployerComponent } from './job-card-preview-employer/job
 import { ModalConfirmFreePaymentComponent } from './modal-confirm-free-payment/modal-confirm-free-payment.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ModalAlertComponent } from './modal-alert/modal-alert.component';
-import { PopupSignUpComponent } from './popup-sign-up/popup-sign-up.component';
 import { ModalShareUserHistoryComponent } from './modal-share-user-history/modal-share-user-history.component';
 import { ModalUserStoryViewComponent } from './modal-user-story-view/modal-user-story-view.component'
 
@@ -231,14 +227,12 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     FooterComponent,
     UserSayingSliderComponent,
     GetStartedTodayComponent,
-    FindYourNextJobComponent,
     FeaturedAssessmentsComponent,
     SkillWorksComponent,
     FeaturedJobsComponent,
     FollowEmployersComponent,
     MeasuredSkillsComponent,
     JobEmployerComponent,
-    OurPricingComponent,
     FreqentlyAskedQuestionsComponent,
     HowMeasuredskillsHelpComponent,
     DoughnutChartComponent,
@@ -255,7 +249,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     EmployerFaqComponent,
     FollowerChartComponent,
     RecruitmentFunnelComponent,
-    HowMeasuredskillsComparesComponent,
     NotificationComponent,
     FooterBottomComponent,
     ModalUpgrageJobPostingComponent,
@@ -263,14 +256,12 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     UpgradeJobStep1Component,
     ModalStepShoppingCartComponent,
     PaymentShoppingCartStep1Component,
-    HowMeasuredskillsComparesComponent,
     ModalPaymentDirectMessageComponent,
     ModalPaymentAssessmentComponent,
     BillingInfomationComponent,
     JobCardPreviewEmployerComponent,
     ModalConfirmFreePaymentComponent,
     ModalAlertComponent,
-    PopupSignUpComponent,
     ModalShareUserHistoryComponent,
     ModalUserStoryViewComponent
   ],
@@ -369,7 +360,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     FooterComponent,
     UserSayingSliderComponent,
     GetStartedTodayComponent,
-    FindYourNextJobComponent,
     FeaturedAssessmentsComponent,
     SkillWorksComponent,
     FeaturedJobsComponent,
@@ -377,7 +367,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     FollowEmployersComponent,
     MeasuredSkillsComponent,
     JobEmployerComponent,
-    OurPricingComponent,
     FreqentlyAskedQuestionsComponent,
     HowMeasuredskillsHelpComponent,
     DoughnutChartComponent,
@@ -394,7 +383,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     EmployerFaqComponent,
     FollowerChartComponent,
     RecruitmentFunnelComponent,
-    HowMeasuredskillsComparesComponent,
     NotificationComponent,
     FooterBottomComponent,
     ModalUpgrageJobPostingComponent,
@@ -402,14 +390,12 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     UpgradeJobStep1Component,
     ModalStepShoppingCartComponent,
     PaymentShoppingCartStep1Component,
-    HowMeasuredskillsComparesComponent,
     ModalPaymentDirectMessageComponent,
     ModalPaymentAssessmentComponent,
     BillingInfomationComponent,
     JobCardPreviewEmployerComponent,
     ModalConfirmFreePaymentComponent,
     ModalAlertComponent,
-    PopupSignUpComponent,
     ModalShareUserHistoryComponent,
     ModalUserStoryViewComponent
   ],

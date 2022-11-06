@@ -22,7 +22,6 @@ import { Job } from 'src/app/interfaces/job';
 import { cloneDeep } from 'lodash';
 import { environment } from 'src/environments/environment'
 import { IsloginGuard } from 'src/app/guards/islogin.guard';
-import { AnalyticServices } from 'src/app/services/analytics.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { CeoService } from 'src/app/services/ceo.service';
 @Component({
@@ -74,7 +73,6 @@ export class ModalApplyJobComponent implements OnInit {
     private paymentService: PaymentService,
     public assessmentService: AssessmentService,
     private helperService: HelperService,
-    private analyticServices: AnalyticServices,
     private recaptchaV3Service: ReCaptchaV3Service,
     private ceoService: CeoService,
   ) { }
@@ -94,7 +92,6 @@ export class ModalApplyJobComponent implements OnInit {
     //   this.listAssessmentJobAssign.push(Object.assign({}, ass, { retry: false, point: null }))
     // })
     this.mergeWeightingToJob();
-    this.analyticServices.eventOnClickApplyJob(this.job, false);    
   }
 
   mergeWeightingToJob() {
@@ -149,7 +146,6 @@ export class ModalApplyJobComponent implements OnInit {
       this.confirm.emit();
       this.closeModal();
       this.isCallingApi = false;
-      this.analyticServices.eventOnClickApplyJob(this.job, true);
       this.helperService.showToastSuccess(MESSAGE.APPLY_JOB_SUCCESSFULY);
     }, errorRes => {
       this.isCallingApi = false;

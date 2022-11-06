@@ -188,11 +188,6 @@ export class CustomAssessmentQuestionComponent implements OnInit {
         if (nbrAnswer >= 5) { return; }
         question.listAnswerOptionCheckboxes.push(option);
         return;
-      // case this.listQuestionCustomAssessment.MULTIPLE_CHOICE:
-      //   nbrAnswer = get(question, 'listAnswerOptionMultiChioce.length', 0);
-      //   if (nbrAnswer >= 5) { return; }
-      //   question.listAnswerOptionMultiChioce.push(option);
-      //   return;
       case this.listQuestionCustomAssessment.SINGLE_TEXTBOX:
         nbrAnswer = get(question, 'listAnswerAlternative.length', 0);
         if (nbrAnswer >= 5) { return; }

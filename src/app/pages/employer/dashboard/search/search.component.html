@@ -37,83 +37,16 @@
     <div class="search-jobs-options__multi" *ngIf="isShow">
       <div class="select-category">
         <p class="multi-title">Category</p>
-        <div class="find-candidates-page search-advantage-item">
-          <div class="search-box-multi search-box-assessments">
-            <div class="select-category2">
-                <div class="select-control2" ngbDropdown #dropSearch="ngbDropdown">
-                    <a ngbDropdownToggle>
-                      <span class="title-menu-selected" [hidden]="listAssessmentSelected.length > 0">Select Category</span>
-                      <span class="selected-item" *ngIf="listAssessmentSelected.length > 0"> {{listAssessmentSelected[0]?.name}}<a class="close-btn" (click)="removeAssessment(listAssessmentSelected[0], 0); dropSearch.open();">x</a></span>
-                      <span class="selected-item" *ngIf="listAssessmentSelected.length > 1"> {{listAssessmentSelected[1]?.name}}<a class="close-btn" (click)="removeAssessment(listAssessmentSelected[1], 1); dropSearch.open();">x</a></span>
-                      <span class="selected-item-plus pl-1" *ngIf="listAssessmentSelected && listAssessmentSelected.length > 2">+{{listAssessmentSelected.length - 2}}</span>
-                      <!-- <span class="close-filter-item close-filter-assessment" (click)="showSearchAssessment = true"><fa-icon [icon]="['fas', 'caret-down']" ></fa-icon></span> -->
-                    </a>
-                    <div class="select-items" ngbDropdownMenu>
-                        <div class="search-box-multi mb-3">
-                          <input type="text"
-                            (click)="SearchAssessmentSuggest()"
-                            [(ngModel)]="nameAssessmentSearch"
-                            [ngModelOptions]="{ standalone: true }" placeholder="Search" class="input-search-box ">
-                          <div class="search-box-icon">
-                            <svg-icon src="assets/icons/search.svg"></svg-icon>
-                          </div>
-                          <button type="button" class="btn btn-primary btn-search-box ml-2" (click)="SearchAssessmentSuggest()">
-                              Search
-                          </button>
-                        </div>
-                        <p class="result">{{ listAssessmentSelected.length }} selected</p>
-                        <ul class="items">
-                          <li class="parent" *ngFor="let category of listCategoryCoppied">
-                            <p>
-                                <label>
-                                  <input
-                                    style="cursor: pointer"
-                                    (change)="onSelectedCategory(category)"
-                                    [checked]="checkSelectedListAssessment(category)"
-                                    type="checkbox" name="checkbox"
-                                    value="value"
-                                    id="select-category-{{category.id}}"
-                                  ><span class="flex-1">{{ category.name }}</span></label>
-                                <button type="button" class="btn btn-collapse"
-                                    [hidden]="category.id === CUSTOM_ASSESSMENT_ID"
-                                    [attr.aria-expanded]="category.isShowListAssessment"
-                                    aria-controls="collapseExample"
-                                    (click)="category.isShowListAssessment = !category.isShowListAssessment"
-                                >
-                                    <fa-icon
-                                      class="icon-color close-icon"
-                                      [icon]="['fas', 'caret-up']"
-                                    ></fa-icon>
-                                    <fa-icon
-                                      class="icon-color open"
-                                      [icon]="['fas', 'caret-down']"
-                                    ></fa-icon>
-                                </button>
-                            </p>
-                            <ul #collapse="ngbCollapse" [(ngbCollapse)]="!category.isShowListAssessment"
-                                class="child">
-                                <li *ngFor="
-                                    let assessment of category.listAssessment">
-                                  <label [ngClass]="{'disable-assessment-duplicate': assessment?.disableDuplicate}">
-                                    <input
-                                      (change)="onSelectedAssessemnt(assessment,category)"
-                                      [checked]="assessment.selectedCandidate"
-                                      id="select-assessment-{{assessment.id}}"
-                                      type="checkbox" name="checkbox"
-                                            value="value"><span class="flex-1">{{ assessment.name }}</span>
-                                  </label>
-                                </li>
-                            </ul>
-                        </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-        <!-- <ng-multiselect-dropdown [placeholder]="'Select Category'" [settings]="dropdownSettings" [data]="listCategory"
-          [ngModelOptions]="{standalone: true}" [(ngModel)]="query.category">
-        </ng-multiselect-dropdown> -->
+        <ng-select
+          class="select-location-search"
+          [items]="listCategory"
+          bindLabel="name"
+          bindValue="id"
+          [(ngModel)]="query.category"
+          [virtualScroll]="true"
+          [ngModelOptions]="{standalone: true}"
+        >
+        </ng-select>
       </div>
       <div>
         <p class="multi-title">Created Date</p>

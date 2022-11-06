@@ -86,18 +86,7 @@ export class ApplicantsService {
   }
   addNote(id, data: any, jobId: number, companyId: number) {
     const url = `${environment.api_url}applicants/${id}/note`;
-    return this.httpClient.post(url, data).pipe(res => {
-      const offerState = APPLICANT_STAGE.find(x=>x.id == 5);
-      const hireState = APPLICANT_STAGE.find(x=>x.id == 7);
-      if (data.stage == offerState.id || data.stage == hireState.id) {
-        const logObj = {
-          employer_id: companyId,
-          job_id: jobId,
-          type: data.stage == offerState.id ? TRACKING_RECRUITMENT_TYPE[5].id : TRACKING_RECRUITMENT_TYPE[6].id
-        }
-      }
-      return res;
-    });
+    return this.httpClient.post(url, data);
   }
   updateCanRateStars(id: number): Observable<any> {
     const url = `${environment.api_url}applicants/${id}/makeCanRateStars`;

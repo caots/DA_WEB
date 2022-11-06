@@ -6,22 +6,6 @@
           <div class="form-add-job">
             <p class="form-add-job__title">Job Information</p>
             <div class="col-left-form">
-              <!-- <div class="form-group">
-                <label>Job Title<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" formControlName="title" msIgnoreEmojiIcon>
-                <div class="text-danger"
-                  *ngIf="(isShowErrorStep1 && formAddNewJob.controls.title.touched && formAddNewJob.controls.title.errors?.required) || isCheckTitleSaveDraft ">
-                  Job title is required!
-                </div>
-              </div> -->
-
-              <!-- <div style="max-width: 200px;" class="form-group" [hidden]="activeTab == tabType.ACTIVE && editModalJob == true">
-                <label>Job Status</label>
-                <select class="form-comtrol" [(ngModel)]="isPriveJob" (change)="selectPrivateJob(isPriveJob)" [ngModelOptions]="{standalone: true}">
-                  <option [ngValue]="false" >Public</option>
-                  <option [ngValue]="true" >Private</option>
-                </select>
-              </div> -->
 
               <div class="form-group">
                 <label>Employment Type<span class="text-danger">*</span></label>
@@ -49,7 +33,7 @@
         <div class="col-xl-6">
           <div class="border-box mb-4">
             <p class="border-box__title">
-              Select Assessment(s)<span class="text-danger">*</span>
+              Select Category(s)<span class="text-danger">*</span>
             </p>
             <div class="additional-info__content">
               <div class="form-group">
@@ -62,16 +46,10 @@
                   *ngIf="isShowErrorStep1 && formAddNewJob.controls.category.touched && formAddNewJob.controls.category.errors?.required ">
                   Category is required!
                 </div>
-                <!-- <div class="text-danger"
-                  *ngIf="formAddNewJob.get('category').value == '0'">
-                  Category is required!
-                </div> -->
               </div>
-              <!-- <p class="title-suggess" *ngIf="formAddNewJob.value.category">Suggested Assessments</p> -->
-              <span class="warning-text" *ngIf="checkLengthSuggestAssessment">No custom assessment was found</span>
               <!-- New UI for suggess -->
               <div class="list-suggested" [style]="editModalJob && activeTab == tabType.ACTIVE ? 'pointer-events: none;' : ''" >
-                <div *ngFor="let assesment of filterCategoryAssessments(formAddNewJob.value.category)" class="list-suggested__item">
+                <div *ngFor="let assesment of filterCategoryAssessments()" class="list-suggested__item">
                   <div class="col-left">
                     <label class="checkbox"><span class="checkbox__input">
                       <input type="checkbox" id="select-assessment-{{assesment.id}}" [disabled]="disbaleSuggestAssessment && assesment.type == assessmentTypeImocha" [checked]="assesment.selectJobStatus" name="checkbox" (change)="selectAssessmentJob(assesment)">
@@ -96,20 +74,12 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="list-item-choose">
-                      <ms-assessments-tag
-                      *ngFor="let assesment of listAssessment | filter:'categoryId':formAddNewJob.value.category"
-                      [assesment]="assesment" (add)="addAssessment($event)" [isAdded]="false">
-                      </ms-assessments-tag>
-                  </div> -->
             </div>
           </div>
           <div class="border-box" [style]="editModalJob && activeTab == tabType.ACTIVE ? 'pointer-events: none;' : ''">
             <p class="border-box__title">
               Set Assessment Weighting<span class="text-danger">*</span>
             </p>
-            <!-- <button type="button" class="btn btn-success mb-3" (click)="addNewAssessment(modalAddAssessment)">Add
-              Assessment</button> -->
             <span class="warning-text">Total weight must equal 100%</span>
             <div class="req-assessments" >
               <div class="list-item-choose">
@@ -149,12 +119,6 @@
   </form>
 </div>
 
-<ng-template #modalAddAssessment>
-  <ms-add-new-assessment [listCategory]="listCategory" [listAssessment]="listAssessment"
-    [listSelectedAssesment]="listSelectedAssesment" (add)="addAssessment($event)" (remove)="removeAssessment($event)"
-    (close)="modalAddAssessmentTagRef.close()">
-  </ms-add-new-assessment>
-</ng-template>
 
 <ng-template #modalEditAssessmentTag>
   <ms-modal-edit-assessment-tag [assessment]="editingAssessment" (update)="updateAssessment($event)"

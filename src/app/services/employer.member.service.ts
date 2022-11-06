@@ -72,31 +72,13 @@ export class EmployerMemberService {
   }
 
   private _mapPermission(data) {
-
     let listPermission = this.getListPermission();
     data.forEach((element, index) => {
       let i = element - 1;
       const idx = listPermission.findIndex(per => per.id === element);
+      if(idx < 0) return;
       listPermission[idx].checked = true;
-      // switch (idx) {
-      //   case 1:
-      //     listPermission[i].checked = true;
-      //     break;
-      //   case 2:
-      //     listPermission[i].checked = true;
-      //     break;
-      //   case 3:
-      //     listPermission[i].checked = true;
-      //     break;
-      //   case 4:
-      //     listPermission[i].checked = true;
-      //     break;
-      //   case 5:
-      //     listPermission[i].checked = true;
-      //     break;
-      // }
-    })
-
+    });
     return {
       listPermission
     }
@@ -130,22 +112,10 @@ export class EmployerMemberService {
         checked: false,
       },
       {
-        id: 5,
-        name: 'Direct Message Jobseekers in "Find Candidates".',
-        checked: false,
-      },
-      {
         id: 2,
         name: 'Edit company profile information.',
         checked: false,
-      },
-      
-      {
-        id: 4,
-        name: 'Manage "Billing and Payment".',
-        checked: false,
-      },
-     
+      }
     ]
   }
 

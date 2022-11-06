@@ -18,33 +18,14 @@
             <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
             <span>Back</span>
           </div>
-          <!-- <button [ngClass]="{'disbale-button': listCards.length == 0}" type="button" [disabled]="!checkValidDate || !listCards || listCards.length == 0 || isLoadingCard"
-                msLoadingButton [loading]="isLoadingCard" class="btn btn-success"
-                (click)="progressOrder(modalPaymentConfirmation)">
-                {{(!isSaveCard || listCards.length == 0 || !cardInfo) ? "Proceed with your order" : "Confirm Payment"}}
-              </button> -->
         </div>
       
-        <ms-modal-step-shopping-cart [hidden]="!listCards || listCards.length == 0 " [(cardInfo)]="cardInfo" [isShoppingCard]="true" [step]="step"></ms-modal-step-shopping-cart>
-
-        <div class="border-box margin-card" *ngIf="step == stepCreateJob.STEP_0">
+        <div class="border-box margin-card">
           <p class="border-box__title" *ngIf="!isLoadingCards">Services in your Shopping Cart ({{listCards.length}})
           </p>
           <ms-loading-assessment-item [numberCard]="5" *ngIf="isLoadingCards"></ms-loading-assessment-item>
           <div class="wrapp-shopping-card" *ngIf="!isLoadingCards">
             <div class="item-card" *ngFor="let card of listCards">
-              <!-- <div class="item-card__checkbox">
-                <label class="checkbox">
-                  <span class="checkbox__input">
-                    <input type="checkbox" name="checkbox" [checked]="card.jobSelected" (click)="selectItemCard(card)">
-                    <span class="checkbox__control">
-                      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden="true" focusable="false">
-                        <path fill='none' stroke='currentColor' stroke-width='3' d='M1.73 12.91l6.37 6.37L22.79 4.59' />
-                      </svg>
-                    </span>
-                  </span>
-                </label>
-              </div> -->
               <div class="item-card__content">
                 <span class="hidden" id="open-modal-job" (click)="openModalEditJob(modalAddJob)"></span>
                 <p class="title"><span (click)="findJobById(card.jobId)">{{card.jobTitle}}</span></p>
@@ -115,10 +96,7 @@
                     </div>
                   </div>
                   <p>
-                    <span class="price--color">Additional {{settingsCard?.urgent_hiring_price | currency}}</span>
-                  </p>
-                  <p>
-                    <span class="price--color" >Get your job better visibility with this premium add-on.</span>
+                    <span class="price--color">Get your job better visibility with this premium add-on.</span>
                   </p>
                 </div>
 
@@ -141,73 +119,19 @@
                   <p class="total-days" style="font-size: 12px;">*This is the maximum number of applicants who can apply
                     for this private job posting.</p>
                 </div>
-
-                <p class="price-total" *ngIf="card.endHotJob">Price: {{caclPayCard(card) | currency}}</p>
               </div>
               <div class="item-card__delete cursor-pointer">
                 <fa-icon (click)="deleteItemCard(card)" [icon]="['far', 'trash-alt']"></fa-icon>
               </div>
             </div>
-            <div class="row group-extra-coupon" [hidden]="!listCards || listCards.length == 0">
-              <div class="col-lg-8">
-                <div class="d-flex align-items-center enter-coupon">
-                  <fa-icon [icon]="['fas', 'tags']"></fa-icon>
-                  <label><b>Enter Coupon: </b></label>
-                  <input type="text" class="form-control" [(ngModel)]="couponText" >
-                  <button [disabled]="couponText === '' || !couponText" type="button" class="btn btn-success" (click)="checkCoupon()">Apply</button>
-                </div>
-                <div class="coupon-info text-danger" *ngIf="couponData && (!isValidCoupon || couponData.discount_for != COUPON_DISCOUNT_FOR.JOB_POSTING)">Coupon is invalid.</div>
-                <div class="coupon-info" *ngIf="couponData && isValidCoupon && couponData.discount_for == COUPON_DISCOUNT_FOR.JOB_POSTING" [hidden]="couponText === '' || !couponText">
-                  <label>Coupon Information:</label>
-                  <ul>
-                    <li *ngIf="couponData.discount_type == COUPON_DISCOUNT_TYPE.Percentage">Discount for Job Post: {{couponData.discount_value}}%</li>
-                    <li *ngIf="couponData.discount_type != COUPON_DISCOUNT_TYPE.Percentage">Discount for Job Post: ${{couponData.discount_value}}</li>
-                    <li [hidden]="couponData.discount_type == COUPON_DISCOUNT_TYPE.FixedDollar || couponData.max_discount_value == 0">Maximum Allowed Discount: ${{couponData.max_discount_value}}</li>
-                    <li [hidden]="couponData.is_nbr_user_limit == NBR_USER_LIMIT.Unlimit">Remaining number of time to apply this coupon: {{couponData.remaining_number}}</li>
-                    <li [hidden]="couponData.expired_type == COUPON_EXPIRED_TYPE.Unlimit">Valid until {{getExpiredFromCoupon()}}</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-4 total-amount">
-                <h4 *ngIf="couponData && isValidCoupon && couponData.discount_for == COUPON_DISCOUNT_FOR.JOB_POSTING">Sub-Total: {{caclTotalPayCard() | currency}}</h4>
-                <h4 *ngIf="couponData && isValidCoupon && couponData.discount_for == COUPON_DISCOUNT_FOR.JOB_POSTING">Discount: -{{getDiscountValueCoupon()| currency}}</h4>
-                <div class="view-details-amount" *ngIf="!isLoadingCards && checkValidDate && listCards && listCards.length > 0">
-                  <a class="cursor-pointer view-details-link" (click)="openModalViewDetail(modalViewDetail)">View
-                    Details</a>
-                  <p>Total Amount: {{caclTotalPayCardWithCoupon() | currency}}</p>
-                </div>
-                <div *ngIf="checkConfirmPayment()">
-                  This one is on the house. It would cost us more to process this transaction than the amount you owe, so please enjoy your selection as complimentary.
-                </div>
-              </div>
-            </div>
-            <div class="shopping-car-bottom" *ngIf="!checkConfirmPayment()">
-              <button [disabled]="!checkValidDate || !listCards || listCards.length == 0 || isLoadingCard" type="button" msLoadingButton (click)="continueBillingShoppingCart()" [loading]="isLoadingCard" class="btn btn-success">Continue</button>
-            </div>
-            <div class="shopping-car-bottom" *ngIf="checkConfirmPayment()">
+            <div class="shopping-car-bottom">
               <button [disabled]="!checkValidDate || !listCards || listCards.length == 0 || isLoadingCard" type="button" msLoadingButton (click)="paymentFreeCart()" [loading]="isLoadingCard" class="btn btn-success">Complete</button>
             </div>
           </div>
         </div>
-
-        <ms-payment-shopping-cart-step1 
-        *ngIf="( step == stepCreateJob.STEP_1 || step == stepCreateJob.STEP_2 ) && senDataStep2"
-        (back)="backStep()"
-        (continueStep)="continuteStep($event)"
-        (getAllCard)="getAllCards($event)"
-        [senData]="senDataStep2"
-        ></ms-payment-shopping-cart-step1>
-      </div>
     </div>
   </div>
 </div>
-
-<ng-template #modalPaymentConfirmation>
-  <ms-modal-payment-confirmation *ngIf="!isLoadingCards" [listCard]="listCards" [card]="cardInfo"
-    [cardInfo]="confirmPaymentInfo()" (submit)="submitPaymentProcess($event)"
-    (close)="modalPaymentConfirmationRef.close()">
-  </ms-modal-payment-confirmation>
-</ng-template>
 
 <ng-template #modalAddJob>
   <ms-modal-add-job-with-three-step *ngIf="settingsCard"
@@ -225,9 +149,4 @@
     [shoppingCart]="true"
     (edit)="editJob($event)"
   ></ms-modal-add-job-with-three-step>
-</ng-template>
-
-<ng-template #modalViewDetail>
-  <ms-billing-history [shoppingCard]="true" [type]="userType.EMPLOYER" [settingsCard]="settingsCard"
-    [isDetail]="isDetail" [dataBillings]="listCards" (close)="modalEditJobRef.close()"></ms-billing-history>
 </ng-template>

@@ -15,10 +15,9 @@ export class SearchJob extends Search {
 export class SearchJobEmployer extends SearchJob {
   createdAtFrom: string;
   createdAtTo: string;
-  category: Array<JobCategory>;
+  category: number | string;
   jobType: string;
   name: string;
-  assessments: number[];
 }
 
 export class SearchJobJobSeeker extends SearchJob {

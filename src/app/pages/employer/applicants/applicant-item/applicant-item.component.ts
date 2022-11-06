@@ -25,7 +25,6 @@ export class ApplicantItemComponent implements OnInit {
   modalNoteApplicantRef: NgbModalRef;
   assessmentWeight: any = ASSESSMENT_WEIGHT;
   numberStar: Array<number> = Array.from(Array(5).keys());
-  rateStar: number;
   listStages: any[] = APPLICANT_STAGE;
   stageName: string;
   permission = PERMISSION_TYPE;
@@ -56,7 +55,6 @@ export class ApplicantItemComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-    this.rateStar = this.applicant.jobSeekerRate ? this.applicant.jobSeekerRate.toFixed(0) : -1;    
   }
 
   openModalNoteApplicant(modalNoteApplicant) {
@@ -79,23 +77,6 @@ export class ApplicantItemComponent implements OnInit {
 
   changeNote(note) {
     this.applicant.note = note;
-  }
-
-  rateStarNumber(number) {
-    this.rateStar = number;
-    this.updateRateStarApplicant(number);
-  }
-
-  updateRateStarApplicant(rate) {
-    let data = {
-      rate: rate,
-      jobId: this.applicant.jobId
-    }
-    if(this.applicant.type == JOB_APPLICANT_TYPE.InvitedCandidate) data = Object.assign({}, data, {type: this.applicant.type})
-    this.applicantsService.updateRating(this.applicant.jobseekerId, data).subscribe(res => {
-    }, errorRes => {
-      this.helperService.showToastError(errorRes);
-    });
   }
 
   closeModalNote(status) {

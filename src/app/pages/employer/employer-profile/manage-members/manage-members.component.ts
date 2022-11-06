@@ -64,6 +64,7 @@ export class ManageMembersComponent implements OnInit {
       this.paginationConfig.totalRecord = res.total;
     }, errorRes => {
       this.isLoadingMember = false;
+      console.log(errorRes);
       this.helperService.showToastError(errorRes);
     });
 

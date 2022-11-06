@@ -12,8 +12,8 @@
       </div>
       <div class="col-lg-8">
         <div ngbDropdown class="d-block">
-          <div class="tool-tip" [ngbTooltip]="tipContent" [disableTooltip]="data.canRateStars && !permissionService.checkCantPermissionUser(userData, permission.CHAT)" placement="right" tooltipClass="tooltip-custom">
-            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle [style]="data.canRateStars == 1 && !permissionService.checkCantPermissionUser(userData, permission.CHAT) ? '' : 'pointer-events: none;'">
+          <div class="tool-tip" placement="right" tooltipClass="tooltip-custom">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle [style]="!permissionService.checkCantPermissionUser(userData, permission.CHAT) ? '' : 'pointer-events: none;'">
               <ms-list-icon-interview [stage]="stageIcon"></ms-list-icon-interview>
             </button>
           </div>
@@ -37,8 +37,8 @@
             [minDate]="initDateValue"
             #dTo="ngbDatepicker" (dateSelect)="onDateSelectionTo($event)" [footerTemplate]="footerTemplate"
             [firstDayOfWeek]="7">
-          <div class="input-group-append" [ngbTooltip]="tipContent" [disableTooltip]="data.canRateStars && !permissionService.checkCantPermissionUser(userData, permission.CHAT)" placement="top" tooltipClass="tooltip-custom">
-            <button class="btn btn-outline-secondary calendar" (click)="dTo.toggle()" type="button" [style]="data.canRateStars == 1 && !permissionService.checkCantPermissionUser(userData, permission.CHAT) ? '' : 'pointer-events: none;'">
+          <div class="input-group-append" placement="top" tooltipClass="tooltip-custom">
+            <button class="btn btn-outline-secondary calendar" (click)="dTo.toggle()" type="button" [style]="!permissionService.checkCantPermissionUser(userData, permission.CHAT) ? '' : 'pointer-events: none;'">
               <fa-icon [icon]="['far', 'calendar-alt']"></fa-icon>
             </button>
           </div>
@@ -51,7 +51,7 @@
         </ng-template>
       </div>
     </div>
-    <div class="form-group row" [style]="data.canRateStars == 1 && !permissionService.checkCantPermissionUser(userData, permission.CHAT) ? '' : 'pointer-events: none;'">
+    <div class="form-group row" [style]="!permissionService.checkCantPermissionUser(userData, permission.CHAT) ? '' : 'pointer-events: none;'">
       <div class="col-lg-4">
         <label class="col-form-label" for="comment">Interview Time: </label>
       </div>
@@ -73,8 +73,5 @@
       <button type="button" class="btn btn-danger" (click)="closeModal(false)">Cancel</button>
       
     </div>
-    <ng-template #tipContent>
-      <!-- <fa-icon [icon]="['fas', 'lock']" [styles]="{'color': '#2668a9'}"></fa-icon> -->
-      <fa-icon [icon]="['far', 'lock']" [style]="{'color': '#2668a9'}"></fa-icon> Message Applicant to Unlock this Feature.</ng-template>
   </div>
 </div>

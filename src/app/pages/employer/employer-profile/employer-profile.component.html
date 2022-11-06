@@ -44,19 +44,6 @@
               </ng-template>
             </li>
 
-            <li ngbNavItem="tracking-recruitment" [routerLink]="'/employer-profile/tracking-recruitment'">
-              <a ngbNavLink>
-                <fa-icon [icon]="['fas', 'chart-line']" class="mr-2"></fa-icon>
-                <span>Account Statistics</span>
-              </a>
-              <ng-template ngbNavContent>
-                <div class="user-information" >
-                  <h3 class="mb-5 title-profile">Account Statistics</h3>
-                  <ms-tracking-recruitment></ms-tracking-recruitment>
-                </div>
-              </ng-template>
-            </li>
-            
             <li ngbNavItem="password" [routerLink]="'/employer-profile/password'">
               <a ngbNavLink>
                 <fa-icon [icon]="['fas', 'key']" class="mr-2"></fa-icon>
@@ -66,54 +53,6 @@
                 <div class="user-information">
                   <h3 class="mb-5 title-profile">Password</h3>
                   <ms-password-management></ms-password-management>
-                </div>
-              </ng-template>
-            </li>
-            <li ngbNavItem="payment" [routerLink]="'/employer-profile/payment'">
-              <a ngbNavLink>
-                <fa-icon [icon]="['far', 'credit-card']" class="mr-2"></fa-icon>
-                <span>Billing and Payment</span>
-              </a>
-              <ng-template ngbNavContent>
-                <h3 class="payment-title mb-4">Billing and Payment</h3>
-                <div class="tab-info-user">
-                  <div class="tabs-title">
-                    <a class="tabs-title__item" (click)="changeTab(TAB_EMPLOYER_BILLINGS.INFO_CARD)"
-                      [ngClass]="{active: tabBillingInfo == TAB_EMPLOYER_BILLINGS.INFO_CARD}">
-                      Payment Information
-                    </a>
-                    <a class="tabs-title__item" (click)="changeTab(TAB_EMPLOYER_BILLINGS.BILLINGS)"
-                      [ngClass]="{active: tabBillingInfo == TAB_EMPLOYER_BILLINGS.BILLINGS}">
-                      Billing History
-                    </a>
-                  </div>
-                </div>
-                <div class="user-information" *ngIf="tabBillingInfo == TAB_EMPLOYER_BILLINGS.INFO_CARD">
-                  <div class="payment-method mb-4" *ngIf="userData">
-                    <ms-payment-methods
-                      [hiddenTitleBox]="true"
-                      [user]="userData"
-                      (updateCard)="updateCard()"
-                      (deleteCard)="deleteCard()"
-                    ></ms-payment-methods>
-                  </div>
-                  <div class="payment-method mb-4" >
-                    <ms-billing-infomation></ms-billing-infomation>
-                  </div>
-                </div>
-                <div class="user-information" *ngIf="tabBillingInfo == TAB_EMPLOYER_BILLINGS.BILLINGS">
-                  <ms-loading-billing-history [numberCard]="10" *ngIf="isLoadingBillingHistory"></ms-loading-billing-history>
-                  <div class="billing-history" *ngIf="!isLoadingBillingHistory">
-                    <ms-billing-history
-                      [hiddenTitle]="true"
-                      [type]="userType.EMPLOYER"
-                      [dataBillings]="dataBillings"
-                      (exportBillingHistory)="exportBillingHistory($event)"
-                    ></ms-billing-history>
-                    <div class="wrap__pagination">
-                      <ms-pagination *ngIf="dataBillings" [config]="paginationConfig" (goTo)="paginationBillHistory($event)"></ms-pagination>
-                    </div>
-                  </div>
                 </div>
               </ng-template>
             </li>

@@ -10,11 +10,6 @@
                             </p>
                             <ul>
                                 <li>
-                                    <a [routerLink]="'/contact'">
-                                        Contact Us
-                                    </a>
-                                </li>
-                                <li>
                                     <a [routerLink]="'/landing-jobseeker'">
                                         Jobseeker Home
                                     </a>
@@ -27,11 +22,6 @@
                             </ul>
                         </div>
                         <div class="footer-top__list">
-                            <a href="/contact">
-                                <p class="footer-top-title">
-                                    Contact Us
-                                </p>
-                            </a>
                             <ul>
                                 <li>
                                     <a href="tel:+12067452979">
@@ -49,7 +39,7 @@
                                 </li>
                                 <li>
                                     <a target="_blank" rel="noopener"
-                                        href="https://www.google.com/maps/place/704+228th+Ave+NE+%23763,+Sammamish,+WA+98074,+Hoa+K%E1%BB%B3/@47.6157845,-122.0359121,17z/data=!3m1!4b1!4m5!3m4!1s0x549071f4eb30938b:0xb88a2e1cd60cace8!8m2!3d47.6157845!4d-122.0337234"
+                                        href=""
                                         class="blue-color">
                                         <fa-icon [icon]="['fas', 'map-pin']" class="fs35"></fa-icon>
                                         <span>
@@ -61,72 +51,52 @@
                             </ul>
                         </div>
                         <div class="footer-top__subscribe">
-                            <form method="post" [formGroup]="formRegister">
+                            <form method="post">
                                 <p class="footer-top-title">
                                     Sign Up to Receive Updates
                                 </p>
                                 <div class="footer-sign-up">
                                     <div class="form-group">
-                                        <input name="" formControlName="email" class="form-control"
+                                        <input name="" class="form-control"
                                             placeholder="Enter Your Email" type="email">
-                                        <div class="text-danger"
-                                            *ngIf=" formRegister.controls.email.touched && formRegister.controls.email.errors?.required ">
-                                            Email is required!
-                                        </div>
-                                        <div class="text-danger" *ngIf="formRegister?.controls?.email?.errors?.pattern">
-                                            Email is invalid!
-                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <input name="" formControlName="first_name" class="form-control"
+                                        <input name="" class="form-control"
                                             placeholder="First Name" type="email">
-                                        <div class="text-danger"
-                                            *ngIf=" formRegister.controls.first_name.touched && formRegister.controls.first_name.errors?.required ">
-                                            First Name is required!
-                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <input name="" formControlName="last_name" class="form-control"
+                                        <input name="" class="form-control"
                                             placeholder="Last Name" type="email">
-                                        <div class="text-danger"
-                                            *ngIf=" formRegister.controls.last_name.touched && formRegister.controls.last_name.errors?.required ">
-                                            Last Name is required!
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="footer-opt-checkbox">
                                     <div class="checkbox-group">
                                         <div class="form-check mr-3">
                                             <input class="form-check-input" type="radio" name="acc_type"
-                                                formControlName="acc_type" [value]="USER_TYPE.JOB_SEEKER"
+                                                 [value]="USER_TYPE.JOB_SEEKER"
                                                 id="jobseeker">
                                             <label class="form-check-label" for="jobseeker">
                                                 Jobseeker
                                             </label>
                                         </div>
                                         <div class="form-check mr-3">
-                                            <input class="form-check-input" type="radio" name="acc_type" formControlName="acc_type" [value]="USER_TYPE.EMPLOYER" id="employer">
+                                            <input class="form-check-input" type="radio" name="acc_type" [value]="USER_TYPE.EMPLOYER" id="employer">
                                             <label class="form-check-label" for="employer">
                                                 Employer
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="acc_type" formControlName="acc_type" [value]="USER_TYPE.OTHER" id="other">
+                                            <input class="form-check-input" type="radio" name="acc_type" [value]="USER_TYPE.OTHER" id="other">
                                             <label class="form-check-label" for="other">
                                               Other
                                             </label>
                                         </div>
                                     </div>
-                                    <button msLoadingButton [ngClass]="{'disbale-button': disableButtonForm}"
-                                        [loading]="isLoadingBtn" (click)="submitForm()" type="button"
+                                    <button msLoadingButton [ngClass]="{'disbale-button': disableButtonForm}" type="button"
                                         class="btn btn-success button-subscribe">Subscribe</button>
                                 </div>
-                                <div class="text-danger"
-                                    *ngIf="formRegister.controls.email.touched && formRegister.controls.acc_type.errors?.required ">
-                                    This field is required!
-                                </div>
                                 <button msLoadingButton [ngClass]="{'disbale-button': disableButtonForm}"
-                                [loading]="isLoadingBtn" (click)="submitForm()" type="button"
+                                type="button"
                                 class="btn btn-success button-subscribe-mobile mt-2">Subscribe</button>
                             </form>
                         </div>
@@ -135,22 +105,22 @@
                         <p class="footer-top-title">
                             Follow Us
                         </p>
-                        <a href="https://www.linkedin.com/company/measuredskills/" target="_blank" rel="noopener">
+                        <a href="" target="_blank" rel="noopener">
                             <fa-icon [icon]="['fab', 'linkedin']"></fa-icon>
                         </a>
-                        <a href="https://www.facebook.com/MeasuredSkills-106018715151883/?ref=page_internal" target="_blank">
+                        <a href="" target="_blank">
                             <fa-icon [icon]="['fab', 'facebook-square']"></fa-icon>
                         </a>
-                        <a href="https://www.instagram.com/measuredskills/" target="_blank" rel="noopener">
+                        <a href="" target="_blank" rel="noopener">
                             <fa-icon [icon]="['fab', 'instagram']"></fa-icon>
                         </a>
-                        <a href="https://twitter.com/MeasuredSkills?t=6Jil31iGD5CLjHtTrUVALA&s=09" target="_blank">
+                        <a href="" target="_blank">
                             <fa-icon [icon]="['fab', 'twitter']"></fa-icon>
                         </a>
-                        <a href="https://vt.tiktok.com/ZSJo8exFy/" target="_blank">
+                        <a href="" target="_blank">
                             <fa-icon [icon]="['fab', 'tiktok']"></fa-icon>
                         </a>
-                        <a href="https://www.youtube.com/channel/UCR0_dHF0T5ONJCmZaIuefwA" target="_blank">
+                        <a href="" target="_blank">
                             <fa-icon [icon]="['fab', 'youtube']"></fa-icon>
                         </a>
                     </div>

@@ -61,11 +61,7 @@ export class DashboardComponent implements OnInit {
   modalAddJobFromTemplateRef: NgbModalRef;
   listLevel: Array<JobLevel> = [];
   listCategory: Array<JobCategory>;
-  listCategorySearch: Array<JobCategory>;
-  listCategoryRoot: Array<JobCategory>;
-  listAssessmentSelected: Array<Assesment> = [];
   listAssessments: Array<Assesment>;
-  listAssessment: Array<Assesment> = [];
   typeMakeActive: boolean;
   lengthJob: number = 0;
   isPriveJob: boolean;
@@ -76,7 +72,6 @@ export class DashboardComponent implements OnInit {
   jobPrivateApplicant: Job;
   isNotEditField: boolean = false;
   checkVerifiedEmailNUmber: number = 0;
-  checkMappingCategoryAssessments: boolean = false;
 
   constructor(
     private router: Router,
@@ -96,22 +91,6 @@ export class DashboardComponent implements OnInit {
     }
     this.messageNotFound = MESSAGE.JOB_SEARCH_NOT_FOUND;
     this.querySearch = new SearchJobEmployer();
-    if (this.router.getCurrentNavigation() && this.router.getCurrentNavigation().extras) {
-      const state = this.router.getCurrentNavigation().extras.state;
-      console.log(state);
-      if (state && state?.neddVerifyEmailEmployer) {
-        this.subjectService.user.subscribe(user => {
-          if (!user) return;
-          if (user.email_verified == 1) return;
-          if (this.checkVerifiedEmailNUmber > 0) return;
-          const modalRef = this.modalService.open(ModalConfirmVerificationEmailComponent, {
-            windowClass: 'modal-crop-company-photo',
-            size: 'md'
-          });
-          this.checkVerifiedEmailNUmber = this.checkVerifiedEmailNUmber + 1;
-        })
-      }
-    }
   }
 
   ngOnInit(): void {
@@ -128,15 +107,9 @@ export class DashboardComponent implements OnInit {
         this.subjectService.checkPaymentAddApplicantsDone.next(false);
       }
     })
-    this.subjectService.listCategory.subscribe(data => {
+    this.subjectService.listAssessment.subscribe(data => {
       if (!data) return;
-      this.listCategorySearch = data;
-      this.listCategoryRoot = data;
-      this.subjectService.listAssessment.subscribe(data => {
-        if (!data) return;
-        this.listAssessments = data;
-        this.mapDataAssessmentToCategory();
-      });
+      this.listAssessments = data;
     });
     this.activatedRoute.queryParams.subscribe(params => {
       if (params && params.type == TAB_TYPE.CLOSE) {
@@ -152,14 +125,12 @@ export class DashboardComponent implements OnInit {
         this.querySearch.location = params.location;
         this.isShowSearchAdvanced = true;
       }
-      if (params.assessments && params.assessments != 'undefined') {
-        const assessmentsParams = decodeURIComponent(params.assessments);
-        const listAssessmentId = assessmentsParams.split(',')
-        this.querySearch.assessments = listAssessmentId.map(ass => Number.parseInt(ass));
+      if (params.category && params.category != 'undefined') {
+        this.querySearch.category = params.category;
         this.isShowSearchAdvanced = true;
       }
     });
-    this.getListJob(true);
+    this.getListJob();
 
     this.getDataMaster();
     this.getAllListPreviousJobTemplate({ searchType: SEARCH_JOB_TYPE.All });
@@ -170,28 +141,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  mapDataAssessmentToCategory() {
-    if(!this.listAssessments || this.listAssessments.length <= 0) return;
-    this.listCategorySearch.map((category, index) => {
-      this.listCategorySearch[index] = { ...category, ...{ listAssessment: [], isShowListAssessment: false, isSelected: false } }
-      this.listAssessments.map(assessment => {
-        if (assessment.categories.some(item => item.category_id == category.id) && category.id !== CUSTOM_ASSESSMENT_ID) {
-          assessment = { ...assessment, ...{ selectedCandidate: false, disableDuplicate: false } };
-          this.listCategorySearch[index].listAssessment.push(assessment);
-        }
-      })
-    });
-    this.checkMappingCategoryAssessments = true;
-    if (this.listCategorySearch.findIndex(ca => ca.id === CUSTOM_ASSESSMENT_ID) >= 0) return;
-    this.listCategorySearch.unshift({
-      id: CUSTOM_ASSESSMENT_ID,
-      name: 'Custom Employer Assessments',
-      isSelected: false
-    } as JobCategory);
-    this.listCategoryRoot = Object.assign([], this.listCategorySearch);
-  }
-
-  searchJob() {
+  searchJob(queryParams) {
+    this.querySearch = {...queryParams};
     this.isSearching = true;
     this.paginationConfig.currentPage = 0;
     setTimeout(() => {
@@ -206,11 +157,6 @@ export class DashboardComponent implements OnInit {
   }
 
   changeTab(type: string) {
-    //const queryParams = type ? { type } : { type: '' };
-    // this.router.navigate([], {
-    //   queryParams,
-    //   queryParamsHandling: 'merge'
-    // })
     if (type == TAB_TYPE.CLOSE) {
       this.isTabActive = TAB_TYPE.CLOSE;
     } else if (type == TAB_TYPE.DRAFT) {
@@ -220,7 +166,7 @@ export class DashboardComponent implements OnInit {
     }
     this.querySearch = new SearchJobEmployer();
     this.orderBy = undefined;
-    this.getListJob(true);
+    this.getListJob();
   }
 
   showModalAddNewJob(modalAddJob) {
@@ -468,17 +414,11 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  getListJob(firstCall = false) {
+  getListJob() {
     this.isLoadingListJob = true;
     const condition = this.getSearchCondition();
     const query = this.jobService._convertObjectToQuery(condition);
     this.previousRouteService.replaceStage(`/employer-dashboard?${query}`);
-    if (condition.assessments && condition.assessments !== 'undefined') {
-      const assessmentsDecode = decodeURIComponent(condition.assessments);
-      const listAssessmentId = assessmentsDecode.split(',');
-      const listAssessmentRequest = listAssessmentId.length > 0 && listAssessmentId.map(ass => { return ass && Number.parseInt(ass) });
-      condition.assessments = [...new Set(listAssessmentRequest)];
-    }
     this.jobService.getListJob(condition).subscribe(data => {
       this.isSearching = false;
       this.isLoadingListJob = false;
@@ -505,9 +445,7 @@ export class DashboardComponent implements OnInit {
       page: this.paginationConfig.currentPage,
       pageSize: this.paginationConfig.maxRecord
     }
-    if (!(this.isTabActive == TAB_TYPE.DRAFT)) {
-      condition = { ...condition, ...{ paymentStatus: PAYMENT_STATUS.ACTIVE } }
-    }
+
     if (this.querySearch.jobType) {
       condition.jobType = this.querySearch.jobType;
       this.isGetJobFromSearch = true;
@@ -523,20 +461,12 @@ export class DashboardComponent implements OnInit {
     }
 
     if (this.isShowSearchAdvanced) {
-      // if (this.querySearch.category && this.querySearch.category.length) {
-      //   this.isGetJobFromSearch = true;
-      //   condition.categories = JSON.stringify(this.querySearch.category.map(category => category.id));
-      // }
-
-      // assessment category
-      if (this.querySearch.assessments && (this.querySearch.assessments) as any != 'undefined' && this.querySearch.assessments.length > 0) {
-        condition.assessments = this.querySearch.assessments;
-      }else{
-        condition.assessments = [];
-      }
+      if (this.querySearch.category){
+        this.isGetJobFromSearch = true;
+        condition.category = this.querySearch.category;
+      }else condition.category = '';
 
       if (this.querySearch.createdAtFrom) {
-
         this.isGetJobFromSearch = true;
         condition.createDateFrom = this.timeService.getStartTimeOfDate(this.querySearch.createdAtFrom).toISOString();
       }
@@ -556,15 +486,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getDataMaster() {
-
     this.jobService.getListCategory().subscribe((listCategory: JobCategory[]) => {
       this.listCategory = listCategory;
-    }, err => {
-      this.helperService.showToastError(err);
-    })
-
-    this.jobService.getListAssessMent().subscribe(listAssessment => {
-      this.listAssessment = listAssessment;
     }, err => {
       this.helperService.showToastError(err);
     })

@@ -38,8 +38,6 @@ export class ApplicantsComponent implements OnInit {
   dropdownSettings: IDropdownSettings = {};
   jobId: any;
   jobseekerId: any;
-  listApplicantTypeApplicant: Array<Applicants> = [];
-  listApplicantTypeCandidate: Array<Applicants> = [];
   modalchangeWeightAssessmentRef: NgbModalRef;
   listAssessmentChangeWeight: Assesment[];
   listChangeWeightingAssessmentParams: any[];
@@ -144,8 +142,6 @@ export class ApplicantsComponent implements OnInit {
   }
 
   getListApplicants(isGetJoseekerId = false) {
-    this.listApplicantTypeApplicant = [];
-    this.listApplicantTypeCandidate = [];
     if (!this.jobId) { 
       this.isSearching = false;
       return; 
@@ -158,10 +154,6 @@ export class ApplicantsComponent implements OnInit {
     this.applicantsService.getListApplicants(condition).subscribe(data => {
       this.isSearching = false;
       this.listApplicants = data.listApplicants;
-      this.listApplicants.map(app => {
-        if (app.type == JOB_APPLICANT_TYPE.Applicant) this.listApplicantTypeApplicant.push(app);
-        else this.listApplicantTypeCandidate.push(app);
-      })
       this.isLoadingListApplicants = false;
       this.paginationConfig.totalRecord = data.total;
 

@@ -43,35 +43,7 @@
             <share-button  button="copy"  [url]="shareUrl()"></share-button>
           </div>
         </div>
-        <!-- <a class="total-apply total-view" [ngClass]="{'hide-views': activeTab === jobStatus.DRAFT}" *ngIf="mode == cardMode.FULL">
-          <img src="assets/images/eye@2x.png" alt="job">
-          <span>{{ job.totalView }}</span>
-        </a> -->
       </div>
-      <div class="box-set-status-job">
-        <div class="box-share-jobs btn-share-job" shareButtonDir [hidden]="activeTab != jobStatus.ACTIVE">
-          <button type="button" class="btn btn-primary btn-share mr-2"> 
-            Share <fa-icon [icon]="['fas', 'share-alt']"></fa-icon>
-          </button>
-          <div class="share-jobs">
-            <share-button  button="facebook" [url]="shareUrl()"></share-button>
-            <share-button  button="twitter"  [url]="shareUrl()"></share-button>
-            <share-button  button="email"  [url]="shareUrl(1)"></share-button>
-            <share-button  button="copy"  [url]="shareUrl()"></share-button>
-          </div>
-        </div>
-        <button type="button" style="pointer-events: none;" class="{{job.isPrivate == 1 ? 'btn btn-secondary btn-private' : 'btn btn-secondary btn-active'}}">{{job.isPrivate == 1 ? 'Private' : 'Public'}}</button>
-        <div class="posting-item__views total-view" [ngClass]="{'hide-views': activeTab === jobStatus.DRAFT}" *ngIf="mode == cardMode.FULL">
-          <img src="assets/images/eye@2x.png" alt="job">
-          <p>{{ job.totalView }} {{job.totalView == 1  ? 'view' : 'views'}}</p>
-        </div>
-      </div>
-      <!-- <div class="d-flex box-copy" *ngIf="job.isPrivate == 1 && activeTab == jobStatus.ACTIVE">
-        <input [style]="job.isPrivate == 1 ? 'pointer-events: none;' : ''" [value]="generateLinkPrivteJob(job)" type="text" id="privateLink-{{job.id}}">
-        <div class="icon-copy ml-1 cursor-pointer" (click)="copyClipboard(job.id)">
-          <fa-icon [icon]="['far', 'copy']"></fa-icon>
-        </div>
-      </div> -->
       <div class="box-available" *ngIf="job.isPrivate == 1 && activeTab == jobStatus.ACTIVE">
         <p>Available Applicants: {{getAvailableApplicantNumber(job)}}</p>
         <p class="cursor-pointer icon" (click)="showModaAddApplicantsIntoPrivateJob()">

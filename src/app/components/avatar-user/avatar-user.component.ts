@@ -34,44 +34,6 @@ export class AvatarUserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.urlShot = environment.api_url_short;
-    this.subjectService.isShowApplicant.subscribe((data: ShowApplicant) => {
-      if (data == null) return;
-      const show = data.show == 1;
-      this.viewApplicantWithPrivateJob(!show, APPLICANT_PRIVATE_TYPE.CONVERSATION, data.id);
-    })
-    this.isShowApplicant = this.applicant && this.applicant.canViewProfile == 1;
-    this.isShowMesasge = this.conversation && this.conversation.can_view_profile == 1;
-    this.applicantDraft = Object.assign({}, this.applicant);
-    this.conversationDraft = Object.assign({}, this.conversation);
-  }
-
-  viewApplicantWithPrivateJob(isShow, type, idApplicant = null) {
-    switch (type) {
-      case APPLICANT_PRIVATE_TYPE.APPLICANT:
-        this.isShowApplicant = !isShow;
-        if (this.applicant.jobIsPrivate != 1) return;
-        this.applicant.canViewProfile = this.isShowApplicant ? 1 : 0;
-        this.makeToViewApplicant(this.applicant.userId, { canViewProfile: this.applicant.canViewProfile });
-        break;
-      case APPLICANT_PRIVATE_TYPE.CONVERSATION:
-        if (idApplicant != null && this.conversation.job_applicant_id != idApplicant) return;
-        if (this.conversation.job_is_private != 1) return;
-        this.isShowMesasge = !isShow;
-        this.conversation.can_view_profile = this.isShowMesasge ? 1 : 0;
-        this.makeToViewApplicant(this.conversation.job_applicant_id, { canViewProfile: this.conversation.can_view_profile });
-        break;
-      default:
-        break;
-    }
-  }
-
-  makeToViewApplicant(id, body) {
-    console.log(body);
-    this.applicantService.updateViewApplicant(id, body).subscribe(res => {
-    }, errorRes => {
-      this.helperService.showToastError(errorRes);
-    });
   }
 
 }

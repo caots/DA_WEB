@@ -15,5 +15,5 @@ export const environment = {
   converge_user_id: 'apiuser',
   converge_pin: 'KUHFSUCNH85L8P6FG50KD7VMHLVLXIVSPDLRXE1I1QJMW3O0ZZTCK1X2GC0QD7F7',
   nationalPhone: ['us', 'ca', 'vn'],
-  api_s3: 'https://cdns.measuredskills.com',
+  api_s3: 'https://measured-skill-qa.s3.us-west-2.amazonaws.com',
 };

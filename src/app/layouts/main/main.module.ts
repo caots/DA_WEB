@@ -91,11 +91,6 @@ const routes: Routes = [
     loadChildren: () => import('src/app/pages/employer/assessments/assessments.module').then(m => m.AssessmentsModule)
   },
   {
-    path: 'find-candidates',
-    canActivate: [EmployerGuard],
-    loadChildren: () => import('src/app/pages/employer/find-candidates/find-candidates.module').then(m => m.FindCandidatesModule)
-  },
-  {
     path: 'add-custom-assessments',
     canActivate: [EmployerGuard],
     loadChildren: () => import('src/app/pages/employer/add-custom-assessments/add-custom-assessments.module').then(m => m.AddCustomAssessmentsModule)

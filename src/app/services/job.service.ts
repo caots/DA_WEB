@@ -144,7 +144,7 @@ export class JobService {
   }
 
   getListJob(option): Observable<{ listJob: Array<Job>, total: number }> {
-    const url = `${environment.api_url}jobs?${this._convertObjectToQuery(option, true)}`;
+    const url = `${environment.api_url}jobs?${this._convertObjectToQuery(option)}`;
     return this.httpClient.get(url).pipe(map((data: any) => {
       return {
         total: data.total,
@@ -170,7 +170,7 @@ export class JobService {
       option.salaryTo = this.convertSalary(option.salaryTo, option.salaryType);
     }
     option.salaryType = JOB_SALARY_TYPE.PerHour;
-    const url = `${environment.api_url}jobs/list?${this._convertObjectToQuery(option, true)}`;
+    const url = `${environment.api_url}jobs/list?${this._convertObjectToQuery(option)}`;
     return this.httpClient.get(url).pipe(map((data: any) => {
       return {
         total: data.total,
@@ -375,16 +375,13 @@ export class JobService {
     } as Assesment;
   }
 
-  _convertObjectToQuery(obj, isSearchJObseeker = false) {
+  _convertObjectToQuery(obj) {
     let query = '';
     for (let key in obj) {
-      if (obj[key] !== undefined) {
-        if (query) {
-          if (isSearchJObseeker && key === 'assessments' && obj[key] != 'undefined') query += `&${key}=[${obj[key]}]`;
-          else query += `&${key}=${obj[key]}`;
-        } else {
-          query += `${key}=${obj[key]}`;
-        }
+      if (query) {
+        query += `&${key}=${obj[key]}`;
+      } else {
+        query += `${key}=${obj[key]}`;
       }
     }
 

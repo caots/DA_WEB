@@ -23,28 +23,9 @@
             </div>
           </div>
         </div>
-        <p class="what-title mobile">Subscribe To Our Mailing List</p>
-        <form method="post" [formGroup]="formRegister">
-          <div class="search-jobs d-flex justify-content-between mail-subscribe">
-              <div class="d-flex">
-                <div>
-                  <input name="" formControlName="email" class="form-control" placeholder="Enter Your Email" type="email">
-                </div>
-                <button msLoadingButton [ngClass]="{'disbale-button': disableButtonForm}" (click)="submitForm()" type="button" class="btn btn-find-jobs">
-                  <span class="desktop">Subscribe To Our Mailing List</span>
-                  <fa-icon [icon]="['fas', 'paper-plane']" class="mobile"></fa-icon>
-                </button>
-              </div>
-              <button [hidden]="userInfo" type="button" class="btn btn-find-jobs btn-create-account btn-desktop" (click)="goToLogin()">Create An Account & Get Started!</button>
-          </div>
-          <div class="text-danger text-warning-search"
-              *ngIf=" formRegister.controls.email.touched && formRegister.controls.email.errors?.required ">
-              Email is required!
-          </div>
-          <div class="text-danger text-warning-search" *ngIf="formRegister?.controls?.email?.errors?.pattern">
-              Email is invalid!
-          </div>
-        </form>
+        <div class="search-jobs d-flex justify-content-between mail-subscribe">
+          <button [hidden]="userInfo" type="button" class="btn btn-find-jobs btn-create-account btn-desktop" (click)="goToLogin()">Create An Account & Get Started!</button>
+        </div>
       </div>
     </div>
   </div>

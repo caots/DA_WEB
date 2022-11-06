@@ -50,9 +50,6 @@ export class ModalUpgrageJobPostingComponent implements OnInit {
   @Input() job: Job;
   @Input() settingsCard: CardSettings;
   @Output() close = new EventEmitter();
-
-  step: number = STEP_CREATE_JOB.STEP_0;
-  stepCreateJob = STEP_CREATE_JOB;
   initDateValue: any = CURRENT_DATE;
   initDateFeatureValue: any = CURRENT_DATE;
   currentExpireValue: any = CURRENT_DATE;
@@ -66,23 +63,11 @@ export class ModalUpgrageJobPostingComponent implements OnInit {
   endHotJob: any;
   newDate: Date = new Date();
   hoveredDate: NgbDate | null = null;
-  COUPON_EXPIRED_TYPE = COUPON_EXPIRED_TYPE;
-  COUPON_DISCOUNT_FOR = COUPON_DISCOUNT_FOR;
-  COUPON_DISCOUNT_TYPE = COUPON_DISCOUNT_TYPE;
-  NBR_USER_LIMIT = NBR_USER_LIMIT;
-  couponText: string = '';
-  couponData: Coupon;
-  isValidCoupon: boolean;
-  discountValue: number = 0;
-  isVerySmallPriceTotal: boolean;
   isLoadingUpgrade: boolean = false;
-  subTotalCarts: number;
-  senDataStep2: any;
   cardInfo: CardInfo;
   isAvailableExpired: boolean;
   oldFeatureDate: any[] = [];
   maxFeaturedDateStartOpen: any;
-  totalPriceUpdate: any = 0;
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -180,74 +165,8 @@ export class ModalUpgrageJobPostingComponent implements OnInit {
     return result;
   }
 
-  getPriceByExpiredDate() {
-    if (this.expireDay <= 0 || !this.placeHolderExpired) return 0;
-    return this.expireDay * this.settingsCard?.standard_price;
-  }
-
-  getPriceByFeatureDate() {
-    if (!this.startHotJob || !this.endHotJob) return 0;
-    const start = moment(this.startHotJob);
-    const end = moment(this.endHotJob);
-    const days = end.diff(start, 'days') + 1;
-    if (days <= 0) return 0;
-    const subDays = this.checkOldFeatureDateJob(this.startHotJob, this.endHotJob);
-    if (subDays == -1) return 0;
-    return (days - subDays) * this.settingsCard?.featured_price;
-  }
-
-  checkOldFeatureDateJob(startHotJob, endHotJob) {
-    if (this.job.startHotJob <= startHotJob && this.job.endHotJob >= endHotJob) return -1;
-    if (this.job.endHotJob < startHotJob || this.job.startHotJob > endHotJob) return 0;
-    if (this.job.endHotJob == startHotJob || this.job.startHotJob == endHotJob) return 1;
-    if (startHotJob >= this.job.startHotJob && startHotJob <= this.job.endHotJob && endHotJob >= this.job.endHotJob) {
-      const start = moment(startHotJob);
-      const end = moment(this.job.endHotJob);
-      const days = end.diff(start, 'days') + 1;
-      return days;
-    }
-
-    if (this.job.startHotJob >= startHotJob && this.job.startHotJob <= endHotJob && this.job.endHotJob >= endHotJob) {
-      const start = moment(this.job.startHotJob);
-      const end = moment(endHotJob);
-      const days = end.diff(start, 'days') + 1;
-      return days;
-    }
-
-    if (this.job.startHotJob >= startHotJob && this.job.endHotJob <= endHotJob) {
-      const start = moment(this.job.startHotJob);
-      const end = moment(this.job.endHotJob);
-      const days = end.diff(start, 'days') + 1;
-      return days;
-    }
-
-    return 0;
-  }
-
   closeModal(event = false) {
     this.close.emit(event);
-  }
-
-  continueBillingUpgrade() {
-    if (!this.placeHolderExpired) this.expireDay = null;
-    this.senDataStep2 = {
-      jobs: [{
-        id: this.job.id,
-        expired_days: this.expireDay,
-        is_make_featured: this.startHotJob && this.endHotJob ? 1 : 0,
-        featured_start_date: this.startHotJob || null,
-        featured_end_date: this.endHotJob || null,
-        add_urgent_hiring_badge: this.valueUrgentHiring
-      }],
-      coupon: this.couponData,
-      subTotal: this.calTotalUpgrade(),
-      discountValue: this.getDiscountValueCoupon()
-    }
-    if (this.expireDay == 1) {
-      const expiredDate = this.convertNbDateToDate(this.placeHolderExpired);
-      this.senDataStep2.jobs[0]['expired_at'] = this.paymentService.addEndExpiredDays(expiredDate, 1).toISOString();
-    }
-    this.continuteStep(STEP_CREATE_JOB.STEP_0);
   }
 
   isHovered(date: NgbDate) {
@@ -284,82 +203,7 @@ export class ModalUpgrageJobPostingComponent implements OnInit {
     return;
   }
 
-  continuteStep(step) {
-    if (step == STEP_CREATE_JOB.STEP_0) {
-      this.step = STEP_CREATE_JOB.STEP_1;
-      return;
-    }
-    if (step == STEP_CREATE_JOB.STEP_1) {
-      this.step = STEP_CREATE_JOB.STEP_2;
-      return;
-    }
-    if (step == STEP_CREATE_JOB.STEP_2) {
-      return;
-    }
-  }
-
-  backStep() {
-    this.step = STEP_CREATE_JOB.STEP_0;
-  }
-
-  checkCoupon() {
-    this.paymentService.checkCoupon({ coupon: this.couponText }).subscribe(data => {
-      if ((!data.isValid ||
-        (data?.couponDetail && data.couponDetail.discount_for != COUPON_DISCOUNT_FOR.JOB_POSTING))) {
-        this.isValidCoupon = false;
-      } else this.isValidCoupon = true;
-      this.couponData = this.isValidCoupon ? data.couponDetail : null;
-    }, errorRes => {
-      this.helperService.showToastError(errorRes);
-      this.couponData = null;
-    })
-  }
-
-  getExpiredFromCoupon() {
-    return moment(this.couponData.expired_to).format('L');
-  }
-
-  calTotalUpgrade() {
-    const featurePrice = this.getPriceByFeatureDate() || 0;
-    const ExpiredPrice = this.getPriceByExpiredDate() || 0;
-    let hiringPrice = this.isCheckedUrgentHiring ? this.settingsCard.urgent_hiring_price : 0;
-    if (this.job.addUrgentHiringBadge == 0 && this.placeHolderExpired) hiringPrice = hiringPrice * 2;
-    return ExpiredPrice + featurePrice + hiringPrice;
-  }
-
-  caclTotalPayCardWithCoupon() {
-    if (this.couponData && (!this.isValidCoupon || this.couponData.discount_for != COUPON_DISCOUNT_FOR.JOB_POSTING)) return this.calTotalUpgrade();
-    const totalPrice = this.calTotalUpgrade() - (this.discountValue || 0);
-    return totalPrice > 0 ? totalPrice : 0;
-  }
-
-  ngAfterViewChecked() {
-    let totalPrice = this.calTotalUpgrade() - (this.discountValue || 0);
-    if (totalPrice != this.totalPriceUpdate) { // check if it change, tell CD update view
-      this.totalPriceUpdate = totalPrice;
-      this.cdRef.detectChanges();
-    }
-  }
-
-  checkConfirmPayment() {
-    if(!this.couponData) return false;
-    const totalPrice = this.calTotalUpgrade() - (this.discountValue || 0);
-    return totalPrice <= MIN_VALUE_PRICE && totalPrice >= 0;
-  }
-
-  getDiscountValueCoupon() {
-    if (!this.couponData) return 0;
-    if (this.couponData.discount_type == COUPON_DISCOUNT_TYPE.FixedDollar) {
-      this.discountValue = this.couponData.discount_value;
-      return this.discountValue;
-    }
-
-    const value = ((this.couponData.discount_value / 100) * this.calTotalUpgrade()).toFixed(2);
-    const valueNumber = Number.parseFloat(value);
-    this.discountValue = valueNumber > this.couponData.max_discount_value && this.couponData.max_discount_value != 0 ? this.couponData.max_discount_value : valueNumber;
-    return this.discountValue;
-  }
-
+  
   paymentFreeCart() {
     if (!this.placeHolderExpired) this.expireDay = null;
     const data = [{
@@ -377,27 +221,16 @@ export class ModalUpgrageJobPostingComponent implements OnInit {
     this.submitPaymentProcess(data);
   }
 
-  generateCaptchaV3() {
-    if (this.ceoService.checkLightHouseChorme()) return;
-    return this.recaptchaV3Service.execute(CAPTCHA_ACTION.PAYMENT).toPromise();
-  }
-
   async submitPaymentProcess(data) {
-    const tokenCaptcha = await this.generateCaptchaV3();
     this.isLoadingUpgrade = true;
     const body = {
-      jobs: data,
-      notPayment: 1,
-      coupon: this.couponData?.code || '',
-      'g-recaptcha-response': tokenCaptcha
+      jobs: data
     }
     this.paymentService.confirmPaymentUpgradeUpdate(body).subscribe(res => {
-      this.subjectService.isLoadingCard.next(false);
       this.isLoadingUpgrade = false;
       this.helperService.showToastSuccess(MESSAGE.CONFIRM_PAYEMNT_SUCCESSFULY);
       this.close.emit(true)
     }, errorRes => {
-      this.subjectService.isLoadingCard.next(false);
       this.isLoadingUpgrade = false;
       this.helperService.showToastError(errorRes);
     })

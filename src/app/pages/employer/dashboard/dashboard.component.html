@@ -28,15 +28,12 @@
         <div class="tabs-content">
           <div class="tabs-content__active">
             <ms-search 
-              *ngIf="listCategory && listAssessments && listCategoryRoot && checkMappingCategoryAssessments"
+              *ngIf="listCategory"
               [isSearching]="isSearching" 
               [(orderBy)]="orderBy" 
-              [listCategory]="listCategorySearch"
-              [listCategoryRoot]="listCategoryRoot"
-              [listAssessments]="listAssessments"
-              [listAssessmentSelected]="listAssessmentSelected"
+              [listCategory]="listCategory"
               [(isShow)]="isShowSearchAdvanced" 
-              (search)="searchJob()" 
+              (search)="searchJob($event)" 
               [query]="querySearch" 
               [type]="isTabActive"
               (reset)="resetSearchJob()"
@@ -94,7 +91,7 @@
     [activeTab]="isTabActive"
     [isNotEditField]="isNotEditField"
     [listCategory]="listCategory"
-    [listAssessment]="listAssessment"
+    [listAssessment]="listAssessments"
     [(isPriveJob)]="isPriveJob"
     (close)="modalAddANewJobRef.close()"
     (add)="addJob($event)"

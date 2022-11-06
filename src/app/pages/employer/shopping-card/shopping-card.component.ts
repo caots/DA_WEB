@@ -80,19 +80,6 @@ export class ShoppingCardComponent implements OnInit {
   isDetail: boolean = true;
   userType = USER_TYPE;
   isCheckPaiedJob: boolean = false;
-  step: number = STEP_CREATE_JOB.STEP_0;
-  stepCreateJob = STEP_CREATE_JOB;
-  COUPON_EXPIRED_TYPE = COUPON_EXPIRED_TYPE;
-  COUPON_DISCOUNT_FOR = COUPON_DISCOUNT_FOR;
-  COUPON_DISCOUNT_TYPE = COUPON_DISCOUNT_TYPE;
-  NBR_USER_LIMIT = NBR_USER_LIMIT;
-  couponText: string = '';
-  couponData: Coupon;
-  isValidCoupon: boolean;
-  discountValue: number;
-  isVerySmallPriceTotal: boolean;
-  subTotalCarts: number;
-  senDataStep2: any;
 
   constructor(
     private calendar: NgbCalendar,
@@ -200,20 +187,6 @@ export class ShoppingCardComponent implements OnInit {
     this.updatePrivateJob(cartJob);
   }
 
-  caclPayCard(card: ItemJobCarts): number {
-    return this.helperService.caclTotalPayCartService(card, this.settingsCard);
-  }
-
-  caclTotalPayCard() {
-    let result = 0;
-    this.listCards.map(card => {
-      if (!card.jobSelected) return 0;
-      result += this.caclPayCard(card);
-    })
-    this.subTotalCarts = result;
-    return result;
-  }
-
   deleteItemCard(card: ItemJobCarts) {
     const deleteCardSubscrition = this.paymentService.deleteJobCarts(card.id).subscribe(res => {
       this.helperService.showToastSuccess(MESSAGE.DELETE_JOB_CARD_SUCCESSFULLY);
@@ -279,28 +252,18 @@ export class ShoppingCardComponent implements OnInit {
     })
   }
 
-  generateCaptchaV3() {
-    if (this.ceoService.checkLightHouseChorme()) return;
-    return this.recaptchaV3Service.execute(CAPTCHA_ACTION.PAYMENT).toPromise();
-  }
-
   async submitPaymentProcess(data) {
-    const tokenCaptcha = await this.generateCaptchaV3();
     const body = {
       listCarts: data,
-      notPayment: 1,
-      coupon: this.couponData?.code || '',
-      'g-recaptcha-response': tokenCaptcha
     }    
     this.isLoadingCard = true;
     const confirmPaymentSubscrition = this.paymentService.confirmPaymentCard(body).subscribe(res => {
       this.getAllCards(true);
-      this.subjectService.isLoadingCard.next(false);
-      // this.subjectService.hiddenPaymentModal.next(true);
       this.helperService.showToastSuccess(MESSAGE.CONFIRM_PAYEMNT_SUCCESSFULY);
+      this.isLoadingCard = false;
     }, errorRes => {
-      this.subjectService.isLoadingCard.next(false);
       this.helperService.showToastError(errorRes);
+      this.isLoadingCard = false;
     })
     this.subScriptions.push(confirmPaymentSubscrition);
   }
@@ -330,24 +293,6 @@ export class ShoppingCardComponent implements OnInit {
         return;
       }
     });
-  }
-
-  progressOrder(modalPaymentConfirmation) {
-    // this.modalPaymentConfirmationRef = this.modalService.open(modalPaymentConfirmation, {
-    //   windowClass: 'modal-payment-confirmation',
-    //   size: 'lg'
-    // })
-    if (!this.listCards || this.listCards.length == 0) { return; }
-    this.isCheckPaiedJob = true;
-    this.subjectService.isLoadingCard.next(true);
-    this.subjectService.isSaveCard.next(this.isSaveCard);
-    if (this.isSaveCard && this.cardInfo) {
-      this.submitPaymentProcess(this.listCards);
-      return;
-    }
-    const totalPrice = this.caclTotalPayCard();
-    this.paymentConvergeService.getPayment(totalPrice, this.listCards, USER_TYPE.EMPLOYER, JOBSEEKER_PAYMENT_REDIRECT.other).subscribe();
-    return;
   }
 
   getListIdJobCard() {
@@ -406,7 +351,6 @@ export class ShoppingCardComponent implements OnInit {
   }
 
   onBackDashboard() {
-    // this.router.navigate(['/employer-dashboard'], { queryParams: { type: 'draft' } });
     if (this.isCheckPaiedJob) this.router.navigate(['/employer-dashboard']);
     else this._location.back();
   }
@@ -466,81 +410,7 @@ export class ShoppingCardComponent implements OnInit {
     })
   }
 
-  continueBillingShoppingCart() {
-    this.senDataStep2 = {
-      carts: this.listCards,
-      coupon: this.couponData,
-      discountValue: this.getDiscountValueCoupon(),
-      subTotal: this.caclTotalPayCard(),
-    } as SendDataPayment;
-    this.continuteStep(this.step);
-  }
-
   paymentFreeCart() {
     this.submitPaymentProcess(this.listCards);
-  }
-
-  continuteStep(step) {
-    if (step == STEP_CREATE_JOB.STEP_0) {
-      this.step = STEP_CREATE_JOB.STEP_1;
-      return;
-    }
-    if (step == STEP_CREATE_JOB.STEP_1) {
-      this.step = STEP_CREATE_JOB.STEP_2;
-      return;
-    }
-    if (step == STEP_CREATE_JOB.STEP_2) {
-      this.step = STEP_CREATE_JOB.STEP_0;
-      return;
-    }
-  }
-
-  backStep() {
-    this.step = STEP_CREATE_JOB.STEP_0;
-  }
-
-  checkCoupon() {
-    const checkCouponSubcription = this.paymentService.checkCoupon({ coupon: this.couponText }).subscribe(data => {
-      if ((!data.isValid ||
-        (data?.couponDetail && data.couponDetail.discount_for != COUPON_DISCOUNT_FOR.JOB_POSTING))) {
-        this.isValidCoupon = false;
-      } else this.isValidCoupon = true;
-      this.couponData = this.isValidCoupon ? data.couponDetail : null;
-    }, errorRes => {
-      this.helperService.showToastError(errorRes);
-      this.couponData = null;
-    })
-    this.subScriptions.push(checkCouponSubcription);
-  }
-
-  getExpiredFromCoupon() {
-    return moment(this.couponData.expired_to).format('L');
-  }
-
-  caclTotalPayCardWithCoupon() {
-    let totalPrice = 0;
-    if (this.couponData && (!this.isValidCoupon || this.couponData.discount_for != COUPON_DISCOUNT_FOR.JOB_POSTING)){
-      totalPrice =  this.caclTotalPayCard();
-    }else totalPrice = this.caclTotalPayCard() - (this.discountValue || 0);
-    if (totalPrice <= MIN_VALUE_PRICE && totalPrice > 0) this.isVerySmallPriceTotal = true;
-    return totalPrice > 0 ? totalPrice : 0;
-  }
-
-  checkConfirmPayment() {
-    if(!this.couponData) return false;
-    const totalPrice = this.caclTotalPayCard() - (this.discountValue || 0);
-    return totalPrice <= MIN_VALUE_PRICE && totalPrice >= 0;
-  }
-
-  getDiscountValueCoupon() {
-    if (!this.couponData) return 0;
-    if (this.couponData.discount_type == COUPON_DISCOUNT_TYPE.FixedDollar) {
-      this.discountValue = this.couponData.discount_value;
-      return this.discountValue;
-    }
-    const value = ((this.couponData.discount_value / 100) * this.caclTotalPayCard()).toFixed(2);
-    const valueNumber = Number.parseFloat(value);
-    this.discountValue = valueNumber > this.couponData.max_discount_value && this.couponData.max_discount_value!= 0 ? this.couponData.max_discount_value : valueNumber;
-    return this.discountValue;
   }
 }

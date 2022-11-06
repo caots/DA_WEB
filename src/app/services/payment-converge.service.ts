@@ -187,7 +187,7 @@ export class PaymentConvergeService {
           this.helperService.showToastError(err);
         })
       }else if(paymentType == EMPLOYER_PAYMENT.upgrade){
-        this.paymentService.confirmPaymentUpgradeUpdate(data, response.ssl_token).subscribe(res => {       
+        this.paymentService.confirmPaymentUpgradeUpdate(data).subscribe(res => {       
           this.helperService.showToastSuccess(MESSAGE.CONFIRM_PAYEMNT_SUCCESSFULY);
           this.subjectService.checkPaymentUpgradeDone.next(true);
           this.subjectService.isLoadingCard.next(false);

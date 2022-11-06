@@ -100,41 +100,23 @@ export class PaymentService {
     }))
   }
 
-  confirmPaymentUpgradeUpdate(data: any, ssl_token = null) {
-    let body;
-    if(data?.notPayment) {
-      body = { jobs: data.jobs, notPayment: 1, coupon: data.coupon };
-      body['g-recaptcha-response'] = data['g-recaptcha-response'];
-    }
-    body = data;
-    if (ssl_token) { Object.assign(body, { ssl_token: ssl_token }); }
-    const isSaveCard = this.subjectService.isSaveCard.value ? 1 : 0;
-    Object.assign(body, { isSaveCard });
+  confirmPaymentUpgradeUpdate(body: any) {
     const url = `${environment.api_url}payments/upgradeJob`;
     return this.httpClient.post(url, body).pipe(map((res: any) => {
       return res;
     }))
   }
 
-  confirmPaymentCard(data: any, ssl_token = null) {
+  confirmPaymentCard(data: any) {
     let body;
-    if(data?.notPayment) {
-      const cardList = this.getListIdJobCard(data.listCarts);
-      body = { carts: cardList, notPayment: 1, coupon: data.coupon };
-      body['g-recaptcha-response'] = data['g-recaptcha-response'];
-    }else{
-      const cardList = this.getListIdJobCard(data);
-      body = { carts: cardList };
-    }
-    if (ssl_token) { Object.assign(body, { ssl_token: ssl_token }); }
-    const isSaveCard = this.subjectService.isSaveCard.value ? 1 : 0;
-    Object.assign(body, { isSaveCard });
-    // return null;
+    const cardList = this.getListIdJobCard(data.listCarts);
+    body = { carts: cardList};
     const url = `${environment.api_url}payments/employer`;
     return this.httpClient.post(url, body).pipe(map((res: any) => {
       return res;
     }))
   }
+
   getListIdJobCard(listCards: ItemJobCarts[]) {
     let result = [];
     listCards && listCards.map(card => {

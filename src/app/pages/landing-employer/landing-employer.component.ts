@@ -11,10 +11,7 @@ import { SubjectService } from 'src/app/services/subject.service';
 })
 
 export class LandingEmployerComponent implements OnInit {
-  settingsCard: CardSettings;
   userInfo: UserInfo;
-  description: string = DESCRIPTION_VIDEO.EMPLOYER;
-  keyVideo: string = KEY_VIDEO_LANDINGPAGE.EMPLOYER;
   
   constructor(
     private subjectService: SubjectService
@@ -23,10 +20,6 @@ export class LandingEmployerComponent implements OnInit {
 
   ngOnInit(): void {
     window.scroll(0, 0);
-    this.subjectService.settingsCard.subscribe(data => {
-      if (!data) return;
-      this.settingsCard = data;
-    })
     this.subjectService.user.subscribe(data => {
       if (!data) return;
       this.userInfo = data;

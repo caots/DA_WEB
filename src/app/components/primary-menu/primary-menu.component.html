@@ -15,22 +15,11 @@
           </div>
           <div class="header-menu-right" *ngIf="!user && !isTakeTesting()">
             <ul>
-              <!-- <li>
-                <a routerLinkActive="active" [routerLink]="'/home'">Home</a>
-              </li> -->
               <li>
                 <a routerLinkActive="active" [routerLink]="'/landing-jobseeker'">Jobseeker Home</a>
               </li>
               <li>
                 <a routerLinkActive="active" [routerLink]="'/landing-employer'">Employer Home</a>
-              </li>
-
-              <li class="contact-item d-none">
-                <a routerLinkActive="active" (click)="scroll()" (click)="scroll()">Contact Us</a>
-              </li>
-
-              <li class="contact-item">
-                <a routerLinkActive="active" [routerLink]="'/contact'">Contact Us</a>
               </li>
               <li class="sign-in">
                 <a [routerLink]="'/login'" class="btn-sign-in">
@@ -43,6 +32,7 @@
               </li>
             </ul>
           </div>
+
           <div class="header-menu-right menu--logined" *ngIf="user && isShowFullMenu && !isTakeTesting()">
             <ul>
               <li>
@@ -59,10 +49,6 @@
                   routerLinkActive="active">Assessments</a>
               </li>
 
-              <li *ngIf="isEmployer()">
-                <a [routerLink]="'/find-candidates'" routerLinkActive="active" class="text-nowrap">Find Candidates</a>
-              </li>
-
               <li *ngIf="user.accountType == listUserType.JOB_SEEKER">
                 <a href="javascript:void(0)" routerLinkActive="active" class="message-item"
                   (click)="goToMessage()">
@@ -71,6 +57,7 @@
               </li>
             </ul>
           </div>
+
           <div class="block-card-noti-acc" *ngIf="user">
             <div *ngIf="user.accountType == listUserType.EMPLOYER ">
               <a href="javascript:void(0)" routerLinkActive="active" class="message-item" (click)="goToMessage()">
@@ -78,34 +65,13 @@
                 <span *ngIf="unread > 0" class="message-new-unread">{{unread > 0 ? (unread) : ''}}</span>
               </a>
             </div>
-            <div (openChange)="changeModalNoti($event)" *ngIf="user.accountType == listUserType.EMPLOYER " ngbDropdown #dropdownNoti="ngbDropdown" class="dropdown-notification notification-employer">
-              <a routerLinkActive="active" class="message-item" ngbDropdownToggle>
-                <svg-icon src="assets/icons/noti.svg" class="fill-employer"></svg-icon>
-                <span *ngIf="totalUnReadNotification > 0" class="notification-unread">{{totalUnReadNotification > 0 ? (totalUnReadNotification) : ''}}</span>
-              </a>
-              <div ngbDropdownMenu aria-labelledby="dropdownNotification">
-                <ms-notification (closeDropdown)="dropdownNoti.close();" (changeStatusNotification)="changeStatusNotification($event)"></ms-notification>
-              </div>
-            </div>
 
             <a [routerLink]="['/shopping-card']" class="block-sp-card cursor-pointer" *ngIf="isEmployer() && isShowFullMenu">
               <img src="assets/images/shop-cart@2x.svg" alt="user" [ngClass]="{'shopping-cart-item': window.location.pathname != '/landing-employer'}">
               <p class="card-num" *ngIf="cards && cards.length > 0 ">{{cards.length}}</p>
             </a>
-            <!-- <a href="#" class="block-noti" *ngIf="isShowFullMenu">
-              <img src="assets/images/noti@2x.png" alt="user">
-              <p class="noti-num">5</p>
-            </a> -->
+           
             <div class="box-acc">
-              <div (openChange)="changeModalNoti($event)" *ngIf="user.accountType == listUserType.JOB_SEEKER" ngbDropdown #dropdownNoti="ngbDropdown" class="dropdown-notification">
-                <a routerLinkActive="active" class="message-item" ngbDropdownToggle>
-                  <svg-icon src="assets/icons/noti.svg" class="fill-jobs"></svg-icon>
-                  <span *ngIf="totalUnReadNotification > 0" class="notification-unread">{{totalUnReadNotification > 0 ? (totalUnReadNotification) : ''}}</span>
-                </a>
-                <div ngbDropdownMenu aria-labelledby="dropdownNotification">
-                  <ms-notification (closeDropdown)="dropdownNoti.close();" (changeStatusNotification)="changeStatusNotification($event)"></ms-notification>
-                </div>
-              </div>
               <div ngbDropdown class="d-inline-block">
                 <a href="javascript:void(0)" class="box-acc-name" id="dropdownAccount" ngbDropdownToggle>
                   <div class="box-acc__img" *ngIf="user.accountType == listUserType.JOB_SEEKER">
@@ -136,15 +102,9 @@
                   <button [hidden]="user.accountType != listUserType.EMPLOYER" ngbDropdownItem
                     (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('member') : redirectToJobseeker('member')"
                     *ngIf="isShowFullMenu">Manage Members</button>
-                  <button [hidden]="user.accountType != listUserType.EMPLOYER" ngbDropdownItem
-                    (click)="redirectToEmployer('tracking-recruitment')" *ngIf="isShowFullMenu">Account
-                    Statistics</button>
                   <button ngbDropdownItem
                     (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('password') : redirectToJobseeker('password')"
                     *ngIf="isShowFullMenu">Password</button>
-                  <button ngbDropdownItem
-                    (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('payment') : redirectToJobseeker('payment')"
-                    *ngIf="isShowFullMenu">Billing and Payment</button>
                   <button ngbDropdownItem (click)="logout()">Logout</button>
                 </div>
               </div>
@@ -152,33 +112,10 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-12 text-center" *ngIf="!user && showModal">
-        <div class="alert-role" [hidden]="window.location.pathname != '/landing-employer'">
-          Are you a jobseeker? <a [routerLink]="'/landing-jobseeker'"><span class="high-light">Click Here</span></a>
-          <!-- <fa-icon [icon]="['fas', 'times']" class="close-button"></fa-icon> -->
-          <button (click)="closeModal()" type="button" class="close close-button" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="alert-role" [hidden]="window.location.pathname != '/landing-jobseeker'">
-          Are you an employer? <a [routerLink]="'/landing-employer'"><span class="high-light">Click Here</span></a>
-          <!-- <fa-icon [icon]="['fas', 'times']" class="close-button"></fa-icon> -->
-          <button (click)="closeModal()" type="button" class="close close-button" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      </div>
-      <div class="col-lg-12 text-center" *ngIf="showModalWarning">
-        <div class="alert-warning-homepage">
-          Due to scheduled maintenance, users will be temporarily unable to take or access assessments on Thursday, December 23, 2021, between 7:30 PM to 10.30 PM Eastern Time.
-          <button (click)="closeModalWarnig()" type="button" class="close close-button" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </header>
+
 <header id="header-mobile" [class.header_change]="header_variable  && window.location.pathname != '/landing-employer'"
   [class.header_change_employer]="header_variable  && window.location.pathname == '/landing-employer'"
   [ngClass]='{"header-jobseeker" : (user && user.accountType == listUserType.JOB_SEEKER && window.location.pathname != "/landing-jobseeker") || window.location.pathname == "/job" || checkLocationJobDetails()}'>
@@ -203,15 +140,6 @@
                     <li ngbDropdownItem>
                       <a routerLinkActive="active" [routerLink]="'/landing-employer'">Employer Home</a>
                     </li>
-                    <!-- <li>
-                      <a routerLinkActive="active" [routerLink]="'/job'">Job</a>
-                    </li> -->
-                    <li ngbDropdownItem class="contact-item d-none">
-                      <a routerLinkActive="active" (click)="scroll()" (click)="scroll()">Contact Us</a>
-                    </li>
-                    <li ngbDropdownItem class="contact-item">
-                      <a routerLinkActive="active" [routerLink]="'/contact'">Contact Us</a>
-                    </li>
                   </ul>
                 </div>
                 <div class="header-menu-right menu--logined" *ngIf="user && isShowFullMenu && !isTakeTesting()"
@@ -230,17 +158,6 @@
                       <a [routerLink]="user.accountType == listUserType.EMPLOYER ? '/employer-assessments' : '/job-seeker-assessments'"
                         routerLinkActive="active">Assessments</a>
                     </li>
-                    <!-- <li>
-                      <a routerLinkActive="active"
-                        [routerLink]="user.accountType == listUserType.EMPLOYER ? ['/employer-messages', dataConversation?.groupId, dataConversation?.group] : '/messages/1/266'">Messages
-                        {{unread > 0 ? (unread) : ''}}</a>
-                    </li> -->
-
-                    <li *ngIf="user.accountType == listUserType.EMPLOYER" ngbDropdownItem>
-                      <a routerLinkActive="active" class="message-item" [routerLink]="['/find-candidates']">
-                        Find Candidates
-                      </a>
-                    </li>
                   </ul>
                 </div>
               </div>
@@ -255,23 +172,15 @@
                 <div ngbDropdownMenu aria-labelledby="dropdownMobile">
                   <div class="header-menu-right" *ngIf="!user && !isTakeTesting()" ngbDropdownItem>
                     <ul>
-                      <!-- <li ngbDropdownItem>
-                        <a routerLinkActive="active" [routerLink]="'/home'">Home</a>
-                      </li> -->
                       <li ngbDropdownItem>
                         <a routerLinkActive="active" [routerLink]="'/landing-jobseeker'">Jobseeker Home</a>
                       </li>
                       <li ngbDropdownItem>
                         <a routerLinkActive="active" [routerLink]="'/landing-employer'">Employer Home</a>
                       </li>
-                      <!-- <li>
-                        <a routerLinkActive="active" [routerLink]="'/job'">Job</a>
-                      </li> -->
-                      <li ngbDropdownItem class="contact-item">
-                        <a routerLinkActive="active" (click)="scroll()" (click)="scroll()">Contact Us</a>
-                      </li>
                     </ul>
                   </div>
+
                   <div class="header-menu-right menu--logined" *ngIf="user && isShowFullMenu && !isTakeTesting()"
                     ngbDropdownIte>
                     <ul>
@@ -289,11 +198,6 @@
                           routerLinkActive="active">Assessments</a>
                       </li>
                       <li *ngIf="user.accountType == listUserType.EMPLOYER" ngbDropdownItem>
-                        <a routerLinkActive="active" class="message-item" [routerLink]="['/find-candidates']">
-                          Find Candidates
-                        </a>
-                      </li>
-                      <li *ngIf="user.accountType == listUserType.EMPLOYER" ngbDropdownItem>
                         <a routerLinkActive="active" [routerLink]="['/shopping-card']"
                           class="block-sp-card cursor-pointer position-relative" *ngIf="isEmployer() && isShowFullMenu">
                           Shopping Cart
@@ -306,6 +210,7 @@
               </div>
             </div>
           </div>
+
           <div *ngIf="user && user.accountType == listUserType.JOB_SEEKER" class="mobile-employer">
             <div class="box-mobile">
               <div ngbDropdown>
@@ -315,20 +220,11 @@
                 <div ngbDropdownMenu aria-labelledby="dropdownMobile">
                   <div class="header-menu-right" *ngIf="!user && !isTakeTesting()" ngbDropdownItem>
                     <ul>
-                      <!-- <li ngbDropdownItem>
-                        <a routerLinkActive="active" [routerLink]="'/home'">Home</a>
-                      </li> -->
                       <li ngbDropdownItem>
                         <a routerLinkActive="active" [routerLink]="'/landing-jobseeker'">Jobseeker Home</a>
                       </li>
                       <li ngbDropdownItem>
                         <a routerLinkActive="active" [routerLink]="'/landing-employer'">Employer Home</a>
-                      </li>
-                      <!-- <li>
-                        <a routerLinkActive="active" [routerLink]="'/job'">Job</a>
-                      </li> -->
-                      <li ngbDropdownItem class="contact-item">
-                        <a routerLinkActive="active" (click)="scroll()" (click)="scroll()">Contact Us</a>
                       </li>
                     </ul>
                   </div>
@@ -348,17 +244,7 @@
                         <a [routerLink]="user.accountType == listUserType.EMPLOYER ? '/employer-assessments' : '/job-seeker-assessments'"
                           routerLinkActive="active">Assessments</a>
                       </li>
-                      <!-- <li>
-                        <a routerLinkActive="active"
-                          [routerLink]="user.accountType == listUserType.EMPLOYER ? ['/employer-messages', dataConversation?.groupId, dataConversation?.group] : '/messages/1/266'">Messages
-                          {{unread > 0 ? (unread) : ''}}</a>
-                      </li> -->
-
-                      <li *ngIf="user.accountType == listUserType.EMPLOYER" ngbDropdownItem>
-                        <a routerLinkActive="active" class="message-item" [routerLink]="['/find-candidates']">
-                          Find Candidates
-                        </a>
-                      </li>
+                     
                     </ul>
                   </div>
                 </div>
@@ -378,15 +264,6 @@
                 <svg-icon src="assets/icons/message.svg" class="fill-employer message-mobile"></svg-icon>
                 <span *ngIf="unread > 0" class="message-new-unread">{{unread > 0 ? (unread) : ''}}</span>
               </a>
-              <div (openChange)="changeModalNoti($event)" ngbDropdown #dropdownNoti="ngbDropdown" class="dropdown-notification">
-                <a routerLinkActive="active" class="message-item ml-2" ngbDropdownToggle>
-                  <svg-icon src="assets/icons/noti.svg" class="fill-employer noti-mobile"></svg-icon>
-                  <span *ngIf="totalUnReadNotification > 0" class="notification-unread">{{totalUnReadNotification > 0 ? (totalUnReadNotification) : ''}}</span>
-                </a>
-                <div ngbDropdownMenu aria-labelledby="dropdownNotification">
-                  <ms-notification [isMobile]="1" (closeDropdown)="dropdownNoti.close();" (changeStatusNotification)="changeStatusNotification($event)"></ms-notification>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -411,15 +288,6 @@
                 <svg-icon src="assets/icons/message.svg" class="fill-jobs message-mobile"></svg-icon>
                 <span *ngIf="unread > 0" class="message-new-unread">{{unread > 0 ? (unread) : ''}}</span>
               </a>
-              <div (openChange)="changeModalNoti($event)" ngbDropdown #dropdownNoti="ngbDropdown" class="dropdown-notification">
-                <a routerLinkActive="active" class="message-item ml-2" ngbDropdownToggle>
-                  <svg-icon src="assets/icons/noti.svg" class="fill-jobs noti-mobile"></svg-icon>
-                  <span *ngIf="totalUnReadNotification > 0" class="notification-unread">{{totalUnReadNotification > 0 ? (totalUnReadNotification) : ''}}</span>
-                </a>
-                <div ngbDropdownMenu aria-labelledby="dropdownNotification">
-                  <ms-notification [isMobile]="1" (closeDropdown)="dropdownNoti.close();" (changeStatusNotification)="changeStatusNotification($event)"></ms-notification>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -459,15 +327,9 @@
                   <button [hidden]="user.accountType != listUserType.EMPLOYER" ngbDropdownItem
                     (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('member') : redirectToJobseeker('member')"
                     *ngIf="isShowFullMenu">Manage Members</button>
-                  <button [hidden]="user.accountType != listUserType.EMPLOYER" ngbDropdownItem
-                    (click)="redirectToEmployer('tracking-recruitment')" *ngIf="isShowFullMenu">Account
-                    Statistics</button>
                   <button ngbDropdownItem
                     (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('password') : redirectToJobseeker('password')"
                     *ngIf="isShowFullMenu">Password</button>
-                  <button ngbDropdownItem
-                    (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('payment') : redirectToJobseeker('payment')"
-                    *ngIf="isShowFullMenu">Billing and Payment</button>
                   <button ngbDropdownItem (click)="logout()">Logout</button>
                 </div>
               </div>
@@ -476,14 +338,6 @@
 
         </div>
       </div>
-      <!-- <div class="col-lg-12 text-center" *ngIf="showModalWarning">
-        <div class="alert-warning-homepage">
-          Due to scheduled maintenance, users will be temporarily unable to take or access assessments on Thursday, December 23, 2021, between 7:30 PM to 10.30 PM Eastern Time.
-          <button (click)="closeModalWarnig()" type="button" class="close close-button" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      </div> -->
     </div>
   </div>
 </header>

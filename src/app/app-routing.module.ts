@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { IsGuestGuard } from './guards/isGuest.guard';
 
 const routes: Routes = [
   {
@@ -19,16 +18,8 @@ const routes: Routes = [
     loadChildren: () => import('src/app/pages/register/register.module').then(m => m.RegisterModule)
   },
   {
-    path: 'user-story',
-    loadChildren: () => import('src/app/pages/user-story-view/user-story-view.module').then(m => m.UserStoryViewModule)
-  },
-  {
     path: 'forgot-password',
     loadChildren: () => import('src/app/pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
-  },
-  {
-    path: 'user-potentials-complete-singup',
-    loadChildren: () => import('src/app/pages/complete-password-user-potential/complete-password-user-potential.module').then(m => m.CompletePasswordUserPotentialModule)
   },
   {
     path: 'reset-password',
@@ -53,18 +44,6 @@ const routes: Routes = [
   {
     path: 'active-account',
     loadChildren: () => import('src/app/pages/active-account/active-account.module').then(m => m.ActiveAccountModule)
-  },
-  {
-    path: 'unsubcribe',
-    loadChildren: () => import('src/app/pages/unsubscribe-page/unsubscribe-page.module').then(m => m.UnSubscribePageModule)
-  },
-  {
-    path: 'privacy-policy',
-    loadChildren: () => import('src/app/pages/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule)
-  },
-  {
-    path: 'terms-of-service',
-    loadChildren: () => import('src/app/pages/terms-of-service/terms-of-service.module').then(m => m.TermsOfServiceModule)
   },
   {
     path: '',
