@@ -171,29 +171,6 @@ export class ModalApplyJobComponent implements OnInit {
       this.onValidateCustomAssessment(assessment);
       this.close.emit();
       return;
-    } else {
-      const nbrCredits = get(this.user, 'nbrCredits', 0);
-      const nbrFreeCredits = this.getFreeASttemptsRemaining(assessment);
-      if (this.jobDashboard) {
-        this.urlHistory = `${environment.url_webapp}job/${this.job.urlSeo}?apply=1&showAlert=1`;
-      } else {
-        const url = this.routerUrlJobDetails.indexOf('?') >= 0 ? `${environment.url_webapp}${this.routerUrlJobDetails}&apply=1&showAlert=1` :
-          `${environment.url_webapp}${this.routerUrlJobDetails}?apply=1&showAlert=1`;
-        this.urlHistory = url;
-      }
-
-      const checkTestAssessment = this.assessmentService.messageTestAssessmentJobseeker(nbrFreeCredits, nbrCredits);
-      if (checkTestAssessment == TEST_ASSESSMENT_IMOCHA.NBR_UNAVAIL) {
-        this.paymentAssessment(assessment, modalPaymentConfirmation, this.urlHistory);
-        return;
-      }
-
-      const isPayment = nbrFreeCredits <= 0;
-      if (assessment.retry) {
-        this.onRetryAssessment(assessment, this.urlHistory, isPayment, checkTestAssessment);
-      } else {
-        this.onValidateAssessment(assessment, this.urlHistory, isPayment, checkTestAssessment);
-      }
     }
   }
 
@@ -298,11 +275,7 @@ export class ModalApplyJobComponent implements OnInit {
 
 
   async onValidateCustomAssessment(assessment: Assesment) {
-    let title = `${CUSTOM_ASSESSMENT_INTRUCTION_TEXT.TEXT}  <p class="text-center mb-3 mt-3 intruction-assessment-bottom">Good luck!</p> <div>${MESSAGE.CONFIRM_SWITCH_IMOCHA}</div>`;
-    if (assessment.assessments_instruction && assessment.assessments_instruction != '')
-      title = `${CUSTOM_ASSESSMENT_INTRUCTION_TEXT.TEXT}
-        <p class="intruction-assessment"><span>6.</span> <span class="text-left"><b>Employer's Instructions: </b>${assessment.assessments_instruction}</span></p>
-        <p class="text-center mt-3 mb-3 intruction-assessment-bottom">Good luck!</p> <div>${MESSAGE.CONFIRM_SWITCH_IMOCHA}</div>`;
+    let title = MESSAGE.CONFIRM_SWITCH_IMOCHA;
     const isConfirmed = await this.helperService.confirmPopup(title, MESSAGE.BTN_YES_TEXT);
     if (!isConfirmed) {
       return;

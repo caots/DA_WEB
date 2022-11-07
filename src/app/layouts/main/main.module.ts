@@ -117,11 +117,6 @@ const routes: Routes = [
     loadChildren: () => import('src/app/pages/job-seeker/job-seeker-profile/job-seeker-profile.module').then(m => m.JobSeekerProfileModule)
   },
   {
-    path: 'job-seeker-assessments',
-    canActivate: [JobSeekerGuard],
-    loadChildren: () => import('src/app/pages/job-seeker/assessments/assessments.module').then(m => m.AssessmentsModule)
-  },
-  {
     path: 'job-seeker-test-assessments',
     canActivate: [JobSeekerGuard],
     loadChildren: () => import('src/app/pages/job-seeker/test-assessment/test-assessment.module').then(m => m.TestAssessmentModule)

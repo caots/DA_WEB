@@ -12,12 +12,10 @@ import { ComponentsModule } from 'src/app/components/components.module';
 import { EmployerProfileComponent } from 'src/app/pages/employer/employer-profile/employer-profile.component';
 import { CompanyInformationComponent } from './company-information/company-information.component';
 import { PasswordManagementComponent } from './password-management/password-management.component';
-import { ManageMembersComponent } from './manage-members/manage-members.component';
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { TrackingRecruitmentComponent } from './tracking-recruitment/tracking-recruitment.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
@@ -25,9 +23,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     EmployerProfileComponent,
     CompanyInformationComponent,
     PasswordManagementComponent,
-    ManageMembersComponent,
     CompanyProfileComponent,
-    TrackingRecruitmentComponent,
   ],
   imports: [
     DragDropModule,

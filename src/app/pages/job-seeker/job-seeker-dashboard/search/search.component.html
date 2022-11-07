@@ -18,7 +18,7 @@
           <p class="box-search-left__title">
             Where
           </p>
-          <input class="input-search-job" type="text" placeholder='City, state, zip code, or "remote"' (ngModelChange)="changeSearchLocation($event)" name="location" [ngbTypeahead]="selectCountry" [(ngModel)]="place" >
+          <input class="input-search-job" type="text" placeholder='City, state' (ngModelChange)="changeSearchLocation($event)" name="location" [ngbTypeahead]="selectCountry" [(ngModel)]="place" >
           <div class="search-box-icon">
             <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
           </div>
@@ -51,16 +51,7 @@
   </div>
 
   <div class="search-advantage multi-select-search-job" *ngIf="isShow">
-    <!-- <div class="advantage-item">
-      <ng-multiselect-dropdown
-      [placeholder]="'Required Assesssments'"
-      [settings]="dropdownSettings"
-      [data]="listCategory"
-      [ngModelOptions]="{standalone: true}"
-      [(ngModel)]="query.categories">
-    </ng-multiselect-dropdown>
-    </div> -->
-   
+  
     <div class="advantage-item">
       <span *ngIf="jobTypeValue" (click)="removeFilterItem(TYPE_SEARCH_ADVANCE_JOBSEEKER.EMPLOYMENT_TYPE)" class="close-filter-item"><fa-icon [icon]="['fas', 'times']"></fa-icon></span>
       <div ngbDropdown class="d-inline-block dopdown-item">
@@ -145,30 +136,7 @@
       </div>
      </div>
 
-     <div class="advantage-item scroll-content" *ngIf="listCity && listCity.length > 0">
-      <span *ngIf="cityValue" (click)="removeFilterItem(TYPE_SEARCH_ADVANCE_JOBSEEKER.CITY)" class="close-filter-item"><fa-icon [icon]="['fas', 'times']"></fa-icon></span>
-      <div ngbDropdown class="d-inline-block dopdown-item">
-        <div class="btn btn-outline-primary" id="dropdown-city" ngbDropdownToggle>{{cityValue ? cityValue: 'City'}} 
-          <span *ngIf="!cityValue" class="close-filter-item"><fa-icon [icon]="['fas', 'caret-down']"></fa-icon></span>
-        </div>
-        <div ngbDropdownMenu aria-labelledby="dropdown-city">
-          <div (click)="filterData(city, TYPE_SEARCH_ADVANCE_JOBSEEKER.CITY)" *ngFor="let city of listCity" ngbDropdownItem>{{city}}</div>
-        </div>
-      </div>
-     </div>
-
-     <div class="advantage-item" *ngIf="place && query.state" [hidden]="hiddenOnlyStateWithin">
-      <span *ngIf="withinValue && withinValue != DEFAULT_WITHIN.value" (click)="removeFilterItem(TYPE_SEARCH_ADVANCE_JOBSEEKER.WITHIN)" class="close-filter-item close-filter-miles"><fa-icon [icon]="['fas', 'times']"></fa-icon></span>
-      <div ngbDropdown class="d-inline-block dopdown-item">
-        <div class="btn btn-outline-secondary" id="dropdown-within" ngbDropdownToggle>{{withinValue? withinValue : 'Winthin' }}
-          <span *ngIf="!withinValue || withinValue == DEFAULT_WITHIN.value" class="close-filter-item"><fa-icon [icon]="['fas', 'caret-down']"></fa-icon></span>
-        </div>
-        <div ngbDropdownMenu aria-labelledby="dropdown-within">
-          <div (click)="filterData(within, TYPE_SEARCH_ADVANCE_JOBSEEKER.WITHIN)" *ngFor="let within of withinMiles" ngbDropdownItem>{{within.value}}</div>
-        </div>
-      </div>
-     </div>
-
+  
      <div class="advantage-item">
       <div ngbDropdown class="d-inline-block dopdown-item">
         <span *ngIf="jobTravelValue" (click)="removeFilterItem(TYPE_SEARCH_ADVANCE_JOBSEEKER.WORKPLACE)" class="close-filter-item"><fa-icon [icon]="['fas', 'times']"></fa-icon></span>
@@ -177,18 +145,6 @@
         </div>
         <div ngbDropdownMenu aria-labelledby="dropdown-travel">
           <div (click)="filterData(job, TYPE_SEARCH_ADVANCE_JOBSEEKER.WORKPLACE)" *ngFor="let job of jobTravel" ngbDropdownItem>{{job.value}}</div>
-        </div>
-      </div>
-     </div>
-
-     <div class="advantage-item">
-      <span *ngIf="jobPercentTravelValue" (click)="removeFilterItem(TYPE_SEARCH_ADVANCE_JOBSEEKER.PERCENT_TRAVEL)" class="close-filter-item"><fa-icon [icon]="['fas', 'times']"></fa-icon></span>
-      <div ngbDropdown class="d-inline-block dopdown-item">
-        <div class="btn btn-outline-primary" id="dropdown-percent" ngbDropdownToggle>{{ jobPercentTravelValue? jobPercentTravelValue : 'Percent Travel'}}
-          <span *ngIf="!jobPercentTravelValue" class="close-filter-item"><fa-icon [icon]="['fas', 'caret-down']"></fa-icon></span>
-        </div>
-        <div ngbDropdownMenu aria-labelledby="dropdown-percent">
-          <div (click)="filterData(job, TYPE_SEARCH_ADVANCE_JOBSEEKER.PERCENT_TRAVEL)" *ngFor="let job of jobPercentTravel" ngbDropdownItem>{{job.value}}</div>
         </div>
       </div>
      </div>
@@ -204,115 +160,19 @@
         </div>
       </div>
      </div>
+    </div>
 
-     <div class="find-candidates-page search-advantage-item">
-      <div class="search-box-multi search-box-assessments">
-        <div class="select-category2">
-            <div class="select-control2" ngbDropdown #dropSearch="ngbDropdown">
-                <a ngbDropdownToggle> 
-                  <span class="title-menu-selected" [hidden]="listAssessmentSelected.length > 0">Required Assesssment(s)</span>
-                  <span class="selected-item" *ngIf="listAssessmentSelected.length > 0"> {{listAssessmentSelected[0]?.name}}<a class="close-btn" (click)="removeAssessment(listAssessmentSelected[0], 0); dropSearch.open();">x</a></span>
-                  <span class="selected-item" *ngIf="listAssessmentSelected.length > 1"> {{listAssessmentSelected[1]?.name}}<a class="close-btn" (click)="removeAssessment(listAssessmentSelected[1], 1); dropSearch.open();">x</a></span>
-                  <span class="selected-item-plus pl-1" *ngIf="listAssessmentSelected && listAssessmentSelected.length > 2">+{{listAssessmentSelected.length - 2}}</span>
-                  <span class="close-filter-item close-filter-assessment" (click)="showSearchAssessment = true"><fa-icon [icon]="['fas', 'caret-down']" ></fa-icon></span>
-                </a>
-                <div class="select-items" ngbDropdownMenu *ngIf="showSearchAssessment || !listAssessmentSelected || listAssessmentSelected.length <= 0">
-                    <div class="search-box-multi mb-3">
-                        <input type="text" 
-                          (click)="SearchAssessmentSuggest()"
-                          [(ngModel)]="nameAssessmentSearch"
-                          [ngModelOptions]="{ standalone: true }" placeholder="Search" class="input-search-box ">
-                        <div class="search-box-icon">
-                          <svg-icon src="assets/icons/search.svg"></svg-icon>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-search-box"  (click)="SearchAssessmentSuggest()">
-                            Search
-                        </button>
-                    </div>
-                    <p class="result">{{ listAssessmentSelected.length }} selected</p>
-                    <ul class="items">
-                        <li class="parent" *ngFor="let category of listCategory">
-                            <p>
-                                <label>
-                                  <input 
-                                    style="cursor: pointer"
-                                    (change)="onSelectedCategory(category)"
-                                    [checked]="checkSelectedListAssessment(category)"
-                                    type="checkbox" name="checkbox"
-                                    value="value"
-                                    id="select-category-{{category.id}}"
-                                  ><span class="flex-1">{{ category.name }}</span></label>
-                                <button type="button" class="btn btn-collapse"
-                                    [hidden]="category.id === CUSTOM_ASSESSMENT_ID"
-                                    [attr.aria-expanded]="category.isShowListAssessment"
-                                    aria-controls="collapseExample"
-                                    (click)="category.isShowListAssessment = !category.isShowListAssessment"  
-                                >
-                                    <fa-icon
-                                      class="icon-color close-icon"
-                                      [icon]="['fas', 'caret-up']"
-                                    ></fa-icon>
-                                    <fa-icon
-                                      class="icon-color open"
-                                      [icon]="['fas', 'caret-down']"
-                                    ></fa-icon>
-                                </button>
-                            </p>
-                            <ul #collapse="ngbCollapse" [(ngbCollapse)]="!category.isShowListAssessment"
-                                class="child">
-                                <li *ngFor="
-                                    let assessment of category.listAssessment">
-                                  <label [ngClass]="{'disable-assessment-duplicate': assessment?.disableDuplicate}">
-                                    <input
-                                      (change)="onSelectedAssessemnt(assessment,category)"
-                                      [checked]="assessment.selectedCandidate"
-                                      id="select-assessment-{{assessment.id}}" 
-                                      type="checkbox" name="checkbox"
-                                            value="value"><span class="flex-1">{{ assessment.name }}</span>
-                                  </label>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <ms-loading-assessment-item *ngIf="isLoadingCompanyDetails" [numberCard]="1"></ms-loading-assessment-item>
+    <div *ngIf="companyValue && companyInfo && !isLoadingCompanyDetails">
+     <div class="show-company" >
+      <div>
+        <a [routerLink]="['/company', companyInfo.urlSeo]" [queryParams]="{tab: 'employer', searchJob: 1}" class="compan-img">
+          <img _ngcontent-nhm-c153="" onerror="this.src='assets/images/employer_default_photo_1.png'" [alt]="companyInfo.companyName"
+          [src]="companyInfo.companyLogo">
+          <h3 class="name-company ml-1">{{companyInfo.companyName}}</h3>
+        </a>
       </div>
+     </div>
+     <h5 class="title" style="color: #333;">JOBS FROM THIS EMPLOYER</h5>
     </div>
-
-
-     <!-- <div class="advantage-item">
-      <div ngbDropdown class="d-inline-block">
-        <div class="btn btn-outline-primary" id="dropdownBasic9" ngbDropdownToggle>{{expirationDateValue? expirationDateValue : 'Expiration date'}}</div>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic9">
-          <div (click)="filterData(expire, TYPE_SEARCH_ADVANCE_JOBSEEKER.EXPIRATION_DATE)" *ngFor="let expire of expirationDate" ngbDropdownItem>{{expire.value}}</div>
-        </div>
-      </div>
-     </div> -->
-
-  </div>
-  <!-- <div class="search-opt-bottom" *ngIf="isShow">
-    <button type="submit" class="btn btn-primary btn-border"
-      msLoadingButton [loading]="isSearching">
-      Search
-    </button>
-  </div> -->
-
-  <ms-loading-assessment-item *ngIf="isLoadingCompanyDetails" [numberCard]="1"></ms-loading-assessment-item>
-  <div *ngIf="companyValue && companyInfo && !isLoadingCompanyDetails">
-   <div class="show-company" >
-    <div>
-      <a [routerLink]="['/company', companyInfo.urlSeo]" [queryParams]="{tab: 'employer', searchJob: 1}" class="compan-img">
-        <img _ngcontent-nhm-c153="" onerror="this.src='assets/images/employer_default_photo_1.png'" [alt]="companyInfo.companyName"
-        [src]="companyInfo.companyLogo">
-        <h3 class="name-company ml-1">{{companyInfo.companyName}}</h3>
-      </a>
-    </div>
-    <div class="header-info__right">
-      <button (click)="followEmployer(checkEmployerFollowed)" type="button" [class]="checkEmployerFollowed ? 'btn btn-secondary' : 'btn btn-primary'">{{checkEmployerFollowed? 'Unfollow' : 'Follow'}}</button>
-      <p class="cursor-pointer">Follow this employer to receive the latest job alerts!</p>
-    </div>
-   </div>
-   <h5 class="title" style="color: #333;">JOBS FROM THIS EMPLOYER</h5>
-  </div>
 </form>

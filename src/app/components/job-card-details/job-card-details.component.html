@@ -33,7 +33,6 @@
                 <svg-icon src="assets/icons/run.svg"></svg-icon>
               </div>
             </div>
-            <button (click)="followEmployer(checkEmployerFollowed)" type="button" [class]="checkEmployerFollowed ? 'btn btn-secondary btn-follow' : 'btn btn-primary btn-follow'">{{checkEmployerFollowed? 'Unfollow' : 'Follow'}}</button>
           </div>
           <p class="view-and-expires mt-2" [hidden]="isSearchJobPage" *ngIf="jobDetails.isPrivate != 1"><span
               *ngIf="jobDetails.views">{{jobDetails.views}} {{jobDetails.views > 1 ? 'views' : 'view'}} -</span>
@@ -52,18 +51,6 @@
         </div>
         <div class="col-lg-3 col-md-3 col-btn" [hidden]="isSearchJobPage">
           <div class="top-col-btn">
-            <div class="box-share-jobs btn-share-job" shareButtonDir [ngClass]="{'disable-apply': checkExpired ||  jobDetails.isPrivate == 1}">
-              <a class="cursor-pointer">
-                <span>Share</span>
-                <fa-icon [icon]="['fas', 'share-alt']"></fa-icon>
-              </a>
-              <div class="share-jobs">
-                <share-button  button="facebook" [url]="shareUrl()"></share-button>
-                <share-button  button="twitter"  [url]="shareUrl()"></share-button>
-                <share-button  button="email"  [url]="shareUrl(1)"></share-button>
-                <share-button  button="copy"  [url]="shareUrl()"></share-button>
-              </div>
-            </div>
             <div class="item-bookmark cursor-pointer" (click)="changeBookMark()" [ngClass]="{active: isBookMarked, 'disable-apply': checkExpired}">
               <span>Save</span>
               <fa-icon [icon]="['fas', 'bookmark']"></fa-icon>
@@ -73,8 +60,6 @@
             (click)="onCheckValidateScore(modalApplyJob)"
             [ngClass]="{'disable-apply': checkExpired || (jobDetails.isPrivate !== 0 && jobDetails.totalApplicants >= jobDetails.privateApplicants )}">
             Apply Now</div>
-          <span *ngIf="jobInfoTab && jobDetails?.is_crawl == 1 && jobDetails?.is_crawl_text_status == 1"
-            [ngbTooltip]="tipContentCrawl" placement="bottom" tooltipClass="tooltip-custom" class="note-aggregated">This job has been aggregated by MeasuredSkills.</span>
 
           <div class="cursor-pointer btn-apply-now" style="font-size: 15px; background-color: red;" *ngIf="!isApply()"
             (click)="drawJob()">Withdraw Application</div>
@@ -86,9 +71,6 @@
   </div>
 </div>
 
-<ng-template #tipContentCrawl>
-  <div style="text-align: left">This means this company did not directly post this opening to MeasuredSkills. Upon receiving applications, MeasuredSkills will contact the company to have them review applicants.</div>
-</ng-template>
 
 <ng-template #modalApplyJob>
   <ms-modal-apply-job *ngIf="routerUrl !== ''"

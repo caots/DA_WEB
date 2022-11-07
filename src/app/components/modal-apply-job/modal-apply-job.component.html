@@ -14,14 +14,6 @@
 
       <div class="border-box">
         <p class="border-box__title">Please Take Assessment(s) to Apply</p>
-        <!-- <p class="show-warning" *ngIf="(!validateAssessments || validateAssessments.length < listAssessmentJob.length) && !assessmentStatus">
-          <fa-icon [icon]="['fas', 'exclamation-circle']" style="color:#FFCC00"></fa-icon>
-          Please wait while we calculate your test score. This could take up to one (1) minute.
-        </p> -->
-        <!-- <p class="show-warning">
-          <fa-icon [icon]="['fas', 'exclamation-circle']" style="color:#FFCC00"></fa-icon>
-          Please wait while we calculate your test score. This could take up to one (1) minute.
-        </p> -->
         <div class="list-assessments">
           <div class="list-assessments__item" *ngFor="let assessment of listAssessmentJob">
             <div class="col-left">
@@ -31,7 +23,7 @@
               </div>
             </div>
             <div class="col-right">
-              <button type="button" [hidden]="assessment.type === assessmentType.Custom && !checkRetryCustomAssessment(assessment)" (click)="goToValidateOrRetry(assessment, modalPaymentConfirmation)"
+              <button type="button" (click)="goToValidateOrRetry(assessment, modalPaymentConfirmation)"
               class="btn assessments-scrore skill--pass" >{{assessment.totalTake ? 'Retry' : 'Take Assessment'}}</button>
             </div>
           </div>

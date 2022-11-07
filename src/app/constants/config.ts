@@ -823,11 +823,8 @@ export const TYPE_SEARCH_ADVANCE_JOBSEEKER = {
 }
 
 export const SORT_JOB_JOBSEEKER = [
-  { id: 6, name: 'Best Match' },
   { id: 7, name: 'Expires Soonest' },
   { id: 8, name: 'Recently Posted' },
-  { id: 2, name: 'Highest Compensation' },
-  { id: 3, name: 'Lowest Compensation' }
 ]
 export const CHAT_GROUP_STATUS = {
   All: 0,
@@ -866,10 +863,6 @@ export const LIST_TAB = [
   {
     id: 'applied',
     name: 'Applied Jobs'
-  },
-  {
-    id: 'follow',
-    name: 'Followed Employers'
   }
 ]
 

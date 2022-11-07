@@ -50,7 +50,6 @@ export class JobSeekerDashboardComponent implements OnInit {
   user: UserInfo;
   orderBy: number;
   listTab: any = LIST_TAB;
-  FOLLOW_TAB = FOLLOW_TAB;
   jobBadgeNumber: object;
   listJob: Array<Job> = [];
   isSearching: boolean;
@@ -100,20 +99,6 @@ export class JobSeekerDashboardComponent implements OnInit {
     this.currentTab = '';
     this.messageNotFound = MESSAGE.JOB_SEARCH_JOBSEEKER_NOT_FOUND;
     this.querySearch = new SearchJobJobSeeker();
-    if (this.router.getCurrentNavigation() && this.router.getCurrentNavigation().extras) {
-      const state = this.router.getCurrentNavigation().extras.state;
-      console.log(state);
-      if (state && state?.neddVerifyEmailJobseeker) {
-        this.subjectService.user.subscribe(user => {
-          if (!user) return;
-          if (user.email_verified == 1) return;
-          const modalRef = this.modalService.open(ModalConfirmVerificationEmailComponent, {
-            windowClass: 'modal-crop-company-photo',
-            size: 'md'
-          });
-        })
-      }
-    }
   }
 
   ngOnInit(): void {
@@ -126,32 +111,11 @@ export class JobSeekerDashboardComponent implements OnInit {
       if (!data) return;
       this.totalEmplopyerFollowed = data.length;
     })
-    this.subjectService.settingsCard.subscribe(res => {
-      if (!res) return;
-      this.settingsCard = res;
-      // //console.log(this.settingsCard);
-      // this.settingsCard.top_up = this.settingsCard.top_up ? JSON.parse(this.settingsCard.top_up) : [];
-    })
     this.subjectService.listLevel.subscribe(listLevel => {
       if (!listLevel) return;
       this.listLevel = listLevel;
     })
-    // this.subjectService.listFallUnder.subscribe(listFallUnder => {
-    //   if (!listFallUnder) return;
-    //   this.listFallUnder = listFallUnder;
-    //   this.listFallUnder.sort(function (a, b) { return a.localeCompare(b) });
-    // })
-    this.subjectService.listCategory.subscribe(data => {
-      if (!data) return;
-      this.listCategory = data;
-      this.listCategoryRoot = data;
-        this.subjectService.listAssessment.subscribe(data => {
-          if (!data) return;
-          this.listAssessments = data;
-          this.mapDataAssessmentToCategory();
-        });
-    });
-
+  
     this.subjectService.user.subscribe(user => {
       if (!user) return;
       this.user = user;
@@ -171,9 +135,6 @@ export class JobSeekerDashboardComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       if (!params || !params.pageSize) {
         return;
-      }
-      if (params.needVerified) {
-        console.log('abc');
       }
       let page = 1;
       if (params && params.page) {
@@ -209,28 +170,6 @@ export class JobSeekerDashboardComponent implements OnInit {
     }
   }
 
-
-  mapDataAssessmentToCategory() {
-    if(!this.listAssessments || this.listAssessments.length <= 0) return;
-    this.listCategory.map((category, index) => {
-      this.listCategory[index] = { ...category, ...{ listAssessment: [], isShowListAssessment: false, isSelected: false } }
-      this.listAssessments.map(assessment => {
-        if (assessment.categories.some(item => item.category_id == category.id) && category.id !== CUSTOM_ASSESSMENT_ID) {
-          assessment = { ...assessment, ...{ selectedCandidate: false, disableDuplicate: false }};
-          this.listCategory[index].listAssessment.push(assessment);
-        }
-      })
-    });
-    this.checkMappingCategoryAssessments = true;
-    if(this.listCategory.findIndex(ca => ca.id === CUSTOM_ASSESSMENT_ID) >= 0) return;
-    this.listCategory.unshift({
-      id: CUSTOM_ASSESSMENT_ID,
-      name: 'Custom Employer Assessments',
-      isSelected: false
-    } as JobCategory);
-    this.listCategoryRoot = Object.assign([], this.listCategory);
-  }
-
   checkQueryParams(params) {
     if (params.salaryFrom) {
       this.querySearch.salaryFrom = Number.parseInt(params.salaryFrom);
@@ -244,21 +183,12 @@ export class JobSeekerDashboardComponent implements OnInit {
       this.querySearch.salaryType = params.salaryType;
       this.isShowSearchAdvanced = true;
     }
-    if (params.assessments && params.assessments != 'undefined') {
-      const assessmentsParams = decodeURIComponent(params.assessments);
-      const listAssessmentId = assessmentsParams.split(',')
-      this.querySearch.assessments = listAssessmentId.map(ass => Number.parseInt(ass));
-      this.isShowSearchAdvanced = true;
-    }
     if (params.city) {
       this.querySearch.city = params.city;
       this.isShowSearchAdvanced = true;
     }
     if (params.state) {
       this.querySearch.state = params.state;
-    }
-    if (params.zipcode) {
-      this.querySearch.zipcode = params.zipcode;
     }
     // new search
     if (params.employerId) {
@@ -278,29 +208,14 @@ export class JobSeekerDashboardComponent implements OnInit {
       this.querySearch.jobType = params.jobType;
       this.isShowSearchAdvanced = true;
     }
-    // within 25miles
-    if (params.within) {
-      this.querySearch.within = params.within;
-      this.isShowSearchAdvanced = true;
-    }
     // working place
     if (params.travel) {
       this.querySearch.travel = params.travel;
       this.isShowSearchAdvanced = true;
     }
-    // Percent Travel
-    if (params.percentTravelType) {
-      this.querySearch.percentTravelType = params.percentTravelType;
-      this.isShowSearchAdvanced = true;
-    }
     //Industry
     if (params.jobFallUnder) {
       this.querySearch.jobFallUnder = params.jobFallUnder.toString();
-      this.isShowSearchAdvanced = true;
-    }
-    //expired Date
-    if (params.expired) {
-      this.querySearch.expiredDate = params.expired;
       this.isShowSearchAdvanced = true;
     }
     let condition = this.getSearchCondition();
@@ -334,19 +249,11 @@ export class JobSeekerDashboardComponent implements OnInit {
   getListJob() {
     this.isLoadingListJob = true;
     this.condition = this.getSearchCondition();
-    this.condition.assessments = encodeURIComponent(this.condition.assessments);
     const conditionChangePage = Object.assign({}, this.condition, { page: 0, searchType: this.currentTab });
     const query = this.jobService._convertObjectToQuery(conditionChangePage);
     this.previousRouteService.replaceStage(`/job?${query}`);
-    if(this.condition.assessments && this.condition.assessments !== 'undefined'){
-      const assessmentsDecode = decodeURIComponent(this.condition.assessments);
-      const listAssessmentId = assessmentsDecode.split(',');
-      const listAssessmentRequest = listAssessmentId.length > 0 && listAssessmentId.map(ass => { return ass && Number.parseInt(ass) });
-      this.condition.assessments = [...new Set(listAssessmentRequest)];
-    }
     this.jobService.getListJobOfJobSeeker(this.condition).subscribe(res => {
       this.isSearching = false;
-      this.listCity = res.cities; // call 1 lan
       this.isLoadingListJob = false;
       this.paginationConfig.totalRecord = res.total;
       this.listJob = res.listJob;
@@ -470,7 +377,6 @@ export class JobSeekerDashboardComponent implements OnInit {
       searchType: this.currentTab,
       page: this.paginationConfig.currentPage,
       pageSize: this.paginationConfig.maxRecord,
-      orderNo: this.orderBestMatch
     }
     if (this.querySearch.searchType != undefined) condition.searchType = this.querySearch.searchType;
 
@@ -485,25 +391,10 @@ export class JobSeekerDashboardComponent implements OnInit {
     if (this.querySearch.place) {
       condition.place = this.querySearch.place;
     }
-
-    if (this.querySearch.location && this.querySearch.location.length == 2) {
-      condition.lat = this.querySearch.location[0];
-      condition.lon = this.querySearch.location[1];
-    } else {
-      condition.lat = '';
-      condition.lon = '';
-    }
-    condition.city = this.querySearch.city;
-    condition.state = this.querySearch.state;
-    condition.zipcode = this.querySearch.zipcode;
+    if(this.querySearch.city) condition.city = this.querySearch.city;
+    if(this.querySearch.state) condition.state = this.querySearch.state;
 
     if (this.isShowSearchAdvanced) {
-      // assessment category
-      if (this.querySearch.assessments && (this.querySearch.assessments) as any != 'undefined' && this.querySearch.assessments.length > 0) {
-        condition.assessments = this.querySearch.assessments; 
-      }else{
-        condition.assessments = [];
-      }
       // Offered compensation 
       if (this.querySearch.salaryFrom) {
         condition.salaryFrom = this.querySearch.salaryFrom;
@@ -523,21 +414,10 @@ export class JobSeekerDashboardComponent implements OnInit {
       if (this.querySearch.jobType >= 0) {
         condition.jobType = this.querySearch.jobType;
       }
-      
-      // within 25miles
-      if (this.querySearch.place) {
-        condition.within = this.querySearch.within != undefined ? this.querySearch.within : DEFAULT_WITHIN.id;
-      }
+    
       // working place
       if (this.querySearch.travel >= 0) {
         condition.travel = this.querySearch.travel;
-      }
-      // Percent Travel
-      if (this.querySearch.percentTravelType >= 0) {
-        const percentTravelType = this.JOB_PERCENT_TRAVEL_TYPE.find(percent => percent.id == this.querySearch.percentTravelType);
-        if (percentTravelType) {
-          condition.percentTravelType = percentTravelType.id;
-        }
       }
       //Industry
       if (this.querySearch.jobFallUnder) {

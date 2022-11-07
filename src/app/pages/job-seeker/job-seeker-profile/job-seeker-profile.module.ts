@@ -13,20 +13,16 @@ import { Ng2TelInputModule } from 'ng2-tel-input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FindCandidateProfileComponent } from './find-candidate-profile/find-candidate-profile.component';
 import { PfDemographicSurveyComponent, NgbDateCustomParserFormatter } from './pf-demographic-survey/pf-demographic-survey.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { ShareUserHistoryComponent } from './share-user-history/share-user-history.component';
 
 @NgModule({
   declarations: [
     JobSeekerProfileComponent,
     UserInformationsComponent,
     PasswordManagementComponent,
-    FindCandidateProfileComponent,
     PfDemographicSurveyComponent,
-    ShareUserHistoryComponent,
   ],
   imports: [
     CommonModule,

@@ -77,7 +77,7 @@ export class JobCardDetailsComponent implements OnInit {
         const tmpListAssessmentJob = get(this.jobDetails, 'listAssessment', []);
         tmpListAssessmentJob.map(assessmentjob => {
           const myAssessment = this.myAssessments.find(assessment =>
-            assessmentjob.assessmentId === assessment.assessmentId && assessment.totalTake);
+            assessmentjob.assessmentId === assessment.assessmentId);
           if (myAssessment) {
             checkNumberAssessmentJob.push(myAssessment);
           }
@@ -117,7 +117,7 @@ export class JobCardDetailsComponent implements OnInit {
     const tmpListAssessmentJob = get(this.jobDetails, 'listAssessment', []);
     tmpListAssessmentJob.map(assessmentjob => {
       const myAssessment = this.myAssessments.find(assessment =>
-        assessmentjob.assessmentId === assessment.assessmentId && assessment.totalTake);
+        assessmentjob.assessmentId === assessment.assessmentId);
       if (myAssessment) {
         checkNumberAssessmentJob.push(myAssessment);
       }

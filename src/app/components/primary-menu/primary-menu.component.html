@@ -44,8 +44,8 @@
               <li *ngIf="isEmployer()">
                 <a [routerLink]="'/applicants'" routerLinkActive="active">Applicants</a>
               </li>
-              <li>
-                <a [routerLink]="user.accountType == listUserType.EMPLOYER ? '/employer-assessments' : '/job-seeker-assessments'"
+              <li *ngIf="user.accountType == listUserType.EMPLOYER">
+                <a routerLink="/employer-assessments"
                   routerLinkActive="active">Assessments</a>
               </li>
 
@@ -80,8 +80,6 @@
                   </div>
                   <div class="box-acc__img box-acc__img--employer" *ngIf="user.accountType == listUserType.EMPLOYER "
                     [class.has-logo]="user.employer_id">
-                    <!-- <img *ngIf="!user.employer_id" [src]="currentLogoCompany" onerror="this.src='assets/images/employer_default_photo_1.png'"
-                    alt="{{user.firstName}} {{user.lastName}}" /> -->
                     <img [src]="currentProfileEmployer" onerror="this.src='assets/images/jobseeker_1.jpg'"
                       alt="{{user.firstName}} {{user.lastName}}" class="avatar" />
                     <img alt="logo-company" onerror="this.src='assets/images/employer_default_photo_1.png'"
@@ -99,9 +97,6 @@
                   <button ngbDropdownItem
                     (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('company-profile') : redirectToJobseeker('profile')"
                     *ngIf="isShowFullMenu && user.accountType == listUserType.EMPLOYER">Company Profile</button>
-                  <button [hidden]="user.accountType != listUserType.EMPLOYER" ngbDropdownItem
-                    (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('member') : redirectToJobseeker('member')"
-                    *ngIf="isShowFullMenu">Manage Members</button>
                   <button ngbDropdownItem
                     (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('password') : redirectToJobseeker('password')"
                     *ngIf="isShowFullMenu">Password</button>
@@ -154,8 +149,8 @@
                     <li *ngIf="isEmployer()" ngbDropdownItem>
                       <a [routerLink]="'/applicants'" routerLinkActive="active">Applicants</a>
                     </li>
-                    <li ngbDropdownItem>
-                      <a [routerLink]="user.accountType == listUserType.EMPLOYER ? '/employer-assessments' : '/job-seeker-assessments'"
+                    <li ngbDropdownItem *ngIf="user.accountType == listUserType.EMPLOYER">
+                      <a routerLink="/employer-assessments"
                         routerLinkActive="active">Assessments</a>
                     </li>
                   </ul>
@@ -193,9 +188,8 @@
                       <li *ngIf="isEmployer()" ngbDropdownItem>
                         <a [routerLink]="'/applicants'" routerLinkActive="active">Applicants</a>
                       </li>
-                      <li ngbDropdownItem>
-                        <a [routerLink]="user.accountType == listUserType.EMPLOYER ? '/employer-assessments' : '/job-seeker-assessments'"
-                          routerLinkActive="active">Assessments</a>
+                      <li ngbDropdownItem *ngIf="user.accountType == listUserType.EMPLOYER">
+                        <a routerLink="/employer-assessments" routerLinkActive="active">Assessments</a>
                       </li>
                       <li *ngIf="user.accountType == listUserType.EMPLOYER" ngbDropdownItem>
                         <a routerLinkActive="active" [routerLink]="['/shopping-card']"
@@ -240,8 +234,8 @@
                       <li *ngIf="isEmployer()" ngbDropdownItem>
                         <a [routerLink]="'/applicants'" routerLinkActive="active">Applicants</a>
                       </li>
-                      <li ngbDropdownItem>
-                        <a [routerLink]="user.accountType == listUserType.EMPLOYER ? '/employer-assessments' : '/job-seeker-assessments'"
+                      <li ngbDropdownItem *ngIf="user.accountType == listUserType.EMPLOYER">
+                        <a routerLink="/employer-assessments"
                           routerLinkActive="active">Assessments</a>
                       </li>
                      
@@ -306,8 +300,6 @@
                   </div>
                   <div class="box-acc__img box-acc__img--employer" *ngIf="user.accountType == listUserType.EMPLOYER "
                     [class.has-logo]="user.employer_id">
-                    <!-- <img *ngIf="!user.employer_id" [src]="currentLogoCompany" onerror="this.src='assets/images/employer_default_photo_1.png'"
-                      alt="{{user.firstName}} {{user.lastName}}" class="avatar" /> -->
                     <img [src]="currentProfileEmployer" onerror="this.src='assets/images/jobseeker_1.jpg'"
                       alt="{{user.firstName}} {{user.lastName}}" class="avatar" />
                     <img alt="logo-company" onerror="this.src='assets/images/employer_default_photo_1.png'"
@@ -324,9 +316,6 @@
                   <button ngbDropdownItem
                     (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('company-profile') : redirectToJobseeker('profile')"
                     *ngIf="isShowFullMenu && user.accountType == listUserType.EMPLOYER">Company Profile</button>
-                  <button [hidden]="user.accountType != listUserType.EMPLOYER" ngbDropdownItem
-                    (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('member') : redirectToJobseeker('member')"
-                    *ngIf="isShowFullMenu">Manage Members</button>
                   <button ngbDropdownItem
                     (click)="user.accountType == listUserType.EMPLOYER ? redirectToEmployer('password') : redirectToJobseeker('password')"
                     *ngIf="isShowFullMenu">Password</button>

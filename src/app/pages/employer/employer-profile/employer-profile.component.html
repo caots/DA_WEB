@@ -31,19 +31,6 @@
               </ng-template>
             </li>
 
-            <li ngbNavItem="member" [routerLink]="'/employer-profile/member'">
-              <a ngbNavLink>
-                <fa-icon [icon]="['fas', 'users']" class="mr-2"></fa-icon>
-                <span>Manage Members</span>
-              </a>
-              <ng-template ngbNavContent>
-                <div class="user-information" >
-                  <!-- <h3 class="mb-5 title-profile">Manage Members</h3> -->
-                  <ms-manage-members></ms-manage-members>
-                </div>
-              </ng-template>
-            </li>
-
             <li ngbNavItem="password" [routerLink]="'/employer-profile/password'">
               <a ngbNavLink>
                 <fa-icon [icon]="['fas', 'key']" class="mr-2"></fa-icon>

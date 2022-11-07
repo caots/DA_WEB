@@ -1,6 +1,5 @@
 
 
-<p style="margin-bottom: 20px; font-size: 17px;" >Providing this optional demographic information helps us ensure our assessments and products are fair and unbiased. Your answers will remain strictly confidential and will not be shared with any employers. MeasuredSkills may provide aggregated assessment data to employers to show our assessments are fair, unbiased, and EEOC compliant. In such cases all no personally identifiable information will be shared. Please refer to our full Privacy Policy for further information.</p>
 <div class="border-box">
   <p class="border-box__title">Demographic Survey</p>
   <div class="jobs-seeker-info" *ngIf="!isLoadingDataSurvey">
@@ -45,36 +44,6 @@
         <select class="form-comtrol" formControlName="question7">
           <option hidden disabled selected value></option>
           <option *ngFor="let answer of listQuestionSurveys.FormalEducation.answers" [value]="answer.id" >{{answer.title}}</option>
-        </select>
-      </div>
-      <h5 class="text-dark mb-2"><b>{{listQuestionSurveys.VeteranStatus.title}}</b></h5>
-      <div class="form-group">
-        <label>{{listQuestionSurveys.VeteranStatus.description}}</label>
-        <select class="form-comtrol" formControlName="question4">
-          <option hidden disabled selected value></option>
-          <option *ngFor="let answer of listQuestionSurveys.VeteranStatus.answers" [value]="answer.id" >{{answer.title}}</option>
-        </select>
-      </div>
-      <div *ngIf="formSurvey.get('question4').value == YES_ANSWER_VeteranStatus">
-        <h5 class="text-dark mb-2"><b>{{listQuestionSurveys.SpecialVeteranStatus.title}}</b></h5>
-        <div class="form-group select-items">
-          <label>{{listQuestionSurveys.SpecialVeteranStatus.description}}</label>
-          <ng-multiselect-dropdown 
-            placeholder="Select answers" 
-            class="form-comtrol form-control-multiple" 
-            formControlName="question5" 
-            [settings]="dropdownSettings" 
-            [data]="listQuestionSurveys.SpecialVeteranStatus.answers">
-          </ng-multiselect-dropdown>
-       </div>
-      </div>
-
-      <h5 class="text-dark mb-2"><b>{{listQuestionSurveys.DisabilityStatus.title}}</b></h5>
-      <div class="form-group">
-        <label>{{listQuestionSurveys.DisabilityStatus.description}}</label>
-        <select class="form-comtrol" formControlName="question6">
-          <option hidden disabled selected value></option>
-          <option *ngFor="let answer of listQuestionSurveys.DisabilityStatus.answers" [value]="answer.id" >{{answer.title}}</option>
         </select>
       </div>
       <div class="form-group button-submit">

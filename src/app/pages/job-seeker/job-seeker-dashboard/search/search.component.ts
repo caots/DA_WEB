@@ -31,11 +31,7 @@ export class SearchComponent implements OnInit {
   @Input() isShow: boolean;
   @Input() orderBy: number;
   @Input() isSearching: boolean;
-  @Input() query: SearchJobJobSeeker;
-  @Input() listCategory: Array<JobCategory>;
-  @Input() listCategoryRoot: Array<JobCategory>;
-  @Input() listAssessments: Array<Assesment>;
-  @Input() listAssessmentSelected: Array<Assesment>;
+  @Input() query: SearchJobJobSeeker
   @Input() user: any;
   @Input() employmentType: any;
   @Input() listCompany: companySearch[];
@@ -195,40 +191,6 @@ export class SearchComponent implements OnInit {
     if (this.query.salaryType) {
       this.valueSalaryType = this.query.salaryType;
     }
-
-    if (this.query.assessments && this.query.assessments.length > 0) {
-      this.query.assessments = [...new Set(this.query.assessments)];
-      this.query.assessments?.map(idAssessment => {
-        if (idAssessment == CUSTOM_SELECT_ASSESSMENT_ID) {
-          const indexCustomCategory = this.listCategory.findIndex(ca => ca.id === CUSTOM_ASSESSMENT_ID);
-          if (indexCustomCategory < 0) return;
-          this.listCategory[indexCustomCategory].isSelected = true;
-          this.listAssessmentSelected.push(ASSESSMENT_CUSTOM_CATEGORY as Assesment);
-        } else{
-          let checkFirstAssessmentSelected = false;
-          this.listCategory.map((ca, indexCa) => {
-            const index = ca.listAssessment && ca.listAssessment.findIndex(assessment => assessment.assessmentId == idAssessment);
-            if (index >= 0 && !checkFirstAssessmentSelected) {
-              const assessmentSelected = this.listCategory[indexCa].listAssessment[index];
-              this.listCategory[indexCa].listAssessment[index] = Object.assign({}, assessmentSelected, { selectedCandidate: true });
-              this.listAssessmentSelected.push(this.listCategory[indexCa].listAssessment[index]);
-              // disable to assessment duplicate
-              const assessment = this.listCategory[indexCa].listAssessment[index];
-              if(assessment.categories && assessment.categories.length > 0){
-                this.updateDisableAssessment(assessment,  this.listCategory[indexCa]);
-              } 
-              // update select all category;
-              ca.isShowListAssessment = true;
-              if (ca.listAssessment.length > 0 && !ca.listAssessment.find(ass => !ass.selectedCandidate)) {
-                ca.isSelected = true;
-              }
-              checkFirstAssessmentSelected = true;
-            }
-          })
-        }
-      })
-    }
-    this.listCategoryRoot = Object.assign([], this.listCategory);
   }
 
   clearValueSearch() {
@@ -293,7 +255,6 @@ export class SearchComponent implements OnInit {
     }
     this.isSearchingChange.emit(true);
     if (this.place) this.cityValue = undefined;
-    this.query.assessments = this.listAssessmentSelected.map(ass => { return ass.assessmentId });
     this.search.emit();
   }
 
@@ -378,8 +339,6 @@ export class SearchComponent implements OnInit {
     this.jobService.getCompanySearchDetails(this.query.employer.companyID).subscribe(data => {
       this.companyInfo = data;
       this.isLoadingCompanyDetails = false;
-      const index = this.listIdsEmplopyerFollowed && this.listIdsEmplopyerFollowed.findIndex(id => id == this.companyInfo.employerId);
-      this.checkEmployerFollowed = index >= 0;
     }, err => {
       this.helperService.showToastError(err);
       this.isLoadingCompanyDetails = false;
@@ -451,10 +410,6 @@ export class SearchComponent implements OnInit {
         this.companyValue = data.companyName;
         this.findCompanyInfo();
         break;
-      case this.TYPE_SEARCH_ADVANCE_JOBSEEKER.CITY:
-        this.query.city = data;
-        this.cityValue = data;
-        break;
       case this.TYPE_SEARCH_ADVANCE_JOBSEEKER.WITHIN:
         this.query.within = data.id;
         this.withinValue = data.value;
@@ -462,10 +417,6 @@ export class SearchComponent implements OnInit {
       case this.TYPE_SEARCH_ADVANCE_JOBSEEKER.WORKPLACE:
         this.query.travel = data.id;
         this.jobTravelValue = data.value;
-        break;
-      case this.TYPE_SEARCH_ADVANCE_JOBSEEKER.PERCENT_TRAVEL:
-        this.query.percentTravelType = data.id;
-        this.jobPercentTravelValue = data.value;
         break;
       case this.TYPE_SEARCH_ADVANCE_JOBSEEKER.INDUSTRY:
         this.query.jobFallUnder = data;
@@ -479,166 +430,8 @@ export class SearchComponent implements OnInit {
     this.search.emit();
   }
 
-  followEmployer(status) {
-    const action = status ? ACTION_FOLLOW.unfollow : ACTION_FOLLOW.follow;
-    if (action == ACTION_FOLLOW.unfollow) this.onUnFollow(action, status);
-    else this.onToggleFollowEmolyer(action, status);
-  }
-
-  async onUnFollow(action, status) {
-    const isConfirmed = await this.helperService.confirmPopup(`Are you sure you want to unfollow ${this.companyInfo.companyName}?`, MESSAGE.BTN_YES_TEXT);
-    if (isConfirmed) {
-      this.onToggleFollowEmolyer(action, status);
-    }
-  }
-
   goToLogin() {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
-
-  onToggleFollowEmolyer(action, status) {
-    if (!this.user) {
-      this.goToLogin();
-      return;
-    }
-    this.jobService.followEmployer(this.companyInfo.employerId, action).subscribe(data => {
-      this.helperService.showToastSuccess(action == ACTION_FOLLOW.follow ? MESSAGE.UPDATE_FOLLOW_SUCCESSFULY : MESSAGE.UPDATE_UNFOLLOW_SUCCESSFULY);
-      this.checkEmployerFollowed = !status;
-      this.jobService.getListIdCompanyFollowed().subscribe();
-    }, err => {
-      this.helperService.showToastError(err);
-    })
-  }
-
-  onSelectedCategory(category: JobCategory) {
-    category.isSelected = !category.isSelected;
-    if (category.id === CUSTOM_ASSESSMENT_ID) {
-      if (!category.isSelected) {
-        const index = this.listAssessmentSelected.findIndex(ass => ass.assessmentId === CUSTOM_SELECT_ASSESSMENT_ID);
-        if (index >= 0) this.listAssessmentSelected.splice(index, 1);
-      } else {
-        this.listAssessmentSelected.push(ASSESSMENT_CUSTOM_CATEGORY as Assesment);
-      }
-    } else {
-      category.listAssessment && category.listAssessment.map((assessment) => {
-        if (!category.isSelected) {
-          if (!assessment.selectedCandidate || assessment.disableDuplicate) { return; }
-          assessment.selectedCandidate = false;
-          const index = this.listAssessmentSelected.findIndex(ass => ass.assessmentId == assessment.assessmentId);
-          if (index >= 0) this.listAssessmentSelected.splice(index, 1);
-           // able to assessment duplicate
-           if(assessment.categories && assessment.categories.length > 0) this.updateAbleAssessment(assessment);
-        } else {
-          if (assessment.selectedCandidate || assessment.disableDuplicate) { return; }
-          assessment.selectedCandidate = true;
-          this.listAssessmentSelected.push(assessment);
-          // disable to assessment duplicate
-          if(assessment.categories && assessment.categories.length > 0) this.updateDisableAssessment(assessment, category);
-        }
-      });
-    }
-    this.listAssessmentSelected = this.listAssessmentSelected.sort((a, b) => a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase() ? 1 : -1);
-  }
-
-  checkSelectedListAssessment(category) {
-    let check = false;
-    if (category.isSelected) check = true;
-    category.listAssessment && category.listAssessment.map((assessment, index) => {
-      if (!assessment.selectedCandidate) {
-        category.listAssessment[index].point = undefined;
-        return check = false;
-      }
-    });
-    return check;
-  }
-
-  onSelectedAssessemnt(assessment: Assesment, category: JobCategory) {
-    const indexAssessment = category.listAssessment.findIndex(ass => ass.assessmentId == assessment.assessmentId);
-    if (indexAssessment < 0) return;
-    const indexCategory = this.listCategory.findIndex(ca => ca.id == category.id);
-    if (indexCategory < 0) return;
-
-    this.listCategory[indexCategory].listAssessment[indexAssessment].selectedCandidate = !assessment.selectedCandidate;
-    if (!assessment.selectedCandidate) {
-      const index = this.listAssessmentSelected.findIndex(ass => ass.assessmentId == assessment.assessmentId);
-      if (index >= 0) this.listAssessmentSelected.splice(index, 1);
-      // able to assessment duplicate
-      if(assessment.categories && assessment.categories.length > 0) this.updateAbleAssessment(assessment);
-    } else {
-      this.listAssessmentSelected.push(assessment);
-      // disable to assessment duplicate
-      if(assessment.categories && assessment.categories.length > 0) this.updateDisableAssessment(assessment, category);
-    }
-    // update select all category;
-    if (!assessment.selectedCandidate && category.isSelected) {
-      category.isSelected = false;
-    }
-    if (category.listAssessment.length > 0 && !category.listAssessment.find(ass => !ass.selectedCandidate)) {
-      category.isSelected = true;
-    }
-    // sort by name
-    this.listAssessmentSelected = this.listAssessmentSelected.sort((a, b) => a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase() ? 1 : -1);
-  }
-
-  SearchAssessmentSuggest() {
-    this.listCategory = [];
-    this.listCategoryRoot.map(category => {
-      let check = false;
-      if (category.name.toLocaleLowerCase().search(this.nameAssessmentSearch.toLocaleLowerCase()) > -1) {
-        check = true;
-        this.listCategory.push(category);
-        return;
-      }
-      category.listAssessment && category.listAssessment.map(assessment => {
-        if (assessment.name.toLocaleLowerCase().search(this.nameAssessmentSearch.toLocaleLowerCase()) > -1) check = true
-      })
-      if (check) this.listCategory.push(category);
-    })
-  }
-
-  removeAssessment(assessment: Assesment, index) {
-    this.showSearchAssessment = false;
-    const indexCategories = [];
-    this.listCategory.forEach((ca, index) => {
-      if(assessment.categories.some(item => item.category_id == ca.id)) indexCategories.push(index);
-    })
-    if(indexCategories.length <= 0) return;
-    indexCategories.forEach(indexCategory => {
-      if (this.listCategory[indexCategory].id === CUSTOM_ASSESSMENT_ID) {
-        this.listCategory[indexCategory].isSelected = false;
-      } else {
-        const indexAssessment = this.listCategory[indexCategory].listAssessment.findIndex(ass => ass.assessmentId == assessment.assessmentId);
-        if (indexAssessment >= 0) {
-          this.listCategory[indexCategory].isSelected = false;
-          this.listCategory[indexCategory].listAssessment[indexAssessment].selectedCandidate = false;
-          this.listCategory[indexCategory].listAssessment[indexAssessment].point = undefined;
-        }
-      }
-    })
-    this.listAssessmentSelected.splice(index, 1);
-    // disable to assessment duplicate
-    if(assessment.categories && assessment.categories.length > 0) this.updateAbleAssessment(assessment);
-  }
-
-  updateDisableAssessment(assessment: Assesment, ca: JobCategory){
-    this.listCategory.forEach((category, i) => {
-      if (assessment.categories.some(item => item.category_id == category.id)) {
-        const index = category.listAssessment && category.listAssessment.findIndex(as => as.assessmentId == assessment.assessmentId);
-        if (index >= 0 && ca.id !== category.id) {
-          category.listAssessment[index].disableDuplicate = true;
-        }
-      }      
-    })
-  }
-
-  updateAbleAssessment(assessment: Assesment){
-    this.listCategory.forEach((category, i) => {
-      if (assessment.categories.some(item => item.category_id == category.id)) {
-        const index = category.listAssessment && category.listAssessment.findIndex(as => as.assessmentId == assessment.assessmentId);
-        if (index >= 0) category.listAssessment[index].disableDuplicate = false;
-      }
-    })
-  }
-
 }

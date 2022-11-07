@@ -13,13 +13,6 @@
         </div>
         <a [routerLink]="[job.urlSeo]" class="job-company-name" [queryParams]="{tab: 'employer'}">{{job.companyName}}</a>
       </h3>
-      <ng-template #tipIconResoinsive>Responsive employer.</ng-template>
-      <div class="icon-responsive ml-3" [ngbTooltip]="tipIconResoinsive" tooltipClass="tooltip-custom" *ngIf="job && job.employerUserResponsive >= USER_RESPONSIVE.EMPLOYER">
-        <svg-icon src="assets/icons/run.svg"></svg-icon>
-      </div>
-      <div class="header-info__right ml-3" [hidden]="query.employer">
-        <button class="button-follow" (click)="followEmployer(checkEmployerFollowed)" type="button" [class]="checkEmployerFollowed ? 'btn btn-secondary' : 'btn btn-primary'">{{checkEmployerFollowed? 'Unfollow' : 'Follow'}}</button>
-      </div>
     </div>
     <div class="posting-item__pos" *ngIf="job.cityName || job.stateName">
       <!-- <i class="fas fa-map-marker-alt mr-2"></i> -->
@@ -41,25 +34,12 @@
     </div>
     <div class="posting-item__edits mr-3">
       <div class="box-right">
-        <a class="btn-apply-job" *ngIf="tab == TAB_DASHBOARD_JOBSEEKER.applied && job.can_rate_stars && job.group_id" (click)="viewMessage()">
+        <a class="btn-apply-job" *ngIf="tab == TAB_DASHBOARD_JOBSEEKER.applied && job.group_id" (click)="viewMessage()">
           <fa-icon [icon]="['far', 'comments']"></fa-icon>
           View Message
         </a>
         <a *ngIf="isApply()" [hidden]="checkExpired" id="applyBtn" class="btn-apply-job green-btn" (click)="onCheckValidateScore(modalApplyJob)">Apply</a>
         <a *ngIf="!isApply()" class="btn-apply-job withdraw-application" (click)="drawJob()">Withdraw Application</a>
-      </div>
-
-      <div class="box-share-jobs" shareButtonDir>
-        <a class="btn-share-job">
-          <fa-icon [icon]="['fas', 'share-alt']"></fa-icon>
-        </a>
-        <div class="share-jobs">
-          <share-button  button="facebook"  [url]="shareUrl()"></share-button>
-          <share-button  button="twitter"  [url]="shareUrl()"></share-button>
-          <share-button  button="email"  [url]="shareUrl(1)"></share-button>
-          <share-button  button="copy"  [url]="shareUrl()"></share-button>
-        </div>
-
       </div>
       <div class="item-bookmark" (click)="bookmarkJob()" [ngClass]="{active: isBookmark}">
         <fa-icon [icon]="['fas', 'bookmark']"></fa-icon>
@@ -74,13 +54,6 @@
         </div>
         <a [routerLink]="[job.urlSeo]" class="job-company-name" [queryParams]="{tab: 'employer'}">{{job.companyName}}</a>
       </h3>
-      <ng-template #tipIconResoinsive>Responsive employer.</ng-template>
-      <div class="icon-responsive ml-3" [ngbTooltip]="tipIconResoinsive" tooltipClass="tooltip-custom" *ngIf="job && job.employerUserResponsive >= USER_RESPONSIVE.EMPLOYER">
-        <svg-icon src="assets/icons/run.svg"></svg-icon>
-      </div>
-      <div class="header-info__right ml-3" [hidden]="query.employer">
-        <button class="button-follow" (click)="followEmployer(checkEmployerFollowed)" type="button" [class]="checkEmployerFollowed ? 'btn btn-secondary' : 'btn btn-primary'">{{checkEmployerFollowed? 'Unfollow' : 'Follow'}}</button>
-      </div>
     </div>
 
     <p class="view-and-expires mt-3 mb-3" *ngIf="job.isPrivate != 1">
@@ -153,18 +126,6 @@
   </ms-modal-apply-job>
 </ng-template>
 
-<!-- <ng-template #modalValidatedAssessments>
-  <ms-modal-validated-assessments *ngIf="userData && settingsCard"
-  [userData]="userData"
-  [settingsCard]="settingsCard"
-  [validateAssessments]="listCheckNumberAssessmentJob && listCheckNumberAssessmentJob"
-  [listAssessmentJob]="job.listAssessment"
-  (close)="closeModalValidatedAssessments()"
-  ></ms-modal-validated-assessments>
-</ng-template> -->
-
-
-<!-- New modal take assessment to apply -->
 <ng-template #modalTakeAssessment>
 <ms-modal-take-assessments-to-apply (close)="modalTakeAssessmentRef.close()"></ms-modal-take-assessments-to-apply>
 </ng-template>

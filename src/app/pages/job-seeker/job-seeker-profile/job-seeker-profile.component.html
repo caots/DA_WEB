@@ -17,14 +17,6 @@
                       [ngClass]="{active: tabUserInfo == TAB_JOBSEEKER_INFO.MY_INFO}">
                       <span>My Info</span>
                     </a>
-                    <a class="tabs-title__item" (click)="changeTabUser(TAB_JOBSEEKER_INFO.CANDIDATE_PROFILE)"
-                      [ngClass]="{active: tabUserInfo == TAB_JOBSEEKER_INFO.CANDIDATE_PROFILE}">
-                      <span>Find Candidate Profile</span>
-                    </a>
-                    <a class="tabs-title__item user-story-tab" style="max-width: 250px;" (click)="changeTabUser(TAB_JOBSEEKER_INFO.SHARE_USER_HISTORY)"
-                      [ngClass]="{active: tabUserInfo == TAB_JOBSEEKER_INFO.SHARE_USER_HISTORY}">
-                      <span>Share Score Reports</span>
-                    </a>
                     <a class="tabs-title__item" (click)="changeTabUser(TAB_JOBSEEKER_INFO.DEMOGRAPHIC_SURVEY)"
                       [ngClass]="{active: tabUserInfo == TAB_JOBSEEKER_INFO.DEMOGRAPHIC_SURVEY}">
                       <span>Demographic Survey</span>
@@ -33,12 +25,6 @@
                 </div>
                 <div class="user-information" *ngIf="tabUserInfo == TAB_JOBSEEKER_INFO.MY_INFO">
                   <ms-user-informations></ms-user-informations>
-                </div>
-                <div class="user-information" *ngIf="tabUserInfo == TAB_JOBSEEKER_INFO.CANDIDATE_PROFILE">
-                  <ms-find-candidate-profile></ms-find-candidate-profile>
-                </div>
-                <div class="user-information" *ngIf="tabUserInfo == TAB_JOBSEEKER_INFO.SHARE_USER_HISTORY">
-                  <ms-share-user-history></ms-share-user-history>
                 </div>
                 <div class="user-information" *ngIf="tabUserInfo == TAB_JOBSEEKER_INFO.DEMOGRAPHIC_SURVEY">
                   <ms-pf-demographic-survey></ms-pf-demographic-survey>
@@ -54,61 +40,6 @@
                 <h3 class="payment-title mb-4">Password</h3>
                 <div class="user-information">
                   <ms-password-management></ms-password-management>
-                </div>
-              </ng-template>
-            </li>
-            <li ngbNavItem="payment" [routerLink]="'/job-seeker-profile/payment'">
-              <a ngbNavLink>
-                <fa-icon [icon]="['far', 'credit-card']" class="mr-2"></fa-icon>
-                <span>Billing and Payment</span>
-              </a>
-              <ng-template ngbNavContent >
-                <div class="payment-box">
-                  <h3 class="payment-title mb-4">Billing and Payment</h3>
-                  <div class="tab-info-user">
-                    <div class="tabs-title">
-                      <a class="tabs-title__item" (click)="changeTabBillings(TAB_EMPLOYER_BILLINGS.INFO_CARD)"
-                        [ngClass]="{active: tabBillingInfo == TAB_EMPLOYER_BILLINGS.INFO_CARD}">
-                        Payment Information
-                      </a>
-                      <a class="tabs-title__item" (click)="changeTabBillings(TAB_EMPLOYER_BILLINGS.BILLINGS)"
-                        [ngClass]="{active: tabBillingInfo == TAB_EMPLOYER_BILLINGS.BILLINGS}">
-                        Billing History
-                      </a>
-                    </div>
-                  </div>
-                  <div class="user-information" *ngIf="tabBillingInfo == TAB_EMPLOYER_BILLINGS.INFO_CARD">
-                    <div class="my-credits mb-40">
-                      <ms-my-credits
-                        *ngIf="settingsCard && userData"
-                        [userInfo]="userData"
-                        [settings]="settingsCard"
-                      ></ms-my-credits>
-                    </div>
-                    <div class="payment-method mb-4">
-                      <ms-payment-methods
-                        (updateCard)="updateCard()"
-                        (deleteCard)="deleteCard()"
-                      ></ms-payment-methods>
-                    </div>
-                    <div class="payment-method mb-4" >
-                      <ms-billing-infomation></ms-billing-infomation>
-                    </div>
-                  </div>
-                  <div class="user-information" *ngIf="tabBillingInfo == TAB_EMPLOYER_BILLINGS.BILLINGS">
-                    <ms-loading-billing-history [numberCard]="10" *ngIf="isLoadingBillingHistory"></ms-loading-billing-history>
-                    <div class="billing-history" *ngIf="!isLoadingBillingHistory">
-                      <ms-billing-history
-                        [hiddenTitle]="true"
-                        [type]="userType.JOB_SEEKER"
-                        [dataBillings]="dataBillings"
-                        (exportBillingHistory)="exportBillingHistory($event)"
-                      ></ms-billing-history>
-                      <div class="wrap__pagination">
-                        <ms-pagination *ngIf="dataBillings" [config]="paginationConfig" (goTo)="paginationBillHistory($event)"></ms-pagination>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </ng-template>
             </li>
