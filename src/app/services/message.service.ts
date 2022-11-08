@@ -69,23 +69,8 @@ export class MessageService {
     this.socket.connect();
     this.socket.emit('JOIN_ALL_ZOOM', user && user.id);
     this.handleOnSocketSubscription(user);
-    // notification
-    this.socket.on('ON_RECEIVED_NOTIFICATION', (data) => {
-      this.updateDataNotification();
-    });
   }
 
-  updateDataNotification() {
-    // number of un read message
-    this.notificationService.getTotalNotification().subscribe();
-    // list message
-    this.notificationService.getListNotification(this.params).subscribe(data => {
-      this.subjectService.listNotificationUnRead.next(data.listNoti);
-      this.subjectService.totalNotification.next(data.total);
-    }, err => {
-      this.helperService.showToastError(err);
-    })
-  }
 
   handleOnSocketSubscription(user: UserInfo) {
     // on received message
@@ -136,30 +121,6 @@ export class MessageService {
     });
     this.subscription.add(handleEventListenMessage);
 
-    const handleEventInviteJoinZoom = this.handleEventInviteJoinZoom().subscribe((data: any) => {
-      if (!data || !data.group_id) { return; }
-      this.joinToGroup(data.group_id);
-    });
-    this.subscription.add(handleEventInviteJoinZoom);
-
-    if (user.acc_type == USER_TYPE.JOB_SEEKER) {
-      this.userService.onSocketToMocha();
-    }
-    // on received request unmark
-    const handleEventRequestUnmarkFromEmployer = this.handleEventRequestUnmarkUpdate().subscribe((data: SocketMessage) => {
-      if (!data) { return; }
-      const senderId = get(data, 'current_user.id', -1);
-      // only need check other user
-      if (this.user.id != senderId && this.user.id != data.updated_user_id) {
-        //console.log('receivedRequestUnmarkFromEmployer');
-        this.receivedRequestUnmarkUpdate.next(data);
-      }
-    });
-    this.subscription.add(handleEventRequestUnmarkFromEmployer);
-
-    this.socket.on('ON_RECEIVED_NOTIFICATION', (notification) => {
-      console.log(notification);
-    })
   }
   playAudio() {
     const audio = new Audio();
@@ -171,6 +132,7 @@ export class MessageService {
     if (!groupId) { return; }
     this.socket.emit('JOIN_ZOOM', groupId);
   }
+  
   disconnect() {
     this.subscription.unsubscribe();
     this.subscription = new Subscription();

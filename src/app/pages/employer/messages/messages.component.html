@@ -9,28 +9,12 @@
             </a>
             <div class="job-seeker-card d-flex">
               <div class="chat-user-item__img" [class.has-logo]="user.employer_id">
-                <img *ngIf="!user.employer_id" [src]="user.avatar" onerror="this.src='assets/images/jobseeker_1.jpg'"
+                <img [src]="user.avatar" onerror="this.src='assets/images/jobseeker_1.jpg'"
                   alt="{{user.firstName}} {{user.lastName}}" class="avatar" />
-                <img *ngIf="user.employer_id" [src]="user.avatar" onerror="this.src='assets/images/jobseeker_1.jpg'"
-                  alt="{{user.firstName}} {{user.lastName}}" class="avatar" />
-                <img *ngIf="user.employer_id" alt="logo-company" onerror="this.src='assets/images/employer_default_photo_1.png'" [src]="currentLogoCompany" class="company"/>
               </div>
               <div class="chat-user-item__summary d-flex align-items-center flex-wrap">
                 <h2 style="margin: 0;">{{user.firstName}} {{user.lastName}}</h2>
               </div>
-              <div class="box-filter-select">
-                <select class="select-control" (ngModelChange)="changeSearch()" [(ngModel)]="querySearch.searchType">
-                  <option selected="selected" [value]="CHAT_GROUP_STATUS.All">All</option>
-                  <option [value]="CHAT_GROUP_STATUS.Active">Inbox</option>
-                  <option [value]="CHAT_GROUP_STATUS.Archived">Archived</option>
-                </select>
-              </div>
-            </div>
-            <div class="box-filter-select">
-              <select class="order-control" (ngModelChange)="changeSearch()" [(ngModel)]="querySearch.isGroup">
-                <option selected="selected" value="0">Order by Latest Message</option>
-                <option value="1">Group by Job</option>
-              </select>
             </div>
             <div (keydown.enter)="search($event.target.value)">
               <header class="header-left">
@@ -39,14 +23,6 @@
                 </div>
                 <input type="text" placeholder="Search" class="search-company" (ngModelChange)="changeSearch()" [(ngModel)]="querySearch.q">
               </header>
-            </div>
-            <div class="cursor-pointer contact-admin-link font-heavy wrap-contact-box"
-            (click)="getListConversationDetail(user.chat_group_id, true)">
-              <img class="img-contact-admin" src="assets/images/logo-contact-admin-message.png" onerror="this.src='assets/images/logo-contact-admin-message.png'">
-              <div class="contact-content">
-                <span>Contact MeasuredSkills</span>
-                <span class="msg-number-support" *ngIf="messageService.isUnreadMessage(supportConversation)"></span>
-              </div>
             </div>
             <div class="list-jobs-chat list-conversation">
               <ms-loading-data-conversation [numberCard]="5" *ngIf="isSearching"></ms-loading-data-conversation>
@@ -59,54 +35,18 @@
                 [scrollWindow]="false"
               >
                 <div *ngFor="let conversation of dataConversation; index as i" id="group-{{conversation.group_id}}" class="group-chat">
-                  <div *ngIf="querySearch.isGroup == '1' && (i == 0 || (conversation.job_id != dataConversation[i-1].job_id))" class="list-jobs-chat__item chat-group-card" (click)="toggleCollapse(conversation)">
-                    <div style="flex:1">
-                      <p class="list-jobs-chat__title font-heavy" [ngClass]="(querySearch.isGroup == '1' && !collapses[conversation.job_id]) ? '':'toggleArrow'">
-                        <span *ngIf="conversation.job_id">{{conversation.job_title}}</span>
-                        <span *ngIf="!conversation.job_id">Direct Message</span>
-                      </p>
-                      <p *ngIf="conversation.job_id" class="list-jobs-chat__compen">Proposed Compensation: {{conversation.job_salary| currency}}</p>
-                    </div>
-                    <div>
-                      <fa-icon *ngIf="querySearch.isGroup == '1' && !collapses[conversation.job_id]" [icon]="['fas', 'angle-double-down']"></fa-icon>
-                      <fa-icon [hidden]="querySearch.isGroup == '1' && !collapses[conversation.job_id]" [icon]="['fas', 'angle-double-up']"></fa-icon>
-                    </div>
-                    <!-- <p class="msg-number" *ngIf="conversation.unRead"></p> -->
-                    <div class="btn-group btn-dropdown dropdown-job" ngbDropdown (click)="$event.stopPropagation();">
-                      <label class="mb-0 cursor-pointer dropdown-toggle-split" ngbDropdownToggle>
-                        <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
-                      </label>
-                      <div class="dropdown-menu" ngbDropdownMenu>
-                        <button ngbDropdownItem (click)="$event.stopPropagation();archivedGroup(conversation, i, conversation.job_id, 1)">{{conversation.chat_groups_status != 2 ? 'Archive' : 'Unarchive'}}</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="list-applicants" [hidden]="querySearch.isGroup == '1' && !collapses[conversation.job_id]">
+                  <div class="list-applicants">
                     <div class="cursor-pointer chat-group-card" [ngClass]="{'no-padding-left': querySearch.isGroup == '0'}" [ngClass]="{actived: groupId == conversation.group_id}"
                       (click)="getListConversationDetail(conversation.group_id, true)">
                       <div class="chat-user-item" >
                         <ms-avatar-user *ngIf="conversation" [(conversation)]="dataConversation[i]"></ms-avatar-user>
-
                         <div class="chat-user-item__summary">
                           <ms-name-user *ngIf="conversation" [isGroup]="querySearch.isGroup" [conversation]="conversation"></ms-name-user>
                           <p class="text-ellipsis" [ngClass]="{'unread-message': messageService.isUnreadMessage(conversation)}">
                             {{conversation.msg_sender_id == user.id ? 'You' : conversation.msg_sender_first_name}} {{conversation.msg_content && ':'}} {{conversation.msg_content}}
                           </p>
-                          <div class="total_point" *ngIf="conversation.job_id">
-                            <p class="title">Overall Weighted Score:</p>
-                            <p class="point">{{conversation.total_point !== null ? conversation.total_point + "%" : "N/A"}}</p>
-                          </div>
                         </div>
                         <p class="msg-number" *ngIf="messageService.isUnreadMessage(conversation)"></p>
-
-                      </div>
-                      <div class="btn-group btn-dropdown" ngbDropdown (click)="$event.stopPropagation();">
-                        <label class="mb-0 cursor-pointer dropdown-toggle-split" ngbDropdownToggle>
-                          <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
-                        </label>
-                        <div class="dropdown-menu" ngbDropdownMenu>
-                          <button ngbDropdownItem (click)="$event.stopPropagation();archivedGroup(conversation, i)">{{conversation.chat_groups_status != 2 ? 'Archive' : 'Unarchive'}}</button>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -119,38 +59,14 @@
             <header class="header-right" *ngIf="isLoadingConversationDetail">
             </header>
             <header class="header-right" *ngIf="!isLoadingConversationDetail">
-              <div *ngIf="groupInfo?.type != GROUP_TYPE.Nomal" class="company-info">
-                <div>
-                  <h2>
-                    <span>MeasuredSkills</span>
-                  </h2>
-                </div>
-              </div>
               <div class="company-info" *ngIf="groupInfo?.type == GROUP_TYPE.Nomal" >
-                <div class="img" *ngIf="listApplicants && !potentialCandidate" [ngClass]="{'hidden-avt': listApplicants?.can_view_profile !== 1}"
-                (click)="viewApplicantWithPrivateJob(isShowApplicant)">
-                  <div class="mask-company-info" [ngbTooltip]="tipContent" placement="bottom" tooltipClass="tooltip-custom" *ngIf="listApplicants?.can_view_profile !== 1">
-                    <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
-                  </div>
-                  <img *ngIf="listApplicants?.can_view_profile === 1" [src]="listApplicants?.picture" onerror="this.src='assets/images/jobseeker_1.jpg'">
-                  <img *ngIf="listApplicants?.can_view_profile !== 1" src="assets/images/mask-avatar.png" />
-                </div>
-                <div class="img" *ngIf="potentialCandidate" [ngClass]="{'hidden-avt': potentialCandidate?.can_view_profile !== 1}">
-                  <div class="mask-company-info" [ngbTooltip]="tipContent" placement="bottom" tooltipClass="tooltip-custom" *ngIf="potentialCandidate?.can_view_profile !== 1">
-                    <fa-icon [icon]="['fas', 'eye-slash']"></fa-icon>
-                  </div>
-                  <img [src]="potentialCandidate?.profile_picture" alt="potentialCandidate avatar" onerror="this.src='assets/images/jobseeker_1.jpg'">
+                <div class="img" (click)="viewApplicantWithPrivateJob(isShowApplicant)">
+                  <img [src]="listApplicants?.picture" onerror="this.src='assets/images/jobseeker_1.jpg'">
                 </div>
                 <div >
                   <h2>
-                    <ms-name-user *ngIf="listApplicants && !potentialCandidate" [applicant]="listApplicants"></ms-name-user>
-                    <ms-name-user *ngIf="potentialCandidate" [candidate]="potentialCandidate"></ms-name-user>
-                    <!-- <span class="mr-1" *ngIf="listApplicants?.can_view_profile == 1 || listApplicants?.jobIsPrivate != 1">{{listApplicants?.firstName}}</span>
-                    <span class="blurry-text-114" *ngIf="listApplicants?.can_view_profile != 1 && listApplicants?.jobIsPrivate == 1">!@#!@#!</span>
-                    <span *ngIf="listApplicants?.can_view_profile == 1">{{listApplicants?.lastName}}</span>
-                    <span class="blurry-text-114" *ngIf="listApplicants?.can_view_profile != 1">!@#!@#!</span> -->
+                    <ms-name-user applicant]="listApplicants"></ms-name-user>
                   </h2>
-                  <!-- <p>Senior PHP</p> -->
                 </div>
               </div>
               <div *ngIf="groupInfo?.type == GROUP_TYPE.Nomal && groupInfo?.job_id" class="interview-status">
@@ -159,18 +75,12 @@
               </div>
               <div *ngIf="groupInfo?.type == GROUP_TYPE.Nomal && groupInfo?.job_id" class="interview-date">
                 <span *ngIf="listApplicants?.scheduleTime" class="date-text">Interview Date:</span>
-                <div *ngIf="listApplicants?.scheduleTime" class="time-date" (click)="exportICSFile(listApplicants)">
+                <div *ngIf="listApplicants?.scheduleTime" class="time-date">
                   <span>{{listApplicants?.scheduleTime | date : 'MMM d, y'}}</span> - <span>{{listApplicants?.scheduleTime | date : 'h:mm a'}}</span>
                 </div>
                 <span *ngIf="listApplicants?.scheduleTime" class="ml-2 close-interview-date" (click)="closeExportICSFIle()"><fa-icon [icon]="['fas', 'times']"></fa-icon></span>
               </div>
               <div class="option-views">
-                <div class="cursor-pointer toggle-list-user" (click)="openColLeftInMobile()">
-                  <fa-icon [icon]="['fas', 'users']"></fa-icon>
-                </div>
-                <div class="cursor-pointer" [hidden]="potentialCandidate && user && permissionService.checkCantPermissionUser(user, permission.CANDIDATE)" *ngIf="groupInfo?.type == GROUP_TYPE.Nomal" (click)="showModalReportApplicant(modalReportApplicant)">
-                   <fa-icon [icon]="['fas', 'flag']"></fa-icon>
-                </div>
                 <div class="cursor-pointer" (click)="showJobSeekerInfo()">
                   <fa-icon *ngIf="boxInfo" [icon]="['fas', 'times']"></fa-icon>
                   <fa-icon *ngIf="!boxInfo" [icon]="['fas', 'info-circle']"></fa-icon>
@@ -194,11 +104,7 @@
                         <img *ngIf="!message.user_employer_id"
                           [src]="message.user_profile_picture" onerror="this.src='assets/images/employer_default_photo_1.png'" class="avatar" />
                       </div>
-                      <div *ngIf="message.user_employer_id">
-                        <h2>{{message.user_first_name}} {{message.user_last_name}}</h2>
-                        <p >{{message.user_employer_title}}</p>
-                      </div>
-                      <div *ngIf="!message.user_employer_id">
+                      <div>
                         <h2>{{message.user_first_name}} {{message.user_last_name}}</h2>
                         <p >{{message.user_employer_title}}</p>
                       </div>
@@ -208,16 +114,6 @@
                       <ms-avatar-user *ngIf="message" [message]="message" [canViewProfile]="canViewProfile"></ms-avatar-user>
                       <ms-name-user *ngIf="message" [message]="message" [canViewProfile]="canViewProfile"></ms-name-user>
                     </div>
-                    <!-- is admin -->
-                    <div class="user-info" *ngIf="message.user_id == 0">
-                      <div class="user-info__avt">
-                        <img src="assets/images/logo-contact-admin-message.png" onerror="this.src='assets/images/logo-contact-admin-message.png'" class="avatar" />
-                      </div>
-                      <div>
-                        <h2>MeasuredSkills</h2>
-                      </div>
-                    </div>
-                    <!-- end admin -->
                     <div class="message user-message-text" *ngIf="user.id !== message.user_id">
                       <div class="message-download cursor-pointer my-message-item" *ngIf="message.content_type == CHAT_CONTENT_TYPE.Complex">
                         <!-- <p class="time-sent">{{message.created_at | date : 'h:mm a MMM d, y'}}</p> -->
@@ -279,12 +175,6 @@
                       <p class="my-message-status">{{message.isRead}}</p>
                     </div>
                   </li>
-                  <ms-rate-bot *ngIf="isCheckGetVote && groupInfo?.type == GROUP_TYPE.Nomal && totalJobseekerMsg >=2 "
-                    [groupChat]="groupInfo"
-                    [voteResponsive]="voteResponsive"
-                    [user]="user"
-                    (rateBot)="onRateBot($event)"
-                  ></ms-rate-bot>
                 </ul>
                 <div class="drop-icon cursor-pointer">
                   <svg-icon src="assets/icons/import.svg"></svg-icon>
@@ -319,29 +209,12 @@
                   <div class="message-deactivate-account" *ngIf="currentJobseeker?.jobseeker_is_deleted == 1 || currentJobseeker?.jobseeker_is_user_deleted == 1 || currentJobseeker?.jobseeker_user_status == USER_STATUS.deactive">
                     <span >This account is temporary deactivated</span>
                   </div>
-                  <div class="message-deactivate-account text-danger" *ngIf="user && permissionService.checkCantPermissionUser(user, permission.CHAT) && permissionService.checkCantPermissionUser(user, permission.CANDIDATE)">
-                    <span >Your message cannot be sent because you don't have this permission</span>
-                  </div>
-                  <div class="footer-chat__right" [ngClass]="{'have-attachment': fileDrop !== null}" [hidden]="user && permissionService.checkCantPermissionUser(user, permission.CHAT) && permissionService.checkCantPermissionUser(user, permission.CANDIDATE)" >
-                    <div class="cursor-pointer"
-                      *ngIf="groupInfo?.type == GROUP_TYPE.Nomal && checkOwerAddMember(groupInfo)"
-                      [hidden]="(user && permissionService.checkCantPermissionUser(user, permission.CANDIDATE) &&
-                      permissionService.checkCantPermissionUser(user, permission.CHAT)) ||
-                      (currentJobseeker?.jobseeker_is_deleted == 1 || currentJobseeker?.jobseeker_is_user_deleted == 1 || currentJobseeker?.jobseeker_user_status == USER_STATUS.deactive)"
-                      (click)="showModalAddMembers(modalAddMembers)" >
-                      <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>
-                    </div>
+                  <div class="footer-chat__right" [ngClass]="{'have-attachment': fileDrop !== null}">
                     <div class="cursor-pointer" style="margin: 0 5px;" [hidden]="currentJobseeker?.jobseeker_is_deleted == 1 || currentJobseeker?.jobseeker_is_user_deleted == 1 || currentJobseeker?.jobseeker_user_status == USER_STATUS.deactive">
                       <input type="file" multiple id="upload-img" class="d-none" (change)="handleUpload($event)">
                       <label for="upload-img" class="mb-0 cursor-pointer">
                         <fa-icon [icon]="['fas', 'paperclip']"></fa-icon>
                       </label>
-                    </div>
-
-                    <div class="cursor-pointer" ngbTooltip="Download Message" placement="top" tooltipClass="tooltip-custom tooltip-custom-download"
-                      (click)="downloadHistoryChat(groupId)" *ngIf="groupInfo?.type == GROUP_TYPE.Nomal"
-                    >
-                      <fa-icon [icon]="['fas', 'download']"></fa-icon>
                     </div>
                   </div>
                 </footer>
@@ -372,19 +245,6 @@
     </div>
   </div>
 </div>
-
-<ng-template #modalAddMembers>
-  <ms-modal-add-members (close)="modalAddMembersRef.close()" [groupId]="groupId"></ms-modal-add-members>
-</ng-template>
-
-<ng-template #modalReportApplicant>
-  <ms-modal-report-user [isCandidate]="potentialCandidate ? true : false" [type]="USER_TYPE.EMPLOYER" [listApplicants]="listApplicants" (close)="modalReportApplicantRef.close()">
-  </ms-modal-report-user>
-</ng-template>
-
-<ng-template #tipContent>
-  View applicant's full name and profile picture.
-</ng-template>
 
 <ng-template #modalViewImage>
   <ms-modal-view-image (close)="modalViewImageRef.close()"></ms-modal-view-image>

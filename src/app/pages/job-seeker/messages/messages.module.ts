@@ -10,7 +10,6 @@ import { DirectivesModule } from 'src/app/directives/directives.module';
 import { MessagesComponent } from 'src/app/pages/job-seeker/messages/messages.component';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { InfoCardComponent } from './info-card/info-card.component';
-import { RateBotComponent } from './rate-bot/rate-bot.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -20,7 +19,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
   declarations: [
     MessagesComponent,
     InfoCardComponent,
-    RateBotComponent
   ],
   imports: [
     CommonModule,

@@ -114,7 +114,6 @@ export class MessagesComponent implements OnInit {
         totalRecord: 0,
         maxRecord: 20
       };
-      if (params.isGroup) { this.querySearch.isGroup = params.isGroup; }
       this.querySearch.searchType = params.searchType;
       if (params.q) {
         this.querySearch.q = params.q;
@@ -372,8 +371,6 @@ export class MessagesComponent implements OnInit {
           this.currentCompany = {};
           this.isCheckGetVote = true;
         } else {
-          const jobseekerId = get(res, 'groupInfo.member_id', 0);
-          this.onGetVoteResponsive(this.groupInfo);
           if (typeof (this.groupInfo.job_id) == 'number' && this.groupInfo.job_id) {
             this.groupInfo.job_id && this.getjobDetails(this.groupInfo.job_id);
           }
@@ -447,9 +444,7 @@ export class MessagesComponent implements OnInit {
     }
 
     condition.searchType = this.querySearch.searchType;
-    if (typeof (parseInt(this.querySearch.isGroup)) == 'number') {
-      condition.isGroup = parseInt(this.querySearch.isGroup);
-    }
+    condition.isGroup = 0;
     return condition;
   }
 
@@ -580,58 +575,8 @@ export class MessagesComponent implements OnInit {
     imageUploadEl.value = '';
   }
 
-  makeViewProfile(jobId = null, type = null) {
-    if (type === null) {
-      type = (this.groupInfo.can_view_profile === 1) ? 0 : 1;
-    }
-    const data = {
-      canViewProfile: type
-    };
-    if (!this.groupInfo.job_id && this.groupInfo.group_nomal_type == GROUP_NOMAL_TYPE.DirectMessage) {
-      Object.assign(data, { employerId: this.groupInfo.company_id })
-    }
-    this.applicantsService.makeToViewProfile(jobId, data).subscribe(res => {
-      // this.getListConversationDetail(this.groupId, true);
-      this.groupInfo.can_view_profile = type;
-      if (this.groupInfo.can_view_profile === 1) this.helperService.showToastSuccess(MESSAGE.REQUEST_SHOW_NAME);
-      else this.helperService.showToastSuccess(MESSAGE.REQUEST_REMASK);
-      const socketMessage = {
-        group_id: this.groupInfo.id,
-        current_user: {
-          id: this.user.id
-        },
-        can_view_profile: type
-      };
-      this.messageService.sendRequestUnmark(socketMessage);
-    }, errorRes => {
-      this.helperService.showToastError(errorRes);
-    });
-  }
-
   search(a) {
     this.getListConversation();
-  }
-
-  onRateBot(data) {
-    this.messageService.rateBot(data.userId, data.vote, this.groupInfo.group_nomal_type).subscribe(res => {
-      if (this.voteResponsive) {
-        this.voteResponsive.is_responsive = this.voteResponsive.is_responsive === 1 ? -1 : 1;
-      }
-    }, errorRes => {
-      this.helperService.showToastError(errorRes);
-    });
-  }
-
-  onGetVoteResponsive(group: GroupInfo) {
-    this.isCheckGetVote = false;
-    const userId = group.member_id === this.user.id ? group.company_id : group.member_id;
-    this.messageService.getVoteResponsive(userId, group.group_nomal_type).subscribe(data => {
-      this.voteResponsive = data;
-      this.isCheckGetVote = true;
-    }, errorRes => {
-      this.isCheckGetVote = true;
-      this.helperService.showToastError(errorRes);
-    });
   }
 
   changeSearch() {
