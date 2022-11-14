@@ -73,22 +73,8 @@ export class JobSeekerProfileComponent implements OnInit {
       page: 0,
       size: 10,
     };
-    this.getBillingHistory(this.params);
-    this.getCardSettings();
   }
-
-  getCardSettings() {
-    this.paymentService.getSettingsPayment().subscribe(
-      (res: CardSettings) => {
-        this.settingsCard = res;
-        // this.settingsCard.top_up = res.top_up ? JSON.parse(this.settingsCard.top_up) : [];
-      },
-      (errorRes) => {
-        //console.log(errorRes);
-      }
-    );
-  }
-
+  
   changeTabUser(type) {
     switch (type) {
       case TAB_JOBSEEKER_INFO.MY_INFO:
@@ -107,65 +93,6 @@ export class JobSeekerProfileComponent implements OnInit {
     this.router.navigate([], {
       queryParams: { userInfo: this.tabUserInfo },
       queryParamsHandling: 'merge',
-    });
-  }
-
-  changeTabBillings(type) {
-    if (type == TAB_EMPLOYER_BILLINGS.INFO_CARD) {
-      this.tabBillingInfo = TAB_EMPLOYER_BILLINGS.INFO_CARD;
-    } else {
-      this.tabBillingInfo = TAB_EMPLOYER_BILLINGS.BILLINGS;
-    }
-    this.router.navigate([], {
-      queryParams: { billings: this.tabBillingInfo },
-      queryParamsHandling: 'merge',
-    });
-  }
-
-  getBillingHistory(params) {
-    this.isLoadingBillingHistory = true;
-    const billingHistorySubscrition = this.paymentService
-      .getBillingHistory(params)
-      .subscribe(
-        (res) => {
-          this.dataBillings = res.listBillHistory;
-          this.paginationConfig.totalRecord = res.total;
-          this.isLoadingBillingHistory = false;
-        },
-        (errorRes) => {
-          this.isLoadingBillingHistory = false;
-        }
-      );
-    this.subScriptions.push(billingHistorySubscrition);
-  }
-
-  paginationBillHistory(page) {
-    this.paginationConfig.currentPage = page;
-    let params = Object.assign({}, this.params, { page: page });
-    this.getBillingHistory(params);
-  }
-
-  exportBillingHistory(data) {
-    const exportDataSubscrition = this.paymentService.exportBillingHistory();
-    this.subScriptions.push(exportDataSubscrition);
-  }
-
-  deleteCard() {
-    this.paymentService.deleteCard().subscribe(
-      (res) => {
-        this.helperService.showToastSuccess(MESSAGE.DELETE_CARD_SUCCESSFULLY);
-        this.subjectService.cart.next(null);
-      },
-      (err) => {
-        this.helperService.showToastError(err);
-      }
-    );
-  }
-
-  updateCard() {
-    this.subjectService.isLoadingCard.next(true);
-    this.paymentConvergeService.updateCard().subscribe(data => {}, err => {
-      this.subjectService.isLoadingCard.next(false);
     });
   }
 

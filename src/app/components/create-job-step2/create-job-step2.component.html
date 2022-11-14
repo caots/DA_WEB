@@ -110,9 +110,6 @@
                     </div>
                   </div>
                   <div class="text-danger" *ngIf="isShowErrorStep2 && checkedDatepicker && !expireDay ">Expiration Date is required!</div>
-                  <div class="price--color mt-2" *ngIf="activeTab != jobStatus.ACTIVE || isNotEditField == false" [hidden]="checkedDatepicker && !expireDay" >
-                    <span *ngIf="getPriceByExpiredDate() >= 0 && showTextExpirePrice">Standard Post Cost: {{getPriceByExpiredDate() | currency}}</span>
-                  </div>
                 </div>
 
                 <div class="col-lg-12 mt-3" [style]="this.expireDay ? '' : 'pointer-events: none;'">
@@ -172,9 +169,6 @@
                       </div>
                     </form>
                   </div>
-                  <div class="price--color mt-2" *ngIf="activeTab != jobStatus.ACTIVE || isNotEditField == false" [hidden]="checkedDatepicker && !expireDay" >
-                    <span *ngIf="getPriceByFeatureDate() >= 0 && checkShowFeatureDate">Featured Post Upgrade Cost: {{getPriceByFeatureDate() | currency}}</span>
-                  </div>
                 </div>
                 <div class="col-lg-12">
                   <label class="check-box__item badge">
@@ -188,9 +182,6 @@
                     </div>
                     
                   </label>
-                  <p>
-                    <span class="price--color" [hidden]="activeTab == jobStatus.ACTIVE && isNotEditField == true">Additional {{settingsCard?.urgent_hiring_price | currency}}</span>
-                  </p>
                   <p>
                     <span class="price--color" [hidden]="activeTab == jobStatus.ACTIVE && isNotEditField == true">Get your job better visibility with this premium add-on.</span>
                   </p>

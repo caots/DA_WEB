@@ -122,7 +122,6 @@ export class JobDetailsComponent implements OnInit {
       }
     })
 
-    this.getCardSettings();
     this.activatedRoute.paramMap.subscribe(params => {
       const url = params.get('slug');
       if (url) {
@@ -144,15 +143,7 @@ export class JobDetailsComponent implements OnInit {
       applyBtn.click();
     }, 2000);
   }
-  getCardSettings() {
-    this.paymentService.getSettingsPayment().subscribe((res: CardSettings) => {
-      this.settingsCard = res;
-      // //console.log(this.settingsCard);
-      // this.settingsCard.top_up = this.settingsCard.top_up ? JSON.parse(this.settingsCard.top_up) : [];
-    }, errorRes => {
-      //console.log(errorRes);
-    })
-  }
+
   goBack() {
     if (this.user && this.user.acc_type == USER_TYPE.EMPLOYER) {
       this.router.navigate(['/employer-dashboard']);

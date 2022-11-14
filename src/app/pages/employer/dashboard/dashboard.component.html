@@ -66,7 +66,7 @@
 </div>
 
 <ng-template #modalAddNumberApplicants>
-  <ms-modal-add-applicants-into-private-job *ngIf="settingsCard"
+  <ms-modal-add-applicants-into-private-job
     [settingsCard]="settingsCard" 
     [job]="jobPrivateApplicant"
     (submit)="paymentPrivateJob()"
@@ -80,7 +80,7 @@
 </ng-template>
 
 <ng-template #modalAddNewJob>
-  <ms-modal-add-job-with-three-step *ngIf="settingsCard"
+  <ms-modal-add-job-with-three-step
     [settingsCard]="settingsCard"
     [isTemplate]="isTemplate"
     [listLevel]="listLevel"
@@ -107,7 +107,7 @@
 </ng-template>
 
 <ng-template #modalUpgradeJob>
-  <ms-modal-upgrage-job-posting  *ngIf="settingsCard"
+  <ms-modal-upgrage-job-posting
     [job]="upgradeJobData"
     [settingsCard]="settingsCard"
     (close)="closeModalUpgrade($event)" 

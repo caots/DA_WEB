@@ -438,7 +438,6 @@ export class MessagesComponent implements OnInit {
           this.isCheckGetVote = true;
         } else {
           const jobseekerId = get(res, 'groupInfo.member_id', 0);
-          if (!updateRateBot) this.onGetVoteResponsive(this.groupInfo);
           if (typeof (this.groupInfo.job_id) == 'number' && this.groupInfo.job_id) {
             this.getApplicantsInfo(this.groupInfo.job_id, jobseekerId);
             this.potentialCandidate = undefined;
@@ -698,20 +697,6 @@ export class MessagesComponent implements OnInit {
         lastName: this.currentJobseeker.jobSeeker_last_name,
       }
     }, errorRes => {
-      this.helperService.showToastError(errorRes);
-    })
-  }
-
-  onGetVoteResponsive(group: GroupInfo) {
-    this.isCheckGetVote = false;
-    let userId = group.member_id === this.user.id ? group.company_id : group.member_id;
-    this.messageService.getVoteResponsive(userId, group.group_nomal_type).subscribe(data => {
-      this.isCheckGetVote = true;
-      this.voteResponsive = data;
-      //console.log('ababa');
-    }, errorRes => {
-      this.isCheckGetVote = true;
-      this.helperService.showToastError(errorRes);
     })
   }
 

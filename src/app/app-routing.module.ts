@@ -34,10 +34,6 @@ const routes: Routes = [
       loadChildren: () => import('src/app/pages/email-verification/email-verification.module').then(m => m.EmailVerificationModule)
   },
   {
-    path: 'complete-delegate-account',
-      loadChildren: () => import('src/app/pages/complete-delegate-account/complete-delegate-account.module').then(m => m.CompleteDelegateAccountModule)
-  },
-  {
     path: 'complete-forgot-password',
     loadChildren: () => import('src/app/pages/complete-forgot-password/complete-forgot-password.module').then(m => m.CompleteForgotPasswordModule)
   },

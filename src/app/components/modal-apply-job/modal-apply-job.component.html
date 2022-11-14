@@ -92,7 +92,7 @@
 </ng-template> -->
 
 <ng-template #modalPaymentConfirmation>
-  <ms-modal-payment-assessment  *ngIf="settingsCard && assessmentData"
+  <ms-modal-payment-assessment  *ngIf="assessmentData"
   [sendDataAssessment]="assessmentData"
   (close)="modalPaymentConfirmationRef.close()"
   [settings]="settingsCard"
@@ -101,7 +101,7 @@
 
 
 <ng-template #modalPaymentFree>
-  <ms-modal-confirm-free-payment *ngIf="settingsCard"
+  <ms-modal-confirm-free-payment
   (close)="modalPaymentFreeRef.close()"
   (complete)="takeTestForPaymentFree()"
   [cardSettings]="settingsCard"

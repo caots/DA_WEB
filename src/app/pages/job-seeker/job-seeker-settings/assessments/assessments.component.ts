@@ -91,26 +91,8 @@ export class AssessmentsComponent implements OnInit {
     this.getListMyAssessment();
     this.getListAssessment();
     this.getDataMaster();
-    this.getCardInfo();
-    this.getCardSettings();
   }
 
-  getCardSettings() {
-    this.paymentService.getSettingsPayment().subscribe((res: CardSettings) => {
-      this.settingsCard = res;
-      // this.settingsCard.top_up = res.top_up ? JSON.parse(this.settingsCard.top_up) : [];
-    }, errorRes => {
-      //console.log(errorRes);
-    })
-  }
-
-  getCardInfo() {
-    this.paymentService.getCardInfo().subscribe(res => {
-      this.cardInfo = res;
-    }, errorRes => {
-      //console.log(errorRes);
-    })
-  }
   continueStep() {
     this.isCallingApi = true;
     this.userService.completeSignUpStep().subscribe(res => {

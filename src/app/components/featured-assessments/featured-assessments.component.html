@@ -71,7 +71,7 @@
   </div>
 
   <ng-template #modalPaymentConfirmation>
-    <ms-modal-payment-assessment-confirmation *ngIf="assessmentData && settingsCard" [card]="cardInfo"
+    <ms-modal-payment-assessment-confirmation *ngIf="assessmentData" [card]="cardInfo"
       [settingsCard]="settingsCard" [assessmentInfo]="assessmentData" (submit)="submitPaymentProcess($event)"
       (close)="modalPaymentConfirmationRef.close()">
     </ms-modal-payment-assessment-confirmation>

@@ -128,9 +128,6 @@ export class LoginComponent implements OnInit {
         role: userInfo.acc_type,
         signUpStep: userInfo.sign_up_step
       })
-      if (userInfo.converge_ssl_token) {
-        this.paymentService.getCardInfo().subscribe();
-      }
       if (userInfo.acc_type !== USER_TYPE.JOB_SEEKER) this.paymentService.getAllJobInCard().subscribe();
       this.getDataMaster();
       this.redirect(userInfo);

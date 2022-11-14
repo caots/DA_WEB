@@ -100,8 +100,6 @@ export class ShoppingCardComponent implements OnInit {
   ngOnInit(): void {
     this.checkJobPaymentCart();
     this.getAllCards();
-    this.getCardSettings();
-    this.getCardInfo();
     this.getDataMaster();
     this.subjectService.isSaveCard.subscribe((res) => {
       this.isSaveCard = res;
@@ -155,22 +153,6 @@ export class ShoppingCardComponent implements OnInit {
       if(cart.jobExpiredDays == 1){
         this.listCards[index].jobExpiredAt = this.paymentService.addEndExpiredDays(new Date(), 2).toISOString();
       }
-    })
-  }
-
-  getCardSettings() {
-    this.paymentService.getSettingsPayment().subscribe(res => {
-      this.settingsCard = res;
-    }, errorRes => {
-      //console.log(errorRes);
-    })
-  }
-
-  getCardInfo() {
-    this.paymentService.getCardInfo().subscribe(res => {
-      this.cardInfo = res;
-    }, errorRes => {
-      //console.log(errorRes);
     })
   }
 

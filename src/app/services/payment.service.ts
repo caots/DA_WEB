@@ -45,15 +45,6 @@ export class PaymentService {
     return card.value;
   }
 
-  getCardInfo(): Observable<CardInfo> {
-    const url = `${environment.api_url}payments/card`;
-    return this.httpClient.get(url).pipe(map((data: any) => {
-      const result = this._mapCardInfo(data);
-      this.subjectService.cart.next(result);
-      return result;
-    }))
-  }
-
   updateCardInfo(data) {
     const url = `${environment.api_url}payments/card`;
     return this.httpClient.put(url, data);
@@ -67,15 +58,6 @@ export class PaymentService {
   deleteJobCarts(id) {
     const url = `${environment.api_url}carts/${id}`;
     return this.httpClient.delete(url);
-  }
-
-  getSettingsPayment(): Observable<CardSettings> {
-    const url = `${environment.api_url}payments/setting`;
-    return this.httpClient.get(url).pipe(map((data: any) => {
-      const result = this._mapCardSettings(data);
-      this.subjectService.settingsCard.next(result);
-      return result;
-    }))
   }
 
   getBillingHistory(params): Observable<{ listBillHistory: Array<BillingHistory>, total: number }> {

@@ -66,34 +66,6 @@ export class EmployerProfileComponent implements OnInit {
     this.authService.getUserInfo().subscribe(user => {
       this.userData = user;
     })
-    this.getBillingHistory(this.params);
-    this.getCardSettings();
-  }
-
-  getCardSettings() {
-    this.paymentService.getSettingsPayment().subscribe(res => {
-      this.settingsCard = res;
-    }, errorRes => {
-      //console.log(errorRes);
-    })
-  }
-
-  getBillingHistory(params) {
-    this.isLoadingBillingHistory = true;
-    const billingHistorySubscrition = this.paymentService.getBillingHistory(params).subscribe(res => {
-      this.dataBillings = res.listBillHistory;
-      this.paginationConfig.totalRecord = res.total;
-      this.isLoadingBillingHistory = false;
-    }, errorRes => {
-      this.isLoadingBillingHistory = false;
-    })
-    this.subScriptions.push(billingHistorySubscrition);
-  }
-
-  paginationBillHistory(page) {
-    this.paginationConfig.currentPage = page;
-    let params = Object.assign({}, this.params, { page: page });
-    this.getBillingHistory(params);
   }
 
   exportBillingHistory(data) {

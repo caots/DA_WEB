@@ -60,15 +60,11 @@ export class AppComponent {
           this.jobService.getListIdCompanyFollowed().subscribe();
           this.userService.getUserSurvey().subscribe();
         }
-        if (user.converge_ssl_token) {
-          this.paymentService.getCardInfo().subscribe();
-        }
       }, (error) => { 
       });
     } else {
     }
     this.jobService.getAllFallUnder().subscribe(res => this.subjectService.listFallUnder.next(res));
-    this.paymentService.getSettingsPayment().subscribe();
     this.jobService.getListCategory().subscribe();
     this.jobService.getListJobLevel().subscribe();
     this.jobService.getListAssessMent().subscribe();

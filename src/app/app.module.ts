@@ -24,7 +24,6 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChartsModule } from 'ng2-charts';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
-import { CompleteDelegateAccountModule } from './pages/complete-delegate-account/complete-delegate-account.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const config: SocketIoConfig = { url: `${environment.host}`, options: {
@@ -57,7 +56,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
       countDuplicates: true
     }),
     ImageCropperModule,
-    CompleteDelegateAccountModule,
     NgMultiSelectDropDownModule.forRoot(),
     NgSelectModule, 
     FormsModule,

@@ -26,15 +26,6 @@ export class ModalPaymentDirectMessageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getCardInfo();
-  }
-
-  getCardInfo() {
-    this.paymentService.getCardInfo().subscribe(res => {
-      this.cardInfo = res;
-    }, errorRes => {
-      //console.log(errorRes);
-    })
   }
 
   closeModal(event) {

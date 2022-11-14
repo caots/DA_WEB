@@ -498,12 +498,6 @@ export class DashboardComponent implements OnInit {
       this.helperService.showToastError(err);
     })
 
-    this.paymentService.getSettingsPayment().subscribe(res => {
-      this.settingsCard = res;
-    }, err => {
-      this.helperService.showToastError(err);
-    })
-
   }
 
   showListApplicants(jobId) {

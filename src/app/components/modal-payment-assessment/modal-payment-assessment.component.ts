@@ -34,15 +34,6 @@ export class ModalPaymentAssessmentComponent implements OnInit {
         this.subjectService.checkPaymentTopupDone.next(false);
       }
     })
-    this.getCardInfo();
-  }
-
-  getCardInfo() {
-    this.paymentService.getCardInfo().subscribe(res => {
-      this.cardInfo = res;
-    }, errorRes => {
-      //console.log(errorRes);
-    })
   }
 
   closeModal(event) {

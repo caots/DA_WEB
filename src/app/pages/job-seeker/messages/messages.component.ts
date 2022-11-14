@@ -133,7 +133,6 @@ export class MessagesComponent implements OnInit {
     this.handleEventListenMessage();
     this.handleEventSentSuccesssMessageSubject();
     this.handleEventListenSeenMessage();
-    this.handleEventreceivedRequestUnmarkUpdate();
   }
   handleEventListenReceiveMessage() {
     const handleEventListenReceiveMessage = this.messageService.receivedMessageSubject.subscribe((msg: any) => {
@@ -231,17 +230,7 @@ export class MessagesComponent implements OnInit {
     });
     this.subscription.add(handleEventSentSuccesssMessageSubject);
   }
-  handleEventreceivedRequestUnmarkUpdate() {
-    const handleEventreceivedRequestUnmarkUpdate = this.messageService.receivedRequestUnmarkUpdate.subscribe((res: any) => {
-      if (!this.groupInfo || !this.groupInfo.id || this.groupInfo.id != res.group_id) {
-        return;
-      }
-      if (this.groupInfo.can_view_profile === null) {
-        this.groupInfo.can_view_profile = -1;
-      }
-    });
-    this.subscription.add(handleEventreceivedRequestUnmarkUpdate);
-  }
+
   addMsgToListMedia(msg: Message) {
     // add to list if is file
     if (msg.content_type == CHAT_CONTENT_TYPE.Text) { return; }
