@@ -41,7 +41,11 @@
                       <div class="chat-user-item" >
                         <ms-avatar-user *ngIf="conversation" [(conversation)]="dataConversation[i]"></ms-avatar-user>
                         <div class="chat-user-item__summary">
-                          <ms-name-user *ngIf="conversation" [isGroup]="querySearch.isGroup" [conversation]="conversation"></ms-name-user>
+                          <h2 *ngIf="conversation" class="text-ellipsis">
+                            <span> {{conversation?.jobSeeker_first_name}}</span>
+                            <span> {{conversation?.jobSeeker_last_name}}</span>
+                            <span> - {{ conversation.job_id ? conversation?.job_title : 'Direct Message'}}</span>  
+                          </h2>
                           <p class="text-ellipsis" [ngClass]="{'unread-message': messageService.isUnreadMessage(conversation)}">
                             {{conversation.msg_sender_id == user.id ? 'You' : conversation.msg_sender_first_name}} {{conversation.msg_content && ':'}} {{conversation.msg_content}}
                           </p>
@@ -65,7 +69,10 @@
                 </div>
                 <div >
                   <h2>
-                    <ms-name-user applicant]="listApplicants"></ms-name-user>
+                    <p *ngIf="listApplicants">
+                      <span> {{listApplicants?.firstName}}</span>
+                      <span> {{listApplicants?.lastName}}</span>
+                    </p>
                   </h2>
                 </div>
               </div>
@@ -112,7 +119,10 @@
                     <!-- job seeker -->
                     <div class="user-info" *ngIf="user.id !== message.user_id && message.user_acc_type == USER_TYPE.JOB_SEEKER">
                       <ms-avatar-user *ngIf="message" [message]="message" [canViewProfile]="canViewProfile"></ms-avatar-user>
-                      <ms-name-user *ngIf="message" [message]="message" [canViewProfile]="canViewProfile"></ms-name-user>
+                      <p *ngIf="message">
+                        <span>{{ message.user_first_name}}</span>
+                        <span> {{message?.user_last_name}}</span>
+                      </p>
                     </div>
                     <div class="message user-message-text" *ngIf="user.id !== message.user_id">
                       <div class="message-download cursor-pointer my-message-item" *ngIf="message.content_type == CHAT_CONTENT_TYPE.Complex">
@@ -223,7 +233,7 @@
                 <a class="cursor-pointer close-col-left" (click)="closeApplicantsInfo()">
                   <fa-icon [icon]="['far', 'times-circle']"></fa-icon>
                 </a>
-                <ms-info-card *ngIf="groupInfo && isCheckGetVote && !isSearching"
+                <ms-info-card *ngIf="groupInfo && !isSearching"
                   [totalJobseekerMsg]="totalJobseekerMsg"
                   [potentialCandidate]="potentialCandidate"
                   [(listApplicant)]="listApplicants"

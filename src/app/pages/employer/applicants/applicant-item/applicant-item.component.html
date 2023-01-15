@@ -4,7 +4,10 @@
       <div class="item-avatar-and-rating">
         <div class="avatar">
           <ms-avatar-user *ngIf="applicant" [applicant]="applicant"></ms-avatar-user>
-          <ms-name-user *ngIf="applicant" [applicant]="applicant"></ms-name-user>
+          <p *ngIf="applicant">
+            <span> {{applicant?.firstName}}</span>
+            <span> {{applicant?.lastName}}</span>
+          </p>
         </div>
       </div>
       <div class="padding-box">

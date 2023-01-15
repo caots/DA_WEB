@@ -5,7 +5,10 @@
       <img [src]="listApplicant?.picture" onerror="this.src='assets/images/jobseeker_1.jpg'" />
     </div>
     <h3>
-      <ms-name-user *ngIf="listApplicant" [applicant]="listApplicant"></ms-name-user>
+      <p *ngIf="listApplicant">
+        <span> {{listApplicant?.firstName}}</span>
+        <span> {{listApplicant?.lastName}}</span>
+      </p>
     </h3>
     <div class="view-applicant-link">
       <a routerLinkActive="active" class="message-item text-link" [routerLink]="['/applicants']"

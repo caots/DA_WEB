@@ -156,7 +156,6 @@ export class MessagesComponent implements OnInit {
     this.handleEventListenMessage();
     this.handleEventSentSuccesssMessageSubject();
     this.handleEventListenSeenMessage();
-    this.handleEventreceivedRequestUnmarkUpdate()
   }
 
   handleEventListenReceiveMessage() {
@@ -267,17 +266,6 @@ export class MessagesComponent implements OnInit {
         this.addMsgToListMedia(msg);
       })
     this.subscription.add(handleEventSentSuccesssMessageSubject);
-  }
-  handleEventreceivedRequestUnmarkUpdate() {
-    const handleEventreceivedRequestUnmarkUpdate = this.messageService.receivedRequestUnmarkUpdate.subscribe((res: SocketMessage) => {
-      if (!this.groupInfo || !this.groupInfo.id || this.groupInfo.id != res.group_id) {
-        return
-      }
-      if (res.can_view_profile !== null) {
-        this.updateCanViewProfile(res.can_view_profile);
-      }
-    })
-    this.subscription.add(handleEventreceivedRequestUnmarkUpdate);
   }
   
   ngOnDestroy(): void {

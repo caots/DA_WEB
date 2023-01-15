@@ -77,7 +77,6 @@ export class MessageService {
     const handleEventListenReceiveMessage = this.handleEventListenReceiveMessage().subscribe((msg: SocketMessage) => {
       if (!msg) { return; }
       const senderId = get(msg, 'current_user.id', -1);
-      // only need check other user
       if (this.user.id == senderId && this.user.id != msg.updated_user_id) {
         //console.log('receivedMessageSubject');
         this.receivedMessageSubject.next(msg);

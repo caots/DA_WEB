@@ -4,7 +4,10 @@
         <div class="item-avatar-and-rating">
           <div class="avatar">
             <ms-avatar-user *ngIf="candidate" [candidate]="candidate"></ms-avatar-user>
-            <ms-name-user *ngIf="candidate" [candidate]="candidate"></ms-name-user>
+            <p *ngIf="candidate">
+              <span> {{candidate?.first_name}}</span>
+              <span> {{candidate?.last_name}}</span>
+            </p>
           </div>
           <ng-template #tipIconResoinsive>
             <fa-icon [icon]="['fas', 'lock']" [styles]="{'color': '#2668a9'}"></fa-icon> Responsive Job-Seeker.</ng-template>
