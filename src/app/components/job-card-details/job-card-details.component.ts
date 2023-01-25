@@ -84,7 +84,6 @@ export class JobCardDetailsComponent implements OnInit {
         });
         this.listCheckNumberAssessmentJob = checkNumberAssessmentJob;
         this.showModalApplyJob(this.modalApplyJob);
-        this.subjectService.isShowModalApplyJobNoLogin.next(false);
       }
     })
 
@@ -132,7 +131,6 @@ export class JobCardDetailsComponent implements OnInit {
         windowClass: 'modal-apply-job',
         size: 'lg'
       });
-      this.notificationService.checkClickApplyJob(this.jobDetails.id).subscribe(()=>{});
     } else {
       this.router.navigate(['/job']);
     }
@@ -249,7 +247,6 @@ export class JobCardDetailsComponent implements OnInit {
     this.jobService.followEmployer(this.companyID, action).subscribe(data => {
       this.helperService.showToastSuccess(action == ACTION_FOLLOW.follow ? MESSAGE.UPDATE_FOLLOW_SUCCESSFULY : MESSAGE.UPDATE_UNFOLLOW_SUCCESSFULY);
       this.checkEmployerFollowed = !status;
-      this.jobService.getListIdCompanyFollowed().subscribe();
     }, err => {
       this.helperService.showToastError(err);
     })

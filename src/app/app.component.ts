@@ -57,7 +57,6 @@ export class AppComponent {
         if (user.acc_type !== USER_TYPE.JOB_SEEKER) {
           this.paymentService.getAllJobInCard().subscribe();
         }else{
-          this.jobService.getListIdCompanyFollowed().subscribe();
           this.userService.getUserSurvey().subscribe();
         }
       }, (error) => { 

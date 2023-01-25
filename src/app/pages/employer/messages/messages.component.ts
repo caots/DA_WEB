@@ -145,8 +145,7 @@ export class MessagesComponent implements OnInit {
         this.querySearch.groupId = params.groupId;
         this.getListConversationDetail(this.groupId, true, false, false);
       }
-    });
-    this.getConversationSupportDetail();
+    });    
     this.getListConversation();
     this.handleOnMessageSubscription();
   }
@@ -388,12 +387,7 @@ export class MessagesComponent implements OnInit {
       this.helperService.showToastError(err);
     })
   }
-  getConversationSupportDetail() {
-    this.messageService.getListConversation({ isSupport: 1 }).subscribe(res => {
-      this.supportConversation = res.listConversation[0];
-    }, err => {
-    })
-  }
+
   async getListConversationDetail(id, isSwitch, updateRateBot = false, closeColLeft = true) {
     this.imageService.addEventInitClickViewImage();
     // this.colLeftInMobile && this.closeColLeft();

@@ -177,7 +177,6 @@ export class JobCardJobSeekerComponent implements OnInit {
         windowClass: 'modal-apply-job',
         size: 'lg'
       });
-      this.notificationService.checkClickApplyJob(this.job.id).subscribe(() => { });
     } else {
       this.router.navigate(['/job']);
     }
@@ -271,7 +270,6 @@ export class JobCardJobSeekerComponent implements OnInit {
     this.jobService.followEmployer(this.job.employerId, action).subscribe(data => {
       this.helperService.showToastSuccess(action == ACTION_FOLLOW.follow ? MESSAGE.UPDATE_FOLLOW_SUCCESSFULY : MESSAGE.UPDATE_UNFOLLOW_SUCCESSFULY);
       this.checkEmployerFollowed = !status;
-      this.jobService.getListIdCompanyFollowed().subscribe();
     }, err => {
       this.helperService.showToastError(err);
     })

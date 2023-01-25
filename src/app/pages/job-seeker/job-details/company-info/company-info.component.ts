@@ -102,7 +102,6 @@ export class CompanyInfoComponent implements OnInit {
     this.jobService.followEmployer(this.companyID, action).subscribe(data => {
       this.helperService.showToastSuccess(action == ACTION_FOLLOW.follow ? MESSAGE.UPDATE_FOLLOW_SUCCESSFULY : MESSAGE.UPDATE_UNFOLLOW_SUCCESSFULY);
       this.checkEmployerFollowed = !status;
-      this.jobService.getListIdCompanyFollowed().subscribe();
     }, err => {
       this.helperService.showToastError(err);
     })
