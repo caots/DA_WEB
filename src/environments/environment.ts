@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   reCaptchaV3SiteKey: '6Lc7Q9QZAAAAAFqsvvkI2k8ILZGL_Pwbsp71gPuS',
-  api_url: 'http://localhost:2022/v1/',
+  api_url: 'https://api.doluong.click/v1/',
   api_url_short: '',
-  host: 'http://localhost:2022/',
-  url_webapp: 'http://webapp.uat.measuredskill.uat4.pgtest.co/',
+  host: 'https://api.doluong.click/',
+  url_webapp: 'https://doluong.click/',
   converge_ssl_vendor_id: 'sc777515',
   converge_host_payment: 'https://api.demo.convergepay.com/hosted-payments',
   converge_merchant_id: '0021507',

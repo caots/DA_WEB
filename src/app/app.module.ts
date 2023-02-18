@@ -5,6 +5,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {SwiperModule, SwiperConfigInterface, SWIPER_CONFIG} from 'ngx-swiper-wrapper';
@@ -17,7 +18,6 @@ import { ErrorInterceptor } from 'src/app/error.interceptor';
 import { IEInterceptor } from 'src/app/ie.interceptor';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
-import { MessageService } from './services/message.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
@@ -66,6 +66,10 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   ],
   providers: [
     NgbActiveModal,
+    {
+      provide: LocationStrategy, 
+      useClass: HashLocationStrategy
+    },
     {
       provide: HTTP_INTERCEPTORS,
       multi: true,
