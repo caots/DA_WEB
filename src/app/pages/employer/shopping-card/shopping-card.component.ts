@@ -381,7 +381,7 @@ export class ShoppingCardComponent implements OnInit {
 
 
   getDataMaster() {
-    this.subjectService.listAssessment.subscribe((res) => {
+    this.jobService.getListAssessMent().subscribe((res) => {
       this.listAssessment = res;
     })
     this.subjectService.listLevel.subscribe((res) => {

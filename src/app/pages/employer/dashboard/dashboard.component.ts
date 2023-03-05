@@ -107,7 +107,7 @@ export class DashboardComponent implements OnInit {
         this.subjectService.checkPaymentAddApplicantsDone.next(false);
       }
     })
-    this.subjectService.listAssessment.subscribe(data => {
+    this.jobService.getListAssessMent().subscribe(data => {
       if (!data) return;
       this.listAssessments = data;
     });

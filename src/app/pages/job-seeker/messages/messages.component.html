@@ -9,7 +9,7 @@
             </a>
             <div class="job-seeker-card d-flex">
               <div class="chat-user-item__img">
-                <img [src]="user.avatar" onerror="this.src='assets/images/jobseeker_1.jpg'"
+                <img [src]="user?.avatar" onerror="this.src='assets/images/jobseeker_1.jpg'"
                   alt="{{user?.firstName}} {{user?.lastName}}" class="chat-user-item__img--avatar" />
               </div>
               <div class="chat-user-item__summary center-username-message">
@@ -47,7 +47,7 @@
                             <span *ngIf="conversation.job_id" class="first-name">{{conversation.job_title}}</span>
                           </h2>
                           <p class="text-ellipsis" [ngClass]="{'unread-message': messageService.isUnreadMessage(conversation)}">
-                            {{conversation.msg_sender_id == user.id ? 'You': conversation.msg_sender_first_name}}{{conversation.msg_content && ':'}} {{conversation.msg_content}}
+                            {{conversation.msg_sender_id == user?.id ? 'You': conversation.msg_sender_first_name}}{{conversation.msg_content && ':'}} {{conversation.msg_content}}
                           </p>
                         </div>
                          <p class="msg-number" *ngIf="messageService.isUnreadMessage(conversation)"></p>
